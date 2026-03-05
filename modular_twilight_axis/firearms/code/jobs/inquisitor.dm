@@ -50,7 +50,7 @@
 		"Branding Letters" = /obj/item/branding_letters, //TA Branding
 		"Branding Iron" = /obj/item/branding_iron
 	)
-	extra_context = "Choose between Vanguard with Doomsdae, dreadfull rifle and medium armor trait, and Runed Volf with Umbra, silent arquebus pistol and rune magyck"
+	extra_context = "This subclass can choose between three roles: Vanguard with the Doomsdae runic rifle and 'Medium Armor' trait, Investigator with the Inquest pistol and the 'Perfect Tracker' trait, and Runed Volf with the Umbra, silent arquebus pistol, rune magyck and the 'Dodge Expert' trait."
 
 /datum/outfit/job/roguetown/inquisitor/blackpowder/pre_equip(mob/living/carbon/human/H)
 	..()
