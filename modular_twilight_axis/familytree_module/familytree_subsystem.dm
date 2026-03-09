@@ -323,7 +323,7 @@ SUBSYSTEM_DEF(familytree)
 
 /datum/controller/subsystem/familytree/proc/on_mob_created(datum/controller/subsystem/processing/dcs/source, mob/new_mob)
 	SIGNAL_HANDLER
-	if(!ishuman(new_mob))
+	if(!ishuman(new_mob) || QDELETED(new_mob) || istype(new_mob, /mob/living/carbon/human/dummy))
 		return
 	var/mob/living/carbon/human/H = new_mob
 	register_human(H)
@@ -351,7 +351,7 @@ SUBSYSTEM_DEF(familytree)
 	try_queue_assignment(H)
 
 /datum/controller/subsystem/familytree/proc/try_queue_assignment(mob/living/carbon/human/H)
-	if(!H || istype(H, /mob/living/carbon/human/dummy))
+	if(!H || QDELETED(H) || istype(H, /mob/living/carbon/human/dummy))
 		return
 
 	var/datum/job/job = get_familytree_job(H)
@@ -415,12 +415,12 @@ SUBSYSTEM_DEF(familytree)
 	return 45
 
 /datum/controller/subsystem/familytree/proc/run_local_assignment(mob/living/carbon/human/H, status)
-	if(!H || H.family_datum)
+	if(!H || QDELETED(H) || H.family_datum)
 		return
 	AddLocal(H, status)
 
 /datum/controller/subsystem/familytree/proc/run_royal_assignment(mob/living/carbon/human/H, status)
-	if(!H || H.family_datum)
+	if(!H || QDELETED(H) || H.family_datum)
 		return
 	AddRoyal(H, status)
 
@@ -603,6 +603,9 @@ SUBSYSTEM_DEF(familytree)
 		ruling_family.MarryMembers(hand_member, hand_spouse)
 
 /datum/controller/subsystem/familytree/proc/GenerateRoyalLineage(datum/family_member/current_royal, status)
+	if(!current_royal?.person)
+		return
+
 	// Set as current generation
 	ruling_family.founder = current_royal
 	current_royal.generation = 12  // Start at generation 12 to leave room for ancestors
