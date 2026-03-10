@@ -446,9 +446,20 @@ SUBSYSTEM_DEF(familytree)
 	var/reason = get_familytree_unsubscribe_reason(H)
 	if(reason)
 		return reason
+	if(H.stat == DEAD)
+		return "dead"
 	if(require_client && !H.client)
 		return "no client"
 	return null
+
+/datum/controller/subsystem/familytree/proc/pause_familytree_human(mob/living/carbon/human/H, reason)
+	if(!H)
+		return
+	var/was_scheduled = H.familytree_assignment_scheduled
+	var/was_in_spouse_pool = (H in viable_spouses)
+	viable_spouses -= H
+	H.familytree_assignment_scheduled = FALSE
+	familytree_log_mob(H, "pause", "reason=[reason]; scheduled=[was_scheduled]; spouse_pool=[was_in_spouse_pool]")
 
 /datum/controller/subsystem/familytree/proc/unsubscribe_familytree_human(mob/living/carbon/human/H, reason)
 	if(!H)
@@ -509,6 +520,8 @@ SUBSYSTEM_DEF(familytree)
 	H.familytree_module_signal_bound = TRUE
 	RegisterSignal(H, COMSIG_MOB_LOGIN, PROC_REF(on_human_login))
 	RegisterSignal(H, COMSIG_MOB_LOGOUT, PROC_REF(on_human_logout))
+	RegisterSignal(H, COMSIG_MOB_DEATH, PROC_REF(on_human_death))
+	RegisterSignal(H, COMSIG_LIVING_REVIVE, PROC_REF(on_human_revive))
 	RegisterSignal(H, COMSIG_JOB_RECEIVED, PROC_REF(on_human_job_received))
 	familytree_log_mob(H, "tracking_start", "registered mob signals")
 
@@ -516,7 +529,7 @@ SUBSYSTEM_DEF(familytree)
 	if(!H || !H.familytree_module_signal_bound)
 		return
 	H.familytree_module_signal_bound = FALSE
-	UnregisterSignal(H, list(COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT, COMSIG_JOB_RECEIVED))
+	UnregisterSignal(H, list(COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT, COMSIG_MOB_DEATH, COMSIG_LIVING_REVIVE, COMSIG_JOB_RECEIVED))
 	familytree_log_mob(H, "tracking_stop", "reason=[reason]")
 
 /datum/controller/subsystem/familytree/proc/on_human_login(mob/living/carbon/human/H)
@@ -532,6 +545,16 @@ SUBSYSTEM_DEF(familytree)
 		viable_spouses -= H
 	familytree_log_mob(H, "signal_logout", "scheduled=[was_scheduled]; spouse_pool=[was_in_spouse_pool]; spouse pool cleared")
 
+/datum/controller/subsystem/familytree/proc/on_human_death(mob/living/carbon/human/H, gibbed)
+	SIGNAL_HANDLER
+	pause_familytree_human(H, "death")
+	familytree_log_mob(H, "signal_death", "gibbed=[gibbed]")
+
+/datum/controller/subsystem/familytree/proc/on_human_revive(mob/living/carbon/human/H, full_heal, admin_revive)
+	SIGNAL_HANDLER
+	familytree_log_mob(H, "signal_revive", "full_heal=[full_heal]; admin_revive=[admin_revive]")
+	try_queue_assignment(H)
+
 /datum/controller/subsystem/familytree/proc/on_human_job_received(mob/living/carbon/human/H, rank)
 	SIGNAL_HANDLER
 	familytree_log_mob(H, "signal_job_received", "rank=[rank]")
@@ -543,6 +566,9 @@ SUBSYSTEM_DEF(familytree)
 	var/unsubscribe_reason = get_familytree_unsubscribe_reason(H)
 	if(unsubscribe_reason)
 		unsubscribe_familytree_human(H, unsubscribe_reason)
+		return
+	if(H.stat == DEAD)
+		familytree_log_mob(H, "queue_wait", "reason=dead")
 		return
 	if(!H.client)
 		familytree_log_mob(H, "queue_wait", "reason=no client")
@@ -621,6 +647,9 @@ SUBSYSTEM_DEF(familytree)
 	if(!H || QDELETED(H))
 		return
 	var/block_reason = get_familytree_runtime_block_reason(H, TRUE)
+	if(block_reason == "dead")
+		pause_familytree_human(H, "local assignment deferred: dead")
+		return
 	if(block_reason == "no client")
 		H.familytree_assignment_scheduled = FALSE
 		familytree_log_mob(H, "local_assignment_deferred", "reason=no client")
@@ -640,6 +669,9 @@ SUBSYSTEM_DEF(familytree)
 	if(!H || QDELETED(H))
 		return
 	var/block_reason = get_familytree_runtime_block_reason(H, TRUE)
+	if(block_reason == "dead")
+		pause_familytree_human(H, "royal assignment deferred: dead")
+		return
 	if(block_reason == "no client")
 		H.familytree_assignment_scheduled = FALSE
 		familytree_log_mob(H, "royal_assignment_deferred", "reason=no client")
@@ -737,6 +769,9 @@ SUBSYSTEM_DEF(familytree)
 	if(!H || !status || istype(H, /mob/living/carbon/human/dummy))
 		return
 	var/block_reason = get_familytree_runtime_block_reason(H, TRUE)
+	if(block_reason == "dead")
+		pause_familytree_human(H, "local assignment blocked: dead")
+		return
 	if(block_reason == "no client")
 		familytree_log_mob(H, "local_assignment_blocked", "reason=no client")
 		return
@@ -782,6 +817,9 @@ SUBSYSTEM_DEF(familytree)
 	if(!H)
 		return
 	var/block_reason = get_familytree_runtime_block_reason(H, TRUE)
+	if(block_reason == "dead")
+		pause_familytree_human(H, "royal assignment blocked: dead")
+		return
 	if(block_reason == "no client")
 		familytree_log_mob(H, "royal_assignment_blocked", "reason=no client")
 		return
@@ -1170,6 +1208,9 @@ SUBSYSTEM_DEF(familytree)
 	if(!H)
 		return
 	var/block_reason = get_familytree_runtime_block_reason(H, TRUE)
+	if(block_reason == "dead")
+		pause_familytree_human(H, "newlywed blocked: dead")
+		return
 	if(block_reason == "no client")
 		viable_spouses -= H
 		familytree_log_mob(H, "newlywed_blocked", "reason=no client")
@@ -1186,6 +1227,9 @@ SUBSYSTEM_DEF(familytree)
 		if(!potential_spouse || potential_spouse == H || potential_spouse.spouse_mob)
 			continue
 		var/potential_block_reason = get_familytree_runtime_block_reason(potential_spouse, TRUE)
+		if(potential_block_reason == "dead")
+			pause_familytree_human(potential_spouse, "removed from newlywed pool: dead")
+			continue
 		if(potential_block_reason == "no client")
 			viable_spouses -= potential_spouse
 			familytree_log_mob(potential_spouse, "newlywed_pool_remove", "reason=no client")
