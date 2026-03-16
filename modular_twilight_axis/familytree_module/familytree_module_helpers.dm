@@ -21,7 +21,7 @@
 	var/datum/family_member/family_member_datum
 	var/tmp/familytree_module_signal_bound = FALSE
 	var/tmp/familytree_assignment_scheduled = FALSE
-	var/tmp/familytree_module_loggable = FALSE
+
 
 /proc/familytree_module_get_selectable_species() as /list
 	if(!GLOB.roundstart_races.len)
