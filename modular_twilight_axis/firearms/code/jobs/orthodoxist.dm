@@ -50,7 +50,6 @@
 	gloves = /obj/item/clothing/gloves/roguetown/chain/psydon
 	mask = /obj/item/clothing/mask/rogue/facemask/steel/confessor
 	id = /obj/item/clothing/ring/signet/silver
-	change_origin(H, /datum/virtue/origin/otava, "Holy Order")
 	var/classes = list("Legionnaire", "Otavan Volf")
 	var/classchoice = input(H, "Choose your archetypes", "Available archetypes") as anything in classes
 	

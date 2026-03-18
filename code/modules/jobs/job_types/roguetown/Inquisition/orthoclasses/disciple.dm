@@ -75,7 +75,6 @@
 				wrists = /obj/item/clothing/wrists/roguetown/bracers/psythorns
 				neck = /obj/item/clothing/neck/roguetown/psicross/silver
 				id = /obj/item/clothing/ring/signet/silver
-				change_origin(H, /datum/virtue/origin/otava, "Holy Order")
 			if("Naledian - Lightweight, Arcyne-Martiality")
 				head = /obj/item/clothing/head/roguetown/headband/naledi
 				mask = /obj/item/clothing/mask/rogue/lordmask/naledi/sojourner
@@ -100,7 +99,7 @@
 				H.change_stat(STATKEY_WIL, -3)
 				H.change_stat(STATKEY_INT, 3)
 				H.change_stat(STATKEY_SPD, 2) //Turns the Sojourner's unmodified statblock to 3/0/0/1/1, compared to the Disciple's 3/3/3/-2/-1.
-				change_origin(H, /datum/virtue/origin/naledi, "Holy Order")//These are Naledi we make them actually Naledi
+				change_origin(H, /datum/virtue/origin/naledi, "Holy order")//These are Naledi we make them actually Naledi
 				H.grant_language(/datum/language/celestial)
 
 	shoes = /obj/item/clothing/shoes/roguetown/boots/psydonboots
@@ -115,5 +114,4 @@
 
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T2, passive_gain = CLERIC_REGEN_WEAK, devotion_limit = CLERIC_REQ_1)	//Capped to T2 miracles.
-	change_origin(H, /datum/virtue/origin/otava, "Holy Order")
 
