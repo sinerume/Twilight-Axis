@@ -1,0 +1,21 @@
+/datum/preferences
+	var/setspouse = ""
+	var/datum/family_options/family_options
+	var/gender_choice_pref = ANY_GENDER
+	var/species_preference_mode = "ANY"
+	var/list/preferred_species_types = list()
+	var/preferred_species_anatomy = 0
+	var/tmp/familytree_module_loaded_slot
+	var/tmp/familytree_module_loaded_path
+
+/mob/living/carbon/human
+	var/family_UI = TRUE
+	var/mob/living/carbon/spouse_mob
+	var/image/spouse_indicator
+	var/setspouse
+	var/gender_choice_pref = ANY_GENDER
+	var/familytree_pref = FAMILY_NONE
+	var/datum/heritage/family_datum
+	var/datum/family_member/family_member_datum
+	var/tmp/familytree_module_signal_bound = FALSE
+	var/tmp/familytree_assignment_scheduled = FALSE
