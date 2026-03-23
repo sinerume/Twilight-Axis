@@ -23,4 +23,3 @@
 	var/allow_low_status_marriage = FALSE
 	var/tmp/familytree_module_signal_bound = FALSE
 	var/tmp/familytree_assignment_scheduled = FALSE
-	var/tmp/familytree_favorite_search_start = 0

@@ -49,18 +49,8 @@
 			AssignToFamily(H)
 			stop_tracking_human(H, H.family_datum ? "assigned to family" : "family assignment completed without family")
 
-#define FAVORITE_SEARCH_TIMEOUT (30 MINUTES)
-
 /datum/controller/subsystem/familytree/proc/TryAssignToFavorite(mob/living/carbon/human/H, status)
 	if(!H?.setspouse || !length(H.setspouse))
-		return "skip"
-
-	if(!H.familytree_favorite_search_start)
-		H.familytree_favorite_search_start = world.time
-
-	if(world.time - H.familytree_favorite_search_start >= FAVORITE_SEARCH_TIMEOUT)
-		H.setspouse = ""
-		H.familytree_favorite_search_start = 0
 		return "skip"
 
 	var/mob/living/carbon/human/favorite = FindFavoriteMob(H)
@@ -111,8 +101,6 @@
 			return candidate
 
 	return null
-
-#undef FAVORITE_SEARCH_TIMEOUT
 
 /datum/controller/subsystem/familytree/proc/AssignToHouse(mob/living/carbon/human/H)
 	if(!H)
