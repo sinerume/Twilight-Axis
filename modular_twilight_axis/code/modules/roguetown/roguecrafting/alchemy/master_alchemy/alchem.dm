@@ -144,6 +144,12 @@
 
 
 /obj/machinery/alch_workbench/ui_interact(mob/user, datum/tgui/ui)
+	if(!GLOB.alchemy_index_initialized)
+		var/datum/alchemy_dynamic_manager/ADM = GLOB.alchemy_dynamic_manager
+		if(ADM)
+			ADM.build_transmute_index()
+			GLOB.alchemy_index_initialized = TRUE
+
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AlchemyWorkbench", name)
@@ -329,67 +335,27 @@
 	
 	var/list/avail_transmutes = list()
 	if(transmute_slot)
-		var/base_type = transmute_slot.type
-
-		for(var/path in subtypesof(/datum/anvil_recipe))
-			var/datum/anvil_recipe/AR = path
-			if(initial(AR.abstract_type) == path) continue
+		var/current_type = transmute_slot.type
+		var/safety = 0
+		
+		while(current_type && current_type != /obj/item && current_type != /obj && safety < 10)
+			safety++
 			
-			var/atom/created_path = initial(AR.created_item)
-			
-			if(!created_path || !ispath(created_path, /obj/item))
-				continue
-			
-			var/match = FALSE
-			if(ispath(base_type, initial(AR.req_bar))) match = TRUE
-			if(!match)
-				var/list/add_items = initial(AR.additional_items)
-				if(length(add_items))
-					for(var/check_path in add_items)
-						if(ispath(base_type, check_path))
-							match = TRUE
+			if(GLOB.alchemy_transmute_index[current_type])
+				for(var/list/R in GLOB.alchemy_transmute_index[current_type])
+					var/list/final_data = R.Copy()
+					final_data["icon"] = get_cached_alchemy_icon(R["result_type"])
+					
+					var/is_duplicate = FALSE
+					for(var/list/D in avail_transmutes)
+						if(D["ref"] == final_data["ref"])
+							is_duplicate = TRUE
 							break
+					
+					if(!is_duplicate)
+						avail_transmutes += list(final_data)
 			
-			if(match)
-				var/res_icon = initial(created_path.icon)
-				var/res_state = initial(created_path.icon_state)
-				if(res_icon && res_state)
-					avail_transmutes += list(list(
-						"name" = initial(AR.name),
-						"cost" = 20 + (initial(AR.craftdiff) * 10),
-						"ref" = "[path]",
-						"icon" = "data:image/png;base64,[icon2base64(icon(res_icon, res_state, frame = 1))]"
-					))
-
-		for(var/datum/crafting_recipe/CR in GLOB.crafting_recipes)
-			if(!length(CR.reqs)) continue
-			
-			var/atom/result_path
-			if(islist(CR.result))
-				var/list/res_list = CR.result
-				if(length(res_list)) result_path = res_list[1]
-			else
-				result_path = CR.result
-				
-			if(!result_path || !ispath(result_path, /obj/item))
-				continue
-			
-			var/match = FALSE
-			for(var/req_path in CR.reqs)
-				if(ispath(base_type, req_path))
-					match = TRUE
-					break
-			
-			if(match)
-				var/res_icon = initial(result_path.icon)
-				var/res_state = initial(result_path.icon_state)
-				if(res_icon && res_state)
-					avail_transmutes += list(list(
-						"name" = CR.name,
-						"cost" = 15 + (CR.craftdiff * 8),
-						"ref" = "\ref[CR]",
-						"icon" = "data:image/png;base64,[icon2base64(icon(res_icon, res_state, frame = 1))]"
-					))
+			current_type = type2parent(current_type)
 
 	data["transmute_recipes"] = avail_transmutes
 	return data
@@ -543,42 +509,27 @@
 
 		if("do_transmute")
 			var/recipe_ref = params["recipe_ref"]
-			var/datum/anvil_recipe/AR = text2path(recipe_ref)
-			var/datum/crafting_recipe/CR = locate(recipe_ref)
+			var/list/R_DATA = GLOB.alchemy_recipe_lookup[recipe_ref]
 			
-			var/obj/item/philosophers_stone/PS = locate(/obj/item/philosophers_stone) in src.contents
-			
-			if(!PS || !PS.bound_soul)
-				to_chat(usr, span_warning("Камень не активен. Нужна привязанная душа!"))
+			if(!R_DATA)
 				return TRUE
 
-			var/atom/out_type = null
-			var/cost = 0
-			if(AR)
-				out_type = initial(AR.created_item)
-				cost = 20 + (initial(AR.craftdiff) * 10)
-			else if(CR)
-				var/res = initial(CR.result)
-				out_type = islist(res) ? res[1] : res
-				cost = 15 + (initial(CR.craftdiff) * 8)
+			var/obj/item/philosophers_stone/PS = locate(/obj/item/philosophers_stone) in STR.real_location()
+			if(!PS || !PS.bound_soul)
+				to_chat(usr, span_warning("Камень не активен!"))
+				return TRUE
+
+			var/cost = R_DATA["cost"]
+			var/atom/out_type = R_DATA["result_type"]
 
 			if(transmute_slot && out_type)
 				PS.charges -= cost
-				
 				qdel(transmute_slot)
 				transmute_slot = null
 				new out_type(get_turf(src))
-
+				
 				if(PS.charges <= 0)
 					PS.consume_soul()
-				else
-					if(PS.charges < 20)
-						to_chat(PS.bound_soul, span_danger("ВЫ НА ГРАНИ! Еще одна такая трансмутация убьет вас!"))
-					else
-						to_chat(PS.bound_soul, span_danger("Вы чувствуете, как жизнь уходит из вас вместе с энергией Камня..."))
-					
-					PS.bound_soul.flash_fullscreen("redflash", 3)
-				
 				update_icon()
 			return TRUE
 
