@@ -352,9 +352,6 @@ const CraftingTab = () => {
 };
 
 
-const UpgradesTab = () => { /* ... */ return <Section>...</Section> };
-
-
 const RequirementBox = ({ tier, smell }: { tier: string, smell: string | null }) => {
   if (!smell) return null;
 

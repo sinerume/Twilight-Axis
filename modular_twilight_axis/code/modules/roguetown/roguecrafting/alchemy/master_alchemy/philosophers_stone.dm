@@ -14,13 +14,13 @@
 	START_PROCESSING(SSprocessing, src)
 
 /obj/item/philosophers_stone/Destroy()
-	if(bound_soul)
+	if(bound_soul && !QDELETED(bound_soul))
 		REMOVE_TRAIT(bound_soul, TRAIT_PHILOSOPHER_BOUND, src)
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
 /obj/item/philosophers_stone/process(delta_time)
-	if(bound_soul && bound_soul.stat != DEAD)
+	if(bound_soul && !QDELETED(bound_soul) && bound_soul.stat != DEAD)
 		if(charges < max_charges)
 			charges = min(charges + (regen_rate * delta_time), max_charges)
 	else
@@ -58,7 +58,7 @@
 		update_icon()
 
 /obj/item/philosophers_stone/proc/consume_soul()
-	if(!bound_soul) return
+	if(!bound_soul || QDELETED(bound_soul)) return
 
 	var/mob/living/carbon/human/victim = bound_soul
 
