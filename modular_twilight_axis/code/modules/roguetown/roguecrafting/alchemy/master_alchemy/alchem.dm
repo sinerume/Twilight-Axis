@@ -1,0 +1,697 @@
+/obj/machinery/alch_workbench
+	name = "Great Alchemical Laboratory"
+	desc = "A massive setup for legendary alchemy. It spans exactly two tiles."
+	icon = 'modular_twilight_axis/icons/roguetown/misc/Lab.dmi'
+	icon_state = "labs"
+	
+	density = TRUE
+	anchored = TRUE
+
+
+	bound_width = 64
+	bound_height = 32
+	bound_x = 0
+	bound_y = 0
+	pixel_x = 0
+	pixel_y = -16
+
+	var/upgrade_level = 1
+	var/on = TRUE
+	var/amount_per_transfer = 10 
+
+
+	var/list/obj/item/alch/slots = list(null, null, null, null, null, null)
+	var/list/slot_links = list()
+	
+
+	var/list/discovered_recipes = list()
+	var/list/partial_knowledge = list()
+
+
+	var/list/obj/item/crafting_grid = list(null, null, null, null, null, null, null, null, null)
+	var/obj/item/transmute_slot = null
+
+/obj/machinery/alch_workbench/Initialize(mapload)
+	. = ..()
+	create_reagents(500, DRAINABLE | AMOUNT_VISIBLE | REFILLABLE | TRANSPARENT)
+	
+	var/datum/component/storage/concrete/STR = AddComponent(/datum/component/storage/concrete/roguetown/bin)
+	if(STR)
+		STR.grid = TRUE
+		STR.max_items = 30
+		STR.screen_max_columns = 6
+		STR.screen_max_rows = 5
+	update_icon()
+
+/obj/machinery/alch_workbench/is_refillable()
+	return TRUE
+
+/obj/machinery/alch_workbench/is_drainable()
+	return TRUE
+
+/obj/machinery/alch_workbench/attack_hand(mob/user)
+	if(on)
+		interact(user)
+	else
+		var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+		STR?.show_to(user)
+
+/obj/machinery/alch_workbench/update_icon_state()
+	if(upgrade_level <= 1)
+		icon_state = "labs"
+	else
+		icon_state = "labs[upgrade_level]"
+	return ..()
+
+/obj/machinery/alch_workbench/process()
+	..()
+	var/update_needed = FALSE
+	for(var/i in 1 to 6)
+		var/obj/item/I = slots[i]
+		if(I && !(I in src.contents))
+			slots[i] = null
+			var/list/new_links = list()
+			for(var/list/L in slot_links)
+				if(L[1] != i && L[2] != i) new_links += list(L)
+			slot_links = new_links
+			update_needed = TRUE
+			
+
+	for(var/i in 1 to 9)
+		var/obj/item/C = crafting_grid[i]
+		if(C && !(C in src.contents))
+			crafting_grid[i] = null
+			update_needed = TRUE
+
+	if(transmute_slot && !(transmute_slot in src.contents))
+		transmute_slot = null
+		update_needed = TRUE
+	if(update_needed) update_icon()
+
+/obj/machinery/alch_workbench/attackby(obj/item/I, mob/living/user)
+	if(istype(I, /obj/item/reagent_containers))
+		var/obj/item/reagent_containers/C = I
+
+		if(upgrade_level < 3)
+			to_chat(user, span_warning("На этом этапе лаборатория не имеет работающего котла. Потребуются золотые змеевики (Ур. 3)!"))
+			return TRUE
+
+		if(user.used_intent.type == INTENT_POUR)
+			if(!C.reagents.total_volume || reagents.holder_full()) return TRUE
+			user.visible_message(span_notice("[user] начинает заливать [C] в [src]."))
+			if(C.poursounds) playsound(user.loc, pick(C.poursounds), 100, TRUE)
+			for(var/i in 1 to 10)
+				if(do_after(user, 8, target = src))
+					if(!C.reagents.total_volume || reagents.holder_full()) break
+					C.reagents.trans_to(src, amount_per_transfer, transfered_by = user)
+					update_icon()
+				else break
+			return TRUE
+
+		if(user.used_intent.type == /datum/intent/fill)
+			if(!reagents.total_volume || C.reagents.holder_full()) return TRUE
+			user.visible_message(span_notice("[user] наполняет [C] из [src]."))
+			for(var/i in 1 to 10)
+				if(do_after(user, 8, target = src))
+					if(!reagents.total_volume || C.reagents.holder_full()) break
+					reagents.trans_to(C, amount_per_transfer, transfered_by = user)
+					update_icon()
+				else break
+			return TRUE
+
+	return ..()
+
+
+/obj/machinery/alch_workbench/proc/check_grid_recipe()
+
+    for(var/datum/alch_grid_recipe/R in GLOB.alch_grid_recipes)
+        if(!R.result_type) continue
+        
+        var/match = TRUE
+        for(var/i in 1 to 9)
+            var/obj/item/I = crafting_grid[i]
+            var/req = R.grid[i]
+            
+
+            if(!req && I) { match = FALSE; break }
+
+            if(req && !I) { match = FALSE; break }
+
+            if(req && I && !istype(I, req)) { match = FALSE; break }
+            
+        if(match) return R
+    return null
+
+
+/obj/machinery/alch_workbench/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "AlchemyWorkbench", name)
+		ui.open()
+
+/obj/machinery/alch_workbench/ui_data(mob/user)
+	var/list/data = list()
+	data["upgrade_lvl"] = upgrade_level
+	var/list/reagent_data = list()
+	if(reagents && reagents.reagent_list.len)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			reagent_data += list(list(
+				"name" = R.name,
+				"volume" = round(R.volume, 0.1),
+				"color" = R.color || "#3498db"
+			))
+	
+	data["reagents"] = reagent_data
+	data["total_volume"] = reagents ? round(reagents.total_volume, 0.1) : 0
+	data["max_volume"] = reagents ? reagents.maximum_volume : 500
+	
+	var/req_text = "Максимальный уровень достигнут."
+	switch(upgrade_level)
+		if(1) req_text = "Требуется: 1 Железный слиток (положите в склад стола)"
+		if(2) req_text = "Требуется: 1 Золотой слиток (положите в склад стола)"
+		if(3) req_text = "Требуется: 1 Алмаз (положите в склад стола)"
+	data["next_upgrade_req"] = req_text
+
+
+	var/list/s_data = list()
+	for(var/i in 1 to 6)
+		var/obj/item/alch/SL = slots[i]
+		var/icon_base64 = null
+		if(SL)
+			var/icon/I = icon(SL.icon, SL.icon_state, frame = 1)
+			if(I) icon_base64 = "data:image/png;base64,[icon2base64(I)]"
+
+		s_data += list(list(
+			"name" = SL ? SL.name : "Empty",
+			"ref" = SL ? "\ref[SL]" : null,
+			"smell" = SL ? SL.major_smell : null,
+			"image" = icon_base64
+		))
+	data["slots"] = s_data
+	data["links"] = slot_links
+
+
+	var/list/available_ingredients = list()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	if(STR)
+		for(var/obj/item/alch/A in STR.real_location())
+			if(!(A in slots)) 
+				var/icon/I = icon(A.icon, A.icon_state, frame = 1)
+				available_ingredients += list(list(
+					"name" = A.name,
+					"ref" = "\ref[A]",
+					"smell" = A.major_smell,
+					"image" = "data:image/png;base64,[icon2base64(I)]"
+				))
+	data["available_ingredients"] = available_ingredients
+
+
+
+	var/list/grid_data = list()
+	for(var/i in 1 to 9)
+		var/obj/item/C = crafting_grid[i]
+		var/c_icon = null
+		if(C)
+			var/icon/IC = icon(C.icon, C.icon_state, frame = 1)
+			if(IC) c_icon = "data:image/png;base64,[icon2base64(IC)]"
+		grid_data += list(list("ref" = C ? "\ref[C]" : null, "image" = c_icon))
+	data["crafting_grid"] = grid_data
+
+	var/matched_recipe = check_grid_recipe()
+	if(matched_recipe)
+		var/datum/alch_grid_recipe/R = matched_recipe
+		var/res_icon = initial(R.result_icon)
+		var/res_state = initial(R.result_icon_state)
+		
+		var/icon/RI = icon(res_icon, res_state)
+		if(RI)
+			data["craft_result"] = list(
+				"name" = initial(R.name),
+				"image" = "data:image/png;base64,[icon2base64(RI)]"
+			)
+	else
+		data["craft_result"] = null
+
+
+	var/list/all_items = list()
+	if(STR)
+		for(var/obj/item/I in STR.real_location())
+			if(!(I in slots) && !(I in crafting_grid))
+				var/icon/IC = icon(I.icon, I.icon_state, frame = 1)
+				all_items += list(list(
+					"name" = I.name,
+					"ref" = "\ref[I]",
+					"image" = "data:image/png;base64,[icon2base64(IC)]"
+				))
+	data["available_all_items"] = all_items
+
+	var/list/knowledge = list()
+	var/alch_skill = user.get_skill_level(/datum/skill/craft/alchemy)
+
+
+	for(var/path in GLOB.alchemy_dynamic_manager.round_recipes)
+		var/datum/alch_cauldron_recipe/advanced/R = path
+		var/req_skill = initial(R.skill_required)
+		
+		var/is_discovered = (path in discovered_recipes) || (alch_skill > req_skill)
+		var/has_hint = (path in partial_knowledge) || (alch_skill == req_skill)
+		
+		if(is_discovered || has_hint)
+			var/list/reqs = GLOB.alchemy_dynamic_manager.round_recipes[path]
+			var/list/ui_reqs = list("strong" = null, "medium" = null, "light" = null)
+			
+			if(is_discovered)
+				if(length(reqs["strong"])) ui_reqs["strong"] = reqs["strong"][1]
+				if(length(reqs["medium"])) ui_reqs["medium"] = reqs["medium"][1]
+				if(length(reqs["light"]))  ui_reqs["light"]  = reqs["light"][1]
+			else if(has_hint)
+				if(length(reqs["strong"])) ui_reqs["strong"] = reqs["strong"][1]
+				if(length(reqs["medium"])) ui_reqs["medium"] = "???"
+				if(length(reqs["light"]))  ui_reqs["light"]  = "???"
+
+			knowledge += list(list(
+				"name" = initial(R.name),
+				"found" = is_discovered,
+				"is_hint" = has_hint && !is_discovered,
+				"type" = "infusion",
+				"reqs" = ui_reqs
+			))
+
+
+	for(var/datum/alch_grid_recipe/GR in GLOB.alch_grid_recipes)
+		var/list/grid_icons = list()
+		for(var/item_path in GR.grid)
+			if(item_path)
+
+				var/atom/A = item_path
+				
+
+				var/icon_file = initial(A.icon)
+				var/icon_state_val = initial(A.icon_state)
+				
+				if(icon_file && icon_state_val)
+					var/icon/I = icon(icon_file, icon_state_val, frame = 1)
+					grid_icons += "data:image/png;base64,[icon2base64(I)]"
+				else
+					grid_icons += null
+			else
+				grid_icons += null
+
+		knowledge += list(list(
+			"name" = GR.name,
+			"found" = TRUE, 
+			"type" = "grid",
+			"grid_icons" = grid_icons,
+			"result_img" = "data:image/png;base64,[icon2base64(icon(initial(GR.result_icon), initial(GR.result_icon_state), frame = 1))]"
+		))
+
+	data["knowledge"] = knowledge
+	
+	var/obj/item/philosophers_stone/PS = locate(/obj/item/philosophers_stone) in src.contents
+	if(PS)
+		data["p_stone"] = list(
+			"charges" = round(PS.charges), 
+			"max" = PS.max_charges, 
+			"owner" = PS.bound_soul ? PS.bound_soul.name : "Никто"
+		)
+	else
+		data["p_stone"] = null
+
+	if(transmute_slot && (transmute_slot in src.contents))
+		var/icon/T_IMG = icon(transmute_slot.icon, transmute_slot.icon_state, frame = 1)
+		data["transmute_item"] = list(
+			"name" = transmute_slot.name, 
+			"image" = "data:image/png;base64,[icon2base64(T_IMG)]"
+		)
+	else
+		transmute_slot = null
+		data["transmute_item"] = null
+	
+	var/list/avail_transmutes = list()
+	if(transmute_slot)
+		var/base_type = transmute_slot.type
+
+		for(var/path in subtypesof(/datum/anvil_recipe))
+			var/datum/anvil_recipe/AR = path
+			if(initial(AR.abstract_type) == path) continue
+			
+			var/atom/created_path = initial(AR.created_item)
+			
+			if(!created_path || !ispath(created_path, /obj/item))
+				continue
+			
+			var/match = FALSE
+			if(ispath(base_type, initial(AR.req_bar))) match = TRUE
+			if(!match)
+				var/list/add_items = initial(AR.additional_items)
+				if(length(add_items))
+					for(var/check_path in add_items)
+						if(ispath(base_type, check_path))
+							match = TRUE
+							break
+			
+			if(match)
+				var/res_icon = initial(created_path.icon)
+				var/res_state = initial(created_path.icon_state)
+				if(res_icon && res_state)
+					avail_transmutes += list(list(
+						"name" = initial(AR.name),
+						"cost" = 20 + (initial(AR.craftdiff) * 10),
+						"ref" = "[path]",
+						"icon" = "data:image/png;base64,[icon2base64(icon(res_icon, res_state, frame = 1))]"
+					))
+
+		for(var/datum/crafting_recipe/CR in GLOB.crafting_recipes)
+			if(!length(CR.reqs)) continue
+			
+			var/atom/result_path
+			if(islist(CR.result))
+				var/list/res_list = CR.result
+				if(length(res_list)) result_path = res_list[1]
+			else
+				result_path = CR.result
+				
+			if(!result_path || !ispath(result_path, /obj/item))
+				continue
+			
+			var/match = FALSE
+			for(var/req_path in CR.reqs)
+				if(ispath(base_type, req_path))
+					match = TRUE
+					break
+			
+			if(match)
+				var/res_icon = initial(result_path.icon)
+				var/res_state = initial(result_path.icon_state)
+				if(res_icon && res_state)
+					avail_transmutes += list(list(
+						"name" = CR.name,
+						"cost" = 15 + (CR.craftdiff * 8),
+						"ref" = "\ref[CR]",
+						"icon" = "data:image/png;base64,[icon2base64(icon(res_icon, res_state, frame = 1))]"
+					))
+
+	data["transmute_recipes"] = avail_transmutes
+	return data
+
+/obj/machinery/alch_workbench/ui_act(action, params)
+	if(..()) return
+	var/mob/living/carbon/human/user = usr
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+
+	switch(action)
+		if("open_inventory")
+			STR?.show_to(user)
+			return TRUE
+
+		if("assign_slot")
+			var/slot_idx = text2num(params["slot"])
+			var/obj/item/alch/A = locate(params["item_ref"]) in STR?.real_location()
+			if(A && slot_idx >= 1 && slot_idx <= 6)
+				slots[slot_idx] = A
+				update_icon()
+			return TRUE
+
+		if("eject")
+			var/idx = text2num(params["slot"])
+			if(idx >= 1 && idx <= 6 && slots[idx])
+				slots[idx] = null
+				var/list/new_links = list()
+				for(var/list/L in slot_links)
+					if(L[1] != idx && L[2] != idx) new_links += list(L)
+				slot_links = new_links
+				update_icon()
+			return TRUE
+
+		if("clear_links")
+			slot_links = list()
+			update_icon()
+			return TRUE
+
+		if("link")
+			var/s1 = text2num(params["from"])
+			var/s2 = text2num(params["to"])
+			if(s1 != s2 && slots[s1] && slots[s2])
+				var/found = FALSE
+				var/list/new_links = list()
+				for(var/list/L in slot_links)
+					if((L[1] == s1 && L[2] == s2) || (L[1] == s2 && L[2] == s1)) found = TRUE
+					else new_links += list(L)
+				if(!found) new_links += list(list(s1, s2))
+				slot_links = new_links
+				update_icon()
+			return TRUE
+
+		if("assign_craft")
+			var/idx = text2num(params["slot"])
+			var/obj/item/I = locate(params["item_ref"]) in STR?.real_location()
+			if(I && idx >= 1 && idx <= 9)
+				crafting_grid[idx] = I
+				update_icon()
+			return TRUE
+			
+		if("clear_craft")
+			var/idx = text2num(params["slot"])
+			if(idx >= 1 && idx <= 9)
+				crafting_grid[idx] = null
+				update_icon()
+			return TRUE
+
+		if("do_grid_craft")
+			var/matched_recipe = check_grid_recipe()
+			if(matched_recipe)
+				var/datum/alch_grid_recipe/R = matched_recipe
+				for(var/i in 1 to 9)
+					var/obj/item/I = crafting_grid[i]
+					if(I)
+						if(STR) STR.remove_from_storage(I, null)
+						qdel(I)
+						crafting_grid[i] = null
+				new R.result_type(get_turf(src))
+				playsound(src, 'sound/effects/hood_ignite.ogg', 50, TRUE)
+				to_chat(user, span_nicegreen("Успешно создано: [initial(R.name)]."))
+				update_icon()
+			else
+				to_chat(user, span_warning("Рецепт не найден!"))
+				for(var/i in 1 to 9)
+					if(crafting_grid[i])
+						to_chat(user, "Слот [i] содержит: [crafting_grid[i].type]")
+			return TRUE
+
+		if("upgrade")
+			if(!STR) return TRUE
+			
+			if(upgrade_level >= 4)
+				return TRUE
+			
+			var/upgraded = FALSE
+			
+			if(upgrade_level == 1)
+				var/obj/item/ingot/iron/I = locate() in STR.real_location()
+				if(I)
+					STR.remove_from_storage(I, null)
+					qdel(I)
+					upgrade_level = 2
+					to_chat(user, span_notice("Вы усилили котел железными креплениями!"))
+					upgraded = TRUE
+				else
+					to_chat(user, span_warning("Вам нужен Железный слиток внутри склада лаборатории!"))
+
+			else if(upgrade_level == 2)
+				var/obj/item/ingot/gold/G = locate() in STR.real_location()
+				if(G)
+					STR.remove_from_storage(G, null)
+					qdel(G)
+					upgrade_level = 3
+					to_chat(user, span_notice("Вы установили золотые змеевики. Теперь доступна Инфузия!"))
+					upgraded = TRUE
+				else
+					to_chat(user, span_warning("Вам нужен Золотой слиток внутри склада лаборатории!"))
+					
+			else if(upgrade_level == 3)
+				var/obj/item/roguegem/diamond/D = locate() in STR.real_location()
+				if(D)
+					STR.remove_from_storage(D, null)
+					qdel(D)
+					upgrade_level = 4
+					to_chat(user, span_notice("Вы встроили Алмазную Линзу. Лаборатория достигла пика могущества!"))
+					upgraded = TRUE
+				else
+					to_chat(user, span_warning("Вам нужен Алмаз внутри склада лаборатории!"))
+
+			if(upgraded)
+				update_icon_state()
+				update_icon()
+				
+			return TRUE
+
+		if("mix")
+			do_mix(user)
+			return TRUE
+
+		if("transmute_assign")
+			var/obj/item/I = locate(params["item_ref"]) in STR.real_location()
+			if(I && !transmute_slot)
+				transmute_slot = I
+				update_icon()
+			return TRUE
+
+		if("transmute_eject")
+			transmute_slot = null
+			update_icon()
+			return TRUE
+
+		if("do_transmute")
+			var/recipe_ref = params["recipe_ref"]
+			var/datum/anvil_recipe/AR = text2path(recipe_ref)
+			var/datum/crafting_recipe/CR = locate(recipe_ref)
+			
+			var/obj/item/philosophers_stone/PS = locate(/obj/item/philosophers_stone) in src.contents
+			
+			if(!PS || !PS.bound_soul)
+				to_chat(usr, span_warning("Камень не активен. Нужна привязанная душа!"))
+				return TRUE
+
+			var/atom/out_type = null
+			var/cost = 0
+			if(AR)
+				out_type = initial(AR.created_item)
+				cost = 20 + (initial(AR.craftdiff) * 10)
+			else if(CR)
+				var/res = initial(CR.result)
+				out_type = islist(res) ? res[1] : res
+				cost = 15 + (initial(CR.craftdiff) * 8)
+
+			if(transmute_slot && out_type)
+				PS.charges -= cost
+				
+				qdel(transmute_slot)
+				transmute_slot = null
+				new out_type(get_turf(src))
+
+				if(PS.charges <= 0)
+					PS.consume_soul()
+				else
+					if(PS.charges < 20)
+						to_chat(PS.bound_soul, span_danger("ВЫ НА ГРАНИ! Еще одна такая трансмутация убьет вас!"))
+					else
+						to_chat(PS.bound_soul, span_danger("Вы чувствуете, как жизнь уходит из вас вместе с энергией Камня..."))
+					
+					PS.bound_soul.flash_fullscreen("redflash", 3)
+				
+				update_icon()
+			return TRUE
+
+
+/obj/machinery/alch_workbench/proc/do_mix(mob/user)
+	if(reagents.get_reagent_amount(/datum/reagent/water) < 90)
+		to_chat(user, span_warning("Недостаточно воды (нужно минимум 90 мл)."))
+		return
+
+	if(upgrade_level < 3)
+		to_chat(user, span_warning("Для инфузии требуются золотые змеевики (Ур. 3)!"))
+		return
+
+	var/list/groups = list()
+	var/list/visited = list()
+	var/has_items = FALSE
+	
+	for(var/i in 1 to 6)
+		if(!slots[i] || (i in visited)) continue
+		has_items = TRUE
+		
+		var/list/current_group = list()
+		var/obj/item/alch/base_item = slots[i]
+		var/base_smell = base_item.major_smell
+		
+		var/list/queue = list(i)
+		while(queue.len)
+			var/curr = queue[1]
+			queue.Cut(1,2)
+			
+			if(curr in visited) continue
+			visited += curr
+			
+			var/obj/item/alch/curr_item = slots[curr]
+			if(curr_item.major_smell == base_smell)
+				current_group += curr
+				for(var/list/L in slot_links)
+					if(L[1] == curr && !(L[2] in visited)) queue += L[2]
+					if(L[2] == curr && !(L[1] in visited)) queue += L[1]
+		
+		if(base_smell)
+			groups += list(list("smell" = base_smell, "count" = current_group.len))
+
+	if(!has_items)
+		to_chat(user, span_warning("Слоты инфузии пусты."))
+		return
+
+	var/list/final_smells = list("strong" = list(), "medium" = list(), "light" = list())
+	for(var/list/G in groups)
+		if(G["count"] >= 3) final_smells["strong"] += G["smell"]
+		else if(G["count"] == 2) final_smells["medium"] += G["smell"]
+		else if(G["count"] == 1) final_smells["light"] += G["smell"]
+
+	var/datum/alch_cauldron_recipe/advanced/found_path = null
+	for(var/path in GLOB.alchemy_dynamic_manager.round_recipes)
+		var/list/reqs = GLOB.alchemy_dynamic_manager.round_recipes[path]
+		
+		var/match = TRUE
+		for(var/s in reqs["strong"]) if(!(s in final_smells["strong"])) match = FALSE
+		for(var/m in reqs["medium"]) if(!(m in final_smells["medium"])) match = FALSE
+		for(var/l in reqs["light"])  if(!(l in final_smells["light"]))  match = FALSE
+		
+		if(match)
+			found_path = path
+			break
+
+	if(found_path)
+		var/datum/alch_cauldron_recipe/advanced/R = new found_path
+		
+		if(initial(R.skill_required) >= SKILL_LEVEL_MASTER && upgrade_level < 4)
+			to_chat(user, span_boldwarning("Требуется Призматическая Линза (Ур. 4) для этого зелья!"))
+			qdel(R)
+			return
+
+		if(initial(R.skill_required) <= user.get_skill_level(/datum/skill/craft/alchemy))
+			to_chat(user, span_nicegreen("Успех! Получено: [R.name]."))
+			reagents.remove_reagent(/datum/reagent/water, 90)
+			reagents.add_reagent_list(R.output_reagents)
+			discovered_recipes |= found_path
+		else
+			to_chat(user, span_warning("Ваш навык алхимии слишком низок! Реакция провалилась."))
+			reagents.remove_reagent(/datum/reagent/water, 90)
+			reagents.add_reagent(/datum/reagent/yuck, 90)
+		qdel(R)
+	else
+		to_chat(user, span_warning("Смесь бурлит и превращается в отходы..."))
+		reagents.remove_reagent(/datum/reagent/water, 90)
+		reagents.add_reagent(/datum/reagent/yuck, 90)
+
+		if(prob(50))
+			for(var/path in GLOB.alchemy_dynamic_manager.round_recipes)
+				if(path in discovered_recipes) continue
+				if(path in partial_knowledge) continue
+				
+				var/list/reqs = GLOB.alchemy_dynamic_manager.round_recipes[path]
+				var/list/all_req_smells = reqs["strong"] + reqs["medium"] + reqs["light"]
+				
+				for(var/s in final_smells["strong"] + final_smells["medium"] + final_smells["light"])
+					if(s in all_req_smells)
+						partial_knowledge |= path
+						var/datum/alch_cauldron_recipe/advanced/RH = path
+						to_chat(user, span_notice("Вы понимаете, что один из компонентов подходит для <b>[initial(RH.name)]</b>!"))
+						break
+				if(path in partial_knowledge) break
+
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	for(var/i in 1 to 6)
+		var/obj/item/I = slots[i]
+		if(I)
+			if(STR) STR.remove_from_storage(I, null)
+			qdel(I)
+		slots[i] = null
+	
+	slot_links = list()
+	playsound(src, 'sound/effects/hood_ignite.ogg', 80, TRUE)
+	update_icon()
