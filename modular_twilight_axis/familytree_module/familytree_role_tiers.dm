@@ -43,6 +43,7 @@
 		/datum/job/roguetown/councillor,
 		/datum/job/roguetown/magician,
 		/datum/job/roguetown/guildmaster,
+		/datum/job/roguetown/adventurer/courtagent,
 	)
 
 	// Criminal and outlaw roles
