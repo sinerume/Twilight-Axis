@@ -3,14 +3,6 @@
 		return person.familytree_get_parental_style()
 	return "neutral"
 
-	switch(person?.gender)
-		if(MALE)
-			return "masculine"
-		if(FEMALE)
-			return "feminine"
-
-	return "neutral"
-
 /datum/family_member/proc/GetParentTerm()
 	var/parent_style = person?.familytree_get_parental_style()
 	switch(parent_style)
