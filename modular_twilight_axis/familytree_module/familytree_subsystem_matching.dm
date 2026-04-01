@@ -57,14 +57,11 @@
 	switch(status)
 		if(FAMILY_PARTIAL)
 			ftlog("AddLocal: [H.real_name] -> AssignToHouse (pending confirm)")
-			request_family_confirmation(H, CALLBACK(src, PROC_REF(do_assign_house), H))
+			request_family_confirmation(H, CALLBACK(src, PROC_REF(do_assign_house), H), "house")
 
 		if(FAMILY_NEWLYWED)
-			ftlog("AddLocal: [H.real_name] -> AssignNewlyWed")
-			AssignNewlyWed(H)
-			ftlog("AddLocal: [H.real_name] newlywed result: spouse=[H.spouse_mob ? "YES" : "NO"] family=[H.family_datum ? "YES" : "NO"]")
-			if(H.spouse_mob || H.family_datum)
-				stop_tracking_human(H, "newlywed flow matched spouse")
+			ftlog("AddLocal: [H.real_name] -> AssignNewlyWed (pending confirm)")
+			request_family_confirmation(H, CALLBACK(src, PROC_REF(do_assign_newlywed), H), "spouse")
 
 		if(FAMILY_FULL)
 			if(H.virginity)
@@ -72,7 +69,7 @@
 				stop_tracking_human(H, "full family flow skipped; virginity gate")
 				return
 			ftlog("AddLocal: [H.real_name] -> AssignToFamily (pending confirm)")
-			request_family_confirmation(H, CALLBACK(src, PROC_REF(do_assign_family), H))
+			request_family_confirmation(H, CALLBACK(src, PROC_REF(do_assign_family), H), "family")
 
 /datum/controller/subsystem/familytree/proc/do_assign_house(mob/living/carbon/human/H)
 	if(!H || QDELETED(H) || H.family_datum)
@@ -81,6 +78,15 @@
 	AssignToHouse(H)
 	ftlog("AddLocal: [H.real_name] house result: family=[H.family_datum ? "YES" : "NO"]")
 	stop_tracking_human(H, H.family_datum ? "assigned to house" : "house assignment completed without family")
+
+/datum/controller/subsystem/familytree/proc/do_assign_newlywed(mob/living/carbon/human/H)
+	if(!H || QDELETED(H) || H.spouse_mob)
+		return
+	ftlog("AddLocal: [H.real_name] -> AssignNewlyWed (confirmed)")
+	AssignNewlyWed(H)
+	ftlog("AddLocal: [H.real_name] newlywed result: spouse=[H.spouse_mob ? "YES" : "NO"] family=[H.family_datum ? "YES" : "NO"]")
+	if(H.spouse_mob || H.family_datum)
+		stop_tracking_human(H, "newlywed flow matched spouse")
 
 /datum/controller/subsystem/familytree/proc/do_assign_family(mob/living/carbon/human/H)
 	if(!H || QDELETED(H) || H.family_datum)
@@ -105,6 +111,13 @@
 	if(favorite.setspouse && length(favorite.setspouse))
 		if(!familytree_names_match(favorite.setspouse, H.real_name))
 			return "waiting"
+
+	var/mutual_sibling = (H.desired_relative_role == RELATIVE_SIBLING && favorite.desired_relative_role == RELATIVE_SIBLING)
+
+	if(mutual_sibling)
+		ftlog("TryFavorite: [H.real_name] + [favorite.real_name] mutual sibling -> forming house")
+		request_family_confirmation(H, CALLBACK(src, PROC_REF(do_form_sibling_house), H, favorite), "sibling_house")
+		return "assigned"
 
 	if(favorite.family_datum)
 		var/datum/heritage/house = favorite.family_datum
@@ -170,6 +183,8 @@
 	var/list/high_priority_houses = list()
 
 	for(var/datum/heritage/house as anything in families)
+		if(house.closed)
+			continue
 		if(house.housename && house.members.len >= 1 && house.members.len < 6)
 			high_priority_houses += house
 		else
@@ -200,7 +215,10 @@
 		ftlog("AssignToHouse: [H.real_name] -> house=[chosen_house.housename] adopted=[adopted]")
 		AddPersonToHouse(chosen_house, H, adopted)
 	else
-		ftlog("AssignToHouse: [H.real_name] NO house found (families=[families.len])")
+		ftlog("AssignToHouse: [H.real_name] no existing house, creating new (families=[families.len])")
+		var/datum/heritage/new_house = new /datum/heritage(H, null)
+		families += new_house
+		ftlog("AssignToHouse: [H.real_name] founded new house '[new_house.housename]'")
 
 /datum/controller/subsystem/familytree/proc/AddPersonToHouse(datum/heritage/house, mob/living/carbon/human/person, adopted = FALSE)
 	var/role = DetermineAppropriateRole(house, person, adopted)
@@ -274,6 +292,8 @@
 	var/list/eligible_houses = list()
 
 	for(var/datum/heritage/house as anything in families)
+		if(house.closed)
+			continue
 		if(!house_race_compatible(house, our_race, our_isolated))
 			continue
 
@@ -300,7 +320,10 @@
 
 	ftlog("AssignToFamily: [H.real_name] eligible_houses=[eligible_houses.len]")
 	if(!eligible_houses.len)
-		ftlog("AssignToFamily: [H.real_name] NO eligible houses found", FTLOG_WARN)
+		ftlog("AssignToFamily: [H.real_name] no eligible houses, creating new")
+		var/datum/heritage/new_house = new /datum/heritage(H, null)
+		families += new_house
+		ftlog("AssignToFamily: [H.real_name] founded new house '[new_house.housename]'")
 		return
 
 	for(var/datum/heritage/house as anything in eligible_houses)
@@ -402,6 +425,8 @@
 	var/datum/heritage/chosen_house
 
 	for(var/datum/heritage/house as anything in families)
+		if(house.closed)
+			continue
 		if(!house_race_compatible(house, base_species, base_isolated))
 			continue
 		if(!house.housename || house.members.len < 2)
@@ -425,3 +450,53 @@
 					for(var/datum/family_member/grandparent as anything in member.parents)
 						new_member.AddParent(grandparent)
 					break
+
+/datum/controller/subsystem/familytree/proc/do_form_sibling_house(mob/living/carbon/human/initiator, mob/living/carbon/human/partner)
+	if(!initiator || QDELETED(initiator) || initiator.family_datum)
+		return
+	if(!partner || QDELETED(partner) || partner.family_datum)
+		return
+
+	var/datum/heritage/new_house = new /datum/heritage(initiator, null)
+	new_house.closed = TRUE
+	new_house.house_leader = new_house.founder
+	families += new_house
+
+	var/datum/family_member/partner_member = new_house.CreateFamilyMember(partner)
+	if(partner_member)
+		partner_member.generation = 0
+
+	ftlog("SIBLING HOUSE: [initiator.real_name] + [partner.real_name] formed closed house '[new_house.housename]', leader=[initiator.real_name]")
+	on_family_formed(new_house)
+
+	to_chat(initiator, span_love("Вы основали дом [new_house.housename]!"))
+	to_chat(partner, span_love("Вы вступили в дом [new_house.housename]."))
+
+	stop_tracking_human(initiator, "formed sibling house")
+	stop_tracking_human(partner, "joined sibling house")
+
+	ask_open_sibling_house(initiator, new_house)
+
+/datum/controller/subsystem/familytree/proc/ask_open_sibling_house(mob/living/carbon/human/leader, datum/heritage/house)
+	if(!leader?.client)
+		return
+	INVOKE_ASYNC(src, PROC_REF(do_ask_open_sibling_house), leader, house)
+
+/datum/controller/subsystem/familytree/proc/do_ask_open_sibling_house(mob/living/carbon/human/leader, datum/heritage/house)
+	if(!leader?.client)
+		return
+
+	var/result = tgui_alert(leader, "Открыть дом [house.housename] для вступления родственников?", "Дом [house.housename]", list("Да", "Нет"))
+
+	if(!leader || QDELETED(leader))
+		return
+	if(!house)
+		return
+
+	if(result == "Да")
+		house.closed = FALSE
+		ftlog("SIBLING HOUSE: [leader.real_name] opened house '[house.housename]' for relatives")
+		to_chat(leader, span_notice("Дом [house.housename] открыт для родственников."))
+	else
+		ftlog("SIBLING HOUSE: [leader.real_name] kept house '[house.housename]' closed")
+		to_chat(leader, span_notice("Дом [house.housename] останется закрытым. Вступить можно только через обряд жреца."))

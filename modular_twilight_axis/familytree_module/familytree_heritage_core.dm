@@ -5,6 +5,8 @@
 	var/list/members = list()
 	var/list/family_icons = list()
 	var/datum/family_member/founder
+	var/datum/family_member/house_leader
+	var/closed = FALSE
 
 	var/list/family_curses = list()
 	var/list/curse_history = list()

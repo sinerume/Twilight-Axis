@@ -33,7 +33,7 @@
 		return FALSE
 
 	ftlog("NOBLE DYNASTY: [H.real_name] eligible for ruling family")
-	request_family_confirmation(H, CALLBACK(src, PROC_REF(do_assign_noble_to_dynasty), H))
+	request_family_confirmation(H, CALLBACK(src, PROC_REF(do_assign_noble_to_dynasty), H), "dynasty")
 	return TRUE
 
 /datum/controller/subsystem/familytree/proc/do_assign_noble_to_dynasty(mob/living/carbon/human/H)

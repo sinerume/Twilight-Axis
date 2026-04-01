@@ -16,7 +16,7 @@
 		H.familytree_assignment_scheduled = TRUE
 		addtimer(CALLBACK(src, PROC_REF(run_local_assignment), H, status), 60 SECONDS)
 
-/datum/controller/subsystem/familytree/proc/request_family_confirmation(mob/living/carbon/human/H, datum/callback/on_accept)
+/datum/controller/subsystem/familytree/proc/request_family_confirmation(mob/living/carbon/human/H, datum/callback/on_accept, confirm_type = "family")
 	if(!H?.client)
 		on_accept.Invoke()
 		return
@@ -24,23 +24,25 @@
 		ftlog("CONFIRM SKIP: [H.real_name] opted out")
 		return
 
-	INVOKE_ASYNC(src, PROC_REF(do_family_confirmation), H, on_accept)
+	INVOKE_ASYNC(src, PROC_REF(do_family_confirmation), H, on_accept, confirm_type)
 
-/datum/controller/subsystem/familytree/proc/do_family_confirmation(mob/living/carbon/human/H, datum/callback/on_accept)
+/datum/controller/subsystem/familytree/proc/do_family_confirmation(mob/living/carbon/human/H, datum/callback/on_accept, confirm_type = "family")
 	if(!H?.client)
 		on_accept.Invoke()
 		return
 
-	var/result = tgui_alert(H, "Найдена подходящая семья! Хотите присоединиться?\n\nОтказавшись, вы потеряете возможность найти семью в этом раунде.", "Семейная система", list("Да", "Нет"))
+	var/msg = "Вам нашли пару!\n\nХотите продолжить?\n\nОтказавшись, вы потеряете возможность найти семью в этом раунде."
+
+	var/result = tgui_alert(H, msg, "Семейная система", list("Да", "Нет"))
 
 	if(!H || QDELETED(H))
 		return
 
 	if(result == "Да")
-		ftlog("CONFIRM ACCEPT: [H.real_name]")
+		ftlog("CONFIRM ACCEPT: [H.real_name] type=[confirm_type]")
 		on_accept.Invoke()
 	else
-		ftlog("CONFIRM REJECT: [H.real_name] opted out permanently")
+		ftlog("CONFIRM REJECT: [H.real_name] type=[confirm_type] opted out permanently")
 		H.familytree_opted_out = TRUE
-		unsubscribe_familytree_human(H, "player declined family assignment")
+		unsubscribe_familytree_human(H, "player declined [confirm_type] assignment")
 		to_chat(H, span_warning("Вы отказались от участия в семейной системе на этот раунд."))
