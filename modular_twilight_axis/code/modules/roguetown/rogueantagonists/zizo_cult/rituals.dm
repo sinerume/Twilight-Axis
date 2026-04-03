@@ -1188,6 +1188,7 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 /datum/ritual/weaponary/zsteel
 	name = "Создание стали"
 	desk = "Ритуал, который позволяет создать сталь из простых кусочков"
+	center_requirement = /obj/item/scrap
 
 	n_req = /obj/item/scrap
 	s_req = /obj/item/scrap
@@ -1254,14 +1255,6 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 	new /obj/item/clothing/neck/roguetown/psicross/inhumen/aalloy/cult(center)
 	to_chat(user, span_notice("Крест вновь может защитить вас.."))
 
-/datum/ritual/weaponary/zingot/invoke(mob/living/user, turf/center)
-	var/datum/effect_system/spark_spread/S = new(center)
-	S.set_up(1, 1, center)
-	S.start()
-	playsound(get_turf(center), pick('sound/items/bsmith1.ogg','sound/items/bsmith2.ogg','sound/items/bsmith3.ogg','sound/items/bsmith4.ogg'), 100, FALSE)
-
-	new /obj/item/ingot/steel/zizo(center)
-
 /datum/ritual/weaponary/zdagger
 	name = "Создание проклятого кинжала Зизо"
 	desk = "Призывает кинжал Зизо, который может содержать в себе яд."
@@ -1282,10 +1275,10 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 /datum/ritual/weaponary/summonweapon
 	name = "Создание длинного меча"
 	desk = "Призывает длинный меч Зизо."
-
+	center_requirement = /obj/item/ingot/steel/zizo
+	
 	n_req = /obj/item/ingot/steel/zizo
 	e_req = /obj/item/natural/bone
-	s_req = /obj/item/ingot/steel/zizo
 	w_req = /obj/item/natural/bone
 
 /datum/ritual/weaponary/summonweapon/invoke(mob/living/user, turf/center)
