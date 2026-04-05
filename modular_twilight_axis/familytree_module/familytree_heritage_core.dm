@@ -81,7 +81,7 @@
 			housename = new_name
 
 		dominant_species = majority_species
-		dominant_race = founder_person?.dna?.species?.name
+		dominant_race = founder_person?.dna?.species
 		if(!majority_species)
 			dominant_species = founder_person?.dna?.species?.type
 
@@ -97,10 +97,19 @@
 	members += new_member
 	person?.family_datum = src
 
+	IntroduceFamilyMember(person)
 	AddFamilyIcon(person)
 	LateJoinAddToUI(person)
 
 	return new_member
+
+/datum/heritage/proc/IntroduceFamilyMember(mob/living/carbon/human/new_person)
+	if(!new_person)
+		return
+	for(var/datum/family_member/member as anything in members)
+		if(!member.person || member.person == new_person)
+			continue
+		SSfamilytree.introduce_pair(new_person, member.person)
 
 /datum/heritage/proc/AddToFamily(mob/living/carbon/human/person, datum/family_member/parent1, datum/family_member/parent2, adopt = FALSE)
 	var/datum/family_member/new_member = CreateFamilyMember(person)
@@ -299,9 +308,13 @@
 	for(var/generation as anything in generation_order)
 		var/list/entries = list()
 		for(var/datum/family_member/member as anything in by_generation["[generation]"])
+			if(member.phantom)
+				continue
 			var/list/entry = BuildFamilyDisplayEntry(checker_member, member)
 			if(entry)
 				entries += list(entry)
+		if(!entries.len)
+			continue
 		panel.add_section(GetGenerationName(generation), entries)
 
 	panel.ui_interact(checker)

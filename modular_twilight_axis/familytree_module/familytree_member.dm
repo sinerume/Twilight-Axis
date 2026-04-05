@@ -7,6 +7,7 @@
 	var/list/former_spouses = list()
 	var/adoption_status = FALSE
 	var/generation = 0
+	var/phantom = FALSE
 	var/tmp/recalculating_generation = FALSE
 	var/mutable_appearance/cloned_look
 

@@ -38,6 +38,9 @@
 		primary_family = family_datum
 		primary_member = family_member_datum
 		secondary_member = spouse.family_member_datum
+		if(mind && spouse.mind)
+			mind.i_know_person(spouse)
+			spouse.mind.i_know_person(src)
 
 	else
 		var/new_family_name = null

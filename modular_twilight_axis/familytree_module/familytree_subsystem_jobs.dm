@@ -283,28 +283,36 @@
 	return FALSE
 
 /datum/controller/subsystem/familytree/proc/DetermineAppropriateRole(datum/heritage/house, mob/living/carbon/human/person, adopted = FALSE)
-	var/list/potential_parents = list()
+	var/list/possible_roles = list()
+
+	var/can_be_child = FALSE
 	for(var/datum/family_member/member as anything in house.members)
 		if(member.person && CanBeParentOf(member.person, person))
-			potential_parents += member
+			can_be_child = TRUE
+			break
+	if(can_be_child)
+		possible_roles += "child"
 
-	if(potential_parents.len)
-		return "child"
-
+	var/can_be_sibling = FALSE
 	for(var/datum/family_member/member as anything in house.members)
 		if(member.person && CanBeSiblings(member.person.age, person.age))
-			return "sibling"
+			can_be_sibling = TRUE
+			break
+	if(can_be_sibling)
+		possible_roles += "sibling"
 
-	var/can_parent_someone = FALSE
+	var/can_be_parent = FALSE
 	for(var/datum/family_member/member as anything in house.members)
 		if(member.person && CanBeParentOf(person, member.person))
-			can_parent_someone = TRUE
+			can_be_parent = TRUE
 			break
+	if(can_be_parent)
+		possible_roles += "parent"
 
-	if(can_parent_someone)
-		return "parent"
+	if(!possible_roles.len)
+		return "sibling"
 
-	return "sibling"
+	return pick(possible_roles)
 
 /datum/controller/subsystem/familytree/proc/ValidateAllFamilies()
 	if(ruling_family && ruling_family.members.len)
@@ -316,7 +324,8 @@
 /datum/controller/subsystem/familytree/proc/ValidateFamily(datum/heritage/family)
 	for(var/datum/family_member/member as anything in family.members)
 		if(!member.person)
-			family.members -= member
+			if(!member.phantom)
+				family.members -= member
 			continue
 
 		for(var/datum/family_member/parent as anything in member.parents)

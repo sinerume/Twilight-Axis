@@ -81,8 +81,7 @@
 		to_chat(H, span_love("Вы успешно присоединились к семье!"))
 		stop_tracking_human(H, "assigned to house")
 	else
-		to_chat(H, span_warning("Не удалось присоединиться к семье."))
-		ftlog("do_assign_house: [H.real_name] continue working. Has family = NO")
+		retry_local_assignment(H, "no suitable house found after confirm")
 
 /datum/controller/subsystem/familytree/proc/find_and_confirm_newlywed(mob/living/carbon/human/H)
 	if(!H || QDELETED(H) || H.spouse_mob)
@@ -98,11 +97,13 @@
 	if(!H || QDELETED(H) || H.spouse_mob)
 		return
 	if(!spouse || QDELETED(spouse) || spouse.spouse_mob)
+		retry_local_assignment(H, "spouse unavailable after confirm")
 		return
 	ftlog("AddLocal: [H.real_name] + [spouse.real_name] -> MarryTo (both confirmed)")
 	viable_spouses -= H
 	viable_spouses -= spouse
 	H.MarryTo(spouse)
+	introduce_pair(H, spouse)
 	stop_tracking_human(H, "newlywed flow matched spouse")
 	stop_tracking_human(spouse, "newlywed flow matched spouse")
 
@@ -129,14 +130,20 @@
 	if(!H || QDELETED(H) || H.family_datum)
 		return
 	if(!house || !partner_member?.person)
+		retry_local_assignment(H, "partner lost")
 		return
 	if(partner_member.spouses.len)
+		retry_local_assignment(H, "partner already married")
 		return
 	ftlog("AddLocal: [H.real_name] -> AssignToFamily in house=[house.housename] (both confirmed)")
 	var/datum/family_member/new_member = house.CreateFamilyMember(H)
 	if(new_member)
 		house.MarryMembers(new_member, partner_member)
-	stop_tracking_human(H, H.family_datum ? "assigned to family" : "family assignment failed")
+		introduce_pair(H, partner_member.person)
+	if(H.family_datum)
+		stop_tracking_human(H, "assigned to family")
+	else
+		retry_local_assignment(H, "family assignment failed")
 
 /datum/controller/subsystem/familytree/proc/TryAssignToFavorite(mob/living/carbon/human/H, status)
 	if(!H?.setspouse || !length(H.setspouse))
@@ -231,17 +238,21 @@
 			continue
 		if(!house.housename || house.housename == "no name")
 			continue
+		if(!house_allows_relatives(house))
+			continue
 		if(!house_race_compatible(house, our_race, we_are_isolated))
 			continue
 		if(WouldCreateAgeConflict(house, H))
 			continue
 		if(house.members.len < 1)
 			continue
+		if(!house_has_online_member(house))
+			continue
 
 		candidates += house
 
 	if(candidates.len)
-		var/datum/heritage/chosen_house = pick(candidates)
+		var/datum/heritage/chosen_house = pick_weighted_house(candidates)
 		ftlog("AssignToHouse: [H.real_name] → JOINED existing house '[chosen_house.housename || "no name"]' (members=[chosen_house.members.len])")
 		AddPersonToHouse(chosen_house, H, FALSE)
 		stop_tracking_human(H, "assigned to house")
@@ -328,6 +339,8 @@
 		var/has_single_adult = FALSE
 		for(var/datum/family_member/member as anything in house.members)
 			if(member.person && !member.spouses.len)
+				if(!member.person.client)
+					continue
 				if(!member.person.setspouse || familytree_names_match(member.person.setspouse, H.real_name))
 					if(!pronouns_compatible(H, member.person))
 						continue
@@ -357,6 +370,8 @@
 	for(var/datum/heritage/house as anything in eligible_houses)
 		for(var/datum/family_member/member as anything in house.members)
 			if(member.person && !member.spouses.len)
+				if(!member.person.client)
+					continue
 				if(!member.person.setspouse || familytree_names_match(member.person.setspouse, H.real_name))
 					if(pronouns_compatible(H, member.person) && SpeciesCompatible(H, member.person) && familytree_estates_compatible(H, member.person) && familytree_role_tiers_compatible(H, member.person))
 						var/datum/family_member/new_member = house.CreateFamilyMember(H)
@@ -437,6 +452,8 @@
 			continue
 		for(var/datum/family_member/member as anything in house.members)
 			if(member.person && !member.spouses.len)
+				if(!member.person.client)
+					continue
 				if(!member.person.setspouse || familytree_names_match(member.person.setspouse, H.real_name))
 					if(!pronouns_compatible(H, member.person))
 						continue
@@ -540,13 +557,14 @@
 		if(!house.housename || house.members.len < 2)
 			continue
 
-		var/has_children = FALSE
+		var/has_compatible_parent = FALSE
 		for(var/datum/family_member/member as anything in house.members)
-			if(member.children.len > 0)
-				has_children = TRUE
-				break
+			if(member.children.len > 0 && member.person?.client)
+				if(!GetSpeciesCompatibilityFailureReason(H, member.person))
+					has_compatible_parent = TRUE
+					break
 
-		if(has_children && !WouldCreateAgeConflict(house, H))
+		if(has_compatible_parent && !WouldCreateAgeConflict(house, H))
 			chosen_house = house
 			break
 
@@ -554,7 +572,7 @@
 		var/datum/family_member/new_member = chosen_house.CreateFamilyMember(H)
 		if(new_member)
 			for(var/datum/family_member/member as anything in chosen_house.members)
-				if(member.children.len > 0 && CanBeSiblings(H.age, member.person.age))
+				if(member.children.len > 0 && member.person && CanBeSiblings(H.age, member.person.age))
 					for(var/datum/family_member/grandparent as anything in member.parents)
 						new_member.AddParent(grandparent)
 					break
@@ -570,10 +588,18 @@
 	new_house.house_leader = new_house.founder
 	families += new_house
 
+	var/datum/family_member/phantom_parent = new /datum/family_member(null, new_house)
+	phantom_parent.generation = -1
+	phantom_parent.phantom = TRUE
+	new_house.members += phantom_parent
+	new_house.founder.AddParent(phantom_parent)
+
 	var/datum/family_member/partner_member = new_house.CreateFamilyMember(partner)
 	if(partner_member)
-		partner_member.generation = 0
+		partner_member.generation = 1
+		partner_member.AddParent(phantom_parent)
 
+	introduce_pair(initiator, partner)
 	ftlog("SIBLING HOUSE: [initiator.real_name] + [partner.real_name] formed closed house '[new_house.housename]', leader=[initiator.real_name]")
 	on_family_formed(new_house)
 
@@ -621,11 +647,13 @@
 			continue
 		if(!house.housename || house.housename == "no name")
 			continue
+		if(!house_allows_relatives(house))
+			continue
 		if(!house_race_compatible(house, our_race, we_are_isolated))
 			continue
 		if(WouldCreateAgeConflict(house, H))
 			continue
-		if(house.members.len >= 1)
+		if(house.members.len >= 1 && house_has_online_member(house))
 			return TRUE
 
 	return FALSE
@@ -653,3 +681,85 @@
 		return
 
 	ftlog("TryFormSiblingHouseFromPartial: [H.real_name] → no mutual sibling found")
+
+/datum/controller/subsystem/familytree/proc/house_has_online_member(datum/heritage/house)
+	if(!house)
+		return FALSE
+	for(var/datum/family_member/member as anything in house.members)
+		if(member.person?.client)
+			return TRUE
+	return FALSE
+
+/datum/controller/subsystem/familytree/proc/pick_weighted_house(list/candidates)
+	if(!candidates.len)
+		return null
+	if(candidates.len == 1)
+		return candidates[1]
+	var/total_weight = 0
+	var/list/weights = list()
+	for(var/datum/heritage/house as anything in candidates)
+		var/online_count = 0
+		for(var/datum/family_member/member as anything in house.members)
+			if(member.person?.client)
+				online_count++
+		var/weight = 1
+		if(online_count >= 2 && online_count < 4)
+			weight = 5
+		else if(online_count == 1)
+			weight = 2
+		weights[house] = weight
+		total_weight += weight
+	var/roll = rand(1, total_weight)
+	var/cumulative = 0
+	for(var/datum/heritage/house as anything in weights)
+		cumulative += weights[house]
+		if(roll <= cumulative)
+			return house
+	return candidates[candidates.len]
+
+/datum/controller/subsystem/familytree/proc/house_allows_relatives(datum/heritage/house)
+	if(!house)
+		return FALSE
+	if(!house.house_leader?.person)
+		return TRUE
+	var/mob/living/carbon/human/leader = house.house_leader.person
+	if(!leader.setspouse || !length(leader.setspouse))
+		return TRUE
+	return leader.allow_relatives_in_family
+
+/datum/controller/subsystem/familytree/proc/retry_local_assignment(mob/living/carbon/human/H, reason)
+	if(!H || QDELETED(H) || H.family_datum || H.familytree_opted_out)
+		return
+	ftlog("RETRY: [H.real_name] reason=[reason], scheduling re-assignment in 10s")
+	to_chat(H, span_warning("Не удалось найти подходящую семью. Система попробует снова."))
+	H.familytree_assignment_scheduled = TRUE
+	addtimer(CALLBACK(src, PROC_REF(run_local_assignment), H, H.familytree_pref), 10 SECONDS)
+
+/datum/controller/subsystem/familytree/proc/introduce_pair(mob/living/carbon/human/A, mob/living/carbon/human/B)
+	if(!A || !B)
+		return
+	if(A.mind && B.mind)
+		A.mind.i_know_person(B)
+		B.mind.i_know_person(A)
+		fix_family_fjob(A, B)
+		fix_family_fjob(B, A)
+	else
+		addtimer(CALLBACK(src, PROC_REF(delayed_introduce_pair), A, B), 3 SECONDS)
+
+/datum/controller/subsystem/familytree/proc/delayed_introduce_pair(mob/living/carbon/human/A, mob/living/carbon/human/B)
+	if(!A || QDELETED(A) || !B || QDELETED(B))
+		return
+	if(A.mind && B.mind)
+		A.mind.i_know_person(B)
+		B.mind.i_know_person(A)
+		fix_family_fjob(A, B)
+		fix_family_fjob(B, A)
+
+/datum/controller/subsystem/familytree/proc/fix_family_fjob(mob/living/carbon/human/knower, mob/living/carbon/human/known)
+	if(!knower?.mind?.known_people || !known?.mind)
+		return
+	var/list/info = knower.mind.known_people[known.real_name]
+	if(!info)
+		return
+	if(LAZYLEN(known.mind.antag_datums))
+		info["FJOB"] = "Adventurer"

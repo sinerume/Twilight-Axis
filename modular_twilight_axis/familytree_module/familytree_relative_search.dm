@@ -35,9 +35,11 @@
 			continue
 
 		for(var/datum/family_member/member as anything in house.members)
-			if(!member.person)
+			if(!member.person || !member.person.client)
 				continue
 			if(!CanBeSiblings(member.person.age, H.age))
+				continue
+			if(GetSpeciesCompatibilityFailureReason(H, member.person))
 				continue
 			if(!familytree_estates_compatible(H, member.person))
 				continue
@@ -65,11 +67,13 @@
 			continue
 
 		for(var/datum/family_member/member as anything in house.members)
-			if(!member.person)
+			if(!member.person || !member.person.client)
 				continue
 			if(!CanBeParentOf(H, member.person))
 				continue
 			if(member.parents.len >= 2)
+				continue
+			if(GetSpeciesCompatibilityFailureReason(H, member.person))
 				continue
 
 			var/datum/family_member/new_member = house.CreateFamilyMember(H)
