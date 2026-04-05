@@ -19,22 +19,26 @@
 	var/on = TRUE
 	var/amount_per_transfer = 10 
 
-
 	var/list/obj/item/alch/slots = list(null, null, null, null, null, null)
 	var/list/slot_links = list()
 	
-
 	var/list/discovered_recipes = list()
 	var/list/partial_knowledge = list()
-
 
 	var/list/obj/item/crafting_grid = list(null, null, null, null, null, null, null, null, null)
 	var/obj/item/transmute_slot = null
 
+	var/obj/item/reagent_containers/beaker_1 = null
+	var/obj/item/reagent_containers/beaker_2 = null
+	
+	var/flour_efficiency = 0
+	var/datum/reagents/pill_buffer
+
 /obj/machinery/alch_workbench/Initialize(mapload)
 	. = ..()
 	create_reagents(500, DRAINABLE | AMOUNT_VISIBLE | REFILLABLE | TRANSPARENT)
-	
+	pill_buffer = new /datum/reagents(100)
+	pill_buffer.my_atom = src
 	var/datum/component/storage/concrete/STR = AddComponent(/datum/component/storage/concrete/roguetown/bin)
 	if(STR)
 		STR.grid = TRUE
@@ -87,6 +91,8 @@
 		transmute_slot = null
 		update_needed = TRUE
 	if(update_needed) update_icon()
+	if(beaker_1 && !(beaker_1 in src.contents)) beaker_1 = null
+	if(beaker_2 && !(beaker_2 in src.contents)) beaker_2 = null
 
 /obj/machinery/alch_workbench/attackby(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/reagent_containers))
@@ -254,6 +260,29 @@
 	var/list/knowledge = list()
 	var/alch_skill = user.get_skill_level(/datum/skill/craft/alchemy)
 
+	data["beaker1"] = get_beaker_ui_data(beaker_1)
+	data["beaker2"] = get_beaker_ui_data(beaker_2)
+
+	var/list/c_reagents = list()
+	if(reagents)
+		for(var/datum/reagent/R in reagents.reagent_list)
+			c_reagents += list(list("name" = R.name, "id" = "[R.type]", "vol" = round(R.volume, 0.1)))
+	data["cauldron_reagents"] = c_reagents
+
+	var/list/p_reagents = list()
+	if(pill_buffer)
+		for(var/datum/reagent/R in pill_buffer.reagent_list)
+			p_reagents += list(list("name" = R.name, "vol" = round(R.volume, 0.1), "id" = "[R.type]"))
+		data["pill_mix"] = p_reagents
+		data["pill_mix_total"] = round(pill_buffer.total_volume, 0.1)
+	else
+		data["pill_mix_total"] = 0
+
+	var/f_count = 0
+	if(STR)
+		for(var/obj/item/reagent_containers/powder/flour/F in STR.real_location()) 
+			f_count++
+	data["flour_count"] = f_count
 
 	for(var/path in GLOB.alchemy_dynamic_manager.round_recipes)
 		var/datum/alch_cauldron_recipe/advanced/R = path
@@ -550,7 +579,122 @@
 					PS.consume_soul()
 				update_icon()
 			return TRUE
+	var/obj/item/reagent_containers/target_beaker = (params["slot"] == "1") ? beaker_1 : beaker_2
 
+	switch(action)
+		if("lab_assign_beaker")
+			var/obj/item/reagent_containers/I = locate(params["item_ref"]) in STR.real_location()
+			if(I)
+				if(params["slot"] == "1") beaker_1 = I
+				else beaker_2 = I
+			return TRUE
+
+		if("lab_eject_beaker")
+			if(params["slot"] == "1") beaker_1 = null
+			else beaker_2 = null
+			return TRUE
+
+		if("pour_to_cauldron")
+			if(!target_beaker || !params["reagent"]) return TRUE
+			var/reag_type = text2path(params["reagent"])
+			var/amount = text2num(params["amount"])
+			
+			target_beaker.reagents.trans_id_to(src, reag_type, amount)
+			update_icon()
+			return TRUE
+
+		if("fill_from_cauldron")
+			if(!target_beaker || !params["reagent"]) return TRUE
+			var/reag_type = text2path(params["reagent"])
+			var/amount = text2num(params["amount"])
+			
+			reagents.trans_id_to(target_beaker, reag_type, amount)
+			update_icon()
+			return TRUE
+
+		if("add_to_pill_mix")
+			if(!target_beaker || !params["reagent"]) return TRUE
+			var/reag_type = text2path(params["reagent"])
+			var/amount = text2num(params["amount"])
+			
+			var/datum/reagent/R = target_beaker.reagents.get_reagent(reag_type)
+			if(R)
+				var/transfer_vol = min(amount, R.volume)
+				var/can_receive = pill_buffer.maximum_volume - pill_buffer.total_volume
+				transfer_vol = min(transfer_vol, can_receive)
+				
+				if(transfer_vol > 0)
+					pill_buffer.add_reagent(reag_type, transfer_vol)
+					target_beaker.reagents.remove_reagent(reag_type, transfer_vol)
+			
+			update_icon()
+			return TRUE
+
+		if("make_pills")
+			var/obj/item/reagent_containers/powder/flour/F = locate() in STR.real_location()
+			
+			if(!F || pill_buffer.total_volume < 15)
+				to_chat(usr, span_warning("Нужна мука и 15u смеси в буфере!"))
+				return TRUE
+
+			var/obj/item/reagent_containers/powder/alchemical/P = new(get_turf(src))
+			pill_buffer.trans_to(P, 15)
+
+			if(P.reagents.reagent_list.len)
+				var/datum/reagent/main = P.reagents.get_master_reagent()
+				P.name = "powdered [main.name]"
+
+			src.flour_efficiency++
+			if(src.flour_efficiency >= 3)
+				STR.remove_from_storage(F, null)
+				qdel(F)
+				src.flour_efficiency = 0
+			
+			update_icon()
+			return TRUE
+		
+		if("pill_to_cauldron")
+			var/reag_id = text2path(params["reagent"])
+			var/amount = text2num(params["amount"])
+			var/datum/reagent/R = pill_buffer.get_reagent(reag_id)
+			if(R)
+				var/transfer_vol = min(amount, R.volume)
+				reagents.add_reagent(reag_id, transfer_vol)
+				pill_buffer.remove_reagent(reag_id, transfer_vol)
+			update_icon()
+			return TRUE
+
+		if("pill_to_beaker")
+			var/obj/item/reagent_containers/B = (params["slot"] == "1") ? beaker_1 : beaker_2
+			if(!B) return TRUE
+			var/reag_id = text2path(params["reagent"])
+			var/amount = text2num(params["amount"])
+			var/datum/reagent/R = pill_buffer.get_reagent(reag_id)
+			if(R)
+				var/transfer_vol = min(amount, R.volume)
+				B.reagents.add_reagent(reag_id, transfer_vol)
+				pill_buffer.remove_reagent(reag_id, transfer_vol)
+			update_icon()
+			return TRUE
+
+/obj/machinery/alch_workbench/proc/get_beaker_ui_data(obj/item/reagent_containers/B)
+	if(!B || !B.reagents)
+		return null
+	
+	var/list/reag_list = list()
+	for(var/datum/reagent/R in B.reagents.reagent_list)
+		reag_list += list(list(
+			"name" = R.name, 
+			"id" = "[R.type]", 
+			"vol" = round(R.volume, 0.1)
+		))
+	
+	return list(
+		"name" = B.name, 
+		"cur" = round(B.reagents.total_volume, 0.1), 
+		"max" = B.reagents.maximum_volume, 
+		"contents" = reag_list
+	)
 
 /obj/machinery/alch_workbench/proc/do_mix(mob/user)
 	if(reagents.get_reagent_amount(/datum/reagent/water) < 90)

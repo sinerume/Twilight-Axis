@@ -54,6 +54,19 @@ type ReagentInfo = {
   color: string;
 };
 
+type ReagentEntry = {
+  name: string;
+  id: string;
+  vol: number;
+};
+
+type BeakerData = {
+  name: string;
+  cur: number;
+  max: number;
+  contents: ReagentEntry[];
+};
+
 type Data = {
   upgrade_lvl: number;
   next_upgrade_req: string;
@@ -70,7 +83,12 @@ type Data = {
   craft_result: { name: string, image: string } | null;
   available_ingredients: Ingredient[];
   available_all_items: Ingredient[];
-  
+  beaker1: BeakerData | null;
+  beaker2: BeakerData | null;
+  cauldron_reagents: ReagentEntry[];
+  pill_mix: { name: string; vol: number; id: string }[];
+  pill_mix_total: number;
+  flour_count: number;
   p_stone: { charges: number; max: number; owner: string } | null;
   transmute_item: { name: string; image: string } | null;
   transmute_recipes: { 
@@ -99,6 +117,9 @@ export const AlchemyWorkbench = (props) => {
               )}
               {data.upgrade_lvl >= 3 && (
                 <Tabs.Tab selected={tab === 'workstation'} onClick={() => setTab('workstation')}>Инфузия</Tabs.Tab>
+              )}
+              {data.upgrade_lvl >= 2 && (
+                <Tabs.Tab selected={tab === 'lab'} onClick={() => setTab('lab')}>Лаборатория</Tabs.Tab>
               )}
               
               
@@ -131,6 +152,7 @@ export const AlchemyWorkbench = (props) => {
             {tab === 'crafting' && <CraftingTab />}
             {tab === 'grimoire' && <GrimoireTab />}
             {tab === 'transmutation' && <TransmutationTab />}
+            {tab === 'lab' && <LaboratoryTab />}
           </Stack.Item>
         </Stack>
       </Window.Content>
@@ -614,6 +636,244 @@ const TransmutationTab = () => {
         }
       `}</style>
     </Section>
+  );
+};
+
+const LaboratoryTab = () => {
+  const { act, data } = useBackend<Data>();
+  
+
+  const [selectingBeaker, setSelectingBeaker] = useState<string | null>(null);
+  const [transferMenu, setTransferMenu] = useState<{ 
+    slot: string, 
+    mode: 'to_cauldron' | 'from_cauldron' | 'to_pills' 
+  } | null>(null);
+  const [pillDrainMenu, setPillDrainMenu] = useState(false);
+
+
+  const BeakerSlot = ({ num, beaker }: { num: string, beaker: BeakerData | null }) => (
+    <Box p={1} style={{ border: '1px solid #555', backgroundColor: 'rgba(0,0,0,0.3)', borderRadius: '4px' }}>
+      <Stack align="center">
+        <Stack.Item>
+          <Box 
+            style={{ 
+              width: '64px', height: '64px', border: '1px solid gold', 
+              textAlign: 'center', position: 'relative', backgroundColor: 'rgba(0,0,0,0.2)' 
+            }}
+          >
+            {!beaker ? (
+              <Box 
+                onClick={() => setSelectingBeaker(num)} 
+                style={{ width: '100%', height: '100%', cursor: 'pointer', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+              >
+                <Icon name="plus" size={2} color="gray" />
+                <Box fontSize="0.7em" color="gray">Вставить</Box>
+              </Box>
+            ) : (
+              <Box style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <Icon name="flask" size={2} color="blue" />
+                <Box fontSize="0.6em" bold color="white" style={{ overflow: 'hidden', whiteSpace: 'nowrap', padding: '0 2px' }}>
+                  {beaker.name}
+                </Box>
+                <Button
+                  icon="times"
+                  color="transparent"
+                  style={{ position: 'absolute', top: 0, right: 0 }}
+                  onClick={() => act('lab_eject_beaker', { slot: num })}
+                />
+              </Box>
+            )}
+          </Box>
+        </Stack.Item>
+
+        <Stack.Item grow ml={1}>
+          {beaker ? (
+            <Box>
+              <Box bold fontSize="0.9em" color="blue">{beaker.cur} / {beaker.max} u</Box>
+              <Stack mt={0.5}>
+                <Stack.Item grow>
+                  <Button fluid color="good" onClick={() => setTransferMenu({ slot: num, mode: 'to_cauldron' })}>В Котел</Button>
+                </Stack.Item>
+                <Stack.Item grow ml={0.5}>
+                  <Button fluid color="average" onClick={() => setTransferMenu({ slot: num, mode: 'from_cauldron' })}>Из Котла</Button>
+                </Stack.Item>
+              </Stack>
+              <Button fluid mt={0.5} color="warning" onClick={() => setTransferMenu({ slot: num, mode: 'to_pills' })}>В Таблетки</Button>
+            </Box>
+          ) : (
+            <Box color="gray" style={{ fontStyle: 'italic', fontSize: '0.8em' }}>Слот {num} пуст</Box>
+          )}
+        </Stack.Item>
+      </Stack>
+    </Box>
+  );
+
+  return (
+    <Stack vertical fill>
+      <Stack.Item>
+        <Section title="Манипуляция емкостями">
+          <Stack fill>
+            <Stack.Item grow><BeakerSlot num="1" beaker={data.beaker1} /></Stack.Item>
+            <Stack.Item grow ml={1}><BeakerSlot num="2" beaker={data.beaker2} /></Stack.Item>
+          </Stack>
+        </Section>
+      </Stack.Item>
+
+      <Stack.Item grow>
+        <Section title="Алхимическая пыль" fill>
+          <Stack fill align="center">
+            <Stack.Item>
+              <Box textAlign="center" p={1} style={{ border: '1px solid #444', width: '80px', backgroundColor: 'rgba(0,0,0,0.2)' }}>
+                 <Icon name="wind" size={2} color="silver" />
+                 <Box bold fontSize="0.9em">Основа</Box>
+                 <Box fontSize="1.5em" color="silver" bold>{data.flour_count}</Box>
+                 <Box fontSize="0.7em" color="gray">(на складе)</Box>
+              </Box>
+            </Stack.Item>
+            
+            <Stack.Item grow ml={2}>
+               <Stack justify="space-between" mb={0.5}>
+                 <Box bold color="teal">Буфер смеси: {data.pill_mix_total} u</Box>
+                 <Button 
+                    icon="reply-all" 
+                    color="transparent" 
+                    disabled={data.pill_mix_total <= 0}
+                    onClick={() => setPillDrainMenu(true)}
+                  >
+                    Слить смесь
+                  </Button>
+               </Stack>
+               
+               <Box height="80px" style={{ border: '1px solid #333', padding: '4px', fontSize: '0.9em', overflowY: 'auto', backgroundColor: 'rgba(0,0,0,0.4)' }}>
+                  {data.pill_mix?.map((r, i) => (
+                    <div key={i} style={{ borderBottom: '1px solid #222' }}>
+                      <span style={{ color: '#ccc' }}>• {r.name}:</span> <b style={{ color: '#00ffcc' }}>{r.vol}u</b>
+                    </div>
+                  ))}
+                  {(!data.pill_mix || data.pill_mix.length === 0) && (
+                    <Box color="gray" style={{ fontStyle: 'italic' }} textAlign="center" mt={2}>Буфер пуст</Box>
+                  )}
+               </Box>
+               
+               <Button 
+                fluid mt={1} color="silver" icon="spray-can-sparkles" bold
+                disabled={data.flour_count <= 0 || data.pill_mix_total < 15} 
+                onClick={() => act('make_pills')}
+               >
+                 ИЗГОТОВИТЬ ПЫЛЬ (15u)
+               </Button>
+               <Box fontSize="0.8em" color="gray" style={{ fontStyle: 'italic' }} mt={0.5}>
+                 Порошок скрывает реагенты при подмешивании в еду.
+               </Box>
+            </Stack.Item>
+          </Stack>
+        </Section>
+      </Stack.Item>
+
+      {pillDrainMenu && (
+        <Box style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.95)', zIndex: 120, padding: '20px' }}>
+          <Section 
+            title="Куда вернуть реагенты из буфера?" 
+            fill scrollable
+            buttons={<Button icon="times" color="transparent" onClick={() => setPillDrainMenu(false)} />}
+          >
+            {data.pill_mix?.map((r, i) => (
+              <Stack key={i} mb={1} align="center" style={{ borderBottom: '1px solid #333', paddingBottom: '4px' }}>
+                <Stack.Item grow>
+                   <Box bold fontSize="1.1em">{r.name}</Box>
+                   <Box fontSize="0.8em" color="gray">Доступно: {r.vol}u</Box>
+                </Stack.Item>
+                <Stack.Item>
+                   <Box mb={0.5} textAlign="right">
+                     <Box inline mr={1} fontSize="0.8em" color="gray">В Котел:</Box>
+                     <Button onClick={() => { act('pill_to_cauldron', { reagent: r.id, amount: 5 }); setPillDrainMenu(false); }}>5</Button>
+                     <Button ml={0.5} onClick={() => { act('pill_to_cauldron', { reagent: r.id, amount: 15 }); setPillDrainMenu(false); }}>15</Button>
+                     <Button ml={0.5} color="good" onClick={() => { act('pill_to_cauldron', { reagent: r.id, amount: r.vol }); setPillDrainMenu(false); }}>Всё</Button>
+                   </Box>
+                   <Box textAlign="right">
+                     <Box inline mr={1} fontSize="0.8em" color="gray">В Слот:</Box>
+                     <Button disabled={!data.beaker1} onClick={() => { act('pill_to_beaker', { slot: "1", reagent: r.id, amount: r.vol }); setPillDrainMenu(false); }}>S1</Button>
+                     <Button ml={0.5} disabled={!data.beaker2} onClick={() => { act('pill_to_beaker', { slot: "2", reagent: r.id, amount: r.vol }); setPillDrainMenu(false); }}>S2</Button>
+                   </Box>
+                </Stack.Item>
+              </Stack>
+            ))}
+          </Section>
+        </Box>
+      )}
+
+      {transferMenu && (
+        <Box style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.95)', zIndex: 110, padding: '20px' }}>
+          <Section 
+            title="Выберите реагент и объем переноса" 
+            fill scrollable
+            buttons={<Button icon="times" color="transparent" onClick={() => setTransferMenu(null)} />}
+          >
+            {(transferMenu.mode === 'from_cauldron' 
+              ? data.cauldron_reagents 
+              : (transferMenu.slot === "1" ? data.beaker1?.contents : data.beaker2?.contents)
+            )?.map((r, i) => (
+              <Stack key={i} mb={1} align="center" style={{ borderBottom: '1px solid #333', paddingBottom: '4px' }}>
+                <Stack.Item grow>
+                  <Box bold fontSize="1.1em">{r.name}</Box>
+                  <Box fontSize="0.8em" color="gray">Доступно: {r.vol}u</Box>
+                </Stack.Item>
+                <Stack.Item>
+                  <Button onClick={() => { 
+                    const action = transferMenu.mode === 'to_cauldron' ? 'pour_to_cauldron' : (transferMenu.mode === 'from_cauldron' ? 'fill_from_cauldron' : 'add_to_pill_mix');
+                    act(action, { slot: transferMenu.slot, reagent: r.id, amount: 5 }); 
+                    setTransferMenu(null); 
+                  }}>5</Button>
+                  <Button ml={0.5} onClick={() => { 
+                    const action = transferMenu.mode === 'to_cauldron' ? 'pour_to_cauldron' : (transferMenu.mode === 'from_cauldron' ? 'fill_from_cauldron' : 'add_to_pill_mix');
+                    act(action, { slot: transferMenu.slot, reagent: r.id, amount: 10 }); 
+                    setTransferMenu(null); 
+                  }}>10</Button>
+                  <Button ml={0.5} onClick={() => { 
+                    const action = transferMenu.mode === 'to_cauldron' ? 'pour_to_cauldron' : (transferMenu.mode === 'from_cauldron' ? 'fill_from_cauldron' : 'add_to_pill_mix');
+                    act(action, { slot: transferMenu.slot, reagent: r.id, amount: 15 }); 
+                    setTransferMenu(null); 
+                  }}>15</Button>
+                  <Button ml={0.5} color="good" onClick={() => { 
+                    const action = transferMenu.mode === 'to_cauldron' ? 'pour_to_cauldron' : (transferMenu.mode === 'from_cauldron' ? 'fill_from_cauldron' : 'add_to_pill_mix');
+                    act(action, { slot: transferMenu.slot, reagent: r.id, amount: r.vol }); 
+                    setTransferMenu(null); 
+                  }}>Всё</Button>
+                </Stack.Item>
+              </Stack>
+            ))}
+          </Section>
+        </Box>
+      )}
+
+      {selectingBeaker && (
+        <Box style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.9)', zIndex: 100, padding: '20px' }}>
+          <Section 
+            title={`Выберите емкость для слота ${selectingBeaker}`} 
+            fill scrollable 
+            buttons={<Button icon="times" color="transparent" onClick={() => setSelectingBeaker(null)} />}
+          >
+            {data.available_all_items.length > 0 ? (
+              data.available_all_items.map((item, i) => (
+                <Button 
+                  key={i} fluid mb={1} 
+                  onClick={() => { act('lab_assign_beaker', { slot: selectingBeaker, item_ref: item.ref }); setSelectingBeaker(null); }}
+                >
+                  <Stack align="center">
+                    <img src={item.image} style={{ width: '24px', height: '24px', marginRight: '8px', imageRendering: 'pixelated' }} />
+                    <Box>{item.name}</Box>
+                  </Stack>
+                </Button>
+              ))
+            ) : (
+              <Box color="gray" style={{ fontStyle: 'italic' }} textAlign="center" mt={2}>
+                В инвентаре стола нет подходящих емкостей.
+              </Box>
+            )}
+          </Section>
+        </Box>
+      )}
+    </Stack>
   );
 };
 
