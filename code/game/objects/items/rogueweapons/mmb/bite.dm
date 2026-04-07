@@ -267,6 +267,19 @@
 				WEREWOLF CHEW.
 			*/
 			if(istype(user.dna.species, /datum/species/werewolf))
+				if(HAS_TRAIT(C, TRAIT_SILVER_BLESSED))
+					to_chat(user, span_warning("BLEH! [C] tastes of SILVER! My gift cannot take hold."))
+				else
+					if(caused_wound)
+						var/infected = FALSE
+						for(var/datum/wound/W in limb_grabbed.wounds)
+							if(W.werewolf_infect_attempt())
+								infected = TRUE
+								break
+						
+						if(infected)
+							to_chat(user, span_boldnotice("I have delivered the gift to [C] while chewing on their [parse_zone(sublimb_grabbed)]!"))
+
 				if(prob(30))
 					user.werewolf_feed(C)
 
