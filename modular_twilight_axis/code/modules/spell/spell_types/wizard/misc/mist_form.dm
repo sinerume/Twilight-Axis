@@ -26,8 +26,8 @@
 //		revert_cast()
 //		return FALSE
 
-//	user.visible_message(span_warning("[user] dissolves into a ghostly mist!"), \
-						 span_notice("I shift my body into the ethereal plane."))
+//	user.visible_message(span_warning("[user] dissolves into a ghostly mist!"),
+						 //span_notice("I shift my body into the ethereal plane."))
 	
 
 //	user.apply_status_effect(/datum/status_effect/buff/mist_form, duration)
