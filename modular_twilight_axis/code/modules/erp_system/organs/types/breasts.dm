@@ -11,6 +11,7 @@
 	passive_arousal = 1.1
 	active_pain = 0.02
 	passive_pain = 0.4
+	trauma_wound_type = /datum/wound/fracture/chest
 
 /datum/erp_sex_organ/breasts/New(obj/item/organ/breasts/B)
 	. = ..(B)

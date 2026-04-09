@@ -73,6 +73,10 @@ GLOBAL_LIST_INIT(wanderer_combat_skills, list(
 #define WANDERER_BUTTON_SWITCH_STANCE    101
 #define WANDERER_BUTTON_EROTIC_EMBRACE   102
 #define WANDERER_EMBRACE_TRAIT_SOURCE    "wanderer_embrace"
+#define WANDERER_EMBRACE_PULSE_CD (1 SECONDS)
+#define WANDERER_EMBRACE_GAIN_CD  (3 SECONDS)
+#define WANDERER_EMBRACE_RANGE 2
+#define WANDERER_EMBRACE_GAIN_AROUSAL 10
 
 /proc/wanderer_get_component(mob/living/user)
 	if(!isliving(user))
@@ -198,6 +202,8 @@ GLOBAL_LIST_INIT(wanderer_combat_skills, list(
 	var/spells_granted = FALSE
 
 	var/last_balloon_at = 0
+	var/last_embrace_pulse = 0
+	var/last_embrace_gain = 0
 
 /datum/component/combo_core/wanderer/Initialize(_combo_window, _max_history)
 	. = ..(_combo_window || WANDERER_COMBO_WINDOW, _max_history || WANDERER_MAX_HISTORY)
@@ -339,13 +345,13 @@ GLOBAL_LIST_INIT(wanderer_combat_skills, list(
 	ADD_TRAIT(H, TRAIT_CIVILIZEDBARBARIAN, type)
 
 	H.change_stat(STATKEY_STR, 3)
-	H.change_stat(STATKEY_SPD, 2)
+	H.change_stat(STATKEY_SPD, 3)
 	H.change_stat(STATKEY_WIL, 4)
 	H.change_stat(STATKEY_CON, 6)
 
 	H.adjust_skillrank_up_to(/datum/skill/combat/wrestling, 2, TRUE)
 	H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, 5, TRUE)
-	H.adjust_skillrank_up_to(/datum/skill/misc/athletics, 4, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/misc/athletics, 54, TRUE)
 	H.adjust_skillrank_up_to(/datum/skill/misc/music, 5, TRUE)
 
 /datum/component/combo_core/wanderer/proc/OnDetachClearHiddenStats()
@@ -360,7 +366,7 @@ GLOBAL_LIST_INIT(wanderer_combat_skills, list(
 	REMOVE_TRAIT(H, TRAIT_CIVILIZEDBARBARIAN, type)
 
 	H.change_stat(STATKEY_STR, -3)
-	H.change_stat(STATKEY_SPD, -2)
+	H.change_stat(STATKEY_SPD, -3)
 	H.change_stat(STATKEY_WIL, -4)
 	H.change_stat(STATKEY_CON, -6)
 
@@ -384,13 +390,16 @@ GLOBAL_LIST_INIT(wanderer_combat_skills, list(
 
 	if(!erotic_embrace_enabled)
 		return 0
-	if(!isliving(user))
-		return 0
-	if(user == owner)
+	if(!isliving(user) || user == owner)
 		return 0
 
-	SEND_SIGNAL(user, COMSIG_SEX_RECEIVE_ACTION, 10, 0, TRUE, 2, 2, null)
+	if(world.time < last_embrace_gain + WANDERER_EMBRACE_GAIN_CD)
+		return 0
+
+	SEND_SIGNAL(user, COMSIG_SEX_RECEIVE_ACTION, WANDERER_EMBRACE_GAIN_AROUSAL, 0, TRUE, 2, 2, null)
 	AddArousalStack(1)
+
+	last_embrace_gain = world.time
 	return 0
 
 /datum/component/combo_core/wanderer/proc/_sig_try_consume(datum/source, atom/target_atom, zone, obj/item/W, forced_skill_id)
@@ -428,7 +437,7 @@ GLOBAL_LIST_INIT(wanderer_combat_skills, list(
 	AddComboStack()
 
 	if(erotic_embrace_enabled)
-		SEND_SIGNAL(target, COMSIG_SEX_RECEIVE_ACTION, 5, 0, TRUE, 2, 2, null)
+		SEND_SIGNAL(target, COMSIG_SEX_RECEIVE_ACTION, (WANDERER_EMBRACE_GAIN_AROUSAL / 5), 0, TRUE, 2, 2, null)
 		AddArousalStack(1)
 	else
 		if(current_stance == WANDERER_STANCE_PROC)
@@ -444,6 +453,34 @@ GLOBAL_LIST_INIT(wanderer_combat_skills, list(
 
 	if(!erotic_embrace_enabled)
 		SpendArousalStack(1)
+
+/datum/component/combo_core/wanderer/process()
+	if(!owner || !erotic_embrace_enabled)
+		return
+
+	if(world.time < last_embrace_pulse + WANDERER_EMBRACE_PULSE_CD)
+		return
+
+	last_embrace_pulse = world.time
+	var/list/targets = list()
+	for(var/mob/living/M in view(WANDERER_EMBRACE_RANGE, owner))
+		if(M == owner)
+			continue
+		if(!M.mind)
+			continue
+		targets += M
+
+	if(!length(targets))
+		return
+
+	if(world.time >= last_embrace_gain + WANDERER_EMBRACE_GAIN_CD)
+		for(var/mob/living/M in targets)
+			AddArousalStack(1)
+
+		last_embrace_gain = world.time
+
+	for(var/mob/living/M in targets)
+		SEND_SIGNAL(M, COMSIG_SEX_RECEIVE_ACTION, (WANDERER_EMBRACE_GAIN_AROUSAL / 5), 0, TRUE, 1, 1, null)
 
 /datum/component/combo_core/wanderer/proc/ToggleStance()
 	if(current_stance == WANDERER_STANCE_PROC)
@@ -908,24 +945,24 @@ GLOBAL_LIST_INIT(wanderer_combat_skills, list(
 	if(zone_precise != BODY_ZONE_PRECISE_GROIN)
 		return FALSE
 
-	var/chance = 35 + (combo_stacks * 10)
+	var/chance = combo_stacks * 10
 
 	switch(rule_id)
 		if("double_strike", "grip_break", "body_lock")
-			chance += 10
+			chance += 20
 		if("gatebreaker", "crane_fold")
-			chance += 15
-
-	if(!prob(chance))
-		return FALSE
-
-	target.emote("groin", TRUE)
-	target.Stun(20)
+			chance += 40
 
 	var/obj/item/bodypart/chest/C = target.get_bodypart(BODY_ZONE_CHEST)
 	if(C)
-		if(prob(40 + combo_stacks * 5))
+		if(prob(chance))
 			C.add_wound(/datum/wound/cbt)
+			target.emote("groin", TRUE)
+			target.Stun(20)
+		else
+			return FALSE
+	else
+		return FALSE
 
 	return TRUE
 
@@ -995,6 +1032,24 @@ GLOBAL_LIST_INIT(wanderer_combat_skills, list(
 		return
 
 	SEND_SIGNAL(user, COMSIG_COMBO_CORE_REGISTER_INPUT, WANDERER_BUTTON_EROTIC_EMBRACE, null, null)
+
+/obj/effect/proc_holder/spell/self/wanderer/awaken
+	name = "Wanderer Awakening"
+	desc = "Awaken the wandering style within yourself."
+	recharge_time = 0
+
+/obj/effect/proc_holder/spell/self/wanderer/awaken/Execute(mob/living/user, datum/component/combo_core/wanderer/C)
+	if(!user)
+		return
+
+	if(wanderer_get_component_safe(user))
+		user.balloon_alert(user, "Already awakened.")
+		return
+
+	wanderer_get_component(user)
+	user.balloon_alert(user, "You feel the wandering flow.")
+	user.mind.RemoveSpell(src)
+	qdel(src)
 
 #undef WANDERER_COMBO_WINDOW
 #undef WANDERER_MAX_HISTORY
