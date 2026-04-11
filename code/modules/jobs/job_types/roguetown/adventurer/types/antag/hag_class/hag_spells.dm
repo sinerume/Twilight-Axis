@@ -261,6 +261,7 @@
 	req_items = list()
 	alt_required_items = list()
 	miracle = FALSE
+	harms_undead = FALSE
 	devotion_cost = 0
 	overlay_icon = 'icons/mob/actions/hagspells.dmi'
 	action_icon = 'icons/mob/actions/hagspells.dmi'
