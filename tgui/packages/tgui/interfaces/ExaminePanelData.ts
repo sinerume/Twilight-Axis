@@ -1,7 +1,7 @@
 export type ExaminePanelData = {
   // Identity
   character_name: string;
-  headshot: string;
+  headshot: string | null;
   obscured: boolean;
   // Descriptions
   flavor_text: string;
@@ -11,9 +11,12 @@ export type ExaminePanelData = {
   ooc_notes_nsfw: string;
   img_gallery: string[];
   nsfw_img_gallery: string[];
+  ooc_extra_image: string;
+  nsfw_ooc_extra_image: string;
   is_playing: boolean;
   has_song: boolean;
-  is_vet: boolean;
-  is_naked: boolean;
+  is_vet: boolean | number;
+  is_naked: boolean | number;
   examine_theme: string | null;
+  nsfw_examine_always: boolean | number;
 };
