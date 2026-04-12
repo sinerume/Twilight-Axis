@@ -57,8 +57,6 @@
 		revert_cast()
 		return FALSE
 
-	user.Beam(target,icon_state="lichbeam",time=1 SECONDS)
-
 	if(user.patron?.undead_hater && (target.mob_biotypes & MOB_UNDEAD))
 		// We simply do nothing to avoid healing being used to vamp/skelly check!
 		var/message_out_undead = span_info("Healing energies envelop [target]!")
@@ -150,8 +148,6 @@
 		user.playsound_local(user, 'sound/magic/PSY.ogg', 100, FALSE, -1)
 		playsound(target, 'sound/magic/PSY.ogg', 100, FALSE, -1)
 		return FALSE
-
-	user.Beam(target,icon_state="lichbeam",time=1 SECONDS)
 
 	if(user.patron?.undead_hater && (target.mob_biotypes & MOB_UNDEAD)) //positive energy harms the undead
 		target.visible_message(span_danger("[target] is burned by holy light!"), span_userdanger("I'm burned by holy light!"))

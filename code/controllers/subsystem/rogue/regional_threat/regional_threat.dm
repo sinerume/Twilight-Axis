@@ -1,62 +1,31 @@
+GLOBAL_LIST_INIT(threat_region_templates, list(
+	//Dunworld
+	THREAT_REGION_AZURE_BASIN = /datum/threat_region/azure_basin,
+	THREAT_REGION_AZURE_GROVE = /datum/threat_region/azure_grove,
+	THREAT_REGION_TERRORBOG = /datum/threat_region/terrorbog,
+	THREAT_REGION_AZUREAN_COAST = /datum/threat_region/azure_coast,
+	THREAT_REGION_MOUNT_DECAP = /datum/threat_region/mount_decap,
+
+	// Rockhill
+	THREAT_REGION_ROCKHILL_BASIN = /datum/threat_region/rockhill_basin,
+	THREAT_REGION_ROCKHILL_BOG_NORTH = /datum/threat_region/rockhill_bog_north,
+	THREAT_REGION_ROCKHILL_BOG_WEST = /datum/threat_region/rockhill_bog_west,
+	THREAT_REGION_ROCKHILL_BOG_SOUTH = /datum/threat_region/rockhill_bog_south,
+	THREAT_REGION_ROCKHILL_BOG_SUNKMIRE = /datum/threat_region/rockhill_bog_sunkmire,
+	THREAT_REGION_ROCKHILL_WOODS_NORTH = /datum/threat_region/rockhill_woods_north,
+	THREAT_REGION_ROCKHILL_WOODS_SOUTH = /datum/threat_region/rockhill_woods_south
+))
+
+
+// Subsystem meant to handle regional threat level
+
 SUBSYSTEM_DEF(regionthreat)
 	name = "Regional Threat"
 	wait = 30 MINUTES
 	flags = SS_KEEP_TIMING | SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME
-	// SS fires every 30 minutes = 6 ticks per 3-hour round.
-	// Highpop tick = THREAT_HIGHPOP_TICK_RATE (20%) of max_ambush. Each tick is a maintenance fight's worth of threat.
-	// Lowpop tick = THREAT_LOWPOP_TICK_RATE (10%) of max_ambush.
-	// Basin & Grove & Terrorbog are fully tameable (min 0). Coast & Decap stay dangerous (min > 0).
-	// Budget = player_factor * pool * 3%. Solo combat budgets shown at max pool.
-	// Additive group drain: 5-man party drains at 3x/player_factor efficiency (0.5x per extra player).
-	var/list/threat_regions = list(
-		new /datum/threat_region(
-			_region_name = THREAT_REGION_AZURE_BASIN, // Solo: 7.5 TP → 1 wolf | 5-party: 37 TP → 3-4 wolves
-			_latent_ambush = 100,
-			_min_ambush = 0,
-			_max_ambush = 250,
-			_fixed_ambush = FALSE,
-			_lowpop_tick = 250 * THREAT_LOWPOP_TICK_RATE,
-			_highpop_tick = 250 * THREAT_HIGHPOP_TICK_RATE
-		),
-		new /datum/threat_region(
-			_region_name = THREAT_REGION_AZURE_GROVE, // Solo: 15 TP → 1-2 mixed | 5-party: 75 TP → 5-6 mixed
-			_latent_ambush = 250,
-			_min_ambush = 0,
-			_max_ambush = 500,
-			_fixed_ambush = FALSE,
-			_lowpop_tick = 500 * THREAT_LOWPOP_TICK_RATE,
-			_highpop_tick = 500 * THREAT_HIGHPOP_TICK_RATE
-		),
-		new /datum/threat_region(
-			_region_name = THREAT_REGION_TERRORBOG, // Solo: 45 TP → 2-3 bogmen | 5-party: 225 TP → 11 bogmen
-			_latent_ambush = 1500,
-			_min_ambush = 0, // Fully tameable — a warden can engage in a long war to tame the terrorbog.
-			_max_ambush = 1500,
-			_fixed_ambush = FALSE,
-			_lowpop_tick = 1500 * THREAT_LOWPOP_TICK_RATE,
-			_highpop_tick = 1500 * THREAT_HIGHPOP_TICK_RATE
-		),
-		// Coast & Decap stay somewhat dangerous no matter what
-		new /datum/threat_region(
-			_region_name = THREAT_REGION_AZUREAN_COAST, // Solo: 24 TP → 1-2 deepones | 5-party: 120 TP → 6 deepones
-			_latent_ambush = 500,
-			_min_ambush = 150,
-			_max_ambush = 800,
-			_fixed_ambush = FALSE,
-			_lowpop_tick = 800 * THREAT_LOWPOP_TICK_RATE,
-			_highpop_tick = 800 * THREAT_HIGHPOP_TICK_RATE
-		),
-		new /datum/threat_region(
-			_region_name = THREAT_REGION_MOUNT_DECAP, // Solo: 30 TP → 1 minotaur | 5-party: 150 TP → 5 minotaurs
-			_latent_ambush = 500,
-			_min_ambush = 200,
-			_max_ambush = 1000,
-			_fixed_ambush = FALSE,
-			_lowpop_tick = 1000 * THREAT_LOWPOP_TICK_RATE,
-			_highpop_tick = 1000 * THREAT_HIGHPOP_TICK_RATE
-		)
-	)
+	// The first four regions are meant to be "tameable" for towner purposes
+	var/list/threat_regions
 
 /datum/controller/subsystem/regionthreat/fire(resumed)
 	var/player_count = GLOB.player_list.len
@@ -79,6 +48,7 @@ SUBSYSTEM_DEF(regionthreat)
 	var/region_name
 	var/danger_level
 	var/danger_color
+	var/can_be_cleared = FALSE //TA EDIT
 
 /datum/controller/subsystem/regionthreat/proc/get_threat_regions_for_display()
 	var/list/threat_region_displays = list()
@@ -88,5 +58,27 @@ SUBSYSTEM_DEF(regionthreat)
 		TRS.region_name = TR.region_name
 		TRS.danger_level = TR.get_danger_level()
 		TRS.danger_color = TR.get_danger_color()
+		if(TR.min_ambush == 0) //TA EDIT
+			TRS.can_be_cleared = TRUE //TA EDIT
 		threat_region_displays += TRS
 	return threat_region_displays
+
+/datum/controller/subsystem/regionthreat/proc/on_map_ready()
+	threat_regions = list()
+	var/datum/map_adjustment/template/map = SSmapping.map_adjustment
+	if(!map)
+		stack_trace("RegionThreat: map_adjustment missing in on_map_ready()")
+		return
+
+	if(!map.threat_regions)
+		log_world("RegionThreat: No threat regions defined for [map.map_file_name]")
+		return
+
+	for(var/region_name in map.threat_regions)
+		var/path = GLOB.threat_region_templates[region_name]
+		if(!path)
+			stack_trace("RegionThreat: Missing threat template for [region_name]")
+			continue
+		threat_regions += new path()
+
+	log_world("RegionThreat: Loaded [threat_regions.len] threat regions for [map.realm_name]")
