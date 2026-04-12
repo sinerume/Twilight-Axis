@@ -2,7 +2,6 @@
 	name = "Nightblade"
 	tutorial = "You were too weak to carry armour or heavy blade, but your devoution dragged you to serving Gods. You are knife in shadows and eternal nightblade."
 	outfit = /datum/outfit/job/roguetown/cleric/nightblade
-	subclass_languages = list(/datum/language/grenzelhoftian)
 	traits_applied = list(TRAIT_DODGEEXPERT)
 	subclass_stats = list(
 		STATKEY_SPD = 1,
@@ -196,7 +195,7 @@
 			H.change_stat(STATKEY_PER, 2)
 			H.change_stat(STATKEY_SPD, 1)
 			H.adjust_skillrank_up_to(/datum/skill/combat/bows, SKILL_LEVEL_JOURNEYMAN, TRUE)
-		if("Сrossbow + Dagger")
+		if("Crossbow + Dagger")
 			l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel
 			r_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
 			beltl = /obj/item/quiver/bolt/standard
