@@ -19,7 +19,7 @@
 	rules += new /datum/trophy_rule/aspirant_rage
 
 	RegisterSignal(owner, COMSIG_MOB_EQUIPPED_ITEM, PROC_REF(on_item_equipped))
-	RegisterSignal(owner, COMSIG_ITEM_DROPPED, PROC_REF(on_item_dropped))
+	RegisterSignal(owner, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(on_item_dropped))
 
 /datum/component/trophy_hunter/Destroy()
 	clear_active_hook()
