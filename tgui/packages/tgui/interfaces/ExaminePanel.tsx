@@ -42,7 +42,7 @@ export const ExaminePanel = (props) => {
   );
 
   const hasSfwGallery = safeSfwGallery.length > 0;
-  const hasNsfwGallery = safeNfwGallery.length > 0;
+  const hasNsfwGallery = safeNsfwGallery.length > 0;
   const hasAnyGallery = Boolean(hasSfwGallery || hasNsfwGallery);
   const shouldShowTabs = Boolean(hasAnyGallery);
 

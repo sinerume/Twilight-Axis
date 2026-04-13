@@ -3262,7 +3262,6 @@
 #include "modular\Neu_Food\code\recipes\cooking_recipes_base.dm"
 #include "modular\Neu_Food\code\recipes\drying_recipes.dm"
 #include "modular\Neu_Food\code\recipes\stew_recipes.dm"
-#include "code\game\objects\items\spell_implements\_spell_implement.dm"
 #include "modular\piercing\carbon_defines.dm"
 #include "modular\piercing\features.dm"
 #include "modular\piercing\misc.dm"
