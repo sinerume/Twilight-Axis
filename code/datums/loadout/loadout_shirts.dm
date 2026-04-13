@@ -1,4 +1,4 @@
-//SHIRTS
+/*//SHIRTS
 /datum/loadout_item/longcoat
 	name = "Longcoat"
 	path = /obj/item/clothing/suit/roguetown/armor/longcoat
@@ -171,3 +171,4 @@
 	sort_category = "Shirts"
 
 
+*/
