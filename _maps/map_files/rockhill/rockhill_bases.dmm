@@ -5470,10 +5470,6 @@
 /obj/effect/landmark/start/wretchlate,
 /turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/wretchcamp)
-"Dd" = (
-/turf/closed/mineral/rogue/bedrock,
-/turf/closed/mineral/rogue/bedrock,
-/area/rogue/outdoors/bograt/above)
 "Df" = (
 /obj/structure/fluff/wallclock{
 	pixel_x = -32;
@@ -62063,7 +62059,7 @@ Zm
 Zm
 Zm
 Zm
-Dd
+Zm
 iy
 iy
 iy
@@ -62215,7 +62211,7 @@ QU
 QU
 QU
 QU
-Dd
+Zm
 iy
 iy
 iy
@@ -62367,7 +62363,7 @@ QU
 QU
 QU
 QU
-Dd
+Zm
 iy
 iy
 iy
