@@ -17,7 +17,7 @@
 	description = "A thick, muddy-brown liquid that feels unnaturally heavy. The bottle seems to pull down on your hand with significant weight."
 	color = "#5a3a22"
 	taste_description = "earth and raw iron"
-	metabolization_rate = REAGENTS_METABOLISM * 0.2
+	metabolization_rate = REAGENTS_METABOLISM * 0.1
 
 /datum/reagent/advanced/growth/on_mob_add(mob/living/carbon/human/M)
 	if(istype(M))
@@ -35,7 +35,7 @@
 	description = "A liquid that isn't just black—it actively devours the light around it. The container appears as a literal hole in space."
 	color = "#29293f"
 	taste_description = "the absolute void"
-	metabolization_rate = REAGENTS_METABOLISM * 0.2
+	metabolization_rate = REAGENTS_METABOLISM * 0.3
 
 /datum/reagent/advanced/invisible/on_mob_life(mob/living/M)
 	M.alpha = 0
@@ -74,7 +74,7 @@
 	description = "A shimmering golden oil that feels impossibly slippery. The container feels like it could slide from your hand at any moment."
 	color = "#ffd700"
 	taste_description = "creamy butter"
-	metabolization_rate = REAGENTS_METABOLISM * 0.1
+	metabolization_rate = REAGENTS_METABOLISM * 0.01
 
 /datum/reagent/advanced/grace/on_mob_life(mob/living/M)
 	ADD_TRAIT(M, TRAIT_NOFALLDAMAGE2, src)
@@ -88,7 +88,7 @@
 	description = "A crackling yellow liquid resembling captured lightning. It vibrates with intense, suppressed energy."
 	color = "#ffff00"
 	taste_description = "citric acid"
-	metabolization_rate = REAGENTS_METABOLISM * 0.3
+	metabolization_rate = REAGENTS_METABOLISM * 0.2
 
 /datum/reagent/advanced/speed/on_mob_add(mob/living/M)
 	M.add_movespeed_modifier("swift_feet", multiplicative_slowdown = -1.5)
@@ -105,7 +105,7 @@
 	color = "#ffd788" 
 	taste_description = "eternal youth and fresh honey"
 	scent_description = "morning dew"
-	metabolization_rate = REAGENTS_METABOLISM
+	metabolization_rate = REAGENTS_METABOLISM * 0.7
 
 /datum/reagent/advanced/elixir_of_life/on_mob_life(mob/living/carbon/M)
 	if(!istype(M)) return ..()
@@ -165,7 +165,7 @@
 	reagent_state = LIQUID
 	color = "#00ff44"
 	taste_description = "burning mint"
-	metabolization_rate = REAGENTS_METABOLISM * 0.2
+	metabolization_rate = REAGENTS_METABOLISM * 0.01
 
 /datum/reagent/advanced/night_vision/on_mob_life(mob/living/carbon/human/M)
 	if(!istype(M)) return ..()
@@ -358,7 +358,7 @@
 	reagent_state = LIQUID
 	color = "#dcdcdc"
 	alpha = 150
-	metabolization_rate = REAGENTS_METABOLISM
+	metabolization_rate = REAGENTS_METABOLISM * 0.8
 	taste_description = "butter"
 
 /datum/reagent/advanced/mist_form/on_mob_add(mob/living/carbon/human/M)
@@ -444,7 +444,7 @@
 	description = "A shimmering, silver liquid that perfectly reflects everything around it."
 	reagent_state = LIQUID
 	color = "#E5E4E2"
-	metabolization_rate = REAGENTS_METABOLISM * 1
+	metabolization_rate = REAGENTS_METABOLISM * 0.8
 	taste_description = "cream"
 
 /datum/reagent/advanced/mirror_potion/on_mob_add(mob/living/carbon/human/M)
@@ -634,7 +634,7 @@
 	description = "A heavy, grey suspension that looks like liquid concrete."
 	reagent_state = LIQUID
 	color = "#808080"
-	metabolization_rate = REAGENTS_METABOLISM * 0.3
+	metabolization_rate = REAGENTS_METABOLISM * 0.1
 	taste_description = "dirt"
 
 /datum/reagent/advanced/stoneskin/on_mob_add(mob/living/carbon/human/M)
@@ -644,3 +644,131 @@
 /datum/reagent/advanced/stoneskin/on_mob_delete(mob/living/carbon/human/M)
 	if(!istype(M)) return
 	M.remove_status_effect(/datum/status_effect/stoneskin_potion)
+
+/datum/reagent/advanced/bloodhound
+	name = "Bloodhound's Brew"
+	description = "A murky, brownish liquid that smells overpowering. Just a whiff of it clears your sinuses completely."
+	reagent_state = LIQUID
+	color = "#8B4513"
+	metabolization_rate = REAGENTS_METABOLISM * 0.1
+	taste_description = "iron"
+
+/datum/reagent/advanced/bloodhound/on_mob_add(mob/living/carbon/human/M)
+	if(!istype(M)) return
+	M.apply_status_effect(/datum/status_effect/bloodhound_scent)
+
+/datum/reagent/advanced/bloodhound/on_mob_delete(mob/living/carbon/human/M)
+	if(!istype(M)) return
+	M.remove_status_effect(/datum/status_effect/bloodhound_scent)
+
+/datum/action/bloodhound_scent
+	name = "Взять след"
+	desc = "Позволяет вам почувствовать запах знакомого человека и определить его местоположение."
+	button_icon_state = "wolf_head"
+	var/mob/living/carbon/human/tracked_target = null
+	var/cooldown_time = 0
+
+/datum/action/bloodhound_scent/Trigger(trigger_flags)
+	if(!isliving(owner)) return
+	var/mob/living/carbon/human/user = owner
+
+	if(user.stat != CONSCIOUS) return
+	if(world.time < cooldown_time)
+		to_chat(user, span_warning("Вы слишком часто принюхиваетесь. Дайте носу отдохнуть."))
+		return
+
+	if(!user.mind || !length(user.mind.known_people))
+		to_chat(user, span_warning("Вы не знаете ничьих запахов, чтобы взять след."))
+		return
+
+
+	var/list/people_names = list()
+	for(var/person_name in user.mind.known_people)
+		people_names += person_name
+
+
+	var/input = tgui_input_list(user, "Чей запах вы ищете?", "Идеальный Нюх", people_names)
+	if(!input) return
+
+
+	var/mob/living/carbon/human/target = null
+	for(var/mob/living/carbon/human/HL in GLOB.human_list)
+		if(HL.real_name == input)
+			target = HL
+			break
+
+	if(!target)
+		to_chat(user, span_warning("Этот запах давно развеялся. Вы не чувствуете его в этом мире."))
+		return
+
+	if(HAS_TRAIT(target, TRAIT_ANTISCRYING))
+		to_chat(user, span_warning("Запах [input] скрыт какой-то магией."))
+		return
+
+	user.visible_message(span_notice("[user] глубоко втягивает носом воздух..."), \
+						span_notice("Вы закрываете глаза и концентрируетесь на запахе [input]..."))
+	
+	cooldown_time = world.time + 100
+
+	if(!do_after(user, 30, target = user))
+		to_chat(user, span_warning("Вы сбились со следа!"))
+		return
+
+	var/turf/user_turf = get_turf(user)
+	var/turf/target_turf = get_turf(target)
+	
+	if(!target_turf || !user_turf) return
+
+	var/z_hint = ""
+	if(target_turf.z != user_turf.z)
+		var/z_diff = abs(target_turf.z - user_turf.z)
+		z_hint = (target_turf.z > user_turf.z) ? " [z_diff] уровней выше." : " [z_diff] уровней ниже."
+	else
+		z_hint = " на вашем уровне."
+
+	var/dx = target_turf.x - user_turf.x
+	var/dy = target_turf.y - user_turf.y
+	var/distance = sqrt(dx*dx + dy*dy)
+
+	if(distance <= 7 && target_turf.z == user_turf.z)
+		to_chat(user, span_boldnotice("Запах очень сильный! [target.real_name] находится прямо здесь, рядом с вами!"))
+		return
+
+	var/dir_text = get_precise_direction_between(user_turf, target_turf)
+	if(!dir_text) dir_text = "в неизвестном направлении"
+
+	var/dist_text = ""
+	switch(distance)
+		if(0 to 14) dist_text = "Совсем близко"
+		if(15 to 40) dist_text = "Недалеко"
+		if(41 to 100) dist_text = "Довольно далеко"
+		if(101 to INFINITY) dist_text = "Очень далеко"
+
+	to_chat(user, span_boldnotice("Ваш нос ловит знакомый след... [target.real_name] находится [dir_text]. Это [dist_text], [z_hint]"))
+
+/datum/status_effect/bloodhound_scent
+	id = "bloodhound_scent"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/bloodhound
+	var/datum/action/bloodhound_scent/scent_action
+
+/datum/status_effect/bloodhound_scent/on_apply()
+	if(!isliving(owner)) return FALSE
+
+	scent_action = new()
+	scent_action.Grant(owner)
+	
+	to_chat(owner, span_purple("Ваши чувства обостряются. Вы чувствуете запахи каждого существа вокруг..."))
+	return ..()
+
+/datum/status_effect/bloodhound_scent/on_remove()
+	if(scent_action)
+		scent_action.Remove(owner)
+		qdel(scent_action)
+	
+	to_chat(owner, span_notice("Ваш нюх возвращается в норму. Мир больше не пахнет так резко."))
+	return ..()
+
+/atom/movable/screen/alert/status_effect/buff/alch/bloodhound
+	name = "Идеальный Нюх"
+	desc = "Вы можете выслеживать знакомых людей по их запаху."
+	icon_state = "coke"

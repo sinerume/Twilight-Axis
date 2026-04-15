@@ -81,4 +81,9 @@
 	skill_required = SKILL_LEVEL_JOURNEYMAN
 	output_reagents = list(/datum/reagent/advanced/stoneskin = ADVANCED_POTION_VOLUME_STANDARD)
 
+/datum/alch_cauldron_recipe/advanced/bloodhound
+	name = "Elixir of the Predator"
+	skill_required = SKILL_LEVEL_JOURNEYMAN
+	output_reagents = list(/datum/reagent/advanced/bloodhound = ADVANCED_POTION_VOLUME_STANDARD)
+
 #undef ADVANCED_POTION_VOLUME_STANDARD
