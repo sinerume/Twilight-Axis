@@ -101,6 +101,21 @@
 	domain = "Луна, знания, сумерки, аркана, контроль, сны."
 	desc = "Богиня знаний, ночи, Луны, и тайн. Первая владыка Арканы. Нок сестра-близнец перворожденной Астраты. Увидав впервые Луну, она нарекла её своим владением, и каждый раз возносит ее в небеса над Гриморией, чтобы осветить темную ночь для тех кто следует ей."
 	worshippers = "Жрецы Патриархата Двергейла, маги, ученые, писцы, амбициозные личности, исследователи."
+	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison			= CLERIC_ORI,
+					/obj/effect/proc_holder/spell/invoked/noc_sight				= CLERIC_T0,
+					/datum/action/cooldown/spell/darkvision/miracle				= CLERIC_T0,
+					/obj/effect/proc_holder/spell/invoked/moondream             = CLERIC_T0,
+					/obj/effect/proc_holder/spell/self/wise_moon                = CLERIC_T1,
+					/obj/effect/proc_holder/spell/self/moon_light     			= CLERIC_T1,
+					/obj/effect/proc_holder/spell/invoked/lesser_heal 			= CLERIC_T1,
+					/obj/effect/proc_holder/spell/invoked/blood_heal			= CLERIC_T1,
+					/obj/effect/proc_holder/spell/invoked/invisibility/miracle	= CLERIC_T1,
+					/obj/effect/proc_holder/spell/invoked/silence/miracle	    = CLERIC_T1,
+					/obj/effect/proc_holder/spell/invoked/blindness         	= CLERIC_T1,
+					/obj/effect/proc_holder/spell/invoked/old_blindness		    = CLERIC_T3,
+					/obj/effect/proc_holder/spell/self/noc_spell_bundle			= CLERIC_T3,
+					/obj/effect/proc_holder/spell/invoked/resurrect/noc			= CLERIC_T4,
+	)
 	confess_lines = list(
 		"НОК - ЭТО НОЧЬ!",
 		"НОК ВСЕ ВИДИТ!",
