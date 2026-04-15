@@ -40,7 +40,6 @@
 	nodamage = FALSE
 	speed = 0.3
 	flag = "fire"
-	flag = "fire"
 	light_color = "#a98107"
 	light_outer_range = 7
 	var/fuck_that_guy_multiplier = 3
@@ -144,7 +143,7 @@
 		return
 	. = ..()
 
-/obj/effect/proc_holder/spell/invoked/ignition/after_cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/invoked/TAignition/after_cast(list/targets, mob/user = usr)
 	. = ..()
 	rechargefast = FALSE
 

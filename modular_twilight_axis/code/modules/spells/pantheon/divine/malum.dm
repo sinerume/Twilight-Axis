@@ -633,27 +633,6 @@ var/global/list/anvil_recipe_prices_TA[][]
 	miracle = TRUE
 	devotion_cost = 50
 
-/obj/effect/proc_holder/spell/invoked/TArestoration
-	name = "Order: Restoration"
-	desc = "Restor health any structure"
-	action_icon = 'icons/mob/actions/malummiracles.dmi'
-	overlay_icon = 'icons/mob/actions/malummiracles.dmi'
-	overlay_state = "restoration"
-	releasedrain = 30
-	chargedrain = 0
-	chargetime = 0
-	range = 7
-	warnie = "sydwarning"
-	req_items = list(/obj/item/clothing/neck/roguetown/psicross)
-	sound = 'sound/magic/timestop.ogg'
-	invocations = list("Repair!")
-	invocation_type = "shout"
-	associated_skill = /datum/skill/magic/holy
-	antimagic_allowed = TRUE
-	recharge_time = 20 SECONDS
-	miracle = TRUE
-	devotion_cost = 50
-
 /obj/effect/proc_holder/spell/invoked/TArestoration/cast(list/targets, mob/living/user)
 	var/skill = user.get_skill_level(/datum/skill/magic/holy)
 	var/repair_points = 50 * skill
