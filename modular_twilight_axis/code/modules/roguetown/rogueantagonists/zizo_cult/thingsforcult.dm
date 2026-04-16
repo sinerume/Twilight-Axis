@@ -109,7 +109,7 @@ GLOBAL_DATUM_INIT(html_tags, /regex, regex(@"<.*?>", "g"))
 	max_blade_int = 200
 	max_integrity = 500
 	possible_item_intents = list(/datum/intent/spear/cut/bardiche)
-	gripped_intents = list(/datum/intent/axe/chop/scythe, /datum/intent/whip, /datum/intent/shoot/neant)
+	gripped_intents = list(/datum/intent/spear/cut/bardiche, /datum/intent/whip, /datum/intent/shoot/neant)
 	thrown_bclass = BCLASS_CUT
 	blade_dulling = DULLING_BASHCHOP
 	wdefense = 9
@@ -248,8 +248,17 @@ GLOBAL_DATUM_INIT(html_tags, /regex, regex(@"<.*?>", "g"))
 		mastermob.visible_message(span_warning("[mastermob] draws [masteritem]!"))
 
 /obj/item/rogueweapon/sword/zizo
+	name = "cursed sword"
+	desc = "An cursed sword, which can steal life power"
 	icon = 'modular_twilight_axis/code/modules/roguetown/rogueantagonists/zizo_cult/sprites/zizo_weapone.dmi'
 	icon_state = "Zsword"
+	smeltresult = /obj/item/ingot/steel/zizo
+
+/obj/item/rogueweapon/sword/zizo/Initialize(mapload, ...)
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "SWORD")
+	AddElement(/datum/element/tipped_item)
+	AddComponent(/datum/component/lifesteal)
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/zizo
 	name = "cursed dagger"
@@ -270,26 +279,82 @@ GLOBAL_DATUM_INIT(html_tags, /regex, regex(@"<.*?>", "g"))
 /obj/item/rogueweapon/stoneaxe/battle/zizo
 	icon = 'modular_twilight_axis/code/modules/roguetown/rogueantagonists/zizo_cult/sprites/zizo_weapone.dmi'
 	icon_state = "Zaxe"
+	name = "cursed battle axe"
+	desc = "An axe for battles, which was maden by cursed steel."
+	wdefense = 5
+	max_blade_int = 350
+	max_integrity = 300
+	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop)
+	gripped_intents = list(/datum/intent/axe/cut/cult, /datum/intent/axe/chop/cult)
+	smeltresult = /obj/item/ingot/steel/zizo
+
+/datum/intent/axe/chop/cult
+	intent_intdamage_factor = 1.2
+	demolition_mod = 6
+	swingdelay = 9
+	damfactor = 1.6
+
+/datum/intent/axe/cut/cult
+	demolition_mod = 3
+	damfactor = 1.4
+
+/obj/item/rogueweapon/stoneaxe/battle/zizo/Initialize(mapload, ...)
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "AXE")
+	AddElement(/datum/element/tipped_item)
 
 /obj/item/rogueweapon/mace/steel/zizo
 	icon = 'modular_twilight_axis/code/modules/roguetown/rogueantagonists/zizo_cult/sprites/zizo_weapone.dmi'
 	icon_state = "Zmaul"
 
+/obj/item/rogueweapon/mace/steel/zizo/Initialize(mapload, ...)
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "MACE")
+	AddElement(/datum/element/tipped_item)
+
 /obj/item/rogueweapon/shield/tower/zizo
 	icon = 'modular_twilight_axis/code/modules/roguetown/rogueantagonists/zizo_cult/sprites/zizo_weapone.dmi'
 	icon_state = "Zshield"
+	name = "cursed shield"
+	desc = "A gigantic cursed tower shield, which was maden by cursed steel."
+	force = 10
+	throwforce = 10
+	wdefense = 12
+	coverage = 85
+	max_integrity = 350
+	smeltresult = /obj/item/ingot/steel/zizo
+
+/obj/item/rogueweapon/shield/tower/zizo/Initialize(mapload, ...)
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "SHIELD")
+	AddElement(/datum/element/tipped_item)
 
 /obj/item/rogueweapon/spear/zizo
 	icon = 'modular_twilight_axis/code/modules/roguetown/rogueantagonists/zizo_cult/sprites/zizo_weapone_twoh.dmi'
 	icon_state = "Zspear"
 
+/obj/item/rogueweapon/spear/zizo/Initialize(mapload, ...)
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "SPEAR")
+	AddElement(/datum/element/tipped_item)
+
 /obj/item/rogueweapon/greataxe/steel/doublehead/zizo
 	icon = 'modular_twilight_axis/code/modules/roguetown/rogueantagonists/zizo_cult/sprites/zizo_weapone_twoh.dmi'
 	icon_state = "Ztaxe"
 
+/obj/item/rogueweapon/greataxe/steel/doublehead/zizo/Initialize(mapload, ...)
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "AXE")
+	AddElement(/datum/element/tipped_item)
+
 /obj/item/rogueweapon/halberd/glaive/zizo
 	icon = 'modular_twilight_axis/code/modules/roguetown/rogueantagonists/zizo_cult/sprites/zizo_weapone_twoh.dmi'
 	icon_state = "Zglaive"
+
+/obj/item/rogueweapon/halberd/glaive/zizo/Initialize(mapload, ...)
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "GLAIVE")
+	AddElement(/datum/element/tipped_item)
 
 /obj/item/ingot/steel/zizo
 	name = "cursed ancient ingot"
@@ -439,6 +504,7 @@ GLOBAL_DATUM_INIT(html_tags, /regex, regex(@"<.*?>", "g"))
 	desc = "Ваше тело было исцелено магией Зизо, но цена была высока. Сила, выносливость и скорость снижены."
 	icon_state = "debuff"
 
+
 /obj/item/clothing/neck/roguetown/psicross/inhumen/aalloy/cult
 	name = "Reverted psycross of ascension's"
 	desc = "This cursed zcross will give something good por followers of Zizo.."
@@ -447,9 +513,9 @@ GLOBAL_DATUM_INIT(html_tags, /regex, regex(@"<.*?>", "g"))
 	icon_state = "zcross"
 	slot_flags = ITEM_SLOT_NECK
 	sellprice = 0
-	max_integrity = 150
+	max_integrity = 160
 	body_parts_covered = COVERAGE_FULL | COVERAGE_HEAD_NOSE | NECK | HANDS | FEET 
-	armor = ARMOR_DRAGONSKIN 
+	armor = ARMOR_CULTNECK 
 	blade_dulling = DULLING_BASHCHOP
 	blocksound = PLATEHIT
 	break_sound = 'sound/foley/breaksound.ogg'

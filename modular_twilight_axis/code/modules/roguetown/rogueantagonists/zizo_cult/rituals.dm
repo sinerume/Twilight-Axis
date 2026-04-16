@@ -307,6 +307,10 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 
 	if(!target)
 		return
+
+	if(target.stat == DEAD)
+		to_chat(user, span_danger("Он должен быть живым..."))
+		return
 	
 	var/list/options = list(
 		"Yield",
@@ -623,6 +627,17 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 	qdel(D)
 	target.playsound_local(target, 'sound/magic/marked.ogg', 100) */
 
+/datum/ritual/servantry/devotionretrv
+	name = "Восполнение просветления"
+	desk = "Восполняет святую энергию Зизо у клириков."
+	center_book = "Клирик"
+	center_requirement = /mob/living/carbon/human
+	n_req = /obj/item/natural/bone
+	s_req = /obj/item/natural/bone
+
+/datum/ritual/servantry/devotionretrv/invoke(mob/living/user, turf/center)
+	var/mob/living/carbon/human/target = locate() in center.contents
+	target.devotion?.update_devotion(250)
 // TRANSMUTATION
 /datum/ritual/transmutation
 	abstract_type = /datum/ritual/transmutation
@@ -855,24 +870,33 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 
 /datum/ritual/fleshcrafting/nopain
 	name = "Безболезненный бой"
-	desk = "Вы перестанете чувствовать боль... Но какой ценой?"
+	desk = "Вы перестанете чувствовать боль за счет сильной веры своей жертвы в Псайдона"
 	center_requirement = /mob/living/carbon/human
 	center_book = "Культист"
+	north_book = "Верующий-клирик в Псайдона"
+	center_requirement = /mob/living/carbon/human
 
-	w_req = /obj/item/organ/heart
-	e_req = /obj/item/organ/brain
-	n_req = /obj/item/reagent_containers/food/snacks/rogue/meat/steak
-	s_req = /obj/item/alch/horn
+	n_req = /mob/living/carbon/human
 
 /datum/ritual/fleshcrafting/nopain/invoke(mob/living/user, turf/center)
 	var/mob/living/carbon/human/target = locate() in center.contents
-	if(!target)
+	var/mob/living/carbon/human/victim = locate() in get_step(center, NORTH)
+
+	if(victim.has_status_effect(/datum/status_effect/debuff/ritualdefiled/cult))
+		to_chat(target, span_danger("Его душа уже осквернена..."))
 		return
-	ADD_TRAIT(user, TRAIT_NOPAIN, TRAIT_GENERIC)
-	to_chat(target, span_notice("I no longer feel pain, but it has come at a terrible cost."))
-	target.change_stat(STATKEY_STR, -2)
-	target.change_stat(STATKEY_CON, -1)
-	target.change_stat(STATKEY_WIL, -2)
+	if(victim.patron.type != /datum/patron/old_god)
+		to_chat(target, span_danger("Нужен тот, кто верует в Псайдона..."))
+		return
+	if(victim.patron.type == /datum/patron/old_god && victim.HasSpell(/obj/effect/proc_holder/spell/targeted/touch/orison))
+		ADD_TRAIT(target, TRAIT_NOPAIN, TRAIT_GENERIC)
+		to_chat(target, span_notice("За счет его силы люкса, я теперь не чувствую боли!"))
+		to_chat(victim, span_danger("О нет.. За счет силы моей веры они стали сильнее.. Что же мне делать дальше.."))
+		target.change_stat(STATKEY_WIL, 1)
+		victim.apply_status_effect(/datum/status_effect/debuff/ritualdefiled/cult)
+		victim.Stun(30)
+		victim.Knockdown(30)
+		victim.Sleeping(60)
 
 /datum/ritual/fleshcrafting/immortality
 	name = "Несовершенное бессмертие"
@@ -924,8 +948,6 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 
 	w_req = /obj/item/organ/heart
 	e_req = /obj/item/organ/heart
-	n_req = /obj/item/reagent_containers/food/snacks/rogue/meat
-	s_req = /obj/item/reagent_containers/food/snacks/rogue/meat
 	is_cultist_ritual = TRUE
 
 /datum/ritual/fleshcrafting/fleshform/invoke(mob/living/user, turf/center)
@@ -1287,10 +1309,10 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 /datum/ritual/weaponary/zdagger
 	name = "Создание проклятого кинжала Зизо"
 	desk = "Призывает кинжал Зизо, который может содержать в себе яд."
-	center_requirement = /obj/item/ingot/steel/zizo
+	center_requirement = /obj/item/rogueweapon/huntingknife/idagger
 
-	e_req = /obj/item/natural/bone
-	w_req = /obj/item/natural/bone
+	e_req = /obj/item/ingot/steel/zizo
+	w_req = /obj/item/ingot/steel/zizo
 
 /datum/ritual/weaponary/zdagger/invoke(mob/living/user, turf/center)
 	var/datum/effect_system/spark_spread/S = new(center)
@@ -1304,11 +1326,10 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 /datum/ritual/weaponary/summonweapon
 	name = "Создание длинного меча"
 	desk = "Призывает длинный меч Зизо."
-	center_requirement = /obj/item/ingot/steel/zizo
+	center_requirement = /obj/item/rogueweapon/sword/long
 	
-	n_req = /obj/item/ingot/steel/zizo
-	e_req = /obj/item/natural/bone
-	w_req = /obj/item/natural/bone
+	e_req = /obj/item/ingot/steel/zizo
+	w_req = /obj/item/ingot/steel/zizo
 
 /datum/ritual/weaponary/summonweapon/invoke(mob/living/user, turf/center)
 	var/datum/effect_system/spark_spread/S = new(center)
@@ -1316,6 +1337,54 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 	S.start()
 
 	new /obj/item/rogueweapon/sword/long/zizo(center)
+	playsound(get_turf(center), pick('sound/items/bsmith1.ogg','sound/items/bsmith2.ogg','sound/items/bsmith3.ogg','sound/items/bsmith4.ogg'), 100, FALSE)
+
+/datum/ritual/weaponary/summonaxe
+	name = "Создание боевого топора"
+	desk = "Призывает особо-острый боевой топор."
+	center_requirement = /obj/item/rogueweapon/stoneaxe/handaxe
+	
+	e_req = /obj/item/ingot/steel/zizo
+	w_req = /obj/item/ingot/steel/zizo
+
+/datum/ritual/weaponary/summonaxe/invoke(mob/living/user, turf/center)
+	var/datum/effect_system/spark_spread/S = new(center)
+	S.set_up(1, 1, center)
+	S.start()
+
+	new /obj/item/rogueweapon/stoneaxe/battle/zizo(center)
+	playsound(get_turf(center), pick('sound/items/bsmith1.ogg','sound/items/bsmith2.ogg','sound/items/bsmith3.ogg','sound/items/bsmith4.ogg'), 100, FALSE)
+
+/datum/ritual/weaponary/summonasword
+	name = "Создание поглощающего меча"
+	desk = "Призывает меч, который ворует жизненную энергию."
+	center_requirement = /obj/item/rogueweapon/sword
+	
+	e_req = /obj/item/ingot/steel/zizo
+	w_req = /obj/item/ingot/steel/zizo
+
+/datum/ritual/weaponary/summonaswordn/invoke(mob/living/user, turf/center)
+	var/datum/effect_system/spark_spread/S = new(center)
+	S.set_up(1, 1, center)
+	S.start()
+
+	new /obj/item/rogueweapon/sword/zizo(center)
+	playsound(get_turf(center), pick('sound/items/bsmith1.ogg','sound/items/bsmith2.ogg','sound/items/bsmith3.ogg','sound/items/bsmith4.ogg'), 100, FALSE)
+
+/datum/ritual/weaponary/summonshield
+	name = "Создание щита"
+	desk = "Призывает длинный меч Зизо."
+	center_requirement = /obj/item/rogueweapon/shield/tower
+	
+	e_req = /obj/item/ingot/steel/zizo
+	w_req = /obj/item/ingot/steel/zizo
+
+/datum/ritual/weaponary/summonshield/invoke(mob/living/user, turf/center)
+	var/datum/effect_system/spark_spread/S = new(center)
+	S.set_up(1, 1, center)
+	S.start()
+
+	new /obj/item/rogueweapon/shield/tower/zizo(center)
 	playsound(get_turf(center), pick('sound/items/bsmith1.ogg','sound/items/bsmith2.ogg','sound/items/bsmith3.ogg','sound/items/bsmith4.ogg'), 100, FALSE)
 
 /datum/ritual/weaponary/summonneant
