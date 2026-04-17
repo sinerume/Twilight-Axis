@@ -42,6 +42,24 @@
 			
 		return
 
+/obj/item/reagent_containers/powder/alchemical/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
+	var/mob/living/thrower = thrownthing?.thrower
+	if(isliving(hit_atom))
+		var/mob/living/C = hit_atom
+		if(thrower)
+			thrower.visible_message(span_warning("[thrower] швыряет [src.name] в [C]! Пыль безвредно осыпается на землю."), \
+									span_notice("Я бросаю [src.name] в [C]. Пыль просто осыпается."))
+		else
+			C.visible_message(span_warning("[src.name] ударяется об [C] и рассыпается в прах."))
+
+		if(prob(30))
+			C.emote("cough")
+
+	else
+		if(thrower)
+			thrower.visible_message(span_warning("[src.name] ударяется об [hit_atom] и рассеивается в воздухе."))
+	qdel(src)
+
 /datum/reagent/advanced/hidden_dust
 	name = "осадок"
 	color = "#FFFFFF"

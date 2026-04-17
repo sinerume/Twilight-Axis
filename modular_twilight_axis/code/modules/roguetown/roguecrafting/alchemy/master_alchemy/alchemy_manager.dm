@@ -173,5 +173,7 @@ GLOBAL_LIST_INIT(alchemy_transmute_blacklist, list(
 	/obj/item/rogueweapon/sword/long/exe/berserk/dragonslayer,
 	/obj/item/clothing/ring/dragon_ring,
 	/obj/item/clothing/ring/statdorpel,
-	/obj/item/rogueweapon/sword/long/exe/berserk/gnoll
+	/obj/item/rogueweapon/sword/long/exe/berserk/gnoll,
+	/obj/item/rogueweapon/mace/mushroom,
+	/obj/item/mortar_barrel_assembly
 ))

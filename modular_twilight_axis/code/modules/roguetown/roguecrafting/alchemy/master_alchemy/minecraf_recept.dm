@@ -68,3 +68,13 @@
 		null, /obj/item/alch/rosa, null,
 		null, /obj/item/alch/firedust, null
 	)
+/datum/alch_grid_recipe/homunculus_clay
+	name = "Mirror Clay"
+	result_type = /obj/item/alch/mirror_clay
+	result_icon = 'icons/roguetown/items/natural.dmi'
+	result_icon_state = "clay"
+	grid = list(
+		/obj/item/natural/clay, /obj/item/natural/clay, /obj/item/natural/clay,
+		/obj/item/natural/clay, /obj/item/reagent_containers/lux, /obj/item/natural/clay,
+		/obj/item/natural/clay, /obj/item/natural/clay, /obj/item/natural/clay
+	)

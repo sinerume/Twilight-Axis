@@ -61,20 +61,20 @@
 //	skill_required = SKILL_LEVEL_EXPERT
 //	output_reagents = list(/datum/reagent/advanced/titan_strength = ADVANCED_POTION_VOLUME_STANDARD)
 
-/datum/alch_cauldron_recipe/advanced/mist_form
-	name = "Mist Form"
-	skill_required = SKILL_LEVEL_JOURNEYMAN
-	output_reagents = list(/datum/reagent/advanced/mist_form = ADVANCED_POTION_VOLUME_STANDARD)
+///datum/alch_cauldron_recipe/advanced/mist_form
+//	name = "Mist Form"
+//	skill_required = SKILL_LEVEL_JOURNEYMAN
+//	output_reagents = list(/datum/reagent/advanced/mist_form = ADVANCED_POTION_VOLUME_STANDARD)
 
 ///datum/alch_cauldron_recipe/advanced/mirror_potion
 //	name = "Mirror-Glass Draught"
 //	skill_required = SKILL_LEVEL_MASTER
 //	output_reagents = list(/datum/reagent/advanced/mirror_potion = ADVANCED_POTION_VOLUME_STANDARD)
 
-/datum/alch_cauldron_recipe/advanced/levitation
-	name = "Alchemical Flight: Levitation"
-	skill_required = SKILL_LEVEL_JOURNEYMAN
-	output_reagents = list(/datum/reagent/advanced/levitation = ADVANCED_POTION_VOLUME_STANDARD)
+///datum/alch_cauldron_recipe/advanced/levitation
+//	name = "Alchemical Flight: Levitation"
+//	skill_required = SKILL_LEVEL_JOURNEYMAN
+//	output_reagents = list(/datum/reagent/advanced/levitation = ADVANCED_POTION_VOLUME_STANDARD)
 
 /datum/alch_cauldron_recipe/advanced/stoneskin
 	name = "Draught of the Gargoyle"
