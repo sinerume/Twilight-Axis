@@ -621,7 +621,6 @@
 #else
 #define AI_WORLD_THINK(pawn, message)
 #endif
-=======
 GLOBAL_LIST_INIT(roman_cache, list(
 	"0","I","II","III","IV","V","VI","VII","VIII","IX","X",
 	"XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX",

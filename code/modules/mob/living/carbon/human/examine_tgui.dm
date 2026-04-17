@@ -64,7 +64,7 @@
 	headshot = fam_pref.familiar_headshot_link[fam.planar_origin]
 	char_name = fam_pref.familiar_names[fam.planar_origin]
 	song_url = fam_pref.familiar_ooc_extra[fam.planar_origin]
-	is_vet = viewing.check_agevet()
+//	is_vet = viewing.check_agevet()
 
 	if(!headshot)
 		headshot = "headshot_red.png"
@@ -135,7 +135,7 @@
 		ooc_notes_nsfw += holder_human.erpprefs_cached
 		char_name = holder_human.name
 		song_url = holder_human.ooc_extra
-		is_vet = holder_human.check_agevet()
+//		is_vet = holder_human.check_agevet()
 		if(!obscured)
 			if(vampireplayer && (!SEND_SIGNAL(holder_human, COMSIG_DISGUISE_STATUS))&& !isnull(holder_human.vampire_headshot_link)) //vampire with their disguise down and a valid headshot
 				headshot = holder_human.vampire_headshot_link
