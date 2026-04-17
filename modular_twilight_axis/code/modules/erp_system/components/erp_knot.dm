@@ -140,6 +140,21 @@
 
 	var/max_units = max(1, penis_org.count_to_action)
 
+	// Если уже есть активный кнот на этой же паре — просто обновляем активность.
+	if(active_links && active_links.len)
+		for(var/datum/erp_knot_link/KL as anything in active_links)
+			if(!istype(KL) || !KL.is_valid())
+				continue
+			if(KL.penis_org != penis_org)
+				continue
+			if(KL.receiving_org != receiving_org)
+				continue
+			if(KL.btm != target)
+				continue
+
+			KL.note_activity()
+			return TRUE
+
 	var/requested_unit = penis_unit_id
 	if(!isnum(requested_unit))
 		requested_unit = -1
