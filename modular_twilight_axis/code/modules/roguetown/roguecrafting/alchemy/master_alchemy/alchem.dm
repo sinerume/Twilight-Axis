@@ -47,6 +47,7 @@
 		STR.screen_max_rows = 5
 	update_icon()
 
+
 /obj/machinery/alch_workbench/is_refillable()
 	return TRUE
 
@@ -60,12 +61,20 @@
 		var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 		STR?.show_to(user)
 
-/obj/machinery/alch_workbench/update_icon_state()
+/obj/machinery/alch_workbench/update_icon()
+	. = ..()
+	cut_overlays()
+	
 	if(upgrade_level <= 1)
 		icon_state = "labs"
 	else
 		icon_state = "labs[upgrade_level]"
-	return ..()
+
+	if(reagents && reagents.total_volume > 0)
+		var/mutable_appearance/filling = mutable_appearance(icon, "cauldron_full")
+		filling.color = mix_color_from_reagents(reagents.reagent_list)
+		filling.alpha = mix_alpha_from_reagents(reagents.reagent_list)
+		add_overlay(filling)
 
 /obj/machinery/alch_workbench/process()
 	..()
@@ -829,3 +838,48 @@
 	slot_links = list()
 	playsound(src, 'sound/effects/hood_ignite.ogg', 80, TRUE)
 	update_icon()
+
+/obj/structure/multistage/alch_workbench_unfinished
+	name = "unfinished alchemy workbench"
+	desc = "A crude wooden frame. It needs glass vials and parchment to become a proper alchemical laboratory."
+	icon = 'modular_twilight_axis/icons/roguetown/misc/Lab.dmi'
+	icon_state = "labs_0"
+	base_desc = "An unfinished alchemy workbench."
+
+	stage_types = list(
+		/datum/crafting_stage/alch_workbench/stage_1
+	)
+	
+	final_product_type = /obj/machinery/alch_workbench
+
+/datum/crafting_stage/alch_workbench
+	var/recipe_type
+
+/datum/crafting_stage/alch_workbench/stage_1
+	icon_state = "labs_0"
+	description = "\nRequired: 2 Alchemical Vials, 1 Scroll/Parchment. (Hammer, Engineering)"
+	recipe = /datum/crafting_recipe/alch_workbench_internal/stage_1
+
+/datum/crafting_recipe/alch_workbench_internal
+	name = "" 
+	hides_from_books = TRUE
+	skillcraft = /datum/skill/craft/engineering
+	tools = list(/obj/item/rogueweapon/hammer = 1)
+
+/datum/crafting_recipe/alch_workbench_internal/stage_1
+	reqs = list(
+		/obj/item/reagent_containers/glass/bottle/alchemical = 2, 
+		/obj/item/paper/scroll = 1
+	)
+	craftdiff = 0 
+
+/datum/crafting_recipe/roguetown/engineering/alch_workbench_base
+	name = " Великий Алхимический Стол"
+	category = "Machines"
+	result = /obj/structure/multistage/alch_workbench_unfinished
+	reqs = list(/obj/item/natural/wood/plank = 2)
+	tools = list(/obj/item/rogueweapon/hammer = 1)
+	skillcraft = /datum/skill/craft/engineering
+	craftdiff = 0
+	verbage_simple = "construct"
+	verbage = "constructs"
