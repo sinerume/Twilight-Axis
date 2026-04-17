@@ -7,6 +7,8 @@
 	experimental_inhand = TRUE
 	alternate_worn_layer = NECK_LAYER
 	var/overarmor
+	equip_delay_self = 2.5 SECONDS
+	unequip_delay_self = 2.5 SECONDS
 
 /obj/item/clothing/neck/roguetown/MiddleClick(mob/user, params)
 	. = ..()
@@ -35,6 +37,8 @@
 	adjustable = CAN_CADJUST
 	toggle_icon_state = TRUE
 	sewrepair = TRUE
+	equip_delay_self = 3 SECONDS
+	unequip_delay_self = 3 SECONDS
 
 /obj/item/clothing/neck/roguetown/coif/get_mechanics_examine(mob/user)
     . = ..()
@@ -54,6 +58,8 @@
 	adjustable = CAN_CADJUST
 	toggle_icon_state = TRUE
 	sewrepair = TRUE
+	equip_delay_self = 3.5 SECONDS
+	unequip_delay_self = 3.5 SECONDS
 
 /obj/item/clothing/neck/roguetown/coif/heavypadding
 	name = "heavy padded coif"
@@ -70,6 +76,8 @@
 	adjustable = CAN_CADJUST
 	toggle_icon_state = TRUE
 	sewrepair = TRUE
+	equip_delay_self = 4 SECONDS
+	unequip_delay_self = 4 SECONDS
 
 /obj/item/clothing/neck/roguetown/coif/heavypadding/ComponentInitialize()
 	return
@@ -122,6 +130,8 @@
 	max_integrity = ARMOR_INT_SIDE_HARDLEATHER + ARMOR_INT_SIDE_COVERAGE_BONUS
 	salvage_result = /obj/item/natural/hide/cured
 	salvage_amount = 1
+	equip_delay_self = 4 SECONDS
+	unequip_delay_self = 4 SECONDS
 
 /obj/item/clothing/neck/roguetown/chaincoif
 	name = "chain coif"
@@ -142,6 +152,8 @@
 	blocksound = CHAINHIT
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/steel
+	equip_delay_self = 5 SECONDS
+	unequip_delay_self = 5 SECONDS
 
 /obj/item/clothing/neck/roguetown/chaincoif/ComponentInitialize()
 	AddComponent(/datum/component/adjustable_clothing, NECK, null, null, 'sound/foley/equip/chain_equip.ogg', null, (UPD_HEAD|UPD_MASK|UPD_NECK))	//Chain coif.
@@ -198,6 +210,8 @@
 	resistance_flags = FIRE_PROOF
 	body_parts_covered = NECK|MOUTH|NOSE|HAIR|EARS|HEAD
 	adjustable = CAN_CADJUST
+	equip_delay_self = 6 SECONDS
+	unequip_delay_self = 6 SECONDS
 
 /obj/item/clothing/neck/roguetown/chaincoif/full/ComponentInitialize()
 	AddComponent(/datum/component/armour_filtering/negative, TRAIT_FENCERDEXTERITY)
@@ -251,6 +265,8 @@
 	adjustable = CAN_CADJUST
 	toggle_icon_state = TRUE
 	blocksound = PLATEHIT
+	equip_delay_self = 6 SECONDS
+	unequip_delay_self = 6 SECONDS
 
 /obj/item/clothing/neck/roguetown/bevor/ComponentInitialize()
 	AddComponent(/datum/component/adjustable_clothing, NECK, null, null, 'sound/items/visor.ogg', null, (UPD_HEAD|UPD_MASK|UPD_NECK)) // adjustable falling buffe for the bevor
@@ -289,6 +305,8 @@
 	slot_flags = ITEM_SLOT_NECK
 	body_parts_covered = NECK
 	blocksound = PLATEHIT
+	equip_delay_self = 6 SECONDS
+	unequip_delay_self = 6 SECONDS
 
 /obj/item/clothing/neck/roguetown/gorget/ComponentInitialize()
 	AddComponent(/datum/component/armour_filtering/negative, TRAIT_FENCERDEXTERITY)
@@ -338,6 +356,8 @@
 	color = "#5058c1"
 	detail_color = "#e98738"
 	var/picked = FALSE
+	equip_delay_self = 8 SECONDS
+	unequip_delay_self = 8 SECONDS
 
 /obj/item/clothing/neck/roguetown/fencerguard/attack_right(mob/user)
 	..()
@@ -381,6 +401,8 @@
 	smeltresult = /obj/item/ingot/steel
 	max_integrity = ARMOR_INT_SIDE_STEEL + ARMOR_INT_SIDE_COVERAGE_BONUS
 	icon_state = "sgorget"
+	equip_delay_self = 8 SECONDS
+	unequip_delay_self = 8 SECONDS
 
 /obj/item/clothing/neck/roguetown/gorget/gold
 	name = "golden gorget"
@@ -924,14 +946,14 @@
 	desc = "A old reminder. A lighter version often used more as a status symbol for slaves. Then and now."
 	icon_state = "iwolfcollaralt"
 
-/obj/item/clothing/neck/roguetown/collar/bell_collar
+/* /obj/item/clothing/neck/roguetown/collar/bell_collar TA EDIT START
 	name = "bell collar"
 	desc = "A band of leather with a bell that protects the local zads from the local catfolk."
 	icon_state = "bell_collar"
 
 /obj/item/clothing/neck/roguetown/collar/bell_collar/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/item_equipped_movement_rustle, SFX_JINGLE_BELLS)
+	AddComponent(/datum/component/item_equipped_movement_rustle, SFX_JINGLE_BELLS) */ // TA EDIT END
 
 /obj/item/clothing/neck/roguetown/collar/feldcollar
 	name = "feldcollar"
