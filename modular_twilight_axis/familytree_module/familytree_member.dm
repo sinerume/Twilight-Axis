@@ -369,7 +369,9 @@
 		return other.GetSpouseTerm()
 
 	if(AreSiblings(other))
-		return other.GetSiblingTerm()
+		if(AreFullSiblings(other))
+			return other.GetSiblingTerm()
+		return GetHalfSiblingTerm(other)
 
 	var/grandparent_rel = GetGrandparentRelation(other)
 	if(grandparent_rel)
@@ -379,6 +381,14 @@
 	if(grandchild_rel)
 		return grandchild_rel
 
+	var/great_aunt_uncle_rel = GetGreatAuntUncleRelation(other)
+	if(great_aunt_uncle_rel)
+		return great_aunt_uncle_rel
+
+	var/great_niece_nephew_rel = GetGreatNieceNephewRelation(other)
+	if(great_niece_nephew_rel)
+		return great_niece_nephew_rel
+
 	var/aunt_uncle_rel = GetAuntUncleRelation(other)
 	if(aunt_uncle_rel)
 		return aunt_uncle_rel
@@ -387,9 +397,17 @@
 	if(niece_nephew_rel)
 		return niece_nephew_rel
 
+	var/cousin_once_removed_rel = GetCousinOnceRemovedRelation(other)
+	if(cousin_once_removed_rel)
+		return cousin_once_removed_rel
+
 	var/cousin_rel = GetCousinRelation(other)
 	if(cousin_rel)
 		return cousin_rel
+
+	var/second_cousin_rel = GetSecondCousinRelation(other)
+	if(second_cousin_rel)
+		return second_cousin_rel
 
 	var/great_rel = GetGreatRelation(other)
 	if(great_rel)
@@ -400,6 +418,95 @@
 		return inlaw_rel
 
 	return "distant relative"
+
+/datum/family_member/proc/AreFullSiblings(datum/family_member/other)
+	if(!other || other == src)
+		return FALSE
+	var/list/my_parents = get_parent_members()
+	var/list/other_parents = other.get_parent_members()
+	if(my_parents.len < 2 || other_parents.len < 2)
+		return FALSE
+	var/shared = 0
+	for(var/datum/family_member/p as anything in my_parents)
+		if(p in other_parents)
+			shared++
+	return shared >= 2
+
+/datum/family_member/proc/GetHalfSiblingTerm(datum/family_member/other)
+	var/shared_style = null
+	var/list/my_parents = get_parent_members()
+	var/list/other_parents = other.get_parent_members()
+	for(var/datum/family_member/p as anything in my_parents)
+		if(p in other_parents)
+			shared_style = p.GetRelationshipStyle()
+			break
+	var/base
+	switch(other.GetRelationshipStyle())
+		if("masculine")
+			base = "half-brother"
+		if("feminine")
+			base = "half-sister"
+		else
+			base = "half-sibling"
+	if(shared_style == "masculine")
+		return "paternal [base]"
+	if(shared_style == "feminine")
+		return "maternal [base]"
+	return base
+
+/datum/family_member/proc/GetGreatAuntUncleTerm()
+	switch(GetRelationshipStyle())
+		if("masculine")
+			return "great-uncle"
+		if("feminine")
+			return "great-aunt"
+	return "great-aunt/uncle"
+
+/datum/family_member/proc/GetGreatNieceNephewTerm()
+	switch(GetRelationshipStyle())
+		if("masculine")
+			return "great-nephew"
+		if("feminine")
+			return "great-niece"
+	return "great-niece/nephew"
+
+/datum/family_member/proc/GetGreatAuntUncleRelation(datum/family_member/other)
+	for(var/datum/family_member/parent as anything in get_parent_members())
+		for(var/datum/family_member/grandparent as anything in parent.get_parent_members())
+			if(other.AreSiblings(grandparent) && other != grandparent)
+				return other.GetGreatAuntUncleTerm()
+	return null
+
+/datum/family_member/proc/GetGreatNieceNephewRelation(datum/family_member/other)
+	for(var/datum/family_member/sibling as anything in family.members)
+		if(!AreSiblings(sibling) || sibling == src)
+			continue
+		for(var/datum/family_member/niblingchild as anything in sibling.get_child_members())
+			if(other in niblingchild.get_child_members())
+				return other.GetGreatNieceNephewTerm()
+	return null
+
+/datum/family_member/proc/GetCousinOnceRemovedRelation(datum/family_member/other)
+	for(var/datum/family_member/parent as anything in get_parent_members())
+		for(var/datum/family_member/their_parent as anything in other.get_parent_members())
+			for(var/datum/family_member/their_grandparent as anything in their_parent.get_parent_members())
+				if(parent.AreSiblings(their_grandparent))
+					return "first cousin once removed"
+	for(var/datum/family_member/grandparent as anything in get_parent_members())
+		for(var/datum/family_member/gp_parent as anything in grandparent.get_parent_members())
+			for(var/datum/family_member/their_parent as anything in other.get_parent_members())
+				if(gp_parent.AreSiblings(their_parent))
+					return "first cousin once removed"
+	return null
+
+/datum/family_member/proc/GetSecondCousinRelation(datum/family_member/other)
+	for(var/datum/family_member/parent as anything in get_parent_members())
+		for(var/datum/family_member/grandparent as anything in parent.get_parent_members())
+			for(var/datum/family_member/their_parent as anything in other.get_parent_members())
+				for(var/datum/family_member/their_grandparent as anything in their_parent.get_parent_members())
+					if(grandparent.AreSiblings(their_grandparent))
+						return "second cousin"
+	return null
 
 /datum/family_member/proc/GetInLawRelation(datum/family_member/other)
 	for(var/datum/family_member/spouse as anything in get_spouse_members())

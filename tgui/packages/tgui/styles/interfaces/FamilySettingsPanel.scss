@@ -152,7 +152,7 @@ $fsp-accent-primary: #3b82f6;
     background: $fsp-card;
     border: 2px solid $fsp-border-subtle;
     border-radius: 12px;
-    padding: 18px 14px 44px 14px;
+    padding: 18px 14px;
     cursor: pointer;
     transition: all 0.18s;
     display: flex;
@@ -160,7 +160,7 @@ $fsp-accent-primary: #3b82f6;
     align-items: center;
     text-align: center;
     gap: 6px;
-    min-height: 180px;
+    min-height: 160px;
 
     &:hover {
       background: $fsp-card-hover;
@@ -210,27 +210,10 @@ $fsp-accent-primary: #3b82f6;
     padding: 0 4px;
   }
 
-  &__card-badge {
-    position: absolute;
-    bottom: 14px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 3px 12px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.4px;
-    color: white;
-    background: $fsp-accent-none;
-  }
-
   // Per-type color themes
   &__card--none {
     .FamilySettingsPanel__card-icon {
       color: $fsp-accent-none;
-    }
-    .FamilySettingsPanel__card-badge {
-      background: rgba(107, 114, 128, 0.85);
     }
     &.FamilySettingsPanel__card--active {
       border-color: $fsp-accent-none;
@@ -243,9 +226,6 @@ $fsp-accent-primary: #3b82f6;
     .FamilySettingsPanel__card-icon {
       color: $fsp-accent-member;
     }
-    .FamilySettingsPanel__card-badge {
-      background: rgba(34, 197, 94, 0.85);
-    }
     &.FamilySettingsPanel__card--active {
       border-color: $fsp-accent-member;
       box-shadow: 0 0 0 1px rgba(74, 222, 128, 0.4),
@@ -257,9 +237,6 @@ $fsp-accent-primary: #3b82f6;
     .FamilySettingsPanel__card-icon {
       color: $fsp-accent-couple;
     }
-    .FamilySettingsPanel__card-badge {
-      background: rgba(236, 72, 153, 0.85);
-    }
     &.FamilySettingsPanel__card--active {
       border-color: $fsp-accent-couple;
       box-shadow: 0 0 0 1px rgba(244, 114, 182, 0.4),
@@ -270,9 +247,6 @@ $fsp-accent-primary: #3b82f6;
   &__card--parent {
     .FamilySettingsPanel__card-icon {
       color: $fsp-accent-parent;
-    }
-    .FamilySettingsPanel__card-badge {
-      background: rgba(59, 130, 246, 0.85);
     }
     &.FamilySettingsPanel__card--active {
       border-color: $fsp-accent-parent;

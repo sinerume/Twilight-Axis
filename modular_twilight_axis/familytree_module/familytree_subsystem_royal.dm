@@ -27,6 +27,9 @@
 	if(!P)
 		return "consort"
 
+	if(duke_forced_hetero_mode(P))
+		return "consort"
+
 	switch(P.family)
 		if(FAMILY_NEWLYWED, FAMILY_NONE)
 			return "consort"
@@ -34,6 +37,13 @@
 			return "suitor"
 
 	return "consort"
+
+/datum/controller/subsystem/familytree/proc/duke_forced_hetero_mode(datum/preferences/P)
+	if(!P)
+		return FALSE
+	if(P.family != FAMILY_NONE)
+		return FALSE
+	return allow_nobles_in_ruling_family
 
 /datum/controller/subsystem/familytree/proc/get_preference_species_type_list(datum/preferences/P) as /list
 	var/list/result = list()
@@ -64,6 +74,11 @@
 	if(!ispath(duke_species_type, /datum/species))
 		duke_species_type = duke?.dna?.species?.type
 
+	if(duke_forced_hetero_mode(P))
+		if(ispath(duke_species_type, /datum/species))
+			return list(duke_species_type)
+		return allowed_races
+
 	switch(P.species_preference_mode)
 		if("SAME_TYPE")
 			if(ispath(duke_species_type, /datum/species))
@@ -83,6 +98,13 @@
 	var/duke_body_type = duke?.client?.prefs?.gender
 	if(duke_body_type != MALE && duke_body_type != FEMALE)
 		duke_body_type = duke?.gender
+
+	if(duke_forced_hetero_mode(P))
+		if(duke_body_type == MALE)
+			return list(FEMALE)
+		if(duke_body_type == FEMALE)
+			return list(MALE)
+		return allowed_sexes
 
 	switch(P.gender_choice_pref)
 		if(SAME_GENDER)
@@ -179,6 +201,14 @@
 			apply_royal_partner_job_state("consort", FALSE)
 			apply_royal_partner_job_state("suitor", FALSE)
 
+	var/effective_gender_pref = P.gender_choice_pref
+	var/effective_species_mode = P.species_preference_mode
+	var/effective_anatomy = P.preferred_species_anatomy
+	if(duke_forced_hetero_mode(P))
+		effective_gender_pref = DIFFERENT_GENDER
+		effective_species_mode = "SAME_TYPE"
+		effective_anatomy = 0
+
 	current_royal_partner_owner = duke
 	current_royal_partner_mode = mode
 	current_royal_partner_snapshot = list(
@@ -186,10 +216,10 @@
 		"duke_gender" = duke.client?.prefs?.gender,
 		"duke_pronouns" = duke.client?.prefs?.pronouns,
 		"duke_species_type" = duke.client?.prefs?.pref_species?.type,
-		"gender_choice_pref" = P.gender_choice_pref,
-		"species_preference_mode" = P.species_preference_mode,
+		"gender_choice_pref" = effective_gender_pref,
+		"species_preference_mode" = effective_species_mode,
 		"preferred_species_types" = islist(P.preferred_species_types) ? P.preferred_species_types.Copy() : list(),
-		"preferred_species_anatomy" = P.preferred_species_anatomy,
+		"preferred_species_anatomy" = effective_anatomy,
 		"setspouse" = P.setspouse,
 	)
 	return TRUE
@@ -419,9 +449,14 @@
 		current_ancestor.AddParent(parent)
 		current_ancestor.AddParent(parent_spouse)
 
-		if(prob(30))
+		var/sibling_rolls = 0
+		if(prob(60))
+			sibling_rolls = 1
+		if(prob(25))
+			sibling_rolls = 2
+		for(var/s_idx = 1, s_idx <= sibling_rolls, s_idx++)
 			var/mob/living/carbon/human/dummy/sibling = new()
-			sibling.age = ancestor.age
+			sibling.age = pick(AGE_ADULT, AGE_MIDDLEAGED, AGE_OLD)
 			sibling.gender = prob(50) ? MALE : FEMALE
 			sibling.real_name = GenerateRoyalName(sibling.gender, i + 1)
 			set_species_type(sibling, ruling_family.dominant_species)
@@ -429,6 +464,30 @@
 			sibling_member.generation = i + 1
 			sibling_member.AddParent(parent)
 			sibling_member.AddParent(parent_spouse)
+
+			var/datum/family_member/sibling_spouse_member = null
+			if(prob(55))
+				var/mob/living/carbon/human/dummy/sibling_spouse = new()
+				sibling_spouse.age = sibling.age
+				sibling_spouse.gender = sibling.gender == MALE ? FEMALE : MALE
+				sibling_spouse.real_name = GenerateRoyalName(sibling_spouse.gender, i + 1)
+				set_species_type(sibling_spouse, ruling_family.dominant_species)
+				sibling_spouse_member = ruling_family.CreateFamilyMember(sibling_spouse)
+				sibling_spouse_member.generation = i + 1
+				ruling_family.MarryMembers(sibling_member, sibling_spouse_member)
+
+			if(sibling_spouse_member && prob(45))
+				var/cousin_count = prob(30) ? 2 : 1
+				for(var/c_idx = 1, c_idx <= cousin_count, c_idx++)
+					var/mob/living/carbon/human/dummy/cousin = new()
+					cousin.age = AGE_ADULT
+					cousin.gender = prob(50) ? MALE : FEMALE
+					cousin.real_name = GenerateRoyalName(cousin.gender, i + 2)
+					set_species_type(cousin, ruling_family.dominant_species)
+					var/datum/family_member/cousin_member = ruling_family.CreateFamilyMember(cousin)
+					cousin_member.generation = i + 2
+					cousin_member.AddParent(sibling_member)
+					cousin_member.AddParent(sibling_spouse_member)
 
 		current_ancestor = parent
 

@@ -47,6 +47,10 @@
 		allow_nobles_in_ruling_family = TRUE
 		ftlog("NOBLE DYNASTY: [monarch.real_name] allowed nobles in ruling family")
 		to_chat(monarch, span_notice("Дворяне с благородной кровью теперь могут стать частью вашей семьи."))
+		if(monarch?.client?.prefs)
+			current_royal_partner_owner = null
+			current_royal_partner_snapshot = list()
+			refresh_royal_partner_jobs(monarch, monarch.client.prefs)
 	else
 		ftlog("NOBLE DYNASTY: [monarch.real_name] denied nobles in ruling family")
 

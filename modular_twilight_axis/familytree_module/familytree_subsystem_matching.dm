@@ -111,6 +111,7 @@
 	if(family)
 		on_family_formed(family)
 	introduce_pair(H, spouse)
+	bestow_wedding_rings(H, spouse)
 	stop_tracking_human(H, "newlywed flow matched spouse")
 	stop_tracking_human(spouse, "newlywed flow matched spouse")
 
@@ -148,6 +149,7 @@
 		house.MarryMembers(new_member, partner_member)
 		on_family_formed(house)
 		introduce_pair(H, partner_member.person)
+		bestow_wedding_rings(H, partner_member.person)
 	if(H.family_datum)
 		stop_tracking_human(H, "assigned to family")
 	else
@@ -207,6 +209,7 @@
 					new_member.generation = favorite.family_member_datum.generation
 					house.MarryMembers(H.family_member_datum, favorite.family_member_datum)
 					on_family_formed(house)
+					bestow_wedding_rings(H, favorite)
 		else
 			house.CreateFamilyMember(H)
 		return "assigned"
@@ -217,6 +220,7 @@
 		var/datum/heritage/family = H.MarryTo(favorite)
 		if(family)
 			on_family_formed(family)
+			bestow_wedding_rings(H, favorite)
 		viable_spouses -= favorite
 		viable_spouses -= H
 		return "assigned"
@@ -796,6 +800,29 @@
 		if(roll <= cumulative)
 			return house
 	return candidates[candidates.len]
+
+/datum/controller/subsystem/familytree/proc/bestow_wedding_rings(mob/living/carbon/human/A, mob/living/carbon/human/B)
+	give_wedding_ring(A)
+	give_wedding_ring(B)
+
+/datum/controller/subsystem/familytree/proc/give_wedding_ring(mob/living/carbon/human/H)
+	if(!H || QDELETED(H) || !ishuman(H))
+		return
+	if(istype(H, /mob/living/carbon/human/dummy))
+		return
+	var/obj/item/clothing/ring/silver/ring = new(H)
+	if(H.equip_to_slot_if_possible(ring, SLOT_RING, disable_warning = TRUE))
+		to_chat(H, span_love("Серебряное кольцо скрепляет ваш союз."))
+		return
+	if(H.put_in_hands(ring))
+		to_chat(H, span_love("Вам вручили серебряное кольцо в знак союза."))
+		return
+	var/obj/item/storage/backpack = H.get_item_by_slot(SLOT_BACK)
+	if(istype(backpack) && SEND_SIGNAL(backpack, COMSIG_TRY_STORAGE_INSERT, ring, H, TRUE, TRUE))
+		to_chat(H, span_love("Серебряное кольцо убрано в ваш рюкзак в знак союза."))
+		return
+	ring.forceMove(get_turf(H))
+	to_chat(H, span_love("Серебряное кольцо упало у ваших ног в знак союза."))
 
 /datum/controller/subsystem/familytree/proc/house_allows_relatives(datum/heritage/house)
 	if(!house)

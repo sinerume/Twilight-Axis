@@ -42,7 +42,6 @@ type FamilyTypeCard = {
   value: FamilyType;
   title: string;
   desc: string;
-  badge: string;
   icon: string;
 };
 
@@ -51,28 +50,24 @@ const FAMILY_TYPE_CARDS: FamilyTypeCard[] = [
     value: 'none',
     title: 'Без семьи',
     desc: 'Одиночка',
-    badge: 'none',
     icon: 'ban',
   },
   {
     value: 'member',
     title: 'Член семьи',
     desc: 'Присоединиться к существующему дому',
-    badge: 'member',
     icon: 'user-group',
   },
   {
     value: 'couple',
     title: 'Новобрачные',
     desc: 'Поиск супруга',
-    badge: 'couple',
     icon: 'heart',
   },
   {
     value: 'parent',
     title: 'Родитель',
     desc: 'Создать/присоединиться как родитель',
-    badge: 'parent',
     icon: 'baby',
   },
 ];
@@ -247,7 +242,6 @@ const FamilyTypeCardView = memo(function FamilyTypeCardView(
       </div>
       <div className="FamilySettingsPanel__card-title">{card.title}</div>
       <div className="FamilySettingsPanel__card-desc">{card.desc}</div>
-      <div className="FamilySettingsPanel__card-badge">{card.badge}</div>
     </div>
   );
 });

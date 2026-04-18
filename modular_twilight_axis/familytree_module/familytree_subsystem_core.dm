@@ -198,16 +198,14 @@ SUBSYSTEM_DEF(familytree)
 	if(!H || QDELETED(H) || !H.ckey || !H.mind)
 		ftlog("try_grant_holy SKIP: [H?.real_name] null/qdel/nockey/nomind")
 		return FALSE
-	var/holy_level = H.get_skill_level(/datum/skill/magic/holy)
-	ftlog("try_grant_holy: [H.real_name] ([H.ckey]) holy=[holy_level] job=[H.mind?.assigned_role || H.job]")
-	if(holy_level < SKILL_LEVEL_JOURNEYMAN)
-		ftlog("try_grant_holy: [H.real_name] holy [holy_level] < 3, no spells")
+	if(!H.devotion)
+		ftlog("try_grant_holy SKIP: [H.real_name] no devotion (not a cleric)")
 		return FALSE
-	ftlog("try_grant_holy: [H.real_name] GRANTING establish_bond (holy=[holy_level])")
-	H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/establish_bond)
-	if(holy_level >= SKILL_LEVEL_MASTER)
-		ftlog("try_grant_holy: [H.real_name] GRANTING dissolve_marriage (holy=[holy_level])")
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/dissolve_marriage)
+	ftlog("try_grant_holy: [H.real_name] GRANTING familytree_establish_bond + familytree_dissolve_marriage (devotion present)")
+	H.verbs |= list(
+		/mob/living/carbon/human/proc/familytree_establish_bond,
+		/mob/living/carbon/human/proc/familytree_dissolve_marriage,
+	)
 	return TRUE
 
 /datum/controller/subsystem/familytree/proc/register_human(mob/living/carbon/human/H)
@@ -272,6 +270,7 @@ SUBSYSTEM_DEF(familytree)
 	SIGNAL_HANDLER
 	ftlog("on_human_job_received: [H?.real_name] ([H?.ckey]) rank=[rank]")
 	try_queue_assignment(H)
+	addtimer(CALLBACK(src, PROC_REF(try_grant_holy_spells), H), 2 SECONDS)
 
 /datum/controller/subsystem/familytree/proc/on_human_climax(mob/living/carbon/human/H)
 	SIGNAL_HANDLER

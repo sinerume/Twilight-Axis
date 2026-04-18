@@ -52,6 +52,8 @@
 		primary_family = new /datum/heritage(src, new_family_name)
 		primary_member = primary_family.founder
 		secondary_member = primary_family.CreateFamilyMember(spouse)
+		if(primary_family.founder && !primary_family.house_leader)
+			primary_family.house_leader = primary_family.founder
 
 	if(primary_member && secondary_member && primary_family)
 		primary_family.MarryMembers(primary_member, secondary_member)

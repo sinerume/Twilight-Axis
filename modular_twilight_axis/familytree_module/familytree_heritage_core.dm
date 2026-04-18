@@ -440,6 +440,63 @@
 
 	return node
 
+/datum/heritage/proc/SortFamilyTreeRoots(list/candidates)
+	if(!length(candidates))
+		return list()
+
+	var/list/with_desc_depth = list()
+	for(var/datum/family_member/member as anything in candidates)
+		if(!member)
+			continue
+		with_desc_depth[member] = CountDescendantDepth(member)
+
+	var/list/sorted = candidates.Copy()
+	var/n = length(sorted)
+	for(var/i = 1, i <= n - 1, i++)
+		for(var/j = 1, j <= n - i, j++)
+			var/datum/family_member/a = sorted[j]
+			var/datum/family_member/b = sorted[j + 1]
+			if(FamilyRootSortLess(b, a, with_desc_depth))
+				sorted[j] = b
+				sorted[j + 1] = a
+	return sorted
+
+/datum/heritage/proc/FamilyRootSortLess(datum/family_member/a, datum/family_member/b, list/depth_cache)
+	var/a_gen = a?.generation
+	var/b_gen = b?.generation
+	if(isnull(a_gen))
+		a_gen = 0
+	if(isnull(b_gen))
+		b_gen = 0
+	if(a_gen != b_gen)
+		return a_gen < b_gen
+
+	var/a_depth = depth_cache?[a] || 0
+	var/b_depth = depth_cache?[b] || 0
+	if(a_depth != b_depth)
+		return a_depth > b_depth
+
+	var/a_idx = members.Find(a)
+	var/b_idx = members.Find(b)
+	return a_idx < b_idx
+
+/datum/heritage/proc/CountDescendantDepth(datum/family_member/member, list/seen = null, depth = 0)
+	if(!member || depth > 24)
+		return depth
+	if(!seen)
+		seen = list()
+	if(seen[member])
+		return depth
+	seen[member] = TRUE
+	var/max_depth = depth
+	for(var/datum/family_member/child as anything in member.get_child_members())
+		if(!child || seen[child])
+			continue
+		var/child_depth = CountDescendantDepth(child, seen, depth + 1)
+		if(child_depth > max_depth)
+			max_depth = child_depth
+	return max_depth
+
 /datum/heritage/proc/BuildFamilyTreeRoots(mob/living/carbon/human/checker)
 	var/list/tree_roots = list()
 	if(!members.len)
@@ -465,6 +522,8 @@
 			root_candidates += house_leader
 		else if(members.len)
 			root_candidates += members[1]
+
+	root_candidates = SortFamilyTreeRoots(root_candidates)
 
 	for(var/datum/family_member/root as anything in root_candidates)
 		var/list/root_node = BuildFamilyTree(root, checker_member, visited)
