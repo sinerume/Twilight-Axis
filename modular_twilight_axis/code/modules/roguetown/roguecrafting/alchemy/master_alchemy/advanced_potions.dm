@@ -9,10 +9,10 @@
 	skill_required = SKILL_LEVEL_APPRENTICE
 	output_reagents = list(/datum/reagent/advanced/speed = ADVANCED_POTION_VOLUME_STANDARD)
 
-/datum/alch_cauldron_recipe/advanced/sleep_draught
-	name = "Morpheus Draught"
-	skill_required = SKILL_LEVEL_EXPERT
-	output_reagents = list(/datum/reagent/advanced/sleep = ADVANCED_POTION_VOLUME_STANDARD)
+///datum/alch_cauldron_recipe/advanced/sleep_draught
+//	name = "Morpheus Draught"
+//	skill_required = SKILL_LEVEL_EXPERT
+//	output_reagents = list(/datum/reagent/advanced/sleep = ADVANCED_POTION_VOLUME_STANDARD)
 
 /datum/alch_cauldron_recipe/advanced/cats_grace
 	name = "Cat's Grace Draught"
@@ -31,10 +31,10 @@
 //	output_reagents = list(/datum/reagent/advanced/invisible = ADVANCED_POTION_VOLUME_STANDARD)
 
 
-/datum/alch_cauldron_recipe/advanced/paralysis
-	name = "Spider's Kiss"
-	skill_required = SKILL_LEVEL_EXPERT
-	output_reagents = list(/datum/reagent/advanced/paralysis = ADVANCED_POTION_VOLUME_STANDARD)
+///datum/alch_cauldron_recipe/advanced/paralysis
+//	name = "Spider's Kiss"
+//	skill_required = SKILL_LEVEL_EXPERT
+//	output_reagents = list(/datum/reagent/advanced/paralysis = ADVANCED_POTION_VOLUME_STANDARD)
 
 /datum/alch_cauldron_recipe/advanced/elixir_of_life
 	name = "Elixir of Life"
@@ -76,10 +76,10 @@
 //	skill_required = SKILL_LEVEL_JOURNEYMAN
 //	output_reagents = list(/datum/reagent/advanced/levitation = ADVANCED_POTION_VOLUME_STANDARD)
 
-/datum/alch_cauldron_recipe/advanced/stoneskin
-	name = "Draught of the Gargoyle"
-	skill_required = SKILL_LEVEL_JOURNEYMAN
-	output_reagents = list(/datum/reagent/advanced/stoneskin = ADVANCED_POTION_VOLUME_STANDARD)
+///datum/alch_cauldron_recipe/advanced/stoneskin
+//	name = "Draught of the Gargoyle"
+//	skill_required = SKILL_LEVEL_JOURNEYMAN
+//	output_reagents = list(/datum/reagent/advanced/stoneskin = ADVANCED_POTION_VOLUME_STANDARD)
 
 /datum/alch_cauldron_recipe/advanced/bloodhound
 	name = "Elixir of the Predator"
