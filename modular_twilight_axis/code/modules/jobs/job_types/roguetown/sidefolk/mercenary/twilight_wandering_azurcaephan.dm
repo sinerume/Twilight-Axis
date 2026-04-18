@@ -1,18 +1,19 @@
 /datum/advclass/mercenary/twilight_wandering_azurcaephan
-	name = "Wandering Azurcaephan"
-	tutorial = "Вы гордый представитель азурской школы фехтования, во время своих долгих путешествий вы отточили своё мастерство владения оружием и боевой магией, а Ваш покровитель благославил Вас своими чудесами. Используйте свои специфические навыки чтобы заработать на безбедную старость и прославить своего покровителя и школу фехтования."
+	name = "Imperial Spellblade"
+	tutorial = "Зибантийские воины клинка и арканы ещё давным давно привлекли внимание Грензельхофта и вы, подражая и пародируя их манере, отточили свои навыки владения клинком и арканой в Имперской Академии Арканы в соответствии с учениями Зибантиийских орденов Нок, после чего отправились на большак зарабатывать средства к существованию за счёт применения своих незаурядных способностей."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_ALL_KINDS
-	allowed_patrons = list(/datum/patron/inhumen/zizo, /datum/patron/divine/noc) // зизо оставлено тк слишком много наёмником ведут себя как СБухи 4.0, пускай у них будет хоть какой-то шанс наняться к антагам
+	allowed_patrons = list(/datum/patron/inhumen/zizo, /datum/patron/divine/noc)
 	outfit = /datum/outfit/job/roguetown/mercenary/twilight_wandering_azurcaephan
-	maximum_possible_slots = 1 // оставим один поскольку это нереально крутой класс у него короче магия и броня
-	class_select_category = CLASS_CAT_AZURIA
+	maximum_possible_slots = 1 
+	class_select_category = CLASS_CAT_GRENZELHOFT
+	extra_context = "Этот класс наёмника имеет выбор между двумя стилями игры: через лёгкие доспехи с Dodge Expert или через средние доспехи с Maille Training."
 	category_tags = list(CTAG_MERCENARY)
-	traits_applied = list(TRAIT_MEDIUMARMOR, TRAIT_ARCYNE)
+	traits_applied = list(TRAIT_ARCYNE)
 	subclass_stats = list(
 		STATKEY_PER = 2, 
 		STATKEY_CON = 1,
-		STATKEY_WIL = 2, // Нищая база
+		STATKEY_WIL = 2,
 	)
 	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 0, "utilities" = 6, "ward" = TRUE) // Mama Zizo said you get 2 more points on Utility!!!
 	subclass_skills = list(
@@ -107,13 +108,15 @@
 		H.mind.AddSpell(new /datum/action/cooldown/spell/mending)
 
 	// Armor choice: Discretion (light, like adventurer) vs Progress (medium armor set with helmet)
-	var/armor_style = list("Spellblade", "Medium Armor")
-	var/armor_choice = input(H, "Choose your armament philosophy.", "LIGHT SHINES THROUGH") as anything in armor_style
+	var/armor_style = list("Geschwindigkeit (Light Armor + Dodge Expert)", "Beständigkeit (Medium Armor + Maille Training)")
+	var/armor_choice = input(H, "Choose your philosophy.", "LIGHT SHINES THROUGH") as anything in armor_style
 	switch(armor_choice)
-		if("Spellblade")
+		if("Geschwindigkeit (Light Armor + Dodge Expert)")
+			ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
 			head = /obj/item/clothing/head/roguetown/roguehood
 			armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat
-		if("Medium Armor")
+		if("Beständigkeit (Medium Armor + Maille Training)")
+			ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 			shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy
 			pants = /obj/item/clothing/under/roguetown/chainlegs
@@ -150,26 +153,31 @@
 					r_hand = /obj/item/rogueweapon/sword/long/kriegmesser
 					backr = /obj/item/rogueweapon/scabbard/gwstrap
 					H.change_stat(STATKEY_STR, 2)
+					H.change_stat(STATKEY_PER, 1)
 				if("Longsword")
 					r_hand = /obj/item/rogueweapon/sword/long
 					H.change_stat(STATKEY_PER, 2)
+					H.change_stat(STATKEY_LCK, 1)
 				if("Rapier")
 					r_hand = /obj/item/rogueweapon/sword/rapier
 					H.change_stat(STATKEY_SPD, 2)
+					H.change_stat(STATKEY_PER, 1)
 				if("Sabre")
 					r_hand = /obj/item/rogueweapon/sword/sabre
 					H.change_stat(STATKEY_SPD, 2)
+					H.change_stat(STATKEY_PER, 1)
 				if("Steel Greatsword")
 					r_hand = /obj/item/rogueweapon/greatsword
 					backr = /obj/item/rogueweapon/scabbard/gwstrap
 					H.change_stat(STATKEY_STR, 2)
+					H.change_stat(STATKEY_PER, 1)
 				if("Steel Dagger")
 					beltr = /obj/item/rogueweapon/huntingknife/idagger/steel
 					H.change_stat(STATKEY_SPD, 1)
 					H.change_stat(STATKEY_PER, 2)
 				if("Stecher")
 					r_hand = /obj/item/rogueweapon/sword/long/ap
-					H.change_stat(STATKEY_LCK, 2)
+					H.change_stat(STATKEY_LCK, 1)
 					H.change_stat(STATKEY_PER, 2)
 			if(weapon_choice == "Steel Dagger")
 				H.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_EXPERT, TRUE)
@@ -183,12 +191,15 @@
 				if("Halberd")
 					r_hand = /obj/item/rogueweapon/halberd
 					H.change_stat(STATKEY_STR, 2)
+					H.change_stat(STATKEY_PER, 1)
 				if("Bardiche")
 					r_hand = /obj/item/rogueweapon/halberd/bardiche
 					H.change_stat(STATKEY_STR, 2)
+					H.change_stat(STATKEY_PER, 1)
 				if("Boar Spear")
 					r_hand = /obj/item/rogueweapon/spear/boar
 					H.change_stat(STATKEY_STR, 2)
+					H.change_stat(STATKEY_PER, 1)
 			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_EXPERT, TRUE)
 		if("macebearer")
 			var/mace_weapons = list("Steel Mace", "Steel Warhammer", "Grand Mace")
@@ -197,13 +208,16 @@
 				if("Steel Mace")
 					r_hand = /obj/item/rogueweapon/mace/steel
 					H.change_stat(STATKEY_STR, 2)
+					H.change_stat(STATKEY_PER, 1)
 				if("Steel Warhammer")
 					r_hand = /obj/item/rogueweapon/mace/warhammer/steel
 					H.change_stat(STATKEY_STR, 2)
+					H.change_stat(STATKEY_PER, 1)
 				if("Grand Mace")
 					r_hand = /obj/item/rogueweapon/mace/maul/grand
 					backr = /obj/item/rogueweapon/scabbard/gwstrap
 					H.change_stat(STATKEY_STR, 2)
+					H.change_stat(STATKEY_PER, 1)
 			H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_EXPERT, TRUE)
 
 	// Patron-specific bonuses
