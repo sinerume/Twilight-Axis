@@ -406,7 +406,7 @@ GLOBAL_LIST_INIT(familytree_title_prefixes, list(
 		var/mob/living/carbon/human/other = node.person
 		if(!other)
 			continue
-		if(!can_be_child && CanBeParentOf(other, person))
+		if(!can_be_child && CanBeParentOf(other, person) && house.SingleParentSpeciesCalculation(person, other))
 			can_be_child = TRUE
 		if(!can_be_sibling && CanBeSiblings(other.age, person.age))
 			can_be_sibling = TRUE

@@ -333,6 +333,61 @@
 
 	return TRUE
 
+/datum/controller/subsystem/familytree/proc/run_royal_hand_assignment_offer(mob/living/carbon/human/H)
+	ftlog("run_royal_hand_assignment_offer: [H?.real_name] ([H?.ckey])")
+	if(!H || QDELETED(H))
+		return
+	var/block_reason = get_familytree_runtime_block_reason(H, TRUE)
+	if(block_reason == "dead")
+		pause_familytree_human(H, "royal hand offer deferred: dead")
+		return
+	if(block_reason == "no client")
+		H.familytree_assignment_scheduled = FALSE
+		return
+	if(block_reason)
+		unsubscribe_familytree_human(H, "royal hand offer aborted: [block_reason]")
+		return
+	if(H.family_datum)
+		H.familytree_assignment_scheduled = FALSE
+		stop_tracking_human(H, "royal hand offer skipped; family already assigned")
+		return
+	H.familytree_assignment_scheduled = FALSE
+	if(!GetCurrentMonarch())
+		fallback_royal_hand_to_local(H, "no monarch for royal hand family")
+		return
+	INVOKE_ASYNC(src, PROC_REF(do_royal_hand_assignment_offer), H)
+
+/datum/controller/subsystem/familytree/proc/do_royal_hand_assignment_offer(mob/living/carbon/human/H)
+	if(!H?.client || H.family_datum)
+		return
+	var/datum/family_member/monarch = GetCurrentMonarch()
+	if(!monarch?.person)
+		fallback_royal_hand_to_local(H, "no monarch for royal hand family")
+		return
+
+	var/result = tgui_alert(H, "Герцог [monarch.person.real_name] уже в раунде. Хотите стать частью его семьи как родственник?\n\nЕсли отказаться, семейная система продолжит работать по вашим обычным настройкам.", "Герцогская семья", list("Да", "Нет"), 60 SECONDS)
+
+	if(!H || QDELETED(H) || H.family_datum)
+		return
+	if(result == "Да")
+		ftlog("ROYAL HAND OFFER: [H.real_name] accepted ruling family")
+		AddRoyal(H, FAMILY_OMMER)
+	else
+		ftlog("ROYAL HAND OFFER: [H.real_name] declined ruling family")
+		fallback_royal_hand_to_local(H, "royal hand declined ruling family")
+
+/datum/controller/subsystem/familytree/proc/fallback_royal_hand_to_local(mob/living/carbon/human/H, reason)
+	if(!H || QDELETED(H) || H.family_datum)
+		return
+	H.familytree_assignment_scheduled = FALSE
+	if(H.familytree_pref != FAMILY_NONE)
+		var/timer = rand(1, 10)
+		ftlog("ROYAL HAND FALLBACK: [H.real_name] normal pref=[H.familytree_pref] timer=[timer]s reason=[reason]")
+		H.familytree_assignment_scheduled = TRUE
+		addtimer(CALLBACK(src, PROC_REF(run_local_assignment), H, H.familytree_pref), timer SECONDS)
+		return
+	stop_tracking_human(H, reason)
+
 /datum/controller/subsystem/familytree/proc/AddRoyal(mob/living/carbon/human/H, status)
 	if(!H)
 		return
@@ -344,6 +399,9 @@
 		return
 	if(block_reason)
 		unsubscribe_familytree_human(H, "royal assignment blocked: [block_reason]")
+		return
+	if(status == FAMILY_OMMER && !GetCurrentMonarch())
+		fallback_royal_hand_to_local(H, "royal hand assignment blocked: no monarch")
 		return
 	if(!ruling_family.housename)
 		ruling_family.housename = " Royal"
@@ -402,19 +460,6 @@
 			hand_member.AddParent(monarch_parent)
 		if(monarch_parent_second)
 			hand_member.AddParent(monarch_parent_second)
-
-		var/mob/living/carbon/human/dummy/spouse = new()
-		spouse.age = hand_member.person.age
-		if(hand_member.person.titles_pref == TITLES_F)
-			spouse.gender = MALE
-		else if(hand_member.person.titles_pref == TITLES_M)
-			spouse.gender = FEMALE
-		else
-			spouse.gender = hand_member.person.pronouns == HE_HIM ? FEMALE : MALE
-		spouse.real_name = GenerateRoyalName(spouse.gender, hand_member.generation)
-		var/datum/family_member/hand_spouse = ruling_family.CreateFamilyMember(spouse)
-		hand_spouse.generation = hand_member.generation
-		ruling_family.MarryMembers(hand_member, hand_spouse)
 
 /datum/controller/subsystem/familytree/proc/GenerateRoyalLineage(datum/family_member/current_royal, status)
 	if(!current_royal?.person)

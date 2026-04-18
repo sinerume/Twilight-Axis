@@ -229,6 +229,7 @@
 			new_member.adoption_status = TRUE
 			SSfamilytree.graph_sync_adoption_status(person, TRUE)
 
+	AddFamilyIcon(person)
 	to_chat(person, span_notice("Вы были добавлены в семью [housename]."))
 	InheritCurses(new_member)
 	return new_member
@@ -716,6 +717,11 @@
 	var/image/I = new('modular_twilight_axis/familytree_module/relations.dmi', loc = famicon, icon_state = icon_state)
 
 	if(famicon in family_icons)
+		var/image/old_icon = family_icons[famicon]
+		if(old_icon)
+			for(var/datum/family_node/viewer_node as anything in member_nodes)
+				if(viewer_node.person?.client)
+					viewer_node.person.client.images.Remove(old_icon)
 		family_icons.Remove(famicon)
 	family_icons[famicon] = I
 

@@ -250,9 +250,10 @@
 		on_accept.Invoke()
 		return
 
-	to_chat(H, span_love("Система нашла для вас семью!"))
+	var/found_text = (confirm_type == "spouse") ? "Вам нашли пару!" : "Система нашла для вас семью!"
+	to_chat(H, span_love(found_text))
 
-	var/result = tgui_alert(H, "Вам нашли пару!\n\nХотите продолжить?\n\nЕсли вы не сделаете выбор — он будет засчитан как отказ.\nОтказавшись, вы потеряете возможность найти семью в этом раунде.", "Семейная система", list("Да", "Нет"), 60 SECONDS)
+	var/result = tgui_alert(H, "[found_text]\n\nХотите продолжить?\n\nЕсли вы не сделаете выбор — он будет засчитан как отказ.\nОтказавшись, вы потеряете возможность найти семью в этом раунде.", "Семейная система", list("Да", "Нет"), 60 SECONDS)
 
 	if(!H || QDELETED(H))
 		return
@@ -293,9 +294,10 @@
 	if(!person?.client || session.resolved)
 		return
 
-	to_chat(person, span_love("Система нашла для вас семью!"))
+	var/found_text = (session.confirm_type == "spouse") ? "Вам нашли пару!" : "Система нашла для вас семейную связь!"
+	to_chat(person, span_love(found_text))
 
-	var/result = tgui_alert(person, "Вам нашли пару!\n\nХотите продолжить?\n\nЕсли вы не сделаете выбор — он будет засчитан как отказ.\nОтказавшись, вы потеряете возможность найти семью в этом раунде.", "Семейная система", list("Да", "Нет"), 60 SECONDS)
+	var/result = tgui_alert(person, "[found_text]\n\nХотите продолжить?\n\nЕсли вы не сделаете выбор — он будет засчитан как отказ.\nОтказавшись, вы потеряете возможность найти семью в этом раунде.", "Семейная система", list("Да", "Нет"), 60 SECONDS)
 
 	if(session.resolved)
 		return

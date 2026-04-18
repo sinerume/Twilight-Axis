@@ -84,11 +84,11 @@
 
 	switch(desired)
 		if(RELATIVE_SIBLING)
-			AssignAsSibling(H)
+			AssignToHouse(H, "sibling")
 		if(RELATIVE_PARENT)
-			AssignAsParent(H)
+			AssignToHouse(H, "parent")
 		if(RELATIVE_CHILD)
-			AssignToHouse(H)
+			AssignToHouse(H, "child")
 		if(RELATIVE_UNCLE_AUNT)
 			AssignAuntUncle(H)
 		if(RELATIVE_SPOUSE)
@@ -160,18 +160,7 @@
 				member.AddParent(new_member)
 				return
 
-	var/datum/heritage/empty_house
-	for(var/datum/heritage/house as anything in families)
-		if(!house.housename && house_race_compatible(house, our_race, our_isolated))
-			empty_house = house
-			break
-
-	if(empty_house)
-		var/datum/family_member/new_member = empty_house.CreateFamilyMember(H)
-		if(new_member)
-			empty_house.founder = new_member
-			new_member.generation = 0
-			empty_house.housename = empty_house.SurnameFormatting(H)
+	ftlog("AssignAsParent: [H.real_name] → NO suitable child found")
 
 /datum/family_curse
 	var/name

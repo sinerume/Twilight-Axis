@@ -6,7 +6,7 @@ import { Icon } from 'tgui-core/components';
 import { backendSuspendStart, globalStore, useBackend } from '../backend';
 import { Window } from '../layouts';
 
-type FamilyType = 'none' | 'member' | 'parent' | 'couple';
+type FamilyType = 'none' | 'member' | 'couple';
 type SpeciesMode = 'ANY' | 'SAME_TYPE' | 'SPECIFIC_TYPE';
 type GenderPref = 'any' | 'same' | 'opposite';
 type AnatomyPref = 0 | 1 | 2;
@@ -54,21 +54,15 @@ const FAMILY_TYPE_CARDS: FamilyTypeCard[] = [
   },
   {
     value: 'member',
-    title: 'Член семьи',
-    desc: 'Присоединиться к существующему дому',
+    title: 'Присоединиться к семье',
+    desc: 'Выбрать роль в существующем доме',
     icon: 'user-group',
   },
   {
     value: 'couple',
-    title: 'Новобрачные',
-    desc: 'Поиск супруга',
+    title: 'Создать семью',
+    desc: 'Найти супруга для нового дома',
     icon: 'heart',
-  },
-  {
-    value: 'parent',
-    title: 'Родитель',
-    desc: 'Создать/присоединиться как родитель',
-    icon: 'baby',
   },
 ];
 
@@ -194,14 +188,18 @@ function SelectField<T extends string | number>(props: SelectFieldProps<T>) {
 type CheckboxRowProps = {
   icon: string;
   label: string;
+  tooltip?: string;
   checked: boolean;
   onToggle: () => void;
 };
 
 const CheckboxRow = memo(function CheckboxRow(props: CheckboxRowProps) {
-  const { icon, label, checked, onToggle } = props;
+  const { icon, label, tooltip, checked, onToggle } = props;
   return (
-    <div className="FamilySettingsPanel__checkbox-row" onClick={onToggle}>
+    <div
+      className="FamilySettingsPanel__checkbox-row"
+      title={tooltip}
+      onClick={onToggle}>
       <div className="FamilySettingsPanel__checkbox-icon">
         <Icon name={icon} />
       </div>
@@ -328,9 +326,8 @@ export const FamilySettingsPanel = () => {
 
   useEffect(() => {
     if (!isAdult) return;
-    if (familyType === 'parent') setFamilyType('member');
     if (desiredRelativeRole === 2) setDesiredRelativeRole(0);
-  }, [isAdult, familyType, desiredRelativeRole]);
+  }, [isAdult, desiredRelativeRole]);
 
   const toggleSpecies = (species: string) => {
     setPreferredSpeciesTypes((prev) =>
@@ -349,8 +346,9 @@ export const FamilySettingsPanel = () => {
   );
 
   const showPreferences = familyType !== 'none';
-  const isLeaderMode = familyType === 'couple' || familyType === 'parent';
+  const isLeaderMode = familyType === 'couple';
   const isMemberMode = familyType === 'member';
+  const usesRelativeRole = isLeaderMode || isMemberMode;
 
   const handleResetToDefaults = () => {
     setFamilyType('none');
@@ -392,7 +390,7 @@ export const FamilySettingsPanel = () => {
       genderPreference,
       favoriteName,
       polygamyMode,
-      desiredRelativeRole,
+      desiredRelativeRole: usesRelativeRole ? desiredRelativeRole : 0,
       allowLowStatusMarriage,
       allowRelativesInFamily,
     });
@@ -430,7 +428,7 @@ export const FamilySettingsPanel = () => {
               <h3 className="FamilySettingsPanel__pane-title">Тип семьи</h3>
               <div className="FamilySettingsPanel__type-grid">
                 {FAMILY_TYPE_CARDS.map((card) => {
-                  const disabled = card.value === 'parent' && isAdult;
+                  const disabled = false;
                   const active = card.value === familyType;
                   return (
                     <FamilyTypeCardView
@@ -615,7 +613,7 @@ export const FamilySettingsPanel = () => {
                     value={desiredRelativeRole}
                     options={relativeRoleOptions}
                     onChange={setDesiredRelativeRole}
-                    disabled={!isMemberMode}
+                    disabled={!usesRelativeRole}
                   />
 
                   <div className="FamilySettingsPanel__field">
@@ -626,6 +624,7 @@ export const FamilySettingsPanel = () => {
                       <CheckboxRow
                         icon="ring"
                         label="Разрешить браки с низким статусом"
+                        tooltip="Низкий статус: бандиты, вретчи, банщики, бродяги, убийцы, лунатики, нищие и похожие роли."
                         checked={allowLowStatusMarriage === 1}
                         onToggle={() =>
                           setAllowLowStatusMarriage(

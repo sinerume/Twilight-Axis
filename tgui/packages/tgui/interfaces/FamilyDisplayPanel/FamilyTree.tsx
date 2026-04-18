@@ -250,6 +250,20 @@ export const FamilyTree = ({ tree }: { tree: FamilyTreeNode[] }) => {
     if (!el) {
       return;
     }
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', fitToView);
+      return () => window.removeEventListener('resize', fitToView);
+    }
+    const observer = new ResizeObserver(() => fitToView());
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [fitToView]);
+
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el) {
+      return;
+    }
     const handler = (e: WheelEvent) => {
       e.preventDefault();
       const rect = el.getBoundingClientRect();
@@ -386,7 +400,8 @@ export const FamilyTree = ({ tree }: { tree: FamilyTreeNode[] }) => {
           border: '1px solid #3b3630',
           borderRadius: '4px',
           cursor: dragRef.current ? 'grabbing' : 'grab',
-          height: '560px',
+          height: 'min(460px, calc(100vh - 190px))',
+          minHeight: '320px',
           overflow: 'hidden',
           position: 'relative',
           touchAction: 'none',

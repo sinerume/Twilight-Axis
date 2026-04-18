@@ -81,9 +81,12 @@
 	polygamy_mode = initial(polygamy_mode)
 	desired_relative_role = initial(desired_relative_role)
 	allow_low_status_marriage = initial(allow_low_status_marriage)
+	allow_relatives_in_family = initial(allow_relatives_in_family)
 
 /datum/preferences/proc/familytree_module_sanitize_character()
 	family = sanitize_integer(family, FAMILY_NONE, FAMILY_NEWLYWED, FAMILY_NONE)
+	if(family == FAMILY_FULL)
+		family = FAMILY_PARTIAL
 	gender_choice_pref = sanitize_integer(gender_choice_pref, ANY_GENDER, DIFFERENT_GENDER, ANY_GENDER)
 	species_preference_mode = sanitize_text(species_preference_mode, "ANY")
 
@@ -122,6 +125,8 @@
 
 	polygamy_mode = sanitize_integer(polygamy_mode, POLYGAMY_DISABLED, POLYGAMY_ALLOW_BOTH, POLYGAMY_DISABLED)
 	desired_relative_role = sanitize_integer(desired_relative_role, RELATIVE_ANY, RELATIVE_SPOUSE, RELATIVE_ANY)
+	if(!(family in list(FAMILY_PARTIAL, FAMILY_NEWLYWED)))
+		desired_relative_role = RELATIVE_ANY
 	allow_low_status_marriage = sanitize_integer(allow_low_status_marriage, 0, 1, 0)
 	allow_relatives_in_family = sanitize_integer(allow_relatives_in_family, 0, 1, TRUE)
 
@@ -318,10 +323,6 @@
 		if("save")
 			var/new_family = _ui_to_family(params["familyType"])
 
-			if(new_family == FAMILY_FULL && P.age == AGE_ADULT)
-				to_chat(user, span_warning("Вы слишком молоды, чтобы быть родителем."))
-				return TRUE
-
 			P.family = new_family
 			P.gender_choice_pref = _ui_to_gender(params["genderPreference"])
 			P.species_preference_mode = istext(params["speciesPreferenceMode"]) ? params["speciesPreferenceMode"] : "ANY"
@@ -352,7 +353,7 @@
 	switch(val)
 		if(FAMILY_PARTIAL) return "member"
 		if(FAMILY_NEWLYWED) return "couple"
-		if(FAMILY_FULL) return "parent"
+		if(FAMILY_FULL) return "member"
 	return "none"
 
 /datum/family_options/proc/_gender_to_ui(val)
@@ -365,7 +366,7 @@
 	switch(val)
 		if("member") return FAMILY_PARTIAL
 		if("couple") return FAMILY_NEWLYWED
-		if("parent") return FAMILY_FULL
+		if("parent") return FAMILY_PARTIAL
 	return FAMILY_NONE
 
 /datum/family_options/proc/_ui_to_gender(val)

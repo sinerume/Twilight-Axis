@@ -333,7 +333,14 @@ SUBSYSTEM_DEF(familytree)
 		return
 
 	var/royal_status = get_royal_status(H)
-	if(royal_status)
+	if(royal_status == FAMILY_OMMER)
+		if(GetCurrentMonarch())
+			ftlog("try_queue ROYAL HAND OFFER: [H.real_name] delay=[get_royal_delay(H)]s")
+			H.familytree_assignment_scheduled = TRUE
+			addtimer(CALLBACK(src, PROC_REF(run_royal_hand_assignment_offer), H), get_royal_delay(H) SECONDS)
+			return
+		ftlog("try_queue ROYAL HAND: [H.real_name] no current monarch; falling back to normal prefs")
+	else if(royal_status)
 		ftlog("try_queue ROYAL: [H.real_name] status=[royal_status] delay=[get_royal_delay(H)]s")
 		H.familytree_assignment_scheduled = TRUE
 		addtimer(CALLBACK(src, PROC_REF(run_royal_assignment), H, royal_status), get_royal_delay(H) SECONDS)
