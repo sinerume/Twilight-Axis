@@ -117,3 +117,31 @@
 		added_int = 50,\
 		added_def = 2,\
 	)
+
+/obj/item/rogueweapon/huntingknife/idagger/steel/baotha
+	name = "змеиное жало"
+	desc = "Искуссно выполненный клинок, кажется предназначенный для скрытых убийств. На его лезвии заметны подтёки какой-то пузырящейся субстанции."
+	icon = 'modular_twilight/icons/roguetown/weapons/32.dmi'
+	icon_state = "baotha_knife1"
+	max_blade_int = 300
+	throwforce = 40
+	force = 25
+	wdefense = 4
+
+/obj/item/rogueweapon/huntingknife/idagger/steel/baotha/Initialize()
+	.=..()
+	icon_state = "baotha_knife1"
+	sleep(5)
+	icon_state = "baotha_knife2"
+
+/obj/item/rogueweapon/huntingknife/idagger/steel/baotha/attack_self(var/mob/living/carbon/human/user)
+	if(user.patron.type == /datum/patron/inhumen/baotha)
+		if(do_after(user, 10, target = src))
+			var/obj/item/clothing/ring/baotha/S = new/obj/item/clothing/ring/baotha(get_turf(src.loc))
+			if(user.is_holding(src))
+				user.dropItemToGround(src)
+				user.put_in_hands(S)
+			qdel(src)
+			playsound(user, pick('sound/magic/magic_nulled.ogg'), 20, TRUE)
+		else
+			to_chat(user, "<span class='notice'>Я теряю концентрацию!</span>")

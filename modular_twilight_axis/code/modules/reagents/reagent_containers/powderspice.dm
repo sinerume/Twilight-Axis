@@ -19,3 +19,210 @@
 	list_reagents = list(/datum/reagent/sleep_powder = 5)
 	grind_results = null
 	volume = 10
+
+/obj/item/reagent_containers/powder/smartium
+	name = "smartium"
+	desc = ""
+	icon = 'modular_twilight_axis/icons/roguetown/items/produce.dmi'
+	icon_state = "smartium"
+	possible_transfer_amounts = list()
+	volume = 15
+	list_reagents = list(/datum/reagent/smartium = 15)
+	grind_results = list(/datum/reagent/smartium = 15)
+	sellprice = 5
+
+/datum/reagent/smartium
+	name = "smartium"
+	description = ""
+	color = "#74f9ec"
+	overdose_threshold = 16
+	metabolization_rate = 0.2
+	taste_description = ""
+
+/datum/reagent/smartium/overdose_process(mob/living/M)
+	M.adjustToxLoss(5, 0)
+	..()
+	. = 1
+
+/datum/reagent/smartium/on_mob_metabolize(mob/living/M)
+	M.overlay_fullscreen("druqk", /atom/movable/screen/fullscreen/color_vision/blue)
+	animate(M.client, pixel_y = 1, time = 1, loop = -1, flags = ANIMATION_RELATIVE)
+	animate(pixel_y = -1, time = 1, flags = ANIMATION_RELATIVE)
+
+/datum/reagent/smartium/on_mob_end_metabolize(mob/living/M)
+	animate(M.client)
+	M.clear_fullscreen("druqk")
+
+/datum/reagent/smartium/on_mob_life(mob/living/carbon/M)
+	narcolepsy_drug_up(M)
+	M.sate_addiction(/datum/charflaw/addiction/junkie)
+	M.apply_status_effect(/datum/status_effect/buff/smartium)
+	M.handle_hallucinations_custome(/datum/hallucination/floor_shift)
+	if(prob(5))
+		M.flash_fullscreen("whiteflash")
+
+	..()
+
+/datum/reagent/smartium/overdose_start(mob/living/carbon/M)
+	M.apply_status_effect(/datum/status_effect/debuff/smartium)
+	M.playsound_local(M, 'sound/misc/heroin_rush.ogg', 100, FALSE)
+	M.visible_message(span_warning("Blood runs from [M]'s nose."))
+
+/obj/item/reagent_containers/powder/corps_dust
+	name = "corps dust"
+	desc = ""
+	icon = 'modular_twilight_axis/icons/roguetown/items/produce.dmi'
+	icon_state = "body_dust"
+	possible_transfer_amounts = list()
+	volume = 15
+	list_reagents = list(/datum/reagent/corps_dust = 15)
+	grind_results = list(/datum/reagent/corps_dust = 15)
+	sellprice = 5
+
+/datum/reagent/corps_dust
+	name = "corps dust"
+	description = ""
+	color = "#e7967b"
+	overdose_threshold = 16
+	metabolization_rate = 0.2
+	taste_description = ""
+
+/datum/reagent/corps_dust/overdose_process(mob/living/M)
+	M.adjustToxLoss(5, 0)
+	..()
+	. = 1
+
+/datum/reagent/corps_dust/on_mob_metabolize(mob/living/M)
+	M.overlay_fullscreen("druqk", /atom/movable/screen/fullscreen/color_vision/red)
+	animate(M.client, pixel_y = 1, time = 1, loop = -1, flags = ANIMATION_RELATIVE)
+	animate(pixel_y = -1, time = 1, flags = ANIMATION_RELATIVE)
+
+/datum/reagent/corps_dustt/on_mob_end_metabolize(mob/living/M)
+	animate(M.client)
+	M.clear_fullscreen("druqk")
+
+/datum/reagent/corps_dust/on_mob_life(mob/living/carbon/M)
+	narcolepsy_drug_up(M)
+	M.sate_addiction(/datum/charflaw/addiction/junkie)
+	M.apply_status_effect(/datum/status_effect/buff/corps_dust)
+	M.handle_hallucinations_custome(/datum/hallucination/delusion)
+	M.handle_hallucinations_custome(self_delusion)
+	if(prob(15))
+		shake_camera(M, 5, 5)
+	..()
+
+/datum/reagent/corps_dust/overdose_start(mob/living/M)
+	M.playsound_local(M, 'sound/misc/heroin_rush.ogg', 100, FALSE)
+	M.visible_message(span_warning("Blood runs from [M]'s nose."))
+
+/obj/item/reagent_containers/powder/grave_powder
+	name = "grave powder"
+	desc = ""
+	icon = 'modular_twilight_axis/icons/roguetown/items/produce.dmi'
+	icon_state = "grave_dust"
+	possible_transfer_amounts = list()
+	volume = 15
+	list_reagents = list(/datum/reagent/grave_powder = 15)
+	grind_results = list(/datum/reagent/grave_powder = 15)
+	sellprice = 5
+
+/datum/reagent/grave_powder
+	name = "grave powder"
+	description = ""
+	color = "#822b32"
+	overdose_threshold = 31
+	metabolization_rate = 0.4
+	taste_description = ""
+
+/datum/reagent/grave_powder/overdose_process(mob/living/M)
+	M.adjustToxLoss(5, 0)
+	M.adjustBruteLoss(5, 0)
+	..()
+	. = 1
+
+/datum/reagent/grave_powder/on_mob_metabolize(mob/living/M)
+	M.overlay_fullscreen("druqk", /atom/movable/screen/fullscreen/color_vision/red)
+	M.set_resting(TRUE, TRUE)
+	M.handle_hallucinations_custome(/datum/hallucination/death)
+	animate(M.client, pixel_y = 1, time = 1, loop = -1, flags = ANIMATION_RELATIVE)
+	animate(pixel_y = -1, time = 1, flags = ANIMATION_RELATIVE)
+
+/datum/reagent/grave_powder/on_mob_end_metabolize(mob/living/M)
+	animate(M.client)
+	M.clear_fullscreen("druqk")
+
+/datum/reagent/grave_powder/on_mob_life(mob/living/carbon/M)
+	narcolepsy_drug_up(M)
+	M.sate_addiction(/datum/charflaw/addiction/junkie)
+	M.apply_status_effect(/datum/status_effect/buff/grave_powder)
+	M.apply_status_effect(/datum/status_effect/incapacitating/immobilized, 10 SECONDS)
+	M.apply_status_effect(/datum/status_effect/incapacitating/knockdown, 10 SECONDS)
+	if(prob(50))
+		shake_camera(M, 5, 5)
+
+	..()
+
+/datum/reagent/grave_powder/overdose_start(mob/living/M)
+	M.playsound_local(M, 'sound/misc/heroin_rush.ogg', 100, FALSE)
+	M.visible_message(span_warning("Blood runs from [M]'s nose."))
+
+/obj/item/reagent_containers/powder/inferrum
+	name = "inferrum"
+	desc = ""
+	icon = 'modular_twilight_axis/icons/roguetown/items/produce.dmi'
+	icon_state = "inferrum"
+	possible_transfer_amounts = list()
+	volume = 15
+	list_reagents = list(/datum/reagent/inferrum = 15)
+	grind_results = list(/datum/reagent/inferrum = 15)
+	sellprice = 5
+
+/datum/reagent/inferrum
+	name = "inferrum"
+	description = ""
+	color = "#fd9400"
+	overdose_threshold = 31
+	metabolization_rate = 0.1
+	taste_description = ""
+
+/atom/movable/screen/fullscreen/color_vision/orange
+	color = "#ff880052"
+
+/datum/reagent/inferrum/overdose_process(mob/living/M)
+	M.adjustToxLoss(5, 0)
+	M.adjustFireLoss(5, 0)
+	M.adjust_fire_stacks(1)
+	M.ignite_mob()
+	..()
+	. = 1
+
+/datum/reagent/inferrum/on_mob_metabolize(mob/living/M)
+	M.overlay_fullscreen("druqk", /atom/movable/screen/fullscreen/color_vision/orange)
+	M.handle_hallucinations_custome(/datum/hallucination/fire)
+	animate(M.client, pixel_y = 1, time = 1, loop = -1, flags = ANIMATION_RELATIVE)
+	animate(pixel_y = -1, time = 1, flags = ANIMATION_RELATIVE)
+
+/datum/reagent/inferrum/on_mob_end_metabolize(mob/living/M)
+	animate(M.client)
+	M.clear_fullscreen("druqk")
+
+/datum/reagent/inferrum/on_mob_life(mob/living/carbon/M)
+	narcolepsy_drug_up(M)
+	M.sate_addiction(/datum/charflaw/addiction/junkie)
+	M.adjustFireLoss(0.2)
+	M.apply_status_effect(/datum/status_effect/buff/dragonhide/fireresist)
+
+	..()
+
+/datum/reagent/inferrum/overdose_start(mob/living/M)
+	M.playsound_local(M, 'sound/misc/heroin_rush.ogg', 100, FALSE)
+	M.visible_message(span_warning("Blood runs from [M]'s nose."))
+
+/mob/living/carbon/proc/handle_hallucinations_custome(var/hallucination_type)
+	if(!hallucination || !client || stat)
+		return
+	hallucination--
+	if(world.time < next_hallucination)
+		return
+	new hallucination_type(src, FALSE)
+	next_hallucination = world.time + rand(100, 600)

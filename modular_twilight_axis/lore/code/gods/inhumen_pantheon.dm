@@ -183,6 +183,23 @@
 	desc = "Баота — богиня гедонизма, мирских наслаждений и страстей. «Живи, люби, смейся!» — говорила она, глядя на суету вокруг себя и усилия окружающих, стремящихся двигать куда-то мир."
 	worshippers = "Избалованные богачи, маргиналы, эскаписты."
 	undead_hater = TRUE
+	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison					= CLERIC_ORI,
+					/obj/effect/proc_holder/spell/invoked/baothavice					= CLERIC_T0,
+					/obj/effect/proc_holder/spell/self/bless_drink						= CLERIC_T0,
+					/obj/effect/proc_holder/spell/invoked/baothablessings				= CLERIC_T0,
+					/obj/effect/proc_holder/spell/self/insufflation						= CLERIC_T1,
+					/obj/effect/proc_holder/spell/targeted/touch/loversruin				= CLERIC_T1,
+					/obj/effect/proc_holder/spell/invoked/lesser_heal 					= CLERIC_T1,
+					/obj/effect/proc_holder/spell/invoked/griefflower					= CLERIC_T1,
+					/obj/effect/proc_holder/spell/invoked/blood_heal					= CLERIC_T1,
+					/obj/effect/proc_holder/spell/invoked/projectile/blowingdust		= CLERIC_T2,
+					/obj/effect/proc_holder/spell/invoked/lasthigh						= CLERIC_T2,
+					/obj/effect/proc_holder/spell/invoked/joyride						= CLERIC_T3,
+					/obj/effect/proc_holder/spell/invoked/painkiller					= CLERIC_T3,
+					/obj/effect/proc_holder/spell/invoked/lux_steal                     = CLERIC_T3,
+					/obj/effect/proc_holder/spell/self/mirage                           = CLERIC_T3,
+					/obj/effect/proc_holder/spell/invoked/resurrect/baotha				= CLERIC_T4,
+	)
 	confess_lines = list(
 		"БАОТА ТРЕБУЕТ УДОВОЛЬСТВИЯ!",
 		"ЖИВИ, СМЕЙСЯ, ЛЮБИ!",

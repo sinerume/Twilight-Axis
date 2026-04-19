@@ -3690,6 +3690,7 @@
 #include "modular_twilight_axis\code\modules\spells\soundbreaker.dm"
 #include "modular_twilight_axis\code\modules\spells\ronin.dm"
 #include "modular_twilight_axis\code\modules\spells\pantheon\divine\dendor.dm"
+#include "modular_twilight_axis\code\modules\spells\pantheon\inhumen\baotha.dm"
 #include "modular_twilight_axis\code\modules\spells\pantheon\inhumen\matthios.dm"
 #include "modular_twilight_axis\code\modules\surgery\organs\feature_organs\horns.dm"
 #include "modular_twilight_axis\code\modules\surgery\organs\feature_organs\tails.dm"

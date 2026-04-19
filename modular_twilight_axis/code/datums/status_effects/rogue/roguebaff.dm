@@ -116,3 +116,124 @@
 	L.pass_flags &= ~PASSMOB
 	
 	..()
+
+/atom/movable/screen/alert/status_effect/buff/smartium
+	name = "Smartium"
+	desc = "My mind expanded!"
+	icon = 'modular_twilight_axis/icons/mob/screen_alert.dmi'
+	icon_state = "smartium"
+
+/datum/status_effect/buff/smartium
+	id = "smartium"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/smartium
+	effectedstats = list(STATKEY_INT = 5,STATKEY_CON = -2,STATKEY_WIL = -2)
+	duration = 30 SECONDS
+
+/atom/movable/screen/alert/status_effect/buff/corps_dust
+	name = "Corps Dust"
+	desc = "!"
+	icon = 'modular_twilight_axis/icons/mob/screen_alert.dmi'
+	icon_state = "body_dust"
+
+/datum/status_effect/buff/corps_dust
+	id = "body_dust"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/corps_dust
+	effectedstats = list(STATKEY_INT = -3,STATKEY_PER = -3,STATKEY_CON = -1,STATKEY_WIL = 2,STATKEY_STR = 1)
+	duration = 30 SECONDS
+	var/ignor_damage_slowdown = 0
+	var/ignor_grab = 0
+	var/ignore_slowdown = 0
+
+/datum/status_effect/buff/corps_dust/on_apply()
+	. = ..()
+	if(owner)
+		to_chat(owner, span_warning("AHAHAHA!! AHAHAHAHAHAHAHAH!!!!"))
+		if(!HAS_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN))
+			ignor_damage_slowdown = 1
+			ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_GENERIC)
+		if(!HAS_TRAIT(owner, TRAIT_GRABIMMUNE))
+			ignor_grab = 1
+			ADD_TRAIT(owner, TRAIT_GRABIMMUNE, TRAIT_GENERIC)
+		if(!HAS_TRAIT(owner, TRAIT_IGNORESLOWDOWN))
+			ignore_slowdown = 1
+			ADD_TRAIT(owner, TRAIT_IGNORESLOWDOWN, TRAIT_GENERIC)
+		addtimer(CALLBACK(src, PROC_REF(remove_traits)), 30 SECONDS)
+		owner.hallucination = min(owner.hallucination + 10, 50)
+
+/datum/status_effect/buff/corps_dust/proc/remove_traits() //do not remove any owner standart traits. Only drug buffs.
+	if(ignor_damage_slowdown == 1)
+		REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_GENERIC)
+	if(ignor_grab == 1)
+		REMOVE_TRAIT(owner, TRAIT_GRABIMMUNE, TRAIT_GENERIC)
+	if(ignore_slowdown == 1)
+		REMOVE_TRAIT(owner, TRAIT_IGNORESLOWDOWN, TRAIT_GENERIC)
+
+/datum/status_effect/buff/corps_dust/tick()
+	if(owner) //removes all mobility control effects
+		if(owner.has_status_effect(/datum/status_effect/incapacitating/stun))
+			owner.remove_status_effect(/datum/status_effect/incapacitating/stun)
+		if(owner.has_status_effect(/datum/status_effect/incapacitating/knockdown))
+			owner.remove_status_effect(/datum/status_effect/incapacitating/knockdown)
+		if(owner.has_status_effect(/datum/status_effect/incapacitating/immobilized))
+			owner.remove_status_effect(/datum/status_effect/incapacitating/immobilized)
+		if(owner.has_status_effect(/datum/status_effect/incapacitating/unconscious))
+			owner.remove_status_effect(/datum/status_effect/incapacitating/unconscious)
+		if(owner.has_status_effect(/datum/status_effect/incapacitating/sleeping))
+			owner.remove_status_effect(/datum/status_effect/incapacitating/sleeping)
+
+
+/datum/status_effect/buff/corps_dust/on_remove()
+	if(owner)
+		to_chat(owner, span_notice("Ugh... Whats happen?.."))
+	. = ..()
+
+/atom/movable/screen/alert/status_effect/buff/grave_powder
+	name = "Grave dust"
+	desc = "!"
+	icon = 'modular_twilight_axis/icons/mob/screen_alert.dmi'
+	icon_state = "grave_dust"
+
+/datum/status_effect/buff/grave_powder
+	id = "grave_dust"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/grave_powder
+	effectedstats = list(STATKEY_INT = -5,STATKEY_CON = -5)
+	duration = 10 SECONDS
+	var/ignor_damage_slowdown = 0
+	var/ignor_grab = 0
+	var/ignore_slowdown = 0
+
+/datum/status_effect/buff/grave_powder/on_apply()
+	. = ..()
+	if(owner)
+		to_chat(owner, span_warning("AHAHAHA!! AHAHAHAHAHAHAHAH!!!!"))
+		if(owner.cmode)
+			return
+		if(owner.construct)
+			return
+		owner.hallucination = min(owner.hallucination + 10, 50)
+
+/datum/status_effect/buff/grave_powder/tick()
+	if(owner) //heal and immobilize owner
+		if(owner.cmode)
+			return
+		if(owner.construct)
+			return
+		var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_blood(get_turf(owner))
+		H.color = "#fbbebe"
+		if(owner.blood_volume < BLOOD_VOLUME_NORMAL)
+			owner.blood_volume = min(owner.blood_volume+5, BLOOD_VOLUME_NORMAL)
+		var/list/wCount = owner.get_wounds()
+		if(length(wCount))
+			owner.heal_wounds(1)
+			owner.update_damage_overlays()
+		owner.adjustBruteLoss(-5, 0)
+		owner.adjustFireLoss(-5, 0)
+		owner.adjustOxyLoss(-5, 0)
+		owner.adjustToxLoss(-5, 0)
+		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, -5)
+		owner.adjustCloneLoss(-5, 0)
+
+/datum/status_effect/buff/grave_powder/on_remove()
+	if(owner)
+		to_chat(owner, span_notice("Ugh... Whats happen?.."))
+	. = ..()

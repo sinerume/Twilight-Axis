@@ -209,3 +209,35 @@
 	alert_type = /atom/movable/screen/alert/status_effect/shrink
 	effectedstats = list(STATKEY_SPD = -1, STATKEY_CON = -1)
 	duration = 2 MINUTES
+
+/atom/movable/screen/alert/status_effect/debuff/smartium
+	name = "Smartium"
+	desc = "My mind cracked!"
+	icon = 'modular_twilight_axis/icons/mob/screen_alert.dmi'
+	icon_state = "smartium_bad"
+
+/datum/status_effect/debuff/smartium
+	id = "smartium_bad"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/smartium
+	effectedstats = list(STATKEY_INT = -10)
+	var/psycho = 0
+	duration = 30 SECONDS
+
+/datum/status_effect/debuff/smartium/on_apply()
+	. = ..()
+	if(owner)
+		to_chat(owner, span_warning("AHAHAHA!! AHAHAHAHAHAHAHAH!!!!"))
+		if(!HAS_TRAIT(owner, TRAIT_PSYCHOSIS))
+			psycho = 1
+			owner.hallucination = min(owner.hallucination + 10, 30) MINUTES
+			ADD_TRAIT(owner, TRAIT_PSYCHOSIS, TRAIT_GENERIC)
+		if(owner.has_status_effect(/datum/status_effect/buff/smartium))
+			owner.remove_status_effect(/datum/status_effect/buff/smartium)
+			owner.apply_status_effect(/datum/status_effect/debuff/smartium)
+
+/datum/status_effect/debuff/smartium/on_remove()
+	. = ..()
+	if(owner)
+		to_chat(owner, span_notice("Ugh... Whats happen?.."))
+		if(psycho == 1)
+			REMOVE_TRAIT(owner, TRAIT_PSYCHOSIS, TRAIT_GENERIC)
