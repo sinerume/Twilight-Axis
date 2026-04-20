@@ -1,3 +1,27 @@
+/datum/controller/subsystem/familytree/proc/familytree_relative_join_phase_open()
+	if(!SSticker?.round_start_time)
+		return TRUE
+	return (world.time - SSticker.round_start_time) >= FAMILYTREE_RELATIVE_JOIN_DELAY
+
+/datum/controller/subsystem/familytree/proc/familytree_relative_join_delay_remaining()
+	if(familytree_relative_join_phase_open())
+		return 0
+	if(!SSticker?.round_start_time)
+		return 0
+	return max(0, FAMILYTREE_RELATIVE_JOIN_DELAY - (world.time - SSticker.round_start_time))
+
+/datum/controller/subsystem/familytree/proc/wait_for_relative_join_phase(mob/living/carbon/human/H, reason)
+	if(!H || QDELETED(H) || H.family_datum || H.familytree_opted_out)
+		return
+	if(H.familytree_assignment_scheduled)
+		ftlog("WAIT_JOIN_PHASE SKIP: [H.real_name] already scheduled reason=[reason]")
+		return
+	var/jitter = rand(10, 100)
+	var/delay = max(10 SECONDS, familytree_relative_join_delay_remaining() + jitter)
+	ftlog("WAIT_JOIN_PHASE: [H.real_name] reason=[reason], scheduling re-assignment in [delay / 10]s")
+	H.familytree_assignment_scheduled = TRUE
+	addtimer(CALLBACK(src, PROC_REF(run_local_assignment), H, H.familytree_pref), delay)
+
 /datum/controller/subsystem/familytree/proc/AddLocal(mob/living/carbon/human/H, status)
 	ftlog("AddLocal: [H?.real_name] ([H?.ckey]) status=[status]")
 	if(!H || istype(H, /mob/living/carbon/human/dummy))
@@ -28,13 +52,22 @@
 		stop_tracking_human(H, "local assignment skipped; suitor job")
 		return
 
+	var/relative_join_phase_open = familytree_relative_join_phase_open()
+
 	if(!xylix_roulette_active && H.setspouse && length(H.setspouse))
 		ftlog("AddLocal: [H.real_name] has favorite=[H.setspouse], trying favorite assign (retry #[H.familytree_setspouse_retries])")
 		var/favorite_result = TryAssignToFavorite(H, status)
 		if(favorite_result == "assigned")
 			stop_tracking_human(H, "assigned via favorite")
 			return
+		if(favorite_result == "phase_locked")
+			wait_for_relative_join_phase(H, "favorite house join is phase locked")
+			return
 		if(favorite_result == "waiting")
+			if(!relative_join_phase_open && (family_mode & FAMILYTREE_MODE_JOIN) && !(family_mode & FAMILYTREE_MODE_CREATE))
+				find_and_confirm_newlywed(H)
+				wait_for_relative_join_phase(H, "favorite unavailable during create-only phase")
+				return
 			H.familytree_setspouse_retries++
 			if(H.familytree_setspouse_retries >= 30 && !H.familytree_setspouse_timeout_offered)
 				H.familytree_setspouse_timeout_offered = TRUE
@@ -46,10 +79,15 @@
 			addtimer(CALLBACK(src, PROC_REF(run_local_assignment), H, status), 60 SECONDS)
 			return
 
-	if((family_mode & FAMILYTREE_MODE_JOIN) && H.desired_relative_role == RELATIVE_ANY && try_assign_noble_to_dynasty(H))
+	var/can_try_relative_join = relative_join_phase_open && (family_mode & FAMILYTREE_MODE_JOIN)
+
+	if(!relative_join_phase_open && (family_mode & FAMILYTREE_MODE_JOIN))
+		ftlog("AddLocal: [H.real_name] relative join phase locked; create_mode=[!!(family_mode & FAMILYTREE_MODE_CREATE)]")
+
+	if(can_try_relative_join && H.desired_relative_role == RELATIVE_ANY && try_assign_noble_to_dynasty(H))
 		return
 
-	if((family_mode & FAMILYTREE_MODE_JOIN) && H.desired_relative_role != RELATIVE_ANY)
+	if(can_try_relative_join && H.desired_relative_role != RELATIVE_ANY)
 		ftlog("AddLocal: [H.real_name] desired_role=[H.desired_relative_role], trying role assign")
 		if(H.desired_relative_role == RELATIVE_SPOUSE)
 			INVOKE_ASYNC(src, PROC_REF(find_and_confirm_family), H, FALSE)
@@ -62,7 +100,7 @@
 		return
 
 	var/can_fallthrough_from_join = !!(family_mode & (FAMILYTREE_MODE_CREATE | FAMILYTREE_MODE_LEGACY_SPOUSE))
-	if(family_mode & FAMILYTREE_MODE_JOIN)
+	if(can_try_relative_join)
 		if(HasSuitableHouseForRelative(H))
 			ftlog("AddLocal: [H.real_name] -> AssignToHouse (pending confirm)")
 			request_family_confirmation(H, CALLBACK(src, PROC_REF(do_assign_house), H), "house")
@@ -81,7 +119,20 @@
 			return
 		if(!(family_mode & FAMILYTREE_MODE_LEGACY_SPOUSE))
 			return
+		if(!relative_join_phase_open)
+			wait_for_relative_join_phase(H, "legacy spouse fallback locked during create-only phase")
+			return
 		viable_spouses -= H
+
+	if(!relative_join_phase_open && (family_mode & FAMILYTREE_MODE_JOIN))
+		ftlog("AddLocal: [H.real_name] waiting for relative join phase while available as new-family partner")
+		find_and_confirm_newlywed(H)
+		wait_for_relative_join_phase(H, "relative join phase locked")
+		return
+
+	if(!relative_join_phase_open && (family_mode & FAMILYTREE_MODE_LEGACY_SPOUSE))
+		wait_for_relative_join_phase(H, "legacy spouse flow locked during create-only phase")
+		return
 
 	if(family_mode & FAMILYTREE_MODE_LEGACY_SPOUSE)
 		if(H.virginity && !xylix_roulette_active)
@@ -94,6 +145,9 @@
 /datum/controller/subsystem/familytree/proc/do_assign_house(mob/living/carbon/human/H)
 	if(!H || QDELETED(H) || H.family_datum)
 		return
+	if(!familytree_relative_join_phase_open())
+		wait_for_relative_join_phase(H, "house confirmation accepted before join phase")
+		return
 	ftlog("do_assign_house: [H.real_name] confirmed, calling AssignToHouse")
 	AssignToHouse(H)
 	if(H.family_datum)
@@ -104,6 +158,9 @@
 
 /datum/controller/subsystem/familytree/proc/do_assign_desired_role(mob/living/carbon/human/H)
 	if(!H || QDELETED(H) || H.family_datum)
+		return
+	if(!familytree_relative_join_phase_open())
+		wait_for_relative_join_phase(H, "desired role confirmation accepted before join phase")
 		return
 	var/block_reason = get_familytree_runtime_block_reason(H, TRUE)
 	if(block_reason)
@@ -146,6 +203,12 @@
 		return
 	if(!familytree_new_family_pair_eligible(H, spouse))
 		retry_local_assignment(H, "spouse no longer wants to create a new family")
+		return
+	if(familytree_new_family_pair_pref_reject_mask(H, spouse))
+		retry_local_assignment(H, "spouse no longer matches creator preferences")
+		return
+	if(!familytree_estates_compatible(H, spouse))
+		retry_local_assignment(H, "spouse estate no longer compatible")
 		return
 	if(!familytree_polygamy_compatible(H, spouse))
 		retry_local_assignment(H, "spouse already married")
@@ -197,6 +260,9 @@
 
 /datum/controller/subsystem/familytree/proc/do_execute_family(mob/living/carbon/human/H, datum/heritage/house, datum/family_member/partner_member)
 	if(!H || QDELETED(H) || H.family_datum)
+		return
+	if(!familytree_relative_join_phase_open())
+		wait_for_relative_join_phase(H, "family spouse confirmation accepted before join phase")
 		return
 	if(!house || !partner_member?.person)
 		retry_local_assignment(H, "partner lost")
@@ -252,6 +318,9 @@
 		if(status_mode & FAMILYTREE_MODE_CREATE)
 			ftlog("TryFavorite: [H.real_name] favorite [favorite.real_name] already has a family; new-family mode will wait")
 			return "waiting"
+		if(!familytree_relative_join_phase_open())
+			ftlog("TryFavorite: [H.real_name] favorite has house but relative join phase is locked")
+			return "phase_locked"
 		if((status_mode & FAMILYTREE_MODE_JOIN) && H.desired_relative_role == RELATIVE_SPOUSE)
 			if(!familytree_polygamy_compatible(H, favorite))
 				return "skip"
@@ -271,9 +340,7 @@
 			request_family_confirmation(H, CALLBACK(src, PROC_REF(do_assign_to_favorite_house), H, house), "house")
 		return "assigned"
 
-	if((status_mode & FAMILYTREE_MODE_CREATE) || ((status_mode & FAMILYTREE_MODE_JOIN) && H.desired_relative_role == RELATIVE_SPOUSE) || (status_mode & FAMILYTREE_MODE_LEGACY_SPOUSE))
-		if(!familytree_new_family_pair_eligible(H, favorite))
-			return "waiting"
+	if((status_mode & (FAMILYTREE_MODE_CREATE | FAMILYTREE_MODE_JOIN | FAMILYTREE_MODE_LEGACY_SPOUSE)) && familytree_new_family_pair_eligible(H, favorite))
 		if(!familytree_polygamy_compatible(H, favorite))
 			return "skip"
 		request_mutual_confirmation(H, favorite, CALLBACK(src, PROC_REF(do_execute_newlywed), H, favorite), "spouse")
@@ -283,6 +350,9 @@
 
 /datum/controller/subsystem/familytree/proc/do_assign_to_favorite_house(mob/living/carbon/human/H, datum/heritage/house)
 	if(!H || QDELETED(H) || H.family_datum || !house)
+		return
+	if(!familytree_relative_join_phase_open())
+		wait_for_relative_join_phase(H, "favorite house confirmation accepted before join phase")
 		return
 	var/forced_role = familytree_forced_role_from_relative_role(H.desired_relative_role)
 	if(forced_role)
@@ -374,7 +444,7 @@
 	ftlog("AssignToHouse REJECTS [H.real_name]: mask=[reject_mask] ([ftreject_decode_house(reject_mask)]) -> candidates=[candidates.len]", FTLOG_DEBUG)
 
 	if(candidates.len)
-		var/datum/heritage/chosen_house = pick_weighted_house(candidates, forced_role)
+		var/datum/heritage/chosen_house = pick_least_filled_house(candidates)
 		ftlog("AssignToHouse: [H.real_name] → JOINED existing house '[chosen_house.housename || "no name"]' (members=[chosen_house.member_nodes.len])")
 		var/assigned_role = forced_role || DetermineAppropriateRole(chosen_house, H)
 		AddPersonToHouse(chosen_house, H, FALSE, assigned_role)
@@ -399,7 +469,7 @@
 
 			var/datum/family_member/parent1
 			var/datum/family_member/parent2
-			var/best_pair_score = -100000
+			var/list/valid_parent_pairs = list()
 
 			for(var/i = 1 to potential_parents.len)
 				var/datum/family_member/candidate1 = potential_parents[i]
@@ -411,12 +481,12 @@
 					if(!candidate2?.person)
 						continue
 					if(house.SpeciesCalculation(person, candidate1.person, candidate2.person))
-						var/pair_score = familytree_parent_candidate_score(candidate1) + familytree_parent_candidate_score(candidate2)
-						if(pair_score <= best_pair_score)
-							continue
-						parent1 = candidate1
-						parent2 = candidate2
-						best_pair_score = pair_score
+						valid_parent_pairs += list(list(candidate1, candidate2))
+
+			if(valid_parent_pairs.len)
+				var/list/chosen_pair = pick(valid_parent_pairs)
+				parent1 = chosen_pair[1]
+				parent2 = chosen_pair[2]
 
 			if(!parent1)
 				parent1 = familytree_best_parent_member(house, person)
@@ -467,80 +537,40 @@
 			return "child"
 	return null
 
-/datum/controller/subsystem/familytree/proc/familytree_member_attachment_load(datum/family_member/member)
-	if(!member)
-		return 1000
-	return member.get_parent_members().len + member.get_child_members().len + member.get_spouse_members().len
-
-/datum/controller/subsystem/familytree/proc/familytree_parent_candidate_score(datum/family_member/member)
-	if(!member?.person)
-		return -100000
-	var/score = 100
-	score -= member.get_child_members().len * 10
-	score -= member.get_parent_members().len
-	score -= member.get_spouse_members().len
-	if(familytree_pref_is_create(member.person.familytree_pref) && member.person.desired_relative_role == RELATIVE_PARENT)
-		score += 100
-	return score
-
-/datum/controller/subsystem/familytree/proc/familytree_sibling_candidate_score(datum/family_member/member)
-	if(!member?.person)
-		return -100000
-	var/score = 100 - familytree_member_attachment_load(member)
-	if(familytree_pref_is_create(member.person.familytree_pref) && member.person.desired_relative_role == RELATIVE_SIBLING)
-		score += 100
-	return score
-
-/datum/controller/subsystem/familytree/proc/familytree_child_candidate_score(datum/family_member/member)
-	if(!member?.person)
-		return -100000
-	var/score = 100
-	score -= member.get_parent_members().len * 50
-	score -= member.get_child_members().len
-	score -= member.get_spouse_members().len
-	if(familytree_pref_is_create(member.person.familytree_pref) && member.person.desired_relative_role == RELATIVE_CHILD)
-		score += 100
-	return score
-
 /datum/controller/subsystem/familytree/proc/familytree_best_parent_member(datum/heritage/house, mob/living/carbon/human/child, datum/family_member/exclude = null)
 	if(!house || !child)
 		return null
-	var/datum/family_member/best
-	var/best_score = -100000
+	var/list/candidates = list()
 	for(var/datum/family_member/member as anything in house.members)
 		if(member == exclude || !member?.person)
 			continue
 		if(!CanBeParentOf(member.person, child))
 			continue
-		var/score = familytree_parent_candidate_score(member)
-		if(house.SingleParentSpeciesCalculation(child, member.person))
-			score += 20
-		if(score > best_score)
-			best = member
-			best_score = score
-	return best
+		if(!house.SingleParentSpeciesCalculation(child, member.person))
+			continue
+		candidates += member
+	if(!candidates.len)
+		return null
+	return pick(candidates)
 
 /datum/controller/subsystem/familytree/proc/familytree_best_sibling_member(datum/heritage/house, mob/living/carbon/human/person)
 	if(!house || !person)
 		return null
-	var/datum/family_member/best
-	var/best_score = -100000
+	var/list/candidates = list()
 	for(var/datum/family_member/member as anything in house.members)
 		if(!member?.person)
 			continue
 		if(!CanBeSiblings(member.person.age, person.age))
 			continue
-		var/score = familytree_sibling_candidate_score(member)
-		if(score > best_score)
-			best = member
-			best_score = score
-	return best
+		candidates += member
+	if(!candidates.len)
+		return null
+	return pick(candidates)
 
 /datum/controller/subsystem/familytree/proc/familytree_best_child_member_for_parent(datum/heritage/house, mob/living/carbon/human/parent)
 	if(!house || !parent)
 		return null
-	var/datum/family_member/best
-	var/best_score = -100000
+	var/list/candidates = list()
 	for(var/datum/family_member/member as anything in house.members)
 		if(!member?.person)
 			continue
@@ -548,11 +578,10 @@
 			continue
 		if(!CanBeParentOf(parent, member.person))
 			continue
-		var/score = familytree_child_candidate_score(member)
-		if(score > best_score)
-			best = member
-			best_score = score
-	return best
+		candidates += member
+	if(!candidates.len)
+		return null
+	return pick(candidates)
 
 /datum/controller/subsystem/familytree/proc/familytree_house_supports_role(datum/heritage/house, mob/living/carbon/human/person, forced_role)
 	if(!house || !person)
@@ -643,9 +672,14 @@
 	var/family_mode = familytree_pref_mask(H.familytree_pref)
 	if(family_mode & FAMILYTREE_MODE_CREATE)
 		return TRUE
-	if((family_mode & FAMILYTREE_MODE_JOIN) && H.desired_relative_role == RELATIVE_SPOUSE)
+	if(family_mode & FAMILYTREE_MODE_JOIN)
 		return TRUE
 	return FALSE
+
+/datum/controller/subsystem/familytree/proc/familytree_can_found_new_family(mob/living/carbon/human/H)
+	if(!H || H.family_datum)
+		return FALSE
+	return !!(familytree_pref_mask(H.familytree_pref) & FAMILYTREE_MODE_CREATE)
 
 /datum/controller/subsystem/familytree/proc/familytree_new_family_pair_eligible(mob/living/carbon/human/A, mob/living/carbon/human/B)
 	if(!familytree_is_new_family_candidate(A) || !familytree_is_new_family_candidate(B))
@@ -654,13 +688,86 @@
 	var/b_mode = familytree_pref_mask(B.familytree_pref)
 	var/a_creates = !!(a_mode & FAMILYTREE_MODE_CREATE)
 	var/b_creates = !!(b_mode & FAMILYTREE_MODE_CREATE)
-	if(a_creates && b_creates)
+	return a_creates || b_creates
+
+/datum/controller/subsystem/familytree/proc/familytree_creator_pronouns_compatible(mob/living/carbon/human/creator, mob/living/carbon/human/partner)
+	if(xylix_roulette_active)
 		return TRUE
-	if(a_creates && (b_mode & FAMILYTREE_MODE_JOIN) && B.desired_relative_role == RELATIVE_SPOUSE)
+	if(!creator || !partner)
+		return FALSE
+	var/pref = creator.gender_choice_pref || ANY_GENDER
+	return pronoun_preference_matches(pref, creator.pronouns == partner.pronouns)
+
+/datum/controller/subsystem/familytree/proc/GetCreatorSpeciesPreferenceFailureReason(mob/living/carbon/human/creator, mob/living/carbon/human/partner)
+	if(!creator || !partner)
+		return "missing mob"
+
+	var/creator_isolated = is_isolated(creator)
+	var/partner_isolated = is_isolated(partner)
+	if(creator_isolated || partner_isolated)
+		if(!creator_isolated || !partner_isolated)
+			return "isolated group mismatch"
+
+	if(xylix_roulette_active)
+		return null
+
+	var/datum/preferences/P = creator.client?.prefs
+	if(!P)
+		return null
+
+	var/creator_type = creator.dna.species.type
+	var/partner_type = partner.dna.species.type
+	var/list/pref_types = get_preference_species_type_list(P)
+
+	switch(P.species_preference_mode)
+		if("ANY")
+			;
+		if("SAME_TYPE")
+			if(creator_type != partner_type)
+				return "species mismatch"
+		if("SPECIFIC_TYPE")
+			if(!(partner_type in pref_types))
+				return "species mismatch"
+
+	if(!AnatomyCompatible(P.preferred_species_anatomy, partner))
+		return "anatomy mismatch"
+
+	return null
+
+/datum/controller/subsystem/familytree/proc/familytree_creator_role_tiers_compatible(mob/living/carbon/human/creator, mob/living/carbon/human/partner)
+	if(xylix_roulette_active)
 		return TRUE
-	if(b_creates && (a_mode & FAMILYTREE_MODE_JOIN) && A.desired_relative_role == RELATIVE_SPOUSE)
+
+	var/creator_tier = familytree_get_role_tier(creator)
+	var/partner_tier = familytree_get_role_tier(partner)
+
+	if(creator_tier == partner_tier)
 		return TRUE
-	return FALSE
+	if(creator_tier == ROLE_TIER_NONE && partner_tier != ROLE_TIER_LOW)
+		return TRUE
+	if(partner_tier == ROLE_TIER_NONE && creator_tier != ROLE_TIER_LOW)
+		return TRUE
+	if(creator_tier == ROLE_TIER_LOW || partner_tier == ROLE_TIER_LOW)
+		return creator.allow_low_status_marriage
+	return TRUE
+
+/datum/controller/subsystem/familytree/proc/familytree_new_family_creator_pref_reject_mask(mob/living/carbon/human/creator, mob/living/carbon/human/partner)
+	var/reject_mask = 0
+	if(!familytree_creator_pronouns_compatible(creator, partner))
+		reject_mask |= FTREJ_N_PRONOUNS
+	if(GetCreatorSpeciesPreferenceFailureReason(creator, partner))
+		reject_mask |= FTREJ_N_SPECIES
+	if(!familytree_creator_role_tiers_compatible(creator, partner))
+		reject_mask |= FTREJ_N_TIER
+	return reject_mask
+
+/datum/controller/subsystem/familytree/proc/familytree_new_family_pair_pref_reject_mask(mob/living/carbon/human/A, mob/living/carbon/human/B)
+	var/reject_mask = 0
+	if(familytree_can_found_new_family(A))
+		reject_mask |= familytree_new_family_creator_pref_reject_mask(A, B)
+	if(familytree_can_found_new_family(B))
+		reject_mask |= familytree_new_family_creator_pref_reject_mask(B, A)
+	return reject_mask
 
 /datum/controller/subsystem/familytree/proc/familytree_new_family_founder(mob/living/carbon/human/A, mob/living/carbon/human/B)
 	var/a_creates = familytree_pref_is_create(A?.familytree_pref)
@@ -723,25 +830,27 @@
 		if(!familytree_polygamy_compatible(H, candidate))
 			reject_mask |= FTREJ_N_POLY
 			continue
-		if(!pronouns_compatible(H, candidate))
-			reject_mask |= FTREJ_N_PRONOUNS
-			continue
-		if(GetSpeciesCompatibilityFailureReason(H, candidate))
-			reject_mask |= FTREJ_N_SPECIES
+		var/pref_reject_mask = familytree_new_family_pair_pref_reject_mask(H, candidate)
+		if(pref_reject_mask)
+			reject_mask |= pref_reject_mask
 			continue
 		if(!familytree_estates_compatible(H, candidate))
 			reject_mask |= FTREJ_N_ESTATE
 			continue
-		if(!familytree_role_tiers_compatible(H, candidate))
-			reject_mask |= FTREJ_N_TIER
-			continue
-		if(!xylix_roulette_active && candidate.setspouse && length(candidate.setspouse))
+		if(!xylix_roulette_active && familytree_can_found_new_family(H) && H.setspouse && length(H.setspouse))
+			if(!familytree_names_match(H.setspouse, candidate.real_name))
+				reject_mask |= FTREJ_N_SETSPOUSE
+				continue
+		if(!xylix_roulette_active && familytree_can_found_new_family(candidate) && candidate.setspouse && length(candidate.setspouse))
 			if(!familytree_names_match(candidate.setspouse, H.real_name))
 				reject_mask |= FTREJ_N_SETSPOUSE
 				continue
 		var/priority = 0
-		if(!xylix_roulette_active && familytree_names_match(candidate.setspouse, H.real_name))
-			priority = 1
+		if(!xylix_roulette_active)
+			if(familytree_can_found_new_family(H) && familytree_names_match(H.setspouse, candidate.real_name))
+				priority++
+			if(familytree_can_found_new_family(candidate) && familytree_names_match(candidate.setspouse, H.real_name))
+				priority++
 		potential_matches += list(list(candidate, priority))
 
 	ftlog("FindNewlyWedMatch REJECTS [H.real_name] (pool=[viable_spouses.len]): mask=[reject_mask] ([ftreject_decode_newlywed(reject_mask)]) -> matches=[potential_matches.len]", FTLOG_DEBUG)
@@ -770,6 +879,7 @@
 	var/our_isolated = is_isolated(H)
 	var/houses_scanned = 0
 	var/reject_mask = 0
+	var/list/potential_matches = list()
 
 	for(var/datum/heritage/house as anything in families)
 		if(house.closed)
@@ -812,10 +922,26 @@
 			if(member.person.familytree_opted_out)
 				reject_mask |= FTREJ_F_OPTOUT
 				continue
-			ftlog("FindFamilyMatch [H.real_name] -> [member.person.real_name] in '[house.housename]' (scanned=[houses_scanned]h)", FTLOG_DEBUG)
-			return list(house, member)
-	ftlog("FindFamilyMatch REJECTS [H.real_name] (houses=[families.len]): mask=[reject_mask] ([ftreject_decode_family(reject_mask)]) -> no_match", FTLOG_WARN)
-	return null
+			potential_matches += list(list(house, member, house.member_nodes.len))
+
+	ftlog("FindFamilyMatch REJECTS [H.real_name] (houses=[families.len]): mask=[reject_mask] ([ftreject_decode_family(reject_mask)]) -> matches=[potential_matches.len]", potential_matches.len ? FTLOG_DEBUG : FTLOG_WARN)
+	if(!potential_matches.len)
+		return null
+
+	var/min_house_size = 100000
+	for(var/list/match_data in potential_matches)
+		min_house_size = min(min_house_size, match_data[3])
+
+	var/list/best_matches = list()
+	for(var/list/match_data in potential_matches)
+		if(match_data[3] == min_house_size)
+			best_matches += list(match_data)
+
+	var/list/chosen = pick(best_matches)
+	var/datum/heritage/chosen_house = chosen[1]
+	var/datum/family_member/chosen_member = chosen[2]
+	ftlog("FindFamilyMatch [H.real_name] -> [chosen_member.person.real_name] in '[chosen_house.housename]' (scanned=[houses_scanned]h matches=[potential_matches.len] min_size=[min_house_size])", FTLOG_DEBUG)
+	return list(chosen_house, chosen_member)
 
 /datum/controller/subsystem/familytree/proc/AssignNewlyWed(mob/living/carbon/human/H)
 	if(!H)
@@ -826,6 +952,7 @@
 	var/base_species = H.dna.species.name
 	var/base_isolated = is_isolated(H)
 	var/datum/heritage/chosen_house
+	var/list/candidates = list()
 
 	for(var/datum/heritage/house as anything in families)
 		if(house.closed)
@@ -843,8 +970,10 @@
 					break
 
 		if(has_compatible_parent && !WouldCreateAgeConflict(house, H))
-			chosen_house = house
-			break
+			candidates += house
+
+	if(candidates.len)
+		chosen_house = pick_least_filled_house(candidates)
 
 	if(chosen_house)
 		var/datum/family_member/new_member = chosen_house.CreateFamilyMember(H)
@@ -945,6 +1074,7 @@
 	if(!H || H.family_datum)
 		return FALSE
 
+	var/list/candidates = list()
 	for(var/mob/living/carbon/human/candidate as anything in GLOB.alive_mob_list)
 		if(candidate == H || !candidate.client || candidate.stat == DEAD || !familytree_pref_is_join_only(candidate.familytree_pref) || candidate.family_datum)
 			continue
@@ -960,9 +1090,12 @@
 			continue
 		if(!CanBeSiblings(H.age, candidate.age))
 			continue
+		candidates += candidate
 
-		ftlog("TryFormSiblingHouseFromPartial: [H.real_name] + [candidate.real_name] → forming sibling house")
-		request_mutual_confirmation(H, candidate, CALLBACK(src, PROC_REF(do_form_sibling_house), H, candidate), "sibling_house")
+	if(candidates.len)
+		var/mob/living/carbon/human/chosen = pick(candidates)
+		ftlog("TryFormSiblingHouseFromPartial: [H.real_name] + [chosen.real_name] -> forming sibling house (candidates=[candidates.len])")
+		request_mutual_confirmation(H, chosen, CALLBACK(src, PROC_REF(do_form_sibling_house), H, chosen), "sibling_house")
 		return TRUE
 
 	ftlog("TryFormSiblingHouseFromPartial: [H.real_name] → no mutual sibling found")
@@ -977,43 +1110,19 @@
 			return TRUE
 	return FALSE
 
-/datum/controller/subsystem/familytree/proc/count_online_members(datum/heritage/house)
-	if(!house)
-		return 0
-	var/online_count = 0
-	for(var/datum/family_node/node as anything in house.member_nodes)
-		if(node.person?.client)
-			online_count++
-	return online_count
-
-/datum/controller/subsystem/familytree/proc/pick_weighted_house(list/candidates, forced_role = null)
+/datum/controller/subsystem/familytree/proc/pick_least_filled_house(list/candidates)
 	if(!candidates.len)
 		return null
 	if(candidates.len == 1)
 		return candidates[1]
-	var/total_weight = 0
-	var/list/weights = list()
+	var/min_member_count = 100000
 	for(var/datum/heritage/house as anything in candidates)
-		var/online_count = count_online_members(house)
-		var/weight = 1
-		if(online_count >= 2 && online_count < 4)
-			weight = 5
-		else if(online_count == 1)
-			weight = 2
-		var/member_bias = max(1, 8 - min(house.member_nodes.len, 7))
-		if(forced_role)
-			weight += member_bias
-		else if(house.member_nodes.len <= 2)
-			weight += 2
-		weights[house] = weight
-		total_weight += weight
-	var/roll = rand(1, total_weight)
-	var/cumulative = 0
-	for(var/datum/heritage/house as anything in weights)
-		cumulative += weights[house]
-		if(roll <= cumulative)
-			return house
-	return candidates[candidates.len]
+		min_member_count = min(min_member_count, house.member_nodes.len)
+	var/list/least_filled = list()
+	for(var/datum/heritage/house as anything in candidates)
+		if(house.member_nodes.len == min_member_count)
+			least_filled += house
+	return pick(least_filled)
 
 /datum/controller/subsystem/familytree/proc/bestow_wedding_rings(mob/living/carbon/human/A, mob/living/carbon/human/B)
 	give_wedding_ring(A)
@@ -1056,6 +1165,8 @@
 
 /datum/controller/subsystem/familytree/proc/wake_waiting_relative_seekers(datum/heritage/house)
 	if(!house || house.closed)
+		return
+	if(!familytree_relative_join_phase_open())
 		return
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(!H?.client || H.family_datum || !familytree_pref_is_join(H.familytree_pref))
