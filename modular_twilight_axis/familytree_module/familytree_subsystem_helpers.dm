@@ -38,6 +38,8 @@ GLOBAL_LIST_INIT(familytree_title_prefixes, list(
 /proc/pronouns_compatible(mob/living/carbon/human/A, mob/living/carbon/human/B)
 	if(!A || !B)
 		return FALSE
+	if(SSfamilytree?.xylix_roulette_active)
+		return TRUE
 
 	var/pref_a = A.gender_choice_pref || ANY_GENDER
 	var/pref_b = B.gender_choice_pref || ANY_GENDER
@@ -215,6 +217,12 @@ GLOBAL_LIST_INIT(familytree_title_prefixes, list(
 	return FALSE
 
 /datum/controller/subsystem/familytree/proc/house_race_compatible(datum/heritage/house, our_race, we_are_isolated)
+	if(xylix_roulette_active)
+		if(we_are_isolated)
+			return is_house_isolated(house)
+		if(is_house_isolated(house))
+			return FALSE
+		return TRUE
 	if(we_are_isolated)
 		return is_house_isolated(house)
 	if(is_house_isolated(house))

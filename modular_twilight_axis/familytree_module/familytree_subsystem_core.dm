@@ -144,10 +144,11 @@ SUBSYSTEM_DEF(familytree)
 			families += family
 
 /datum/controller/subsystem/familytree/proc/check_xylix_roulette()
-	var/datum/storyteller/current = SSgamemode?.current_storyteller
-	if(!current)
+	if(xylix_roulette_active)
+		return TRUE
+	if(!SSgamemode)
 		return FALSE
-	if(!istype(current, /datum/storyteller/xylix))
+	if(!SSgamemode.storyteller_active(/datum/storyteller/xylix))
 		return FALSE
 	xylix_roulette_active = TRUE
 	notify_xylix_participants()
@@ -159,8 +160,19 @@ SUBSYSTEM_DEF(familytree)
 		if(!M.client || !ishuman(M))
 			continue
 		var/mob/living/carbon/human/H = M
-		if(H.familytree_assignment_scheduled || (H in viable_spouses))
+		if(!H.family_datum)
 			to_chat(H, xylix_msg)
+
+/datum/controller/subsystem/familytree/proc/apply_xylix_roulette_preferences(mob/living/carbon/human/H)
+	if(!H || !xylix_roulette_active)
+		return
+	H.familytree_pref = FAMILY_NEWLYWED
+	H.gender_choice_pref = ANY_GENDER
+	H.setspouse = ""
+	H.polygamy_mode = POLYGAMY_ALLOW_BOTH
+	H.desired_relative_role = RELATIVE_ANY
+	H.allow_low_status_marriage = TRUE
+	H.allow_relatives_in_family = TRUE
 
 /datum/controller/subsystem/familytree/proc/on_mob_created(datum/controller/subsystem/processing/dcs/source, mob/new_mob)
 	SIGNAL_HANDLER
@@ -331,6 +343,8 @@ SUBSYSTEM_DEF(familytree)
 	H.desired_relative_role = P.desired_relative_role
 	H.allow_low_status_marriage = P.allow_low_status_marriage
 	H.allow_relatives_in_family = P.allow_relatives_in_family
+	check_xylix_roulette()
+	apply_xylix_roulette_preferences(H)
 	ftlog("try_queue: [H.real_name] pref=[H.familytree_pref] setspouse=[H.setspouse] role=[H.desired_relative_role]")
 	if(is_royal_suitor_job(job))
 		ftlog("try_queue STOP: [H.real_name] royal suitor job")
@@ -367,6 +381,9 @@ SUBSYSTEM_DEF(familytree)
 	if(!H || QDELETED(H))
 		ftlog("run_local ABORT: null/qdel", FTLOG_ERROR)
 		return
+	check_xylix_roulette()
+	apply_xylix_roulette_preferences(H)
+	status = H.familytree_pref
 	var/block_reason = get_familytree_runtime_block_reason(H, TRUE)
 	if(block_reason == "dead")
 		ftlog("run_local DEFER: [H.real_name] dead")

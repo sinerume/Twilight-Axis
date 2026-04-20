@@ -23,7 +23,7 @@
 		stop_tracking_human(H, "local assignment skipped; suitor job")
 		return
 
-	if(H.setspouse && length(H.setspouse))
+	if(!xylix_roulette_active && H.setspouse && length(H.setspouse))
 		ftlog("AddLocal: [H.real_name] has favorite=[H.setspouse], trying favorite assign (retry #[H.familytree_setspouse_retries])")
 		var/favorite_result = TryAssignToFavorite(H, status)
 		if(favorite_result == "assigned")
@@ -214,7 +214,7 @@
 
 	ftlog("TryFavorite: [H.real_name] found favorite=[favorite.real_name] ([favorite.ckey])")
 
-	if(favorite.setspouse && length(favorite.setspouse))
+	if(!xylix_roulette_active && favorite.setspouse && length(favorite.setspouse))
 		if(!familytree_names_match(favorite.setspouse, H.real_name))
 			return "waiting"
 
@@ -557,7 +557,7 @@
 			if(member.person && familytree_polygamy_compatible(H, member.person))
 				if(!member.person.client)
 					continue
-				if(!member.person.setspouse || familytree_names_match(member.person.setspouse, H.real_name))
+				if(xylix_roulette_active || !member.person.setspouse || familytree_names_match(member.person.setspouse, H.real_name))
 					if(!pronouns_compatible(H, member.person))
 						continue
 					if(GetSpeciesCompatibilityFailureReason(H, member.person))
@@ -589,7 +589,7 @@
 			if(member.person && familytree_polygamy_compatible(H, member.person))
 				if(!member.person.client)
 					continue
-				if(!member.person.setspouse || familytree_names_match(member.person.setspouse, H.real_name))
+				if(xylix_roulette_active || !member.person.setspouse || familytree_names_match(member.person.setspouse, H.real_name))
 					if(pronouns_compatible(H, member.person) && SpeciesCompatible(H, member.person) && familytree_estates_compatible(H, member.person) && familytree_role_tiers_compatible(H, member.person))
 						var/datum/family_member/new_member = house.CreateFamilyMember(H)
 						if(new_member)
@@ -684,12 +684,12 @@
 		if(!familytree_role_tiers_compatible(H, candidate))
 			reject_mask |= FTREJ_N_TIER
 			continue
-		if(candidate.setspouse && length(candidate.setspouse))
+		if(!xylix_roulette_active && candidate.setspouse && length(candidate.setspouse))
 			if(!familytree_names_match(candidate.setspouse, H.real_name))
 				reject_mask |= FTREJ_N_SETSPOUSE
 				continue
 		var/priority = 0
-		if(familytree_names_match(candidate.setspouse, H.real_name))
+		if(!xylix_roulette_active && familytree_names_match(candidate.setspouse, H.real_name))
 			priority = 1
 		potential_matches += list(list(candidate, priority))
 
@@ -737,7 +737,7 @@
 			if(!member.person.client)
 				reject_mask |= FTREJ_F_OFFLINE
 				continue
-			if(member.person.setspouse && !familytree_names_match(member.person.setspouse, H.real_name))
+			if(!xylix_roulette_active && member.person.setspouse && !familytree_names_match(member.person.setspouse, H.real_name))
 				reject_mask |= FTREJ_F_SETSPOUSE
 				continue
 			if(!pronouns_compatible(H, member.person))
@@ -979,6 +979,8 @@
 /datum/controller/subsystem/familytree/proc/house_allows_relatives(datum/heritage/house)
 	if(!house)
 		return FALSE
+	if(xylix_roulette_active)
+		return TRUE
 	if(!house.house_leader?.person)
 		return TRUE
 	var/mob/living/carbon/human/leader = house.house_leader.person

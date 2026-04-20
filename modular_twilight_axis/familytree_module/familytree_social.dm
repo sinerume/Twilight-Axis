@@ -233,6 +233,8 @@
 /proc/familytree_polygamy_compatible(mob/living/carbon/human/seeker, mob/living/carbon/human/target)
 	if(!seeker || !target)
 		return FALSE
+	if(SSfamilytree?.xylix_roulette_active)
+		return TRUE
 
 	var/seeker_has_spouse = seeker.spouse_mob || (seeker.family_member_datum && seeker.family_member_datum.get_spouse_members().len)
 	var/target_has_spouse = target.spouse_mob || (target.family_member_datum && target.family_member_datum.get_spouse_members().len)
