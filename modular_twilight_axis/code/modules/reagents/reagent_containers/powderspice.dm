@@ -106,7 +106,7 @@
 	M.sate_addiction(/datum/charflaw/addiction/junkie)
 	M.apply_status_effect(/datum/status_effect/buff/corps_dust)
 	M.handle_hallucinations_custome(/datum/hallucination/delusion)
-	M.handle_hallucinations_custome(self_delusion)
+	M.handle_hallucinations_custome(/datum/hallucination/self_delusion)
 	if(prob(15))
 		shake_camera(M, 5, 5)
 	..()
@@ -140,7 +140,7 @@
 	..()
 	. = 1
 
-/datum/reagent/grave_powder/on_mob_metabolize(mob/living/M)
+/datum/reagent/grave_powder/on_mob_metabolize(mob/living/carbon/M)
 	M.overlay_fullscreen("druqk", /atom/movable/screen/fullscreen/color_vision/red)
 	M.set_resting(TRUE, TRUE)
 	M.handle_hallucinations_custome(/datum/hallucination/death)
@@ -196,7 +196,7 @@
 	..()
 	. = 1
 
-/datum/reagent/inferrum/on_mob_metabolize(mob/living/M)
+/datum/reagent/inferrum/on_mob_metabolize(mob/living/carbon/M)
 	M.overlay_fullscreen("druqk", /atom/movable/screen/fullscreen/color_vision/orange)
 	M.handle_hallucinations_custome(/datum/hallucination/fire)
 	animate(M.client, pixel_y = 1, time = 1, loop = -1, flags = ANIMATION_RELATIVE)

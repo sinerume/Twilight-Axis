@@ -121,7 +121,7 @@
 /obj/item/rogueweapon/huntingknife/idagger/steel/baotha
 	name = "змеиное жало"
 	desc = "Искуссно выполненный клинок, кажется предназначенный для скрытых убийств. На его лезвии заметны подтёки какой-то пузырящейся субстанции."
-	icon = 'modular_twilight/icons/roguetown/weapons/32.dmi'
+	icon = 'modular_twilight_axis/icons/roguetown/weapons/32.dmi'
 	icon_state = "baotha_knife1"
 	max_blade_int = 300
 	throwforce = 40
@@ -131,8 +131,6 @@
 /obj/item/rogueweapon/huntingknife/idagger/steel/baotha/Initialize()
 	.=..()
 	icon_state = "baotha_knife1"
-	sleep(5)
-	icon_state = "baotha_knife2"
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/baotha/attack_self(var/mob/living/carbon/human/user)
 	if(user.patron.type == /datum/patron/inhumen/baotha)

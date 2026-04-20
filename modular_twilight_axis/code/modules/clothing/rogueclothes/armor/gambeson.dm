@@ -7,12 +7,12 @@
 	icon = 'modular_twilight_axis/icons/roguetown/clothing/special/noble.dmi'
 	mob_overlay_icon = 'modular_twilight_axis/icons/roguetown/clothing/special/onmob/noble.dmi'
 
-/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/baotha
+/obj/item/clothing/suit/roguetown/armor/regenerating/baotha
 	name = "маскарад"
 	desc = "извивающееся тряпьё, сотканное из изуродованных человеческих лиц, пребывающих в постоянной агонии, переплетённой с наркотическим экстазом. Говорят, прошлый владелец этого пердмета пропал, но вот куда?.. Да и кто это говорит.."
 	slot_flags = ITEM_SLOT_SHIRT|ITEM_SLOT_ARMOR
-	icon = 'modular_twilight/icons/roguetown/clothing/shirts.dmi'
-	mob_overlay_icon = 'modular_twilight/icons/roguetown/clothing/onmob/shirts.dmi'
+	icon = 'modular_twilight_axis/icons/roguetown/clothing/shirts.dmi'
+	mob_overlay_icon = 'modular_twilight_axis/icons/roguetown/clothing/onmob/shirts.dmi'
 	icon_state = "skinrobe"
 	item_state = "skinrobe"
 	body_parts_covered = FULL_BODY
@@ -20,6 +20,7 @@
 	salvage_result = /obj/item/reagent_containers/lux
 	max_integrity = ARMOR_INT_CHEST_PLATE_BRIGANDINE + 200
 	armor = ARMOR_BRIGANDINE
+	allowed_race = NON_DWARVEN_RACE_TYPES
 	auto_repair_mode = TRUE
 	relative_repair_interval = 15 SECONDS
 	interrupt_damount = 15
@@ -29,7 +30,7 @@
 	var/realicon
 	var/realmob
 
-/obj/item/clothing/suit/roguetown/shirt/baotha/Initialize()
+/obj/item/clothing/suit/roguetown/armor/regenerating/baotha/Initialize()
 	.=..()
 	realname = name
 	realdesc = desc
@@ -37,12 +38,12 @@
 	realicon = icon
 	realmob = mob_overlay_icon
 
-/obj/item/clothing/suit/roguetown/shirt/baotha/examine(var/mob/living/carbon/human/user, var/obj/item/clothing/neck/roguetown/psicross/blood/i)
+/obj/item/clothing/suit/roguetown/armor/regenerating/baotha/examine(var/mob/living/carbon/human/user, var/obj/item/clothing/neck/roguetown/psicross/blood/i)
 	. = ..()
 	if(user.patron.type == /datum/patron/inhumen/baotha)
 		desc = realdesc + span_love("Это существо является малым даром моего патрона. При желании я могу заставить его принять любой необходимый мне вид.")
 
-/obj/item/clothing/suit/roguetown/shirt/baotha/attack_right(var/mob/living/carbon/human/user)
+/obj/item/clothing/suit/roguetown/armor/regenerating/baotha/attack_right(var/mob/living/carbon/human/user)
 	if(user.patron.type == /datum/patron/inhumen/baotha)
 		var/mimicry = list("Рубаха", "Церемониальные шелка", "Тряпье", "Туника", "Платье", "Платье-сорочка", "Бархатное платье", "Дворянское платье", "Откровенное платье", "Рубаха-паутинка", "Элегантный наряд", "Топик", "Элегантная туника", "Отмена")
 		var/mimicry_choise = input("Варианты:", "Маскировка") as anything in mimicry
@@ -123,6 +124,6 @@
 				mob_overlay_icon = realmob
 		playsound(user, pick('sound/magic/magic_nulled.ogg'), 20, TRUE)
 
-/obj/item/clothing/suit/roguetown/shirt/baotha/proc/mimic()
+/obj/item/clothing/suit/roguetown/armor/regenerating/baotha/proc/mimic()
 	icon = 'icons/roguetown/clothing/shirts.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/shirts.dmi'

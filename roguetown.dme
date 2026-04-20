@@ -3408,6 +3408,7 @@
 #include "modular_twilight_axis\code\modules\clothing\rogueclothes\neck\neck.dm"
 #include "modular_twilight_axis\code\modules\clothing\rogueclothes\pants\chain.dm"
 #include "modular_twilight_axis\code\modules\clothing\rogueclothes\pants\plate.dm"
+#include "modular_twilight_axis\code\modules\clothing\rogueclothes\rings.dm"
 #include "modular_twilight_axis\code\modules\clothing\rogueclothes\rings\event_rings.dm"
 #include "modular_twilight_axis\code\modules\clothing\rogueclothes\shirts\shirts.dm"
 #include "modular_twilight_axis\code\modules\clothing\rogueclothes\storage\storage.dm"

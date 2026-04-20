@@ -2,20 +2,22 @@
 	name = "змеиное кольцо"
 	desc = "Кольцо выполненное из стали с применением позолоты, в виде искуссно воссозданной змеи. Качество работы настолько велико, что вам кажется будто глаза-самоцветы ползучей следят за вами."
 	icon_state = "baotha_knife"
-	icon = 'modular_twilight/icons/roguetown/weapons/32.dmi'
+	icon = 'modular_twilight_axis/icons/roguetown/weapons/32.dmi'
 	max_integrity = 300
 	var/realname
 	var/realdesc
 	var/realstate
+	var/realicon
 
-	grid_height = 1 GRID_CELLS
-	grid_width = 1 GRID_CELLS
+	grid_width = 32
+	grid_height = 32
 
 /obj/item/clothing/ring/baotha/Initialize()
 	.=..()
 	realname = name
 	realdesc = desc
 	realstate = icon_state
+	realicon = icon
 
 /obj/item/clothing/ring/baotha/examine(var/mob/living/carbon/human/user, var/obj/item/clothing/neck/roguetown/psicross/blood/i)
 	. = ..()
@@ -39,15 +41,15 @@
 			if("Отмена")
 				name = realname
 				desc = realdesc
-				icon = 'modular_twilight/icons/roguetown/weapons/32.dmi'
-				icon_state = "baotha_knife"
+				icon = realicon
+				icon_state = realstate
 
 		if(mimicry_choise != "Отмена")
 			desc = ""
 			icon = 'icons/roguetown/clothing/rings.dmi'
 			mob_overlay_icon = 'icons/roguetown/clothing/onmob/rings.dmi'
 		else
-			icon = 'modular_twilight/icons/roguetown/weapons/32.dmi'
+			icon = realicon
 
 /obj/item/clothing/ring/baotha/attack_self(var/mob/living/carbon/human/user)
 	if(user.patron.type == /datum/patron/inhumen/baotha)
