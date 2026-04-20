@@ -54,10 +54,10 @@
 	M.clear_fullscreen("druqk")
 
 /datum/reagent/smartium/on_mob_life(mob/living/carbon/M)
+	M.handle_hallucinations_custome(/datum/hallucination/floor_shift)
 	narcolepsy_drug_up(M)
 	M.sate_addiction(/datum/charflaw/addiction/junkie)
 	M.apply_status_effect(/datum/status_effect/buff/smartium)
-	M.handle_hallucinations_custome(/datum/hallucination/floor_shift)
 	if(prob(5))
 		M.flash_fullscreen("whiteflash")
 
@@ -143,7 +143,6 @@
 /datum/reagent/grave_powder/on_mob_metabolize(mob/living/carbon/M)
 	M.overlay_fullscreen("druqk", /atom/movable/screen/fullscreen/color_vision/red)
 	M.set_resting(TRUE, TRUE)
-	M.handle_hallucinations_custome(/datum/hallucination/death)
 	animate(M.client, pixel_y = 1, time = 1, loop = -1, flags = ANIMATION_RELATIVE)
 	animate(pixel_y = -1, time = 1, flags = ANIMATION_RELATIVE)
 
@@ -153,10 +152,12 @@
 
 /datum/reagent/grave_powder/on_mob_life(mob/living/carbon/M)
 	narcolepsy_drug_up(M)
+	M.handle_hallucinations_custome(/datum/hallucination/death)
 	M.sate_addiction(/datum/charflaw/addiction/junkie)
 	M.apply_status_effect(/datum/status_effect/buff/grave_powder)
-	M.apply_status_effect(/datum/status_effect/incapacitating/immobilized, 10 SECONDS)
-	M.apply_status_effect(/datum/status_effect/incapacitating/knockdown, 10 SECONDS)
+	M.Immobilize(10 SECONDS)
+	M.OffBalance(10 SECONDS)
+	M.Knockdown(10 SECONDS)
 	if(prob(50))
 		shake_camera(M, 5, 5)
 
@@ -198,7 +199,6 @@
 
 /datum/reagent/inferrum/on_mob_metabolize(mob/living/carbon/M)
 	M.overlay_fullscreen("druqk", /atom/movable/screen/fullscreen/color_vision/orange)
-	M.handle_hallucinations_custome(/datum/hallucination/fire)
 	animate(M.client, pixel_y = 1, time = 1, loop = -1, flags = ANIMATION_RELATIVE)
 	animate(pixel_y = -1, time = 1, flags = ANIMATION_RELATIVE)
 
@@ -207,6 +207,7 @@
 	M.clear_fullscreen("druqk")
 
 /datum/reagent/inferrum/on_mob_life(mob/living/carbon/M)
+	M.handle_hallucinations_custome(/datum/hallucination/fire)
 	narcolepsy_drug_up(M)
 	M.sate_addiction(/datum/charflaw/addiction/junkie)
 	M.adjustFireLoss(0.2)
