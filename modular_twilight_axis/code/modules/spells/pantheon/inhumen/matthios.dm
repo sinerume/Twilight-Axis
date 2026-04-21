@@ -656,7 +656,10 @@
 	/datum/status_effect/debuff/hereticsermon,
 	/datum/status_effect/debuff/mesmerised,
 	/datum/status_effect/debuff/necrandeathdoorwilloss,
-	/datum/status_effect/debuff/eoran_wilting,)
+	/datum/status_effect/debuff/eoran_wilting,
+	/datum/status_effect/debuff/netted/vile,
+	/datum/status_effect/debuff/bloody_mess,
+	/datum/status_effect/debuff/sensitive_nerves,)
 
 /obj/effect/proc_holder/spell/self/twilight_amongus/cast(list/targets,mob/living/user = usr)
 	for(var/mob/living/carbon/target in view(5, get_turf(user)))
