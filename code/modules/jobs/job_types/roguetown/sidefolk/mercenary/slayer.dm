@@ -212,7 +212,7 @@
 	ADD_TRAIT(owner, TRAIT_NODEF, STATUS_EFFECT_TRAIT)
 	ADD_TRAIT(owner, TRAIT_NOPAINSTUN, STATUS_EFFECT_TRAIT)
 
-#define STAMINA_AFTER_RAGE_SPENT_PROCENT 0.8 //TA add - buindle fix
+#define STAMINA_AFTER_RAGE_SPENT_PERCENT 0.8 //TA add - slayer balance
 
 /datum/status_effect/buff/axedance/on_remove()
 	. = ..()
@@ -225,9 +225,9 @@
 	REMOVE_TRAIT(owner, TRAIT_NODEF, STATUS_EFFECT_TRAIT)
 	REMOVE_TRAIT(owner, TRAIT_NOPAINSTUN, STATUS_EFFECT_TRAIT)
 	owner.apply_status_effect(/datum/status_effect/debuff/axe_exhaustion)
-	owner.stamina = owner.max_stamina * STAMINA_AFTER_RAGE_SPENT_PROCENT //TA add - buindle fix
+	owner.stamina = owner.max_stamina * STAMINA_AFTER_RAGE_SPENT_PERCENT //TA add - slayer balance
 
-#undef STAMINA_AFTER_RAGE_SPENT_PROCENT //TA add - buindle fix
+#undef STAMINA_AFTER_RAGE_SPENT_PERCENT //TA add - slayer balance
 #undef AXEDANCE_FILTER
 
 /atom/movable/screen/alert/status_effect/debuff/axe_exhaustion
