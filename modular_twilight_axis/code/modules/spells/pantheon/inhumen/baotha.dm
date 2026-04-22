@@ -233,7 +233,7 @@ proc/mirror_full_transform(mob/user)
 		H.update_body()
 
 //T0 that tells the user the person's vice.
-/obj/effect/proc_holder/spell/invoked/baothavice
+/obj/effect/proc_holder/spell/invoked/TAbaothavice
 	name = "Tell Vice"
 	desc = "Tells you the targets Vice."
 	action_icon = 'modular_twilight_axis/icons/mob/actions/baothamiracles.dmi'
@@ -253,7 +253,7 @@ proc/mirror_full_transform(mob/user)
 	devotion_cost = 10
 	var/list/fake_vices = list()
 
-/obj/effect/proc_holder/spell/invoked/baothavice/cast(list/targets, mob/living/user)
+/obj/effect/proc_holder/spell/invoked/TAbaothavice/cast(list/targets, mob/living/user)
 	if(!ishuman(targets?[1]))
 		revert_cast()
 		return FALSE
@@ -284,7 +284,7 @@ proc/mirror_full_transform(mob/user)
 	return TRUE
 
 // T0: Bless drink
-/obj/effect/proc_holder/spell/self/bless_drink
+/obj/effect/proc_holder/spell/self/TAbless_drink
 	name = "Bless Drink"
 	desc = "Blesses a container to allow it to be drunk to no end. Lasts about a minute. Due to the potency of alchemical mixes and of thoroughly cooked beverages, does not function on them."
 	action_icon = 'modular_twilight_axis/icons/mob/actions/baothamiracles.dmi'
@@ -325,7 +325,7 @@ proc/mirror_full_transform(mob/user)
 	)
 
 // Anything that heals has been restricted - caffeine for the stat buff, golden calendula tea is like a weaker red. This is solely for flavor purposes, effectively.
-/obj/effect/proc_holder/spell/self/bless_drink/cast(list/targets, mob/living/user)
+/obj/effect/proc_holder/spell/self/TAbless_drink/cast(list/targets, mob/living/user)
 	if(!ishuman(user))
 		revert_cast()
 		return FALSE
@@ -359,7 +359,7 @@ proc/mirror_full_transform(mob/user)
 
 //Baotha's Blessings - T0, reverses overdose effect on a target + soothing moodlet. Useful to T0/Devotee because it allows them to stop an OD death, but puts them on the clock. (Medieval narcan..... #BanNarcan)
 
-/obj/effect/proc_holder/spell/invoked/baothablessings
+/obj/effect/proc_holder/spell/invoked/TAbaothablessings
 	name = "Baotha's Blessings"
 	desc = "Gets the target drunk and stops them from overdosing for a time."
 	action_icon = 'modular_twilight_axis/icons/mob/actions/baothamiracles.dmi'
@@ -379,7 +379,7 @@ proc/mirror_full_transform(mob/user)
 	miracle = TRUE
 	devotion_cost = 10
 
-/obj/effect/proc_holder/spell/invoked/baothablessings/cast(list/targets, mob/living/user)
+/obj/effect/proc_holder/spell/invoked/TAbaothablessings/cast(list/targets, mob/living/user)
 	if(isliving(targets[1]))
 		var/mob/living/carbon/target = targets[1]
 		if(HAS_TRAIT(target, TRAIT_PSYDONITE))
@@ -396,7 +396,7 @@ proc/mirror_full_transform(mob/user)
 	return TRUE
 
 // T1, orison inspired healing spell that pours a drink called Lover's Ruin. Works like a red for baotha blessed, poisons non-blessed.
-/obj/effect/proc_holder/spell/targeted/touch/loversruin
+/obj/effect/proc_holder/spell/targeted/touch/TAloversruin
 	name = "Lover's Ruin"
 	desc = "A toast to passion that ends in ash.\n \
 		Beseech Baotha to pour wine onto a container. Poisons the unfaithful, rewards Her blessed with healing."
@@ -410,10 +410,10 @@ proc/mirror_full_transform(mob/user)
 	devotion_cost = 5
 	chargedloop = /datum/looping_sound/invokegen
 	associated_skill = /datum/skill/magic/holy
-	hand_path = /obj/item/melee/touch_attack/loversruin
+	hand_path = /obj/item/melee/touch_attack/TAloversruin
 	recharge_time = 2 MINUTES
 
-/obj/item/melee/touch_attack/loversruin
+/obj/item/melee/touch_attack/TAloversruin
 	name = "Baotha's Touch"
 	catchphrase = null
 	possible_item_intents = list(/datum/intent/fill)
@@ -423,23 +423,23 @@ proc/mirror_full_transform(mob/user)
 	color = "#FFFFFF"
 	var/right_click = FALSE
 
-/obj/item/melee/touch_attack/loversruin/attack_self()
+/obj/item/melee/touch_attack/TAloversruin/attack_self()
 	qdel(src)
 
-/obj/item/melee/touch_attack/loversruin/afterattack(atom/target, mob/living/carbon/human/user, proximity)
+/obj/item/melee/touch_attack/TAloversruin/afterattack(atom/target, mob/living/carbon/human/user, proximity)
 	if(istype(user.used_intent, /datum/intent/fill) && create_ichor(target, user))
 		qdel(src)
 
-/datum/reagent/medicine/loversruin
+/datum/reagent/medicine/TAloversruin
 	name = "Lover's Ruin"
 	description = "A sweet smelling concoction. It has small charred petals swimming on the surface."
 	color = "#9c2745"
 	taste_description = "sin"
 
-/datum/reagent/medicine/loversruin/on_mob_life(mob/living/carbon/M)
+/datum/reagent/medicine/TAloversruin/on_mob_life(mob/living/carbon/M)
 	if(HAS_TRAIT(M, TRAIT_CRACKHEAD))
 		if(volume >= 10)
-			M.reagents.remove_reagent(/datum/reagent/medicine/loversruin, 2)
+			M.reagents.remove_reagent(/datum/reagent/medicine/TAloversruin, 2)
 		if(M.blood_volume < BLOOD_VOLUME_NORMAL)
 			M.blood_volume = min(M.blood_volume+5, BLOOD_VOLUME_NORMAL)
 		var/list/wCount = M.get_wounds()
@@ -457,7 +457,7 @@ proc/mirror_full_transform(mob/user)
 		M.adjustOxyLoss(1, 0)
 	..()
 
-/obj/item/melee/touch_attack/loversruin/proc/create_ichor(atom/thing, mob/living/carbon/human/user)
+/obj/item/melee/touch_attack/TAloversruin/proc/create_ichor(atom/thing, mob/living/carbon/human/user)
 	if(!thing.Adjacent(user))
 		to_chat(user, span_info("I need to be closer to [thing] in order to try filling it with the concoction."))
 		return
@@ -495,7 +495,7 @@ proc/mirror_full_transform(mob/user)
 		to_chat(user, span_info("I'll need to find a container that can hold Her blessing."))
 
 //T1, Baotha's version of Eora's Bud (now renamed True Peace Bloom). Applies the TRAIT_CRACKHEAD baothans have.
-/obj/effect/proc_holder/spell/invoked/griefflower
+/obj/effect/proc_holder/spell/invoked/TAgriefflower
 	name = "False Serenity Bloom"
 	desc = "A gift for those whom you have choosen as worthy of Her grace, to be able to imbibe in Her gifts as you do."
 	clothes_req = FALSE
@@ -513,17 +513,17 @@ proc/mirror_full_transform(mob/user)
 	associated_skill = /datum/skill/magic/holy
 	recharge_time = 30 MINUTES //To avoid spamming this shit and giving all heretics florida-man crackhead superpowers. No Bro.
 
-/obj/effect/proc_holder/spell/invoked/griefflower/cast(mob/living/user)
+/obj/effect/proc_holder/spell/invoked/TAgriefflower/cast(mob/living/user)
 	var/turf/T = get_turf(user)
 	if(!isclosedturf(T))
-		new /obj/item/clothing/ring/griefflower(T)
+		new /obj/item/clothing/ring/TAgriefflower(T)
 		return TRUE
 
 	to_chat(user, span_warning("The targeted location is blocked. Her gift cannot be invoked."))
 	revert_cast()
 	return FALSE
 
-/obj/item/clothing/ring/griefflower
+/obj/item/clothing/ring/TAgriefflower
 	name = "rosa ring"
 	desc = "Once a flower of love, now touched by Baotha's hand. Its petals whisper of desire, despair, and the kind of longing that never dies. Worn by those who cannot let go."
 	icon_state = "peaceflower"
@@ -531,19 +531,19 @@ proc/mirror_full_transform(mob/user)
 	icon = 'icons/roguetown/items/produce.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/head_items.dmi'
 
-/obj/item/clothing/ring/griefflower/equipped(mob/living/carbon/human/user, slot)
+/obj/item/clothing/ring/TAgriefflower/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
 	if(slot == SLOT_RING)
 		user.apply_status_effect(/datum/status_effect/buff/griefflower)
 
-/obj/item/clothing/ring/griefflower/dropped(mob/living/carbon/human/user)
+/obj/item/clothing/ring/TAgriefflower/dropped(mob/living/carbon/human/user)
 	. = ..()
 	if(istype(user) && user?.wear_ring == src)
 		user.remove_status_effect(/datum/status_effect/buff/griefflower)
 
 // Insufflation - effectively just drugging yourself. Lets you pick, the same as Enrapturing Powder. T1, for now, to make up for the loss of the Baotha Blessing buff.
 
-/obj/effect/proc_holder/spell/self/insufflation 
+/obj/effect/proc_holder/spell/self/TAinsufflation 
 	name = "Insufflation"
 	desc = "Imbibes yourself on one of four drugs, in Her name. Your intent will determine the drug ingested. \n\
 	\
@@ -570,7 +570,7 @@ proc/mirror_full_transform(mob/user)
 	miracle = TRUE
 	devotion_cost = 30
 
-/obj/effect/proc_holder/spell/self/insufflation/cast(list/targets, mob/user)
+/obj/effect/proc_holder/spell/self/TAinsufflation/cast(list/targets, mob/user)
 	if(!ishuman(user))
 		revert_cast()
 		return FALSE
@@ -593,7 +593,7 @@ proc/mirror_full_transform(mob/user)
 
 //Enrapturing Powder - T2, basically a crackhead blowing cocaine in your face.
 
-/obj/effect/proc_holder/spell/invoked/projectile/blowingdust
+/obj/effect/proc_holder/spell/invoked/projectile/TAblowingdust
 	name = "Enrapturing Powder"
 	desc = "Blows dust of a potent painkilling drug at the target."
 	action_icon = 'modular_twilight_axis/icons/mob/actions/baothamiracles.dmi'
@@ -602,7 +602,7 @@ proc/mirror_full_transform(mob/user)
 	clothes_req = FALSE
 	range = 3	//POCKET OPIUM!
 	associated_skill = /datum/skill/magic/holy
-	projectile_type = /obj/projectile/magic/blowingdust
+	projectile_type = /obj/projectile/magic/TAblowingdust
 	chargedloop = /datum/looping_sound/invokeholy
 	releasedrain = 30
 	chargedrain = 0
@@ -612,7 +612,7 @@ proc/mirror_full_transform(mob/user)
 	invocations = list("flicks their wrist, filling the air in front of them with a fine powder.")
 	devotion_cost = 30
 
-/obj/projectile/magic/blowingdust
+/obj/projectile/magic/TAblowingdust
 	name = "unholy dust"
 	icon_state = "spark"
 	nodamage = FALSE
@@ -621,7 +621,7 @@ proc/mirror_full_transform(mob/user)
 	poisonfeel = "burning" //Would make sense for your eyes or nose to burn, I guess.
 	poisonamount = 8 //Decent bit of high, three doses would be just above the overdose threshold if applied fast enough.
 
-/obj/projectile/magic/blowingdust/on_hit(target, mob/living/M)
+/obj/projectile/magic/TAblowingdust/on_hit(target, mob/living/M)
 	. = ..()
 	if(!istype(M))
 		return
@@ -630,7 +630,7 @@ proc/mirror_full_transform(mob/user)
 		M.blur_eyes(2)
 
 // T2 - clears all stress. Forget your worries, pookie bear.
-/obj/effect/proc_holder/spell/invoked/lasthigh
+/obj/effect/proc_holder/spell/invoked/TAlasthigh
 	name = "Last High"
 	desc = "Pleasure's perfume, just before the fall."
 	action_icon = 'modular_twilight_axis/icons/mob/actions/baothamiracles.dmi'
@@ -650,7 +650,7 @@ proc/mirror_full_transform(mob/user)
 	miracle = TRUE
 	devotion_cost = 75
 
-/obj/effect/proc_holder/spell/invoked/lasthigh/cast(list/targets, mob/living/user)
+/obj/effect/proc_holder/spell/invoked/TAlasthigh/cast(list/targets, mob/living/user)
 	if(isliving(targets[1]))
 		var/mob/living/target = targets[1]
 		if(target.mob_biotypes & MOB_UNDEAD)
@@ -661,17 +661,17 @@ proc/mirror_full_transform(mob/user)
 			span_notice("The world fades around me. My throat melts, my stomach churns, and the pounding in my chest feels relentless. I can barely move, but it doesn't matter. Oblivion melts into love in front of my glossed-over eyes.")
 		)
 		target.adjustToxLoss(3)
-		target.add_stress(/datum/stressevent/lasthigh)
+		target.add_stress(/datum/stressevent/TAlasthigh)
 		return TRUE
 
-/datum/stressevent/lasthigh
+/datum/stressevent/TAlasthigh
 	timer = 10 MINUTES
 	stressadd = -99
 	desc = span_hypnophrase("The world fades around me. My throat melts, my stomach churns, and the pounding in my chest feels relentless. I can barely move, but it doesn't matter. Oblivion melts into love in front of my glossed-over eyes.") 
 
 
 // T3 - bond that lasts for 8 minutes as long as bonded are within 7 tiles, TRAIT_NOPAIN, spd = 5 end = 3
-/obj/effect/proc_holder/spell/invoked/joyride
+/obj/effect/proc_holder/spell/invoked/TAjoyride
 	name = "Joyride"
 	desc = "A frenzy for two to partake in."
 	action_icon = 'modular_twilight_axis/icons/mob/actions/baothamiracles.dmi'
@@ -687,7 +687,7 @@ proc/mirror_full_transform(mob/user)
 	devotion_cost = 75
 	associated_skill = /datum/skill/magic/holy
 
-/obj/effect/proc_holder/spell/invoked/joyride/cast(list/targets, mob/living/user)
+/obj/effect/proc_holder/spell/invoked/TAjoyride/cast(list/targets, mob/living/user)
 	var/mob/living/target = targets[1]
 
 	var/datum/component/baotha_joyride/existing = user.GetComponent(/datum/component/baotha_joyride)
@@ -715,7 +715,7 @@ proc/mirror_full_transform(mob/user)
 	return TRUE
 
 //Numbing Pleasure - T3, halves pain from target for a period of time. (Similar to Ravox's without any blood-clotting and better pain suppression + good mood buff.)
-/obj/effect/proc_holder/spell/invoked/painkiller
+/obj/effect/proc_holder/spell/invoked/TApainkiller
 	name = "Numbing Pleasure"
 	desc = "Numbs the targets pain and improves their mood."
 	action_icon = 'modular_twilight_axis/icons/mob/actions/baothamiracles.dmi'
@@ -734,7 +734,7 @@ proc/mirror_full_transform(mob/user)
 	miracle = TRUE
 	devotion_cost = 75
 
-/obj/effect/proc_holder/spell/invoked/painkiller/cast(list/targets, mob/living/user)
+/obj/effect/proc_holder/spell/invoked/TApainkiller/cast(list/targets, mob/living/user)
 	if(isliving(targets[1]))
 		var/mob/living/target = targets[1]
 		var/mob/living/carbon/human/human_target = target
@@ -747,7 +747,7 @@ proc/mirror_full_transform(mob/user)
 		target.apply_status_effect(/datum/status_effect/buff/vitae)					//+2 Fortune and mood buff
 		return TRUE
 
-/obj/effect/proc_holder/spell/invoked/painkiller/proc/restore_pain_mod(datum/physiology/physiology)
+/obj/effect/proc_holder/spell/invoked/TApainkiller/proc/restore_pain_mod(datum/physiology/physiology)
 	if(!physiology)
 		return
 
