@@ -46,8 +46,9 @@
 
 /datum/reagent/smartium/on_mob_metabolize(mob/living/M)
 	M.overlay_fullscreen("druqk", /atom/movable/screen/fullscreen/color_vision/light_blue)
-	animate(M.client, pixel_y = 1, time = 1, loop = -1, flags = ANIMATION_RELATIVE)
 	animate(pixel_y = -1, time = 1, flags = ANIMATION_RELATIVE)
+	if(M.client)
+		animate(M.client, pixel_y = 1, time = 1, loop = -1, flags = ANIMATION_RELATIVE)
 
 /atom/movable/screen/fullscreen/color_vision/light_blue
 	color = "#00e5ff4e"
@@ -103,7 +104,7 @@
 /atom/movable/screen/fullscreen/color_vision/light_red
 	color = "#ff00004e"
 
-/datum/reagent/corps_dustt/on_mob_end_metabolize(mob/living/M)
+/datum/reagent/corps_dust/on_mob_end_metabolize(mob/living/M)
 	animate(M.client)
 	M.clear_fullscreen("druqk")
 

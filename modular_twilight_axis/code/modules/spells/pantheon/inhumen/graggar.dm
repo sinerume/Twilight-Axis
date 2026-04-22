@@ -28,7 +28,7 @@
 	var/list/thrownatoms = list()
 	var/atom/throwtarget
 	var/distfromcaster
-	var/strenght = ((user.STASTR - 10)*10)
+	var/strength = ((user.STASTR - 10)*10)
 	var/skill_level = user.get_skill_level(associated_skill)
 	playsound(user, 'sound/magic/repulse.ogg', 80, TRUE)
 	if(!do_after(user, 1 SECONDS, user))
@@ -61,7 +61,7 @@
 			if(isliving(AM))
 				var/mob/living/M = AM
 				M.set_resting(TRUE, TRUE)
-				M.adjustBruteLoss(strenght)
+				M.adjustBruteLoss(strength)
 				to_chat(M, "<span class='danger'>You're slammed into the floor by [user]!</span>")
 		else
 			if(showsparkles)
@@ -69,10 +69,10 @@
 			if(isliving(AM))
 				for(var/mob/living/simple_animal/animal in range(push_range, user))
 					animal.Paralyze(5 SECONDS, updating = TRUE, ignore_canstun = TRUE)
-					animal.adjustBruteLoss(strenght*2)
+					animal.adjustBruteLoss(strength*2)
 				for(var/mob/living/L in range(push_range, user))
 					var/mob/living/M = AM
-					M.adjustBruteLoss(strenght/2)
+					M.adjustBruteLoss(strength/2)
 					M.Immobilize(3 SECONDS)
 					M.OffBalance(3 SECONDS)
 					to_chat(M, "<span class='danger'>You're thrown back by [user]!</span>")
@@ -238,7 +238,6 @@
 				var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_blood(get_turf(owner))
 				H.color = "#bc0909"
 		user.apply_status_effect(/datum/status_effect/buff/graggar_regenerate)
-		user.apply_status_effect(user.devotion?.update_devotion(-cost))
 		addtimer(CALLBACK(src, PROC_REF(continue_p)), wait = (5 SECONDS))
 	else
 		return
