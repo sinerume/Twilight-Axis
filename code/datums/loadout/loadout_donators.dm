@@ -293,5 +293,10 @@
 	name = "Donator Item - Porcelain Mask"
 	path = /obj/item/clothing/mask/rogue/iamcrystalclear
 	ckeywhitelist = list("iamcrystalclear")
+
+/datum/loadout_item/donator/darling
+	name = "Donator Item - Darling"
+	path = /obj/item/enchantingkit/weapon/darling
+	ckeywhitelist = list("castortroy23")
 	sort_category = "Donator"
 */
