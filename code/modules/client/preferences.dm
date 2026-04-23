@@ -271,6 +271,9 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	/// Per-character theme override for examine panel viewers
 	var/examine_theme
 
+	/// Whether we can see the feint HUD bar.
+	var/feint_hud = FALSE
+
 	var/datum/loadout_panel/loadoutpanel
 
 

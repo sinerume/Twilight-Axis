@@ -1393,8 +1393,8 @@
 	duration = 45 MINUTES
 	effectedstats = list(
 		STATKEY_STR = -3,
-		STATKEY_SPD = -4,
-		STATKEY_CON = -2
+		STATKEY_SPD = -6,
+		STATKEY_CON = -3
 	)
 
 /datum/status_effect/debuff/twilight_matthios_revival/on_creation(mob/living/new_owner, statchange = 1, stat_to_change = STATKEY_STR)
@@ -1405,15 +1405,11 @@
 	if(freemen <= 4)
 		effectedstats = list(
 			STATKEY_STR = (-4 + freemen),
-			STATKEY_SPD = (-6 + freemen * 2),
-			STATKEY_CON = (-3 + freemen)
+			STATKEY_SPD = (-8 + freemen * 2),
+			STATKEY_CON = (-4 + freemen)
 		)
 	else
-		effectedstats = list(
-			STATKEY_STR = 1,
-			STATKEY_SPD = 2,
-			STATKEY_CON = 1
-		)
+		effectedstats = list()
 	return ..()
 
 /atom/movable/screen/alert/status_effect/debuff/twilight_matthios_revival

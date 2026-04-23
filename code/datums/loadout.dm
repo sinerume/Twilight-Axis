@@ -1069,32 +1069,32 @@ GLOBAL_LIST_EMPTY(loadout_items_by_category)
 
 /datum/loadout_item/psicross/gronnzizo
 	name = "Wolf Talisman"
-	category = list("Аксессуары", "Донат")
+	category = list("Аксессуары")
 	path = /obj/item/clothing/neck/roguetown/psicross/inhumen/gronn
 
 /datum/loadout_item/psicross/gronnbaotha
 	name = "Leopard Talisman"
-	category = list("Аксессуары", "Донат")
+	category = list("Аксессуары")
 	path = /obj/item/clothing/neck/roguetown/psicross/inhumen/baothagronn
 
 /datum/loadout_item/psicross/gronnmatthios
 	name = "Bear Talisman"
-	category = list("Аксессуары", "Донат")
+	category = list("Аксессуары")
 	path = /obj/item/clothing/neck/roguetown/psicross/inhumen/matthios/gronn
 
 /datum/loadout_item/psicross/gronngraggar
 	name = "Moose Talisman"
-	category = list("Аксессуары", "Донат")
+	category = list("Аксессуары")
 	path = /obj/item/clothing/neck/roguetown/psicross/inhumen/graggar/gronn
 
 /datum/loadout_item/psicross/gronndendor
 	name = "Volfskinned Talisman"
-	category = list("Аксессуары", "Донат")
+	category = list("Аксессуары")
 	path = /obj/item/clothing/neck/roguetown/psicross/dendor/gronn
 
 /datum/loadout_item/psicross/gronnabyssor
 	name = "Hadal Talisman"
-	category = list("Аксессуары", "Донат")
+	category = list("Аксессуары")
 	path = /obj/item/clothing/neck/roguetown/psicross/abyssor/gronn
 
 /datum/loadout_item/wedding_band
@@ -2632,6 +2632,13 @@ GLOBAL_LIST_EMPTY(loadout_items_by_category)
 	donatitem = TRUE
 	donat_tier = 2
 
+/datum/loadout_item/donator/ketrai
+	name = "Octopus hat"
+	path = /obj/item/clothing/head/roguetown/octopus
+	category = list("Головные уборы", "Донат")
+	donatitem = TRUE
+	donat_tier = 2	
+
 // Обувь
 
 /datum/loadout_item/hammerhold_shoes
@@ -2984,3 +2991,70 @@ GLOBAL_LIST_EMPTY(loadout_items_by_category)
 	ckeywhitelist = list("wrvxth", "murken4ik")
 
 // Nightmare Kit End
+
+// Etruscan vol.3 Kit Start
+
+/datum/loadout_item/etrhat
+	name = "Wanderer's hat"
+	category = list("Головные уборы", "Донат")
+	path = /obj/item/clothing/head/roguetown/duelhat/etrhat
+	donatitem = TRUE
+	donat_tier = 1
+
+/datum/loadout_item/etrdress
+	name = "Low-cut dress - (only female, no small races)"
+	category = list("Одежда", "Донат")
+	path = /obj/item/clothing/suit/roguetown/shirt/dress/etrdress
+	donatitem = TRUE
+	donat_tier = 1
+
+/datum/loadout_item/etrdress2
+	name = "Embroidered dress - (only female, no small races)"
+	category = list("Одежда", "Донат")
+	path = /obj/item/clothing/suit/roguetown/shirt/dress/etrdress2
+	donatitem = TRUE
+	donat_tier = 1
+
+/datum/loadout_item/etrshirt
+	name = "Low-cut shirt - (only female, no small races)"
+	category = list("Одежда", "Донат")
+	path = /obj/item/clothing/suit/roguetown/shirt/undershirt/etrshirt
+	donatitem = TRUE
+	donat_tier = 1
+
+/datum/loadout_item/etrdoublet
+	name = "Wanderer's doublet - (only male, no small races)"
+	category = list("Одежда", "Донат")
+	path = /obj/item/clothing/suit/roguetown/shirt/undershirt/etrdoublet
+	donatitem = TRUE
+	donat_tier = 1
+
+/datum/loadout_item/etrjacket
+	name = "Wanderer's jacket - (only male, no small races)"
+	category = list("Одежда", "Донат")
+	path = /obj/item/clothing/suit/roguetown/armor/leather/etrjacket
+	donatitem = TRUE
+	donat_tier = 1
+
+/datum/loadout_item/etrbootsm
+	name = "Wanderer's boots - (only male, no small races)"
+	category = list("Обувь", "Донат")
+	path = /obj/item/clothing/shoes/roguetown/boots/leather/etrbootsm
+	donatitem = TRUE
+	donat_tier = 1
+
+/datum/loadout_item/donat/etrcape
+	name = "Wanderer's cape - (only male, no small races)"
+	category = list("Плащи", "Донат")
+	path = /obj/item/clothing/cloak/etrcape
+	donatitem = TRUE
+	donat_tier = 1
+
+/datum/loadout_item/donat/etrpants
+	name = "Wanderer's pants - (only male, no small races)"
+	category = list("Одежда", "Донат")
+	path = /obj/item/clothing/under/roguetown/trou/leather/etrpants
+	donatitem = TRUE
+	donat_tier = 1
+
+// Etruscan vol.3 Kit End
