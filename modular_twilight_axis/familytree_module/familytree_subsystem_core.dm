@@ -400,6 +400,9 @@ SUBSYSTEM_DEF(familytree)
 		return
 
 	if(familytree_pref_enabled(H.familytree_pref))
+		if(try_force_mutual_targeted_match(H))
+			ftlog("try_queue TARGETED: [H.real_name] matched via mutual target before local scheduling")
+			return
 		var/timer = rand(1, 30) + 10
 		ftlog("try_queue LOCAL: [H.real_name] pref=[H.familytree_pref] timer=[timer]s")
 		H.familytree_assignment_scheduled = TRUE
@@ -448,6 +451,9 @@ SUBSYSTEM_DEF(familytree)
 		H.familytree_assignment_scheduled = FALSE
 		return
 	H.familytree_assignment_scheduled = FALSE
+	if(try_force_mutual_targeted_match(H))
+		ftlog("run_local TARGETED: [H.real_name] matched via mutual target before AddLocal")
+		return
 	ftlog("run_local GO: [H.real_name] calling AddLocal status=[effective_status]")
 	AddLocal(H, effective_status)
 

@@ -82,8 +82,9 @@
 	var/join_create_phase_open = familytree_join_create_phase_open()
 	var/relative_join_phase_open = familytree_relative_join_phase_open()
 
-	if(H.setspouse && length(H.setspouse))
-		ftlog("AddLocal: [H.real_name] has favorite=[H.setspouse], trying favorite assign (retry #[H.familytree_setspouse_retries])")
+	var/target_name = familytree_get_target_name(H)
+	if(target_name && length(target_name))
+		ftlog("AddLocal: [H.real_name] has favorite=[target_name], trying favorite assign (retry #[H.familytree_setspouse_retries])")
 		var/favorite_result = TryAssignToFavorite(H, status)
 		if(favorite_result == "assigned")
 			stop_tracking_human(H, "assigned via favorite")
@@ -385,12 +386,13 @@
 		retry_local_assignment(H, "family assignment failed")
 
 /datum/controller/subsystem/familytree/proc/TryAssignToFavorite(mob/living/carbon/human/H, status)
-	if(!H?.setspouse || !length(H.setspouse))
+	var/target_name = familytree_get_target_name(H)
+	if(!target_name || !length(target_name))
 		ftlog("TryFavorite SKIP: [H?.real_name] no setspouse")
 		return "skip"
 
 	var/status_mode = familytree_pref_mask(status)
-	ftlog("TryFavorite: [H.real_name] looking for '[H.setspouse]'")
+	ftlog("TryFavorite: [H.real_name] looking for '[target_name]'")
 	var/mob/living/carbon/human/favorite = FindFavoriteMob(H)
 
 	if(!favorite)
@@ -467,10 +469,24 @@
 
 	return "waiting"
 
+/datum/controller/subsystem/familytree/proc/familytree_get_target_name(mob/living/carbon/human/H)
+	if(!H)
+		return null
+	if(H.setspouse && length(H.setspouse))
+		return H.setspouse
+	var/datum/preferences/P = H.client?.prefs
+	if(!P)
+		return null
+	P.familytree_module_load_character()
+	if(P.setspouse && length(P.setspouse))
+		return P.setspouse
+	return null
+
 /datum/controller/subsystem/familytree/proc/familytree_targets_name(mob/living/carbon/human/seeker, mob/living/carbon/human/target)
-	if(!seeker || !target || !seeker.setspouse || !length(seeker.setspouse))
+	var/target_name = familytree_get_target_name(seeker)
+	if(!target || !target_name || !length(target_name))
 		return FALSE
-	return familytree_names_match(seeker.setspouse, target.real_name)
+	return familytree_names_match(target_name, target.real_name)
 
 /datum/controller/subsystem/familytree/proc/familytree_mutual_setspouse(mob/living/carbon/human/A, mob/living/carbon/human/B)
 	return familytree_targets_name(A, B) && familytree_targets_name(B, A)
@@ -504,12 +520,13 @@
 		retry_local_assignment(H, "favorite house assignment failed")
 
 /datum/controller/subsystem/familytree/proc/FindFavoriteMob(mob/living/carbon/human/H)
-	if(!H?.setspouse)
+	var/target_name = familytree_get_target_name(H)
+	if(!target_name)
 		return null
 
 	for(var/datum/heritage/house as anything in families)
 		for(var/datum/family_node/node as anything in house.member_nodes)
-			if(node.person && familytree_names_match(node.person.real_name, H.setspouse))
+			if(node.person && familytree_names_match(node.person.real_name, target_name))
 				return node.person
 
 	for(var/mob/living/carbon/human/candidate as anything in viable_spouses.Copy())
@@ -521,7 +538,7 @@
 		if(candidate.familytree_opted_out)
 			viable_spouses -= candidate
 			continue
-		if(familytree_names_match(candidate.real_name, H.setspouse))
+		if(familytree_names_match(candidate.real_name, target_name))
 			return candidate
 
 	for(var/mob/living/carbon/human/candidate in GLOB.alive_mob_list)
@@ -531,12 +548,74 @@
 			continue
 		if(candidate.familytree_opted_out)
 			continue
-		if(!familytree_pref_enabled(candidate.familytree_pref))
+		var/candidate_pref = candidate.familytree_pref
+		var/datum/preferences/candidate_prefs = candidate.client?.prefs
+		if(candidate_prefs)
+			candidate_prefs.familytree_module_load_character()
+			candidate_pref = candidate_prefs.family
+		if(!familytree_pref_enabled(candidate_pref))
 			continue
-		if(familytree_names_match(candidate.real_name, H.setspouse))
+		if(familytree_names_match(candidate.real_name, target_name))
 			return candidate
 
 	return null
+
+/datum/controller/subsystem/familytree/proc/try_force_mutual_targeted_match(mob/living/carbon/human/H)
+	var/target_name = familytree_get_target_name(H)
+	if(!H || !target_name || !length(target_name))
+		return FALSE
+	if(H.family_datum || H.familytree_opted_out || H.familytree_confirmation_pending)
+		return FALSE
+
+	var/mob/living/carbon/human/favorite = FindFavoriteMob(H)
+	if(!favorite || favorite == H)
+		return FALSE
+	if(!familytree_mutual_setspouse(H, favorite))
+		return FALSE
+	if(favorite.familytree_opted_out || favorite.familytree_confirmation_pending)
+		return FALSE
+	if(favorite.family_datum)
+		return FALSE
+
+	var/h_block = get_familytree_runtime_block_reason(H, TRUE)
+	var/f_block = get_familytree_runtime_block_reason(favorite, TRUE)
+	if(h_block || f_block)
+		return FALSE
+
+	ftlog("TARGETED MATCH: [H.real_name] <-> [favorite.real_name] forcing mutual spouse confirmation before regular matching")
+	request_mutual_confirmation(H, favorite, CALLBACK(src, PROC_REF(do_execute_targeted_spouse_match), H, favorite), "spouse")
+	return TRUE
+
+/datum/controller/subsystem/familytree/proc/do_execute_targeted_spouse_match(mob/living/carbon/human/H, mob/living/carbon/human/favorite)
+	if(!H || QDELETED(H))
+		return
+	if(!favorite || QDELETED(favorite))
+		retry_local_assignment(H, "targeted spouse unavailable after confirm")
+		return
+	if(H.family_datum || favorite.family_datum)
+		retry_local_assignment(H, "targeted spouse already has a family")
+		return
+	ftlog("TARGETED MATCH: [H.real_name] + [favorite.real_name] -> forced spouse match")
+	viable_spouses -= H
+	viable_spouses -= favorite
+	var/mob/living/carbon/human/founder = familytree_new_family_founder(H, favorite)
+	var/mob/living/carbon/human/partner = founder == H ? favorite : H
+	var/datum/heritage/family = founder.MarryTo(partner)
+	if(!family)
+		retry_local_assignment(H, "targeted spouse family creation failed")
+		retry_local_assignment(favorite, "targeted spouse family creation failed")
+		return
+	family.closed = FALSE
+	if(!family.house_leader)
+		family.house_leader = founder.family_member_datum || family.founder
+	on_family_formed(family)
+	wake_waiting_relative_seekers(family)
+	familytree_admin_log_house_assignment(H, family, "created targeted house with spouse [key_name(favorite)]", favorite.family_member_datum)
+	familytree_admin_log_house_assignment(favorite, family, "created targeted house with spouse [key_name(H)]", H.family_member_datum)
+	introduce_pair(H, favorite)
+	bestow_wedding_rings(H, favorite)
+	stop_tracking_human(H, "targeted spouse match completed")
+	stop_tracking_human(favorite, "targeted spouse match completed")
 
 /datum/controller/subsystem/familytree/proc/AssignToHouse(mob/living/carbon/human/H, forced_role = null)
 	if(!H)
