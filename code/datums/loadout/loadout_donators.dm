@@ -293,5 +293,25 @@
 	name = "Donator Item - Porcelain Mask"
 	path = /obj/item/clothing/mask/rogue/iamcrystalclear
 	ckeywhitelist = list("iamcrystalclear")
+
+/datum/loadout_item/donator/darling
+	name = "Donator Item - Darling"
+	path = /obj/item/enchantingkit/weapon/darling
+	ckeywhitelist = list("castortroy23")
+
+/datum/loadout_item/donator/sumquoderis
+	name = "Donator Item - Sum Quod Eris"
+	path = /obj/item/enchantingkit/weapon/sumquoderis
+	ckeywhitelist = list("rivercadaver")
+
+/datum/loadout_item/donator/euthanasia
+	name = "Donator Item - Euthanasia"
+	path = /obj/item/enchantingkit/weapon/euthanasia
+	ckeywhitelist = list("rivercadaver")
+
+/datum/loadout_item/donator/wyrd_cloak
+	name = "Wyrd Cloak"
+	path = /obj/item/clothing/suit/roguetown/armor/longcoat/wyrd_cloak
+	ckeywhitelist = list("nekosam")
 	sort_category = "Donator"
 */

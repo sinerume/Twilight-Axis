@@ -189,6 +189,8 @@
 
 	var/list/charflaws = list()
 
+	var/list/feint_list = list()
+
 	// curse list and cooldown
 	var/list/curses = list()
 	COOLDOWN_DECLARE(priest_announcement)
