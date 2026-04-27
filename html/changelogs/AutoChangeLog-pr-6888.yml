@@ -1,6 +1,0 @@
-author: "Quinalion"
-delete-after: True
-changes:
-  - bugfix: "Fixed shield rendering on backs."
-  - bugfix: "Corrected sleeves sprites for hauberk, haubergeon, scalemail, and coat of plates."
-  - bugfix: "Fixed drider spider sprites."
