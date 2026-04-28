@@ -566,10 +566,10 @@
 			
 			if(L)
 				consumed = L
-				charge_gain = 50
+				charge_gain = 15
 			else if(LI)
 				consumed = LI
-				charge_gain = 30
+				charge_gain = 5
 				
 			if(consumed)
 				if(lux_charges + charge_gain > max_lux_charges)
