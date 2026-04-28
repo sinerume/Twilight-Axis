@@ -1,12 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "as" = (
-/obj/structure/table/wood/long_table/right,
-/obj/item/natural/feather{
-	pixel_x = -2;
-	pixel_y = 12
+/obj/structure/chair/wood/rogue/chair5{
+	dir = 4
 	},
-/obj/item/carvedgem/rose/vase,
-/turf/open/floor/carpet/red,
+/turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town)
 "aM" = (
 /obj/structure/table/wood/poor,
@@ -20,9 +17,6 @@
 	},
 /turf/open/floor/rogue/ruinedwood/herringbone,
 /area/rogue/indoors/town)
-"bI" = (
-/turf/open/floor/carpet/red,
-/area/rogue/indoors/town)
 "ct" = (
 /obj/structure/table/wood/long_table/mid/alt,
 /obj/item/paper{
@@ -32,9 +26,6 @@
 /obj/item/paper{
 	pixel_x = 0;
 	pixel_y = -1
-	},
-/obj/machinery/light/rogue/candle{
-	pixel_y = -32
 	},
 /turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/town)
@@ -81,19 +72,37 @@
 	pixel_x = 32;
 	pixel_y = -32
 	},
-/obj/structure/table/wood/poor,
+/obj/machinery/light/rogue/candle,
+/obj/structure/rack/rogue/shelf/biggest,
+/obj/item/reagent_containers/glass/cup/bronzemug{
+	pixel_x = 3;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/glass/cup/bronzemug{
+	pixel_x = -6;
+	pixel_y = 12
+	},
+/obj/item/kitchen/fork/bronze{
+	pixel_x = 5;
+	pixel_y = -4
+	},
+/obj/item/kitchen/fork/bronze{
+	pixel_x = -4;
+	pixel_y = -4
+	},
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town)
 "iv" = (
-/obj/structure/bed/rogue/inn,
-/obj/item/bedsheet/rogue/pelt,
-/turf/open/floor/carpet/royalblack,
+/obj/machinery/light/rogue/candle,
+/obj/structure/rack/rogue/shelf/biggest,
+/turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town)
 "iz" = (
 /turf/open/transparent/openspace,
 /area/rogue/outdoors/mountains)
 "iQ" = (
-/obj/machinery/light/rogue/candle,
+/obj/structure/table/wood/long_table,
+/obj/machinery/light/rogue/candle/floorcandle,
 /turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/town)
 "jk" = (
@@ -108,6 +117,7 @@
 	pixel_y = -32
 	},
 /obj/structure/table/wood/poor,
+/obj/item/carvedgem/rose/bust,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town)
 "mo" = (
@@ -117,33 +127,38 @@
 /turf/open/floor/rogue/ruinedwood/herringbone,
 /area/rogue/indoors/town)
 "mt" = (
-/obj/structure/table/wood/poor,
-/obj/item/carvedgem/rose/bust,
+/obj/structure/chair/wood/rogue/chair5{
+	dir = 8
+	},
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town)
 "mJ" = (
-/obj/structure/table/wood/long_table/mid/alt,
-/obj/item/paper{
+/obj/item/cooking/platter{
+	pixel_x = -1;
+	pixel_y = 21
+	},
+/obj/item/reagent_containers/glass/bowl{
+	pixel_x = -6;
+	pixel_y = 36
+	},
+/obj/item/reagent_containers/glass/bowl{
 	pixel_x = 8;
-	pixel_y = 5
+	pixel_y = 36
 	},
-/obj/item/paper{
-	pixel_x = 0;
-	pixel_y = -1
+/obj/item/cooking/platter{
+	pixel_x = -1;
+	pixel_y = 28
 	},
-/obj/machinery/light/rogue/candle{
-	pixel_y = -32
-	},
-/turf/open/floor/carpet/red,
-/area/rogue/indoors/town)
-"ow" = (
-/obj/structure/table/wood/poor,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town)
+"ow" = (
+/obj/structure/chair/wood/rogue/chair5,
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/town)
 "oU" = (
-/obj/structure/closet/crate/roguecloset/inn,
-/obj/item/dildo/wood,
-/turf/open/floor/carpet/red,
+/obj/structure/table/wood/long_table/right,
+/obj/item/carvedgem/rose/flower,
+/turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/town)
 "pz" = (
 /obj/structure/table/wood/poor,
@@ -207,6 +222,7 @@
 	pixel_x = -9;
 	pixel_y = 19
 	},
+/obj/item/carvedgem/rose/vase,
 /turf/open/floor/carpet/red,
 /area/rogue/indoors/town)
 "th" = (
@@ -218,19 +234,15 @@
 	},
 /area/rogue/outdoors/mountains)
 "uk" = (
-/obj/structure/bed/rogue/inn/double,
-/obj/item/bedsheet/rogue/double_pelt,
-/obj/machinery/light/rogue/candle,
-/turf/open/floor/carpet/red,
+/obj/machinery/light/rogue/candle{
+	pixel_y = -32
+	},
+/obj/structure/table/wood/poor,
+/obj/item/carvedgem/rose/urn,
+/turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town)
 "um" = (
 /turf/closed/wall/mineral/rogue/stone,
-/area/rogue/indoors/town)
-"vW" = (
-/obj/structure/mineral_door/wood/deadbolt{
-	dir = 8
-	},
-/turf/open/floor/rogue/ruinedwood/herringbone,
 /area/rogue/indoors/town)
 "wV" = (
 /turf/open/floor/rogue/ruinedwood/spiral,
@@ -244,13 +256,21 @@
 /turf/open/transparent/openspace,
 /area/rogue/indoors/town)
 "zJ" = (
-/obj/structure/table/wood/long_table,
-/obj/item/reagent_containers/glass/bottle/rogue/whitewine{
-	pixel_x = -9;
-	pixel_y = 19
+/obj/structure/table/wood/long_table/mid/alt,
+/obj/structure/mirror,
+/obj/item/reagent_containers/glass/bowl{
+	pixel_x = -4;
+	pixel_y = 11
 	},
-/obj/item/reagent_containers/glass/bottle/rogue/emberwine,
-/turf/open/floor/carpet/red,
+/obj/item/rogueweapon/huntingknife/throwingknife{
+	pixel_x = -6;
+	pixel_y = 2
+	},
+/obj/item/natural/whetstone{
+	pixel_x = 11;
+	pixel_y = 6
+	},
+/turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/town)
 "Fm" = (
 /obj/structure/chair/stool/rogue,
@@ -290,19 +310,22 @@
 /turf/open/floor/rogue/church,
 /area/rogue/indoors/town)
 "IO" = (
-/obj/structure/table/wood/long_table/right,
 /obj/item/natural/feather{
 	pixel_x = -2;
 	pixel_y = 12
 	},
-/obj/item/carvedgem/rose/flower,
+/obj/structure/table/wood/long_table/mid/alt,
+/obj/item/reagent_containers/glass/bottle/rogue/emberwine,
+/obj/machinery/light/rogue/candle{
+	pixel_y = -32
+	},
 /turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/town)
 "Kb" = (
 /obj/structure/stairs{
 	dir = 4
 	},
-/turf/open/transparent/openspace,
+/turf/open/floor/rogue/ruinedwood/herringbone,
 /area/rogue/indoors/town)
 "KJ" = (
 /obj/structure/fluff/railing/border{
@@ -319,16 +342,14 @@
 /area/rogue/indoors/town)
 "KL" = (
 /obj/machinery/light/rogue/candle,
-/turf/open/floor/rogue/ruinedwood/spiral,
+/obj/structure/table/wood/long_table/right,
+/obj/machinery/light/rogue/candle/floorcandle,
+/turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/town)
 "Lq" = (
 /obj/structure/closet/crate/roguecloset/inn,
 /obj/item/perfume/rose,
 /turf/open/floor/carpet/royalblack,
-/area/rogue/indoors/town)
-"Nd" = (
-/obj/structure/closet/crate/drawer,
-/turf/open/floor/carpet/red,
 /area/rogue/indoors/town)
 "OQ" = (
 /turf/open/floor/rogue/ruinedwood/herringbone,
@@ -376,10 +397,8 @@
 /turf/open/floor/rogue/ruinedwood/herringbone,
 /area/rogue/indoors/town)
 "Td" = (
-/obj/structure/fluff/walldeco/rpainting/crown{
-	pixel_x = -32
-	},
-/turf/open/floor/carpet/red,
+/obj/structure/bookcase/random,
+/turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town)
 "Tw" = (
 /obj/machinery/light/rogue/oven/west,
@@ -412,8 +431,9 @@
 /turf/open/floor/rogue/ruinedwood/herringbone,
 /area/rogue/indoors/town)
 "Wj" = (
-/obj/item/carvedgem/rose/urn,
-/turf/open/floor/rogue/ruinedwood/spiral,
+/obj/item/bedsheet/rogue/double_pelt,
+/obj/structure/bed/rogue/inn/double,
+/turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/town)
 "XS" = (
 /obj/structure/fluff/railing/wood{
@@ -429,83 +449,83 @@
 /area/rogue/indoors/town)
 
 (1,1,1) = {"
-um
-um
-um
-um
-um
-um
-um
+gB
+gB
+gB
+gB
+gB
+gB
+gB
 gB
 gB
 gB
 "}
 (2,1,1) = {"
-um
-oU
-Td
-mo
-bI
-zJ
-um
+gB
+gB
+gB
+gB
+gB
+gB
+gB
 gB
 gB
 gB
 "}
 (3,1,1) = {"
-um
-uk
-bI
-OQ
-bI
-mJ
-um
+gB
+gB
+gB
+gB
+gB
+gB
+gB
 gB
 gB
 gB
 "}
 (4,1,1) = {"
-um
-Nd
-bI
-OQ
-bI
-as
-um
+gB
+gB
+gB
+gB
+gB
+gB
+gB
 gB
 gB
 gB
 "}
 (5,1,1) = {"
-um
-um
-um
-vW
-um
-um
-um
-um
-um
-um
+gB
+gB
+gB
+gB
+gB
+gB
+gB
+gB
+gB
+gB
 "}
 (6,1,1) = {"
 gB
+gB
 um
-wV
-jk
-wV
-wV
-wV
-ow
-mt
+um
+um
+um
+um
+um
+um
 um
 "}
 (7,1,1) = {"
 gB
+gB
 um
-KL
-wV
-wV
+iv
+mJ
 wV
 wV
 wV
@@ -514,43 +534,43 @@ um
 "}
 (8,1,1) = {"
 gB
+gB
 um
-Wj
-wV
+Td
 wV
 wV
 KK
 wV
-wV
+mt
 um
 "}
 (9,1,1) = {"
 gB
+gB
 um
-ow
+Td
 wV
 wV
 wV
 wV
-wV
-wV
+as
 um
 "}
 (10,1,1) = {"
 gB
+gB
 um
-ow
 ic
 XS
 Yz
 GP
 jk
-wV
+uk
 um
 "}
 (11,1,1) = {"
 gB
-um
+gB
 um
 um
 um
@@ -565,10 +585,10 @@ gB
 gB
 gB
 gB
-gB
 um
-OQ
-OQ
+iQ
+jO
+jO
 sk
 um
 "}
@@ -577,10 +597,10 @@ th
 gp
 gB
 gB
-gB
 um
+zJ
 jO
-jO
+ow
 ct
 um
 "}
@@ -589,9 +609,9 @@ gp
 gp
 gB
 gB
-gB
 um
-iQ
+KL
+jO
 jO
 IO
 um
@@ -601,11 +621,11 @@ gp
 gp
 gB
 gB
-gB
 um
 Lq
-iv
+Wj
 FF
+oU
 um
 "}
 (16,1,1) = {"
@@ -613,7 +633,7 @@ gp
 gp
 gp
 gB
-gB
+um
 um
 um
 um
@@ -695,7 +715,7 @@ qe
 "}
 (5,1,2) = {"
 qe
-um
+qe
 um
 um
 um
@@ -707,8 +727,8 @@ um
 "}
 (6,1,2) = {"
 qe
+qe
 um
-rD
 rD
 rD
 rD
@@ -719,8 +739,8 @@ um
 "}
 (7,1,2) = {"
 qe
+qe
 um
-rD
 rD
 rD
 rD
@@ -731,8 +751,8 @@ um
 "}
 (8,1,2) = {"
 qe
+qe
 um
-rD
 rD
 rD
 zE
@@ -743,8 +763,8 @@ um
 "}
 (9,1,2) = {"
 qe
+qe
 um
-rD
 rD
 rD
 rD
@@ -755,24 +775,24 @@ um
 "}
 (10,1,2) = {"
 qe
+qe
 um
 rD
 rD
 rD
-Kb
-Kb
+rD
 rD
 rD
 um
 "}
 (11,1,2) = {"
 qe
-um
+qe
 um
 Va
 aM
-OQ
-OQ
+Kb
+Kb
 dL
 um
 um
