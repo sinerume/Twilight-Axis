@@ -1,4 +1,0 @@
-author: "WeNeedMorePhoron"
-delete-after: True
-changes:
-  - rscadd: "Grand Duke, Marshal, Bishop, Merchant, Bathmaster, Steward, Guildsman, Guildmaster and Martyr now announce on the SCOM when they far travel so people know an important role is missing."

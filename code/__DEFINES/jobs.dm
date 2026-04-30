@@ -282,6 +282,7 @@
 	"Steward", \
 	"Guildsman", \
 	"Guildmaster", \
+	"Hand", \
 	"Bishop", \
 	"Martyr", \
 )
