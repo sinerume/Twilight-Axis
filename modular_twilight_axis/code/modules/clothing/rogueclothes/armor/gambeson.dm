@@ -11,8 +11,8 @@
 	name = "masquerade"
 	desc = "writhing rags, woven from mutilated human faces, in constant agony intertwined with narcotic ecstasy. They say the previous owner of this item has gone missing, but where?.. And whos saying that?.."
 	slot_flags = ITEM_SLOT_SHIRT|ITEM_SLOT_ARMOR
-	icon = 'modular_twilight_axis/icons/roguetown/clothing/shirts.dmi'
-	mob_overlay_icon = 'modular_twilight_axis/icons/roguetown/clothing/onmob/shirts.dmi'
+	icon = 'modular_twilight_axis/icons/roguetown/clothing/masquerade.dmi'
+	mob_overlay_icon = 'modular_twilight_axis/icons/roguetown/clothing/onmob/masquerade.dmi'
 	icon_state = "skinrobe"
 	item_state = "skinrobe"
 	body_parts_covered = FULL_BODY
