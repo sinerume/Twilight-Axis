@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(hedgeknight_aggro, world.file2list("strings/rt/hedgeknightaggro
 /mob/living/carbon/human/species/human/northern/deranged_knight
 	ai_controller = /datum/ai_controller/human_npc
 	d_intent = INTENT_PARRY
-	faction = list("dundead")
+	faction = list(FACTION_DUNDEAD)
 	ambushable = FALSE
 	dodgetime = 30
 	var/preset = "matthios"
@@ -187,14 +187,14 @@ GLOBAL_LIST_INIT(hedgeknight_aggro, world.file2list("strings/rt/hedgeknightaggro
 /datum/outfit/job/roguetown/quest_miniboss/zizo/pre_equip(mob/living/carbon/human/H)
 	. = ..()
 
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/full/zizo
-	pants = /obj/item/clothing/under/roguetown/platelegs/zizo
-	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/zizo
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/full/avantyne
+	pants = /obj/item/clothing/under/roguetown/platelegs/avantyne/heavy
+	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/avantyne/heavy
 	wrists = /obj/item/clothing/wrists/roguetown/bracers
-	gloves = /obj/item/clothing/gloves/roguetown/plate/zizo
+	gloves = /obj/item/clothing/gloves/roguetown/plate/avantyne/heavy
 	head = /obj/item/clothing/head/roguetown/helmet/heavy/zizo
 	neck = /obj/item/clothing/neck/roguetown/gorget/steel
-	r_hand = /obj/item/rogueweapon/sword/long/zizo
+	r_hand = /obj/item/rogueweapon/sword/long/avantyne
 	mask = /obj/item/clothing/mask/rogue/facemask/steel
 
 /datum/outfit/job/roguetown/quest_miniboss/graggar/pre_equip(mob/living/carbon/human/H)
@@ -249,7 +249,7 @@ GLOBAL_LIST_INIT(hedgeknight_aggro, world.file2list("strings/rt/hedgeknightaggro
 */
 
 /mob/living/carbon/human/species/human/northern/highwayman/dk_goon
-	faction = list("dundead")
+	faction = list(FACTION_DUNDEAD)
 
 /mob/living/carbon/human/species/human/northern/deranged_knight/matthios
 	forced_preset = "matthios"

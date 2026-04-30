@@ -284,11 +284,17 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/always_destroy = FALSE
 	/// If TRUE, this item is not allowed to be minted. May be useful for other things later.
 	var/is_important = FALSE
+	/// Tagged on mapload-spawned items inside town areas - marks them as town property so they can't be fed to the stockpile for minting.
+	var/unmintable = FALSE
 	/// does this item/weapon circumvent two-stage death during dismemberment? (do not add this to anything but ultra rare shit)
 	var/vorpal = FALSE
 
-/obj/item/Initialize()
+/obj/item/Initialize(mapload)
 	. = ..()
+	if(mapload)
+		var/area/A = get_area(src)
+		if(A && is_type_in_typecache(A, GLOB.roguetown_areas_typecache))
+			unmintable = TRUE
 	if(!pixel_x && !pixel_y && !bigboy)
 		pixel_x = rand(-5,5)
 		pixel_y = rand(-5,5)
@@ -1617,6 +1623,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/on_embed(obj/item/bodypart/bp)
 	return
 
+/obj/item/proc/has_armor_value()
+	if(istype(src, /obj/item/clothing))
+		var/obj/item/clothing/C = src
+		if(C.armor)
+			var/datum/armor/def_armor = C.armor
+			return def_armor.blunt || def_armor.slash || def_armor.stab || def_armor.piercing
+
+	return FALSE
+
 /obj/item/proc/defense_examine()
 	var/list/str = list()
 	if(istype(src, /obj/item/clothing))
@@ -1630,6 +1645,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				defense += "<br>"
 				defense += "[SPAN_TOOLTIP("Each tier reduces damage by 20% of base. Reduced damage still reaches HP. Armor absorbs what was blocked.", "<u><b>REDUCE:</b></u>")] [colorgrade_rating("BURN", def_armor.fire, elaborate = TRUE, max_tier = 5)]"
 				defense += " | [colorgrade_rating("ACID", def_armor.acid, elaborate = TRUE, max_tier = 5)]"
+				defense += " | [colorgrade_rating("BULLET", def_armor.bullet, elaborate = TRUE, max_tier = 5)]" //TA EDIT
 				defense += "<br>"
 				defense += "[SPAN_TOOLTIP("Blocks attacks below this tier (Armor takes all damage). Same tier penetrates 20% (80% goes to armor). Exceeding tier penetrates fully.", "<u><b>BLOCK:</b></u>")] "
 				defense += "[colorgrade_rating("SLASH", def_armor.slash, elaborate = TRUE)] | "
@@ -1675,6 +1691,26 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			new /obj/item/scrap(get_turf(src))
 			if(prob(20))
 				new /obj/item/scrap(get_turf(src))
+		if(smeltresult == /obj/item/ingot/avantyne) //In short - it checks the item's smeltable result. If it matches what's listed here, it'll spawn something 'new' - scrap, in this case - when destroyed.
+			new /obj/item/ingot/component/zizo(get_turf(src))
+			if(prob(20))
+				new /obj/item/ingot/component/zizo(get_turf(src))
+		if(smeltresult == /obj/item/ingot/component/zizo) //This check's made so that all Ascendant-related items, if stripped and destroyed, spawn unique fragments. Decorative? Useful? Who knows!
+			new /obj/item/ingot/component/zizo(get_turf(src))
+			if(prob(20))
+				new /obj/item/ingot/component/zizo(get_turf(src))
+		if(smeltresult == /obj/item/ingot/component/graggar)
+			new /obj/item/ingot/component/graggar(get_turf(src))
+			if(prob(20))
+				new /obj/item/ingot/component/graggar(get_turf(src))
+		if(smeltresult == /obj/item/ingot/component/matthios)
+			new /obj/item/ingot/component/matthios(get_turf(src))
+			if(prob(20))
+				new /obj/item/ingot/component/matthios(get_turf(src))
+		if(smeltresult == /obj/item/ingot/component/baotha)
+			new /obj/item/ingot/component/baotha(get_turf(src))
+			if(prob(20))
+				new /obj/item/ingot/component/baotha(get_turf(src))
 	if(destroy_sound)
 		playsound(src, destroy_sound, 100, TRUE)
 	if(destroy_message)

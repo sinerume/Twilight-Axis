@@ -151,7 +151,7 @@
 	won't be long until they're almost here. Will you cry all your tears, or will you face your fears? </br>Mounted on the back is a unique couplet, fit for adopting feathered greatplumes."
 	icon_state = "barbute_visor"
 	item_state = "barbute_visor"
-	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL
+	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL - ARMOR_INT_HELMET_HEAVY_ADJUSTABLE_PENALTY
 	adjustable = CAN_CADJUST
 	emote_environment = 3
 	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR|HIDESNOUT
@@ -165,7 +165,7 @@
 	desc = "A steel greathelm of inordinate thickness, whose design seems to've been inspired by both a tournament's froggemund and a kingdom's sugarloaf. It is far from elegant, but it will \
 	thwart killing blows again-and-again without compromise. Never forget that a champion of Psydonia needn't nobility nor wealth to become eternal; they need only the courage to be free. \
 	</br>'In their legends, there were no gods - only heroes.'"
-	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL + 50
+	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL
 	icon_state = "barbutedunk"
 	item_state = "barbutedunk"
 	emote_environment = 3
@@ -1237,6 +1237,11 @@
 	active_item = FALSE
 	REMOVE_TRAIT(user, TRAIT_BITERHELM, TRAIT_GENERIC)
 
+/obj/item/clothing/head/roguetown/helmet/heavy/graggar/alt
+	name = "vicious skullhelm"
+	desc = "Nigh lyke a crushed skull worn with pride; as sturdy as one that has seen fractures - and survived them, too."
+	icon_state = "graggarplatehelm_heavy"
+
 /obj/item/clothing/head/roguetown/helmet/heavy/matthios/Initialize()
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_FREEMAN, "VISAGE")
@@ -1255,7 +1260,7 @@
 	icon_state = "zizofrogmouth"
 	name = "avantyne froggemund"
 	desc = "Crystallized inzanity, brought to a lower plane of existence and flared into a wide-collared froggemund. It has been called forth from the edge of reality, in Her name."
-	flags_inv = HIDEFACE|HIDESNOUT|HIDEEARS
+	flags_inv = HIDEFACE|HIDESNOUT|HIDEEARS|HIDEHAIR
 	body_parts_covered = HEAD|EARS|HAIR
 	adjustable = CANT_CADJUST
 
@@ -1264,6 +1269,15 @@
 	desc = "An unholy combination of a bastardised volf-face bascinet, along with avantyne reinforcements. Progress is an agonising process."
 	icon_state = "volfplate_avantyne"
 	item_state = "volfplate_avantyne"
+
+/obj/item/clothing/head/roguetown/helmet/heavy/zizo/bascinet
+	name = "avantyne full-face bascinet"
+	desc = "A bascinet with an unyielding visor stuck to its front. Where does one see out of this?"
+	icon_state = "zizoplatehelm_med"
+	item_state = "zizoplatehelm_med"
+	flags_inv = HIDEFACE|HIDESNOUT|HIDEEARS|HIDEHAIR
+	body_parts_covered = HEAD|EARS|HAIR
+	adjustable = CANT_CADJUST
 
 /obj/item/clothing/head/roguetown/helmet/heavy/zizo/Initialize()
 	. = ..()

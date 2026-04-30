@@ -271,6 +271,18 @@
 	smeltresult = /obj/item/ingot/steel
 	wdefense = 3
 
+/obj/item/rogueweapon/stoneaxe/woodcut/steel/graggar
+	name = "vicious hand-axe"
+	icon_state = "gheretic_axe"
+	desc = "A reinforced steel-axe. The edges crave for flesh."
+	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/axe/bash, /datum/intent/axe/thrust)
+	force = 30
+	wdefense = 5
+
+/obj/item/rogueweapon/stoneaxe/woodcut/steel/graggar/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_HORDE, "AXE", "RENDERED ASUNDER")
+
 /obj/item/rogueweapon/stoneaxe/woodcut/steel/decorated
 	name = "decorated axe"
 	icon_state = "nsapo"
@@ -290,13 +302,18 @@
 
 /datum/intent/axe/cut/long
 	reach = 2
-	swingdelay = 0.4 SECONDS
+	damfactor = 1
+	demolition_mod = 1
 
-/datum/intent/axe/chop/long
+/datum/intent/axe/cut/long/bronze
+	damfactor = 0.8
+	demolition_mod = 1.3
+
+/datum/intent/axe/chop/long/bronze
 	reach = 2
-	damfactor = 1.2
-	demolition_mod = 2
-	swingdelay = 1.2 SECONDS
+	damfactor = 1
+	demolition_mod = 1.5
+	swingdelay = 0.5 SECONDS
 
 /obj/item/rogueweapon/stoneaxe/woodcut/steel/woodcutter
 	name = "woodcutter's axe"
@@ -460,7 +477,7 @@
 	force = 15
 	force_wielded = 30
 	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
-	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, /datum/intent/axe/sweep)
+	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, /datum/intent/axe/chop/heavy, /datum/intent/axe/sweep)
 	name = "greataxe"
 	desc = "A large axe, requiring both hands to properly swing. It carves, chops, and cleaves from afar."
 	icon_state = "igreataxe"
@@ -478,7 +495,7 @@
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/iron
 	associated_skill = /datum/skill/combat/axes
-	wdefense = 6
+	wdefense = 4
 
 /obj/item/rogueweapon/greataxe/getonmobprop(tag)
 	. = ..()
@@ -494,8 +511,6 @@
 /obj/item/rogueweapon/greataxe/steel
 	force = 15
 	force_wielded = 30
-	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
-	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, /datum/intent/axe/sweep)
 	name = "steel greataxe"
 	desc = "A large axe with a sharpened steel edge, requiring both hands to properly swing. It carves, chops, and cleaves from afar."
 	icon_state = "sgreataxe"
@@ -507,7 +522,7 @@
 	force = 15
 	force_wielded = 30
 	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
-	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, /datum/intent/axe/chop/heavy, /datum/intent/axe/sweep)
+	gripped_intents = list(/datum/intent/axe/cut/long/bronze, /datum/intent/axe/chop/long/bronze, /datum/intent/axe/chop/heavy, /datum/intent/axe/sweep)
 	name = "bronze greataxe"
 	desc = "A massive staff with a bronze axhead mantled onto the wood. It splits and carves from afar with lethal force; be it lumber or limbs."
 	icon_state = "bronzegreataxe"
@@ -515,7 +530,6 @@
 	wdefense = 7
 	max_blade_int = 400
 	smeltresult = /obj/item/ingot/bronze
-	armor_penetration = PEN_NONE
 	throwforce = 32
 	throw_speed = 3
 	embedding = list("embedded_pain_multiplier" = 4, "embed_chance" = 33, "embedded_fall_chance" = 2)
@@ -603,6 +617,7 @@
 	afar. </br>'Crush your enemies, see them driven before you, and hear the lamentations of the women..'"
 	icon_state = "doublegreataxe"
 	max_blade_int = 230
+	wdefense = 3
 	minstr = 13
 
 /obj/item/rogueweapon/greataxe/steel/doublehead/graggar

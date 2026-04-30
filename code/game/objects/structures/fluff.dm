@@ -711,7 +711,7 @@
 
 /obj/structure/fluff/signage
 	name = "sign"
-	desc = ""
+	desc = "It's a sign! It seems to be pointing somewhere."
 	icon = 'icons/roguetown/misc/structure.dmi'
 	icon_state = "shitsign"
 	density = TRUE
@@ -730,11 +730,18 @@
 	else
 		. += "It says \"Twilight Axis\""
 
+/obj/structure/fluff/sign
+	icon_state = "signwrote"
+	name = "sign"
+	desc = "It's a sign! These usually have words carved into them."
+	icon = 'icons/roguetown/misc/structure.dmi'
+
 /obj/structure/fluff/buysign
 	icon_state = "signwrote"
 	name = "sign"
 	desc = ""
 	icon = 'icons/roguetown/misc/structure.dmi'
+
 /obj/structure/fluff/buysign/examine(mob/user)
 	. = ..()
 	if(!user.is_literate())
@@ -745,19 +752,13 @@
 /obj/structure/fluff/sellsign
 	icon_state = "signwrote"
 	name = "sign"
-	desc = ""
+	desc = "It's a sign! These usually have words carved into them."
 	icon = 'icons/roguetown/misc/structure.dmi'
-/obj/structure/fluff/sellsign/examine(mob/user)
-	. = ..()
-	if(!user.is_literate())
-		. += "I have no idea what it says."
-	else
-		. += "It says \"EXPORTS\""
-
 
 /obj/structure/fluff/customsign
 	name = "sign"
-	desc = ""
+	desc = "It's a sign! It looks like it'd be quite easy to carve your \
+	own message into this one, were you so inclined."
 	icon_state = "sign"
 	var/wrotesign
 	max_integrity = 500
@@ -771,6 +772,10 @@
 			. += "I have no idea what it says."
 		else
 			. += "It says \"[wrotesign]\"."
+
+/obj/structure/fluff/customsign/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Left clicking on the sign with a dagger on STAB intent allows you to carve a message into it!")
 
 /obj/structure/fluff/customsign/attackby(obj/item/W, mob/user, params)
 	if(!user.cmode)
@@ -1139,15 +1144,15 @@
 			if(W.flags_1 & HOARDMASTER_SPAWNED_1)
 				to_chat(user, span_warning("This item is from the Hoard!"))
 				return
-			if(W.sellprice <= 0)
-				to_chat(user, span_warning("This item is worthless."))
-				return
 			var/proceed_with_offer = FALSE
 			for(var/TT in treasuretypes)
 				if(istype(W, TT))
 					proceed_with_offer = TRUE
 					break
 			if(proceed_with_offer)
+				if(W.sellprice <= 0)
+					to_chat(user, span_warning("This item is worthless."))
+					return
 				playsound(loc,'sound/items/carvty.ogg', 50, TRUE)
 				log_admin("[user] ([user?.ckey]) submitted [W] ([W.type]) to the Idol, worth [W.get_real_price()]")
 				qdel(W)
@@ -1159,10 +1164,10 @@
 							bandit_players.favor += donatedamnt
 							bandit_players.totaldonated += donatedamnt
 							to_chat(player, ("<font color='yellow'>[user.name] donates [donatedamnt] to the shrine! You now have [bandit_players.favor] favor.</font>"))
+				return //Do not call base - if item sold/given off then stop attacks/hits/other events from using that item on the statue.
 
 			else
 				to_chat(user, span_warning("This item isn't a good offering."))
-				return
 	..()
 
 /obj/structure/fluff/psycross
