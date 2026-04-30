@@ -175,7 +175,7 @@
 		return
 
 	if(family_mode & FAMILYTREE_MODE_LEGACY_SPOUSE)
-		if(H.virginity && !xylix_roulette_active)
+		if(H.virginity && !xylix_roulette_applies(H))
 			ftlog("AddLocal: [H.real_name] SKIP: virginity gate")
 			stop_tracking_human(H, "legacy full family flow skipped; virginity gate")
 			return
@@ -635,10 +635,10 @@
 		if(!house.housename || house.housename == "no name")
 			reject_mask |= FTREJ_H_NONAME
 			continue
-		if(!house_allows_relatives(house))
+		if(!house_allows_relatives(house, H))
 			reject_mask |= FTREJ_H_RELATIVES
 			continue
-		if(!house_race_compatible(house, our_race, we_are_isolated))
+		if(!house_race_compatible(house, our_race, we_are_isolated, H))
 			reject_mask |= FTREJ_H_RACE
 			continue
 		if(house.member_nodes.len < 1)
@@ -706,12 +706,19 @@
 	if(!house || !person || !anchor?.person || anchor.person == person)
 		return possible_roles
 
-	if(CanBeParentOf(anchor.person, person) && (adopted || house.SingleParentSpeciesCalculation(person, anchor.person)))
+	if(CanBeParentOf(anchor.person, person) && (adopted || familytree_biological_parent_allowed(anchor.person, person, house)))
 		possible_roles += "child"
 	if(familytree_can_be_sibling_of_anchor(house, person, anchor))
 		possible_roles += "sibling"
 	if(anchor.get_parent_members().len < 2 && CanBeParentOf(person, anchor.person))
-		possible_roles += "parent"
+		var/can_add_as_parent = adopted || familytree_biological_parent_allowed(person, anchor.person, house)
+		if(can_add_as_parent)
+			for(var/datum/family_member/existing_parent as anything in anchor.get_parent_members())
+				if(existing_parent?.person && !familytree_biological_parent_pair_allowed(person, existing_parent.person, anchor.person, house))
+					can_add_as_parent = FALSE
+					break
+		if(can_add_as_parent)
+			possible_roles += "parent"
 	if(anchor.get_parent_members().len < 2 && familytree_can_be_uncle_aunt_of(person, anchor.person))
 		possible_roles += "uncle_aunt"
 
@@ -727,8 +734,18 @@
 	if(!CanBeSiblings(anchor.person.age, person.age))
 		return FALSE
 	var/list/anchor_parents = anchor.get_parent_members()
+	var/list/real_anchor_parents = list()
 	for(var/datum/family_member/parent as anything in anchor_parents)
-		if(parent?.person && !CanBeParentOf(parent.person, person))
+		if(!parent?.person)
+			continue
+		if(!CanBeParentOf(parent.person, person))
+			return FALSE
+		real_anchor_parents += parent.person
+	if(real_anchor_parents.len >= 2)
+		if(!familytree_biological_parent_pair_allowed(real_anchor_parents[1], real_anchor_parents[2], person, house))
+			return FALSE
+	else if(real_anchor_parents.len == 1)
+		if(!familytree_biological_parent_allowed(real_anchor_parents[1], person, house))
 			return FALSE
 	return TRUE
 
@@ -812,7 +829,9 @@
 			continue
 		if(!CanBeParentOf(member.person, child))
 			continue
-		if(!house.SingleParentSpeciesCalculation(child, member.person))
+		if(!familytree_biological_parent_allowed(member.person, child, house))
+			continue
+		if(exclude?.person && !familytree_biological_parent_pair_allowed(member.person, exclude.person, child, house))
 			continue
 		candidates += member
 	if(!candidates.len)
@@ -843,6 +862,15 @@
 		if(member.get_parent_members().len >= 2)
 			continue
 		if(!CanBeParentOf(parent, member.person))
+			continue
+		if(!familytree_biological_parent_allowed(parent, member.person, house))
+			continue
+		var/parent_pair_allowed = TRUE
+		for(var/datum/family_member/existing_parent as anything in member.get_parent_members())
+			if(existing_parent?.person && !familytree_biological_parent_pair_allowed(parent, existing_parent.person, member.person, house))
+				parent_pair_allowed = FALSE
+				break
+		if(!parent_pair_allowed)
 			continue
 		candidates += member
 	if(!candidates.len)
@@ -876,7 +904,7 @@
 	for(var/datum/heritage/house as anything in families)
 		if(house.closed)
 			continue
-		if(!house_race_compatible(house, our_race, our_isolated))
+		if(!house_race_compatible(house, our_race, our_isolated, H))
 			continue
 
 		var/has_single_adult = FALSE
@@ -970,11 +998,13 @@
 	var/mob/living/carbon/human/creator = a_join_only ? B : A
 
 	if(CanBeParentOf(creator, joiner))
-		return a_join_only ? "b_parent" : "a_parent"
+		if(familytree_biological_parent_allowed(creator, joiner))
+			return a_join_only ? "b_parent" : "a_parent"
 	if(CanBeSiblings(creator.age, joiner.age))
 		return "sibling"
 	if(CanBeParentOf(joiner, creator))
-		return a_join_only ? "a_parent" : "b_parent"
+		if(familytree_biological_parent_allowed(joiner, creator))
+			return a_join_only ? "a_parent" : "b_parent"
 	if(familytree_can_be_uncle_aunt_of(joiner, creator))
 		return a_join_only ? "a_uncle_aunt" : "b_uncle_aunt"
 	return null
@@ -1048,9 +1078,9 @@
 		if("sibling")
 			return CanBeSiblings(A.age, B.age)
 		if("a_parent")
-			return CanBeParentOf(A, B)
+			return CanBeParentOf(A, B) && familytree_biological_parent_allowed(A, B)
 		if("b_parent")
-			return CanBeParentOf(B, A)
+			return CanBeParentOf(B, A) && familytree_biological_parent_allowed(B, A)
 		if("a_uncle_aunt")
 			return familytree_can_be_uncle_aunt_of(A, B)
 		if("b_uncle_aunt")
@@ -1139,7 +1169,7 @@
 	return "created new house as relative of [key_name(other)]"
 
 /datum/controller/subsystem/familytree/proc/familytree_creator_pronouns_compatible(mob/living/carbon/human/creator, mob/living/carbon/human/partner, respect_xylix = TRUE)
-	if(respect_xylix && xylix_roulette_active)
+	if(respect_xylix && xylix_roulette_applies(creator))
 		return TRUE
 	if(!creator || !partner)
 		return FALSE
@@ -1156,7 +1186,7 @@
 		if(!creator_isolated || !partner_isolated)
 			return "isolated group mismatch"
 
-	if(respect_xylix && xylix_roulette_active)
+	if(respect_xylix && xylix_roulette_applies(creator))
 		return null
 
 	var/datum/preferences/P = creator.client?.prefs
@@ -1183,7 +1213,7 @@
 	return null
 
 /datum/controller/subsystem/familytree/proc/familytree_creator_role_tiers_compatible(mob/living/carbon/human/creator, mob/living/carbon/human/partner)
-	if(xylix_roulette_active)
+	if(xylix_roulette_pair_applies(creator, partner))
 		return TRUE
 
 	var/creator_tier = familytree_get_role_tier(creator)
@@ -1359,7 +1389,7 @@
 		if(house.closed)
 			reject_mask |= FTREJ_F_CLOSED
 			continue
-		if(!house_race_compatible(house, our_race, our_isolated))
+		if(!house_race_compatible(house, our_race, our_isolated, H))
 			reject_mask |= FTREJ_F_RACE
 			continue
 		houses_scanned++
@@ -1498,9 +1528,9 @@
 			continue
 		if(!house.housename || house.housename == "no name")
 			continue
-		if(!house_allows_relatives(house))
+		if(!house_allows_relatives(house, H))
 			continue
-		if(!house_race_compatible(house, our_race, we_are_isolated))
+		if(!house_race_compatible(house, our_race, we_are_isolated, H))
 			continue
 		if(!familytree_house_supports_role(house, H, forced_role))
 			continue
@@ -1580,10 +1610,10 @@
 	ring.forceMove(get_turf(H))
 	to_chat(H, span_love("Серебряное свадебное кольцо упало у ваших ног в знак союза."))
 
-/datum/controller/subsystem/familytree/proc/house_allows_relatives(datum/heritage/house)
+/datum/controller/subsystem/familytree/proc/house_allows_relatives(datum/heritage/house, mob/living/carbon/human/seeker = null)
 	if(!house)
 		return FALSE
-	if(xylix_roulette_active)
+	if(xylix_roulette_applies(seeker))
 		return TRUE
 	if(!house.house_leader?.person)
 		return TRUE

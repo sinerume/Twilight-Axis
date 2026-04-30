@@ -211,22 +211,21 @@
 	if(!new_member)
 		return FALSE
 
-	new_member.adoption_status = adopt
+	var/biological_parentage_allowed = TRUE
+	if(!adopt)
+		if(parent1 && parent2)
+			biological_parentage_allowed = SSfamilytree.familytree_biological_parent_pair_allowed(parent1.person, parent2.person, person, src)
+		else
+			var/datum/family_member/known_parent = parent1 ? parent1 : parent2
+			if(known_parent)
+				biological_parentage_allowed = SSfamilytree.familytree_biological_parent_allowed(known_parent.person, person, src)
+
+	new_member.adoption_status = adopt || !biological_parentage_allowed
 
 	if(parent1)
 		new_member.AddParent(parent1)
 	if(parent2)
 		new_member.AddParent(parent2)
-
-	if(!adopt && parent1 && parent2)
-		if(!SpeciesCalculation(person, parent1.person, parent2.person))
-			new_member.adoption_status = TRUE
-			SSfamilytree.graph_sync_adoption_status(person, TRUE)
-	else if(!adopt)
-		var/datum/family_member/known_parent = parent1 ? parent1 : parent2
-		if(known_parent && !SingleParentSpeciesCalculation(person, known_parent.person))
-			new_member.adoption_status = TRUE
-			SSfamilytree.graph_sync_adoption_status(person, TRUE)
 
 	AddFamilyIcon(person)
 	to_chat(person, span_notice("Вы были добавлены в семью [housename]."))

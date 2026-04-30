@@ -38,7 +38,7 @@ GLOBAL_LIST_INIT(familytree_title_prefixes, list(
 /proc/pronouns_compatible(mob/living/carbon/human/A, mob/living/carbon/human/B)
 	if(!A || !B)
 		return FALSE
-	if(SSfamilytree?.xylix_roulette_active)
+	if(SSfamilytree?.xylix_roulette_pair_applies(A, B))
 		return TRUE
 
 	var/pref_a = A.gender_choice_pref || ANY_GENDER
@@ -61,7 +61,9 @@ GLOBAL_LIST_INIT(familytree_title_prefixes, list(
 		if(!a_isolated || !b_isolated)
 			return "isolated group mismatch"
 
-	if(xylix_roulette_active)
+	var/a_xylix = xylix_roulette_applies(A)
+	var/b_xylix = xylix_roulette_applies(B)
+	if(a_xylix && b_xylix)
 		return null
 
 	var/datum/preferences/PA = A.client?.prefs
@@ -72,7 +74,7 @@ GLOBAL_LIST_INIT(familytree_title_prefixes, list(
 	var/list/pref_types_a = get_preference_species_type_list(PA)
 	var/list/pref_types_b = get_preference_species_type_list(PB)
 
-	if(PA)
+	if(PA && !a_xylix)
 		switch(PA.species_preference_mode)
 			if("ANY")
 				;
@@ -83,7 +85,7 @@ GLOBAL_LIST_INIT(familytree_title_prefixes, list(
 				if(!(typeB in pref_types_a))
 					return "species mismatch"
 
-	if(PB)
+	if(PB && !b_xylix)
 		switch(PB.species_preference_mode)
 			if("ANY")
 				;
@@ -94,11 +96,11 @@ GLOBAL_LIST_INIT(familytree_title_prefixes, list(
 				if(!(typeA in pref_types_b))
 					return "species mismatch"
 
-	if(PA)
+	if(PA && !a_xylix)
 		if(!AnatomyCompatible(PA.preferred_species_anatomy, B))
 			return "anatomy mismatch"
 
-	if(PB)
+	if(PB && !b_xylix)
 		if(!AnatomyCompatible(PB.preferred_species_anatomy, A))
 			return "anatomy mismatch"
 
@@ -216,8 +218,8 @@ GLOBAL_LIST_INIT(familytree_title_prefixes, list(
 			return TRUE
 	return FALSE
 
-/datum/controller/subsystem/familytree/proc/house_race_compatible(datum/heritage/house, our_race, we_are_isolated)
-	if(xylix_roulette_active)
+/datum/controller/subsystem/familytree/proc/house_race_compatible(datum/heritage/house, our_race, we_are_isolated, mob/living/carbon/human/seeker = null)
+	if(xylix_roulette_applies(seeker))
 		if(we_are_isolated)
 			return is_house_isolated(house)
 		if(is_house_isolated(house))
@@ -510,6 +512,35 @@ GLOBAL_LIST_INIT(familytree_title_prefixes, list(
 		return TRUE
 	return FALSE
 
+/datum/controller/subsystem/familytree/proc/familytree_single_parent_species_compatible(mob/living/carbon/human/child, mob/living/carbon/human/parent, datum/heritage/house = null)
+	if(!child || !parent)
+		return FALSE
+	var/datum/heritage/context = house || child.family_datum || parent.family_datum || ruling_family
+	if(!context)
+		return FALSE
+	return context.SingleParentSpeciesCalculation(child, parent)
+
+/datum/controller/subsystem/familytree/proc/familytree_biological_parent_allowed(mob/living/carbon/human/parent, mob/living/carbon/human/child, datum/heritage/house = null)
+	if(!parent || !child)
+		return FALSE
+	if(xylix_roulette_pair_applies(parent, child))
+		return TRUE
+	return familytree_single_parent_species_compatible(child, parent, house)
+
+/datum/controller/subsystem/familytree/proc/familytree_biological_parent_pair_allowed(mob/living/carbon/human/parent1, mob/living/carbon/human/parent2, mob/living/carbon/human/child, datum/heritage/house = null)
+	if(!child)
+		return FALSE
+	if(!parent1)
+		return familytree_biological_parent_allowed(parent2, child, house)
+	if(!parent2)
+		return familytree_biological_parent_allowed(parent1, child, house)
+	if(xylix_roulette_pair_applies(parent1, child) || xylix_roulette_pair_applies(parent2, child))
+		return TRUE
+	var/datum/heritage/context = house || child.family_datum || parent1.family_datum || parent2.family_datum || ruling_family
+	if(!context)
+		return FALSE
+	return context.SpeciesCalculation(child, parent1, parent2)
+
 /datum/controller/subsystem/familytree/proc/CanBeSiblings(age1, age2)
 	if(!age1 || !age2)
 		return FALSE
@@ -551,11 +582,11 @@ GLOBAL_LIST_INIT(familytree_title_prefixes, list(
 		var/mob/living/carbon/human/other = node.person
 		if(!other)
 			continue
-		if(!can_be_child && CanBeParentOf(other, person) && house.SingleParentSpeciesCalculation(person, other))
+		if(!can_be_child && CanBeParentOf(other, person) && (adopted || familytree_biological_parent_allowed(other, person, house)))
 			can_be_child = TRUE
 		if(!can_be_sibling && CanBeSiblings(other.age, person.age))
 			can_be_sibling = TRUE
-		if(!can_be_parent && CanBeParentOf(person, other))
+		if(!can_be_parent && CanBeParentOf(person, other) && (adopted || familytree_biological_parent_allowed(person, other, house)))
 			can_be_parent = TRUE
 		if(can_be_child && can_be_sibling && can_be_parent)
 			break

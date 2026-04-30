@@ -61,7 +61,7 @@
 	if(primary_family)
 		SSfamilytree.register_family(primary_family)
 
-	if(SSfamilytree.xylix_roulette_active)
+	if(SSfamilytree.xylix_roulette_pair_applies(src, spouse))
 		var/xylix_msg = span_danger("<font size='2'>Ксайликс пошутил над вашей судьбой, подтасовав карты.</font>")
 		to_chat(src, xylix_msg)
 		to_chat(spouse, xylix_msg)

@@ -121,7 +121,7 @@
 	for(var/datum/heritage/house as anything in families)
 		if(!house.housename || !house.member_nodes.len)
 			continue
-		if(!house_race_compatible(house, our_race, our_isolated))
+		if(!house_race_compatible(house, our_race, our_isolated, H))
 			continue
 
 		for(var/datum/family_member/member as anything in house.members)
@@ -154,7 +154,7 @@
 	for(var/datum/heritage/house as anything in families)
 		if(!house.housename || !house.member_nodes.len)
 			continue
-		if(!house_race_compatible(house, our_race, our_isolated))
+		if(!house_race_compatible(house, our_race, our_isolated, H))
 			continue
 
 		for(var/datum/family_member/member as anything in house.members)
@@ -162,7 +162,16 @@
 				continue
 			if(!CanBeParentOf(H, member.person))
 				continue
+			if(!familytree_biological_parent_allowed(H, member.person, house))
+				continue
 			if(member.get_parent_members().len >= 2)
+				continue
+			var/parent_pair_allowed = TRUE
+			for(var/datum/family_member/existing_parent as anything in member.get_parent_members())
+				if(existing_parent?.person && !familytree_biological_parent_pair_allowed(H, existing_parent.person, member.person, house))
+					parent_pair_allowed = FALSE
+					break
+			if(!parent_pair_allowed)
 				continue
 			if(GetSpeciesCompatibilityFailureReason(H, member.person))
 				continue

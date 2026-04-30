@@ -66,7 +66,7 @@
 
 /datum/controller/subsystem/familytree/proc/get_royal_partner_allowed_races(mob/living/carbon/human/duke, datum/preferences/P, list/default_races) as /list
 	var/list/allowed_races = islist(default_races) ? default_races.Copy() : list()
-	if(xylix_roulette_active)
+	if(xylix_roulette_applies(duke))
 		return allowed_races
 	if(!P)
 		return allowed_races
@@ -93,7 +93,7 @@
 
 /datum/controller/subsystem/familytree/proc/get_royal_partner_allowed_sexes(mob/living/carbon/human/duke, datum/preferences/P, list/default_sexes) as /list
 	var/list/allowed_sexes = islist(default_sexes) ? default_sexes.Copy() : list()
-	if(xylix_roulette_active)
+	if(xylix_roulette_applies(duke))
 		return allowed_sexes
 	if(!P)
 		return allowed_sexes
@@ -164,6 +164,8 @@
 
 /datum/controller/subsystem/familytree/proc/refresh_xylix_royal_partner_jobs()
 	if(!xylix_roulette_active || !current_royal_partner_owner || current_royal_partner_mode == "closed")
+		return FALSE
+	if(!xylix_roulette_applies(current_royal_partner_owner))
 		return FALSE
 	if(!ensure_royal_partner_job_baselines())
 		return FALSE
@@ -343,7 +345,7 @@
 	var/job_key = get_royal_partner_job_key(role_or_job)
 	if(!job_key || current_royal_partner_mode != job_key)
 		return FALSE
-	if(xylix_roulette_active)
+	if(xylix_roulette_applies(current_royal_partner_owner))
 		return TRUE
 
 	var/datum/preferences/P = C.prefs

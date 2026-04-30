@@ -64,6 +64,7 @@
 // Phase gates for join/create matching. Do not bypass without updating AI_NAVIGATION.md gotchas.
 #define FAMILYTREE_JOIN_CREATE_DELAY (2 MINUTES)
 #define FAMILYTREE_RELATIVE_JOIN_DELAY (5 MINUTES)
+#define FAMILYTREE_XYLIX_ROULETTE_CHANCE 15
 
 #define ANY_GENDER 1
 #define SAME_GENDER 2

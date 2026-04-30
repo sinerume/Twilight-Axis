@@ -105,6 +105,12 @@
 		return FALSE
 	if(IsAncestorOf(parent))
 		return FALSE
+	if(person && parent.person && !adoption_status && !SSfamilytree.familytree_biological_parent_allowed(parent.person, person, family))
+		return FALSE
+	if(person && parent.person && !adoption_status)
+		for(var/datum/family_member/existing_parent as anything in current_parents)
+			if(existing_parent?.person && !SSfamilytree.familytree_biological_parent_pair_allowed(parent.person, existing_parent.person, person, family))
+				return FALSE
 
 	if(parent.phantom || !parent.person)
 		phantom_parent_members += parent
@@ -229,7 +235,7 @@
 	var/list/spouse_children = spouse.get_child_members()
 	for(var/datum/family_member/child as anything in get_child_members())
 		if(child in spouse_children)
-			if(family.SpeciesCalculation(child.person, person, spouse.person))
+			if(family.SpeciesCalculation(child.person, person, spouse.person) || SSfamilytree.xylix_roulette_pair_applies(child.person, person) || SSfamilytree.xylix_roulette_pair_applies(child.person, spouse.person))
 				child.adoption_status = FALSE
 				SSfamilytree.graph_sync_adoption_status(child.person, FALSE)
 
