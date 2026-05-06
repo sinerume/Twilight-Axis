@@ -497,6 +497,11 @@
 	. = ..()
 	var/negate_slowdown = FALSE
 
+	for(var/obj/item/stick in user.held_items)  // TA EDIT START
+		if(stick.walking_stick && !stick.wielded && !user.cmode) // 
+			negate_slowdown = TRUE //
+			break // TA EDIT FIN
+
 	if((isliving(user))&&(user?.movement_type == FLYING))
 		negate_slowdown = TRUE
 	if(HAS_TRAIT(user, TRAIT_LONGSTRIDER))
