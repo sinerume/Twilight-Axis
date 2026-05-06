@@ -95,7 +95,7 @@
 
 /obj/item/clothing/cloak/lepoardcloak
 	name = "leopard pelt cloak"
-	desc = "This regal cloak is made from the pelt of an Etruscan Lepoard. It's worn by soldiers of great prestige and renown."
+	desc = "This regal cloak is made from the pelt of an Etruscan Leopard. It's worn by soldiers of great prestige and renown."
 	icon_state = "lepoardcape"
 	icon = 'modular_twilight_axis/icons/roguetown/clothing/cloaks.dmi'
 	mob_overlay_icon = 'modular_twilight_axis/icons/roguetown/clothing/onmob/cloaks.dmi'
