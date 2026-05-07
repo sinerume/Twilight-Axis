@@ -121,7 +121,7 @@
 	cartridge_articles = "an"
 	var/datum/special_intent/special
 
-/obj/item/gun/ballistic/revolver/grenadelauncher/bow/equipped(mob/user, slot)
+/obj/item/gun/ballistic/revolver/grenadelauncher/bow/equipped(mob/user, slot) //TA EDIT
 	. = ..()
 	if(slot == ITEM_SLOT_HANDS)
 		if(HAS_TRAIT(user, TRAIT_BOW_DOUBLESHOT))
@@ -131,6 +131,11 @@
 		else if(HAS_TRAIT(user, TRAIT_BOW_LONGSHOT))
 			if(!istype(special, /datum/special_intent/bow_longshot))
 				special = new /datum/special_intent/bow_longshot()
+		
+		else if(HAS_TRAIT(user, TRAIT_BOW_BACKSTEP))
+			if(!istype(special, /datum/special_intent/bow_backstep))
+				special = new /datum/special_intent/bow_backstep()
+
 		else
 			special = null
 

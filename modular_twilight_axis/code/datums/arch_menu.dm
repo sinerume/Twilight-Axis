@@ -28,6 +28,9 @@
 	else if(HAS_TRAIT(owner, TRAIT_BOW_LONGSHOT))
 		has_perk = TRUE
 		selected_id = "longshot"
+	else if(HAS_TRAIT(owner, TRAIT_BOW_BACKSTEP))
+		has_perk = TRUE
+		selected_id = "backstep"
 		
 	data["has_perk"] = has_perk
 	data["selected_perk"] = selected_id
@@ -49,15 +52,20 @@
 		
 		if(selected == "doubleshot")
 			ADD_TRAIT(owner, TRAIT_BOW_DOUBLESHOT, TRAIT_GENERIC)
-			to_chat(owner, span_greentext("Я освоил Двойной выстрел! Теперь я могу использовать специальную атаку (СКМ/ПКМ)."))
+			to_chat(owner, span_greentext("Я освоил Двойной выстрел!"))
 			if(istype(B))
 				B.special = new /datum/special_intent/bow_doubleshot()
 				
 		else if(selected == "longshot")
 			ADD_TRAIT(owner, TRAIT_BOW_LONGSHOT, TRAIT_GENERIC)
-			to_chat(owner, span_greentext("Я освоил Дальнобойный выстрел! Теперь я могу использовать специальную атаку (СКМ/ПКМ)."))
+			to_chat(owner, span_greentext("Я освоил Дальнобойный выстрел!"))
 			if(istype(B))
 				B.special = new /datum/special_intent/bow_longshot()
+		else if(selected == "backstep")
+			ADD_TRAIT(owner, TRAIT_BOW_BACKSTEP, TRAIT_GENERIC)
+			to_chat(owner, span_greentext("Я освоил Выстрел с отскоком!"))
+			if(istype(B))
+				B.special = new /datum/special_intent/bow_backstep()
 		
 		SStgui.close_uis(src)
 		return TRUE

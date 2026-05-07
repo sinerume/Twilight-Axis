@@ -3440,6 +3440,7 @@
 #include "modular_twilight_axis\code\controllers\subsystem\rogue\regional_threat\dun_world.dm"
 #include "modular_twilight_axis\code\controllers\subsystem\rogue\regional_threat\rockhill.dm"
 #include "modular_twilight_axis\code\controllers\subsystem\rogue\role_class_handler\role_class_handler_admin_full_dress.dm"
+#include "modular_twilight_axis\code\datums\arch_menu.dm"
 #include "modular_twilight_axis\code\datums\components\church_weapons_def.dm"
 #include "modular_twilight_axis\code\datums\combat_music.dm"
 #include "modular_twilight_axis\code\datums\combo\combo_core.dm"
@@ -3921,5 +3922,4 @@
 #include "modular_twilight_axis\lore\code\tips\time.dm"
 #include "modular_twilight_axis\modular\Neu_food\code\cookware\cup.dm"
 #include "modular_twilight_axis\code\datums\flaws\gefheretic.dm"
-#include "modular_twilight_axis\code\datums\archery_menu.dm"
 // END_INCLUDE

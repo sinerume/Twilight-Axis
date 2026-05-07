@@ -44,8 +44,9 @@
 #define TRAIT_DNR "Bane of Existence"
 #define TRAIT_PHILOSOPHER_BOUND "Philosopher bound"
 #define TRAIT_MANIAC_AWOKEN "Awoken"
-#define TRAIT_BOW_DOUBLESHOT "Double Shot Archer"
-#define TRAIT_BOW_LONGSHOT "Long Shot Archer"
+#define TRAIT_BOW_DOUBLESHOT "Double Shot Archer"//TA EDIT
+#define TRAIT_BOW_LONGSHOT "Long Shot Archer"//TA EDIT
+#define TRAIT_BOW_BACKSTEP "Skirmisher Archer"//TA EDIT
 #define TRAIT_INFINITE_STAMINA "Indefatigable" //for ai
 #define TRAIT_NUDIST "Nudist" //you can't wear most clothes
 #define TRAIT_CYCLOPS_LEFT "Cyclops (Left)" //poked left eye
@@ -421,7 +422,8 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_SOUL_EXAMINE = span_deadsay("I know when someone's soul has departed."),
 	TRAIT_CRACKHEAD = span_love("I can use drugs as much as I want!"),
 	TRAIT_BOW_DOUBLESHOT = span_info("Я овладел искусством Двойного выстрела. Могу быстро достать вторую стрелу из колчана."),
-	TRAIT_BOW_LONGSHOT = span_info("Я овладел Дальнобойным выстрелом. Чем дальше моя цель, тем смертоноснее моя стрела."),
+	TRAIT_BOW_LONGSHOT = span_info("Я овладел Дальнобойным выстрелом. Чем дальше моя цель, тем смертоноснее моя стрела."),//TA EDIT
+	TRAIT_BOW_BACKSTEP = span_info("Я овладел искусством Выстрел с отскоком. Дал дал ушел."),//TA EDIT
 	TRAIT_FREEMAN = span_bloody("I can recognize other free men, and they can recognize me too."),
 	TRAIT_KNOWNCRIMINAL = span_bloody("I am a branded criminal. Nothing can change this."),
 	TRAIT_NORUN = span_warning("My body has atrophied in my state of decay; my leg joints just don't have the strength or durability for running anymore"),
