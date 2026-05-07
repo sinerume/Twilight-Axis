@@ -7,7 +7,7 @@
 
 	if(consort_job)
 		royal_partner_job_baselines["consort"] = list(
-//			"allowed_races" = islist(consort_job.allowed_races) ? consort_job.allowed_races.Copy() : list(),
+			"forbidden_races" = islist(consort_job.forbidden_races) ? consort_job.forbidden_races.Copy() : list(),
 			"allowed_sexes" = islist(consort_job.allowed_sexes) ? consort_job.allowed_sexes.Copy() : list(),
 			"total_positions" = consort_job.total_positions,
 			"spawn_positions" = consort_job.spawn_positions,
@@ -15,7 +15,7 @@
 
 	if(suitor_job)
 		royal_partner_job_baselines["suitor"] = list(
-//			"allowed_races" = islist(suitor_job.allowed_races) ? suitor_job.allowed_races.Copy() : list(),
+			"forbidden_races" = islist(suitor_job.forbidden_races) ? suitor_job.forbidden_races.Copy() : list(),
 			"allowed_sexes" = islist(suitor_job.allowed_sexes) ? suitor_job.allowed_sexes.Copy() : list(),
 			"total_positions" = suitor_job.total_positions,
 			"spawn_positions" = suitor_job.spawn_positions,
@@ -66,10 +66,9 @@
 		return list()
 	return get_familytree_species_type_list(P.preferred_species_types)
 
-/datum/controller/subsystem/familytree/proc/get_royal_partner_allowed_races(mob/living/carbon/human/duke, datum/preferences/P, list/default_races) as /list
-	var/list/allowed_races = islist(default_races) ? default_races.Copy() : list()
+/datum/controller/subsystem/familytree/proc/get_royal_partner_allowed_races(mob/living/carbon/human/duke, datum/preferences/P) as /list
 	if(!P)
-		return allowed_races
+		return list()
 
 	var/duke_species_type = duke?.dna?.species?.type
 	if(!ispath(duke_species_type, /datum/species))
@@ -78,7 +77,7 @@
 	if(duke_forced_hetero_mode(P))
 		if(ispath(duke_species_type, /datum/species))
 			return list(duke_species_type)
-		return allowed_races
+		return list()
 
 	switch(P.species_preference_mode)
 		if("SAME_TYPE")
@@ -89,7 +88,7 @@
 			if(preferred_species.len)
 				return preferred_species
 
-	return allowed_races
+	return list()
 
 /datum/controller/subsystem/familytree/proc/get_royal_partner_allowed_sexes(mob/living/carbon/human/duke, datum/preferences/P, list/default_sexes) as /list
 	var/list/allowed_sexes = islist(default_sexes) ? default_sexes.Copy() : list()
@@ -119,6 +118,16 @@
 
 	return allowed_sexes
 
+/datum/controller/subsystem/familytree/proc/compute_royal_forbidden_races(list/baseline_forbidden, list/allowed_races) as /list
+	var/list/result = islist(baseline_forbidden) ? baseline_forbidden.Copy() : list()
+	if(!islist(allowed_races) || !allowed_races.len)
+		return result
+	var/list/all_selectable = familytree_module_get_selectable_species_types()
+	for(var/species_type in all_selectable)
+		if(!(species_type in allowed_races))
+			result |= species_type
+	return result
+
 /datum/controller/subsystem/familytree/proc/apply_royal_partner_job_state(job_key, enabled, open_slots = 0, list/allowed_races, list/allowed_sexes)
 	if(!ensure_royal_partner_job_baselines())
 		return FALSE
@@ -134,15 +143,15 @@
 	if(!job || !baseline)
 		return FALSE
 
-	var/list/baseline_allowed_races = baseline["allowed_races"]
+	var/list/baseline_forbidden_races = baseline["forbidden_races"]
 	var/list/baseline_allowed_sexes = baseline["allowed_sexes"]
-//	job.allowed_races = islist(baseline_allowed_races) ? baseline_allowed_races.Copy() : list()
+	job.forbidden_races = islist(baseline_forbidden_races) ? baseline_forbidden_races.Copy() : list()
 	job.allowed_sexes = islist(baseline_allowed_sexes) ? baseline_allowed_sexes.Copy() : list()
 	job.total_positions = baseline["total_positions"]
 	job.spawn_positions = baseline["spawn_positions"]
 
 	if(enabled)
-	//	job.allowed_races = islist(allowed_races) ? allowed_races.Copy() : list()
+		job.forbidden_races = compute_royal_forbidden_races(baseline_forbidden_races, allowed_races)
 		job.allowed_sexes = islist(allowed_sexes) ? allowed_sexes.Copy() : list()
 		job.total_positions = open_slots
 		job.spawn_positions = open_slots
@@ -186,9 +195,9 @@
 	if(!consort_baseline || !suitor_baseline)
 		return FALSE
 
-	var/list/consort_allowed_races = get_royal_partner_allowed_races(duke, P, consort_baseline["allowed_races"])
+	var/list/consort_allowed_races = get_royal_partner_allowed_races(duke, P)
 	var/list/consort_allowed_sexes = get_royal_partner_allowed_sexes(duke, P, consort_baseline["allowed_sexes"])
-	var/list/suitor_allowed_races = get_royal_partner_allowed_races(duke, P, suitor_baseline["allowed_races"])
+	var/list/suitor_allowed_races = get_royal_partner_allowed_races(duke, P)
 	var/list/suitor_allowed_sexes = get_royal_partner_allowed_sexes(duke, P, suitor_baseline["allowed_sexes"])
 
 	switch(mode)

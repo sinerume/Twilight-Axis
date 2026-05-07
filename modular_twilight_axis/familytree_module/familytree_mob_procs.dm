@@ -374,7 +374,7 @@
 			return JOB_UNAVAILABLE_PQ
 	#endif
 	var/datum/species/pref_species = job_prefs.pref_species
-	if(length(job.allowed_races) && !(pref_species.type in job.allowed_races))
+	if(length(job.forbidden_races) && (pref_species.type in job.forbidden_races))
 		return JOB_UNAVAILABLE_RACE
 	var/list/allowed_sexes = list()
 	if(length(job.allowed_sexes))
