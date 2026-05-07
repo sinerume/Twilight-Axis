@@ -36,7 +36,7 @@
 	if(howner.client)
 		howner.client.chargedprog = old_charge
 
-	addtimer(CALLBACK(src, PROC_REF(fire_second_arrow), B, target_atom), 2)
+	addtimer(CALLBACK(src, PROC_REF(fire_second_arrow), B, target_atom), 0.2 SECONDS)
 
 /datum/special_intent/bow_doubleshot/proc/fire_second_arrow(obj/item/gun/ballistic/revolver/grenadelauncher/bow/B, atom/target_atom)
 	if(!howner || howner.stat || howner.incapacitated() || !B || B.loc != howner) 

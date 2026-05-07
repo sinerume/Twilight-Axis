@@ -43,7 +43,7 @@
 	
 	if(action == "select_perk")
 
-		if(HAS_TRAIT(owner, TRAIT_BOW_DOUBLESHOT) || HAS_TRAIT(owner, TRAIT_BOW_LONGSHOT))
+		if(HAS_TRAIT(owner, TRAIT_BOW_DOUBLESHOT) || HAS_TRAIT(owner, TRAIT_BOW_LONGSHOT) || HAS_TRAIT(owner, TRAIT_BOW_BACKSTEP))
 			to_chat(owner, span_warning("Я уже выбрал свой стиль!"))
 			return TRUE
 			

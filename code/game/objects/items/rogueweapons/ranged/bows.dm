@@ -121,7 +121,7 @@
 	cartridge_articles = "an"
 	var/datum/special_intent/special
 
-/obj/item/gun/ballistic/revolver/grenadelauncher/bow/equipped(mob/user, slot) //TA EDIT
+/obj/item/gun/ballistic/revolver/grenadelauncher/bow/equipped(mob/user, slot) //TA EDIT START
 	. = ..()
 	if(slot == ITEM_SLOT_HANDS)
 		if(HAS_TRAIT(user, TRAIT_BOW_DOUBLESHOT))
@@ -141,7 +141,14 @@
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow/dropped(mob/user, silent)
 	. = ..()
-	special = null
+	special = null 
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/bow/Destroy()
+	if(special)
+		qdel(special)
+		special = null
+
+	return ..()//TA EDIT END
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow/get_mechanics_examine(mob/user)
 	. += span_info("Bows increase in damage and accuracy the higher your <b>PERCEPTION</b>.")
