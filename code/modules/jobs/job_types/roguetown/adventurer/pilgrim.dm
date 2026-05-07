@@ -7,7 +7,6 @@
 	spawn_positions = 0 //disables round-start spawn of pilgrims but allows migrant waves
 	
 	tutorial = "Fleeing misfortune you head your way towards Town, you're not a soldier or an explorer, but a humble migrant trying to look for a better life, if you get to survive the trip that is."
-	allowed_races = RACES_ALL_KINDS
 
 	outfit = null
 	outfit_female = null
