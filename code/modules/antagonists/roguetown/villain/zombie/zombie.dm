@@ -81,6 +81,13 @@
 		return span_boldnotice("Another deadite.")
 	if(istype(examined_datum, /datum/antagonist/lich))
 		return span_boldnotice("Another deadite.")
+	// TA EDIT
+	if(isliving(examined))
+		var/mob/living/living_examined = examined
+		var/shroud_text = living_examined.tranquility_shroud_undead_examine_text(examiner)
+		if(shroud_text)
+			return shroud_text
+	// TA EDIT END
 
 //Housekeeping/saving variables from pre-zombie
 
@@ -422,4 +429,3 @@
 
 #undef ZOMBIE_FIRST_BITE_CHANCE
 #undef ZOMBIE_BITE_CONVERSION_TIME
-

@@ -185,6 +185,13 @@
 		return span_boldnotice("Another deadite. My Ally.")
 	if(istype(examined_datum, /datum/antagonist/lich))
 		return span_boldnotice("Another Deadite.")
+	// TA EDIT
+	if(isliving(examined))
+		var/mob/living/living_examined = examined
+		var/shroud_text = living_examined.tranquility_shroud_undead_examine_text(examiner)
+		if(shroud_text)
+			return shroud_text
+	// TA EDIT END
 
 /datum/outfit/job/roguetown/lich/post_equip(mob/living/carbon/human/H)
 	..()

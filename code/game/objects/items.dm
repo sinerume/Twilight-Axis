@@ -905,6 +905,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/pickup(mob/user)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
+	// TA EDIT
+	if(user)
+		SEND_SIGNAL(user, "tranquility_shroud_item_pickup", src, loc)
+	// TA EDIT END
 	item_flags |= IN_INVENTORY
 
 //pulled from Vanderlin
