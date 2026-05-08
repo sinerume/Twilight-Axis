@@ -364,6 +364,45 @@
 			return "#FF69B4"
 	return "#9370DB"
 
+/datum/heritage/proc/FamilyTreeMemberDisplayName(datum/family_member/member)
+	if(!member)
+		return null
+	if(member.person?.real_name)
+		return member.person.real_name
+	if(member.phantom)
+		return "Unknown"
+	return null
+
+/datum/heritage/proc/BuildFamilyTreeParentNames(datum/family_member/member)
+	var/list/parent_names = list()
+	if(!member || member.phantom)
+		return parent_names
+	var/has_real_parent = FamilyTreeHasRealParent(member)
+	for(var/datum/family_member/parent as anything in member.get_parent_members())
+		if(has_real_parent && !parent?.person)
+			continue
+		var/parent_name = FamilyTreeMemberDisplayName(parent)
+		if(parent_name && !(parent_name in parent_names))
+			parent_names += parent_name
+	return parent_names
+
+/datum/heritage/proc/FamilyTreeHasRealParent(datum/family_member/member, datum/family_member/ignore_parent = null)
+	if(!member)
+		return FALSE
+	for(var/datum/family_member/parent as anything in member.get_parent_members())
+		if(parent == ignore_parent)
+			continue
+		if(parent?.person)
+			return TRUE
+	return FALSE
+
+/datum/heritage/proc/FamilyTreeShouldDisplayChild(datum/family_member/parent, datum/family_member/child, list/visited)
+	if(!parent || !child || visited?[child])
+		return FALSE
+	if(parent.phantom && FamilyTreeHasRealParent(child, parent))
+		return FALSE
+	return TRUE
+
 /datum/heritage/proc/BuildFamilyDisplayEntry(datum/family_member/checker_member, datum/family_member/member)
 	if(!member?.person)
 		return null
@@ -375,6 +414,9 @@
 	var/list/details = list()
 	if(member.adoption_status)
 		details += "Adopted"
+	var/list/parent_names = BuildFamilyTreeParentNames(member)
+	if(parent_names.len)
+		details += "Parents: [jointext(parent_names, ", ")]"
 	var/list/member_spouses_list = member.get_spouse_members()
 	if(member_spouses_list.len)
 		var/list/spouse_names = list()
@@ -472,6 +514,7 @@
 		details += "Unrecorded ancestor"
 	if(root_member.person?.dna?.species?.name)
 		details += root_member.person.dna.species.name
+	var/list/parent_names = BuildFamilyTreeParentNames(root_member)
 
 	var/list/node = list(
 		"name" = root_member.person ? root_member.person.real_name : "Unknown",
@@ -480,6 +523,8 @@
 		"accentColor" = GetRelationColor(relation_text),
 		"isSelf" = (root_member == checker_member),
 		"phantom" = root_member.phantom,
+		"generation" = root_member.generation,
+		"parents" = parent_names,
 		"spouses" = list(),
 		"children" = list(),
 	)
@@ -501,11 +546,16 @@
 
 	if(include_children)
 		for(var/datum/family_member/child as anything in root_member.get_child_members())
-			if(!child || visited[child])
+			if(!FamilyTreeShouldDisplayChild(root_member, child, visited))
 				continue
 			var/list/child_node = BuildFamilyTree(child, checker_member, visited, depth + 1, TRUE, TRUE, spouse_seen)
 			if(child_node)
 				node["children"] += list(child_node)
+
+	var/list/node_spouses = node["spouses"]
+	var/list/node_children = node["children"]
+	if(root_member.phantom && !node_spouses.len && !node_children.len)
+		return null
 
 	return node
 

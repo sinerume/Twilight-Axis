@@ -512,7 +512,7 @@
 		retry_local_assignment(H, "favorite house anchor lost")
 		return
 	var/forced_role = familytree_forced_role_from_relative_role(H.desired_relative_role)
-	var/list/assignment = AddPersonToHouse(house, H, FALSE, forced_role, favorite_member)
+	var/list/assignment = AddPersonToHouse(house, H, FALSE, forced_role)
 	if(H.family_datum)
 		var/favorite_role = familytree_relative_assignment_audit_text(assignment)
 		familytree_admin_log_house_assignment(H, house, "joined favorite house as [favorite_role]")
@@ -672,11 +672,11 @@
 	else
 		ftlog("AssignToHouse: [H.real_name] → NO suitable existing house found. Staying without family.", FTLOG_WARN)
 
-/datum/controller/subsystem/familytree/proc/AddPersonToHouse(datum/heritage/house, mob/living/carbon/human/person, adopted = FALSE, forced_role = null, datum/family_member/preferred_anchor = null)
-	return familytree_assign_random_relative_role(house, person, adopted, forced_role, preferred_anchor)
+/datum/controller/subsystem/familytree/proc/AddPersonToHouse(datum/heritage/house, mob/living/carbon/human/person, adopted = FALSE, forced_role = null)
+	return familytree_assign_random_relative_role(house, person, adopted, forced_role)
 
-/datum/controller/subsystem/familytree/proc/familytree_assign_random_relative_role(datum/heritage/house, mob/living/carbon/human/person, adopted = FALSE, forced_role = null, datum/family_member/preferred_anchor = null)
-	var/list/assignment = familytree_pick_random_relative_assignment(house, person, forced_role, adopted, preferred_anchor)
+/datum/controller/subsystem/familytree/proc/familytree_assign_random_relative_role(datum/heritage/house, mob/living/carbon/human/person, adopted = FALSE, forced_role = null)
+	var/list/assignment = familytree_pick_random_relative_assignment(house, person, forced_role, adopted)
 	if(!assignment)
 		return null
 	var/datum/family_member/anchor = assignment["anchor"]
@@ -687,24 +687,17 @@
 	assignment["member"] = new_member
 	return assignment
 
-/datum/controller/subsystem/familytree/proc/familytree_pick_random_relative_assignment(datum/heritage/house, mob/living/carbon/human/person, forced_role = null, adopted = FALSE, datum/family_member/preferred_anchor = null)
+/datum/controller/subsystem/familytree/proc/familytree_pick_random_relative_assignment(datum/heritage/house, mob/living/carbon/human/person, forced_role = null, adopted = FALSE)
 	if(!house || !person)
 		return null
-	if(preferred_anchor?.family == house && preferred_anchor.person != person)
-		var/list/preferred_roles = familytree_possible_roles_for_anchor(house, person, preferred_anchor, forced_role, adopted)
-		if(preferred_roles.len)
-			return list("anchor" = preferred_anchor, "role" = pick(preferred_roles))
-	var/list/eligible_anchors = list()
+	var/list/eligible_assignments = list()
 	for(var/datum/family_member/member as anything in house.members)
 		var/list/roles = familytree_possible_roles_for_anchor(house, person, member, forced_role, adopted)
-		if(roles.len)
-			eligible_anchors += list(list(member, roles))
-	if(!eligible_anchors.len)
+		for(var/role as anything in roles)
+			eligible_assignments += list(list("anchor" = member, "role" = role))
+	if(!eligible_assignments.len)
 		return null
-	var/list/chosen_anchor_data = pick(eligible_anchors)
-	var/datum/family_member/chosen_anchor = chosen_anchor_data[1]
-	var/list/chosen_roles = chosen_anchor_data[2]
-	return list("anchor" = chosen_anchor, "role" = pick(chosen_roles))
+	return pick(eligible_assignments)
 
 /datum/controller/subsystem/familytree/proc/familytree_possible_roles_for_anchor(datum/heritage/house, mob/living/carbon/human/person, datum/family_member/anchor, forced_role = null, adopted = FALSE)
 	var/list/possible_roles = list()
@@ -720,7 +713,7 @@
 	if(anchor.get_parent_members().len < 2 && CanBeParentOf(person, anchor.person))
 		if(familytree_parent_link_mode(person, anchor.person, house, adopted))
 			possible_roles += "parent"
-	if(forced_role == "uncle_aunt" && anchor.get_parent_members().len < 2 && familytree_can_be_uncle_aunt_of(person, anchor.person))
+	if((!forced_role || forced_role == "uncle_aunt") && anchor.get_parent_members().len < 2 && familytree_can_be_uncle_aunt_of(person, anchor.person))
 		possible_roles += "uncle_aunt"
 
 	if(!forced_role)
