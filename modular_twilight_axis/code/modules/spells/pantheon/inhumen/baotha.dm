@@ -128,7 +128,7 @@
 	REMOVE_TRAIT(user, TRAIT_EDIT_DESCRIPTORS, TRAIT_MIRACLE)
 	return TRUE
 
-proc/mirror_full_transform(mob/living/carbon/user)
+/proc/mirror_full_transform(mob/living/carbon/user)
 	if(!ishuman(user))
 		return
 
