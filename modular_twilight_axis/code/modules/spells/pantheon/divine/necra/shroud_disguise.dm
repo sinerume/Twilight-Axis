@@ -7,8 +7,7 @@
 /datum/status_effect/tranquility_shroud/proc/apply_shroud_disguise()
 	if(QDELETED(owner))
 		return
-	if(uses_deadite_mask() || uses_vampire_mask())
-		grant_undead_faction()
+	grant_undead_faction()
 	if(uses_deadite_mask() && !uses_vampire_mask())
 		grant_norun_trait()
 	if(ishuman(owner))

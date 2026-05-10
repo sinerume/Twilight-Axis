@@ -2,8 +2,6 @@
 #define TRANQUILITY_SHROUD_APPLY_TIME 2 SECONDS
 #define TRANQUILITY_SHROUD_FORGET_RANGE 12
 #define TRANQUILITY_SHROUD_ANGER_RANGE 5
-#define TRANQUILITY_SHROUD_AI_TARGET_SIGNAL "mob_ai_target_check"
-#define TRANQUILITY_SHROUD_ITEM_PICKUP_SIGNAL "tranquility_shroud_item_pickup"
 #define TRANQUILITY_SHROUD_FILTER "tranquility_shroud_glow"
 #define TRANQUILITY_SHROUD_EXPENSIVE_ITEM_VALUE 30
 #define TRANQUILITY_SHROUD_ANGER_THREAT 1000
@@ -199,7 +197,6 @@
 		return ELEMENT_INCOMPATIBLE
 
 	var/mob/living/owner = target
-	RegisterSignal(owner, TRANQUILITY_SHROUD_AI_TARGET_SIGNAL, PROC_REF(on_ai_target_check))
 	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(on_owner_item_attack))
 	RegisterSignal(owner, COMSIG_HUMAN_EARLY_UNARMED_ATTACK, PROC_REF(on_owner_unarmed_attack))
 	RegisterSignal(owner, COMSIG_MOB_ATTACK_RANGED, PROC_REF(on_owner_ranged_attack))
@@ -208,13 +205,12 @@
 	RegisterSignal(owner, COMSIG_ATOM_ATTACK_ANIMAL, PROC_REF(on_owner_attack_npc))
 	RegisterSignal(owner, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_owner_bullet_act))
 	RegisterSignal(owner, COMSIG_ATOM_HITBY, PROC_REF(on_owner_hitby))
-	RegisterSignal(owner, TRANQUILITY_SHROUD_ITEM_PICKUP_SIGNAL, PROC_REF(on_owner_picked_up_item))
+	RegisterSignal(owner, COMSIG_ATOM_ENTERED, PROC_REF(on_owner_entered_by_atom))
 	RegisterSignal(owner, COMSIG_HUMAN_LIFE, PROC_REF(on_owner_life))
 	owner.tranquility_shroud_hide_from_nearby_undead()
 
 /datum/element/tranquility_shroud/Detach(datum/source, ...)
 	UnregisterSignal(source, list(
-		TRANQUILITY_SHROUD_AI_TARGET_SIGNAL,
 		COMSIG_MOB_ITEM_ATTACK,
 		COMSIG_HUMAN_EARLY_UNARMED_ATTACK,
 		COMSIG_MOB_ATTACK_RANGED,
@@ -224,22 +220,10 @@
 		COMSIG_ATOM_ATTACK_ANIMAL,
 		COMSIG_ATOM_BULLET_ACT,
 		COMSIG_ATOM_HITBY,
-		TRANQUILITY_SHROUD_ITEM_PICKUP_SIGNAL,
+		COMSIG_ATOM_ENTERED,
 		COMSIG_HUMAN_LIFE,
 	))
 	return ..()
-
-/datum/element/tranquility_shroud/proc/on_ai_target_check(mob/living/source, mob/living/attacker)
-	SIGNAL_HANDLER
-	var/datum/status_effect/tranquility_shroud/shroud = source.has_status_effect(/datum/status_effect/tranquility_shroud)
-	if(!shroud)
-		return
-	if(shroud.uses_vampire_mask() && attacker?.tranquility_shroud_respects_vampire_mask())
-		return TRUE
-	if(shroud.uses_deadite_mask() && attacker?.tranquility_shroud_respects_deadites())
-		return TRUE
-	if(attacker?.is_lesser_npc_undead())
-		return TRUE
 
 /datum/element/tranquility_shroud/proc/should_break_from_outgoing_aggression(mob/living/source, atom/target, obj/item/weapon)
 	if(QDELETED(source) || !isliving(target) || target == source)
@@ -306,10 +290,11 @@
 		attacker = hit_item.thrownby
 	break_from_incoming_attack(target, attacker)
 
-/datum/element/tranquility_shroud/proc/on_owner_picked_up_item(mob/living/source, obj/item/picked_item, atom/old_loc)
+/datum/element/tranquility_shroud/proc/on_owner_entered_by_atom(mob/living/source, atom/movable/entered, atom/old_loc)
 	SIGNAL_HANDLER
-	if(QDELETED(source) || QDELETED(picked_item) || !isturf(old_loc))
+	if(QDELETED(source) || !isitem(entered) || !isturf(old_loc))
 		return
+	var/obj/item/picked_item = entered
 	if(!picked_item.is_expensive_for_tranquility_shroud())
 		return
 	if(!source.tranquility_shroud_has_nearby_protected_undead())
