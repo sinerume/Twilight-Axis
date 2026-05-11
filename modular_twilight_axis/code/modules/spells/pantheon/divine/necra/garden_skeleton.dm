@@ -1,5 +1,6 @@
 #define NECRA_GARDEN_HOWL_MIN 8 SECONDS
 #define NECRA_GARDEN_HOWL_MAX 18 SECONDS
+#define NECRA_GARDEN_LIFESPAN 5 MINUTES
 #define MOVESPEED_ID_NECRA_GARDEN "necra_garden_swift"
 
 /mob/living/carbon/human/species/skeleton/npc/necra_garden
@@ -11,9 +12,10 @@
 	..()
 	pass_flags |= PASSCLOSEDTURF
 	add_movespeed_modifier(MOVESPEED_ID_NECRA_GARDEN, multiplicative_slowdown = -1.0)
-	add_filter("necra_garden_aura", 2, list("type" = "outline", "color" = "#dcdcdc", "alpha" = 220, "size" = 3))
-	add_filter("necra_garden_glow", 1, list("type" = "drop_shadow", "color" = "#c8c8c8a8", "size" = 5, "offset" = 0))
+	add_filter("necra_garden_aura", 2, list("type" = "outline", "color" = "#dcdcdc", "alpha" = 220, "size" = 1.5))
+	add_filter("necra_garden_glow", 1, list("type" = "drop_shadow", "color" = "#c8c8c8a8", "size" = 2.5, "offset" = 0))
 	addtimer(CALLBACK(src, PROC_REF(necra_garden_howl)), rand(2 SECONDS, 5 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(necra_garden_expire)), NECRA_GARDEN_LIFESPAN)
 
 /mob/living/carbon/human/species/skeleton/npc/necra_garden/proc/necra_garden_howl()
 	if(QDELETED(src))
@@ -31,7 +33,7 @@
 		ai_controller.set_ai_status(AI_STATUS_ON)
 		ai_controller.CancelActions()
 
-/mob/living/carbon/human/species/skeleton/npc/necra_garden/death(gibbed, nocutscene = FALSE)
+/mob/living/carbon/human/species/skeleton/npc/necra_garden/proc/necra_garden_purge_inventory()
 	var/list/to_delete = list()
 	for(var/obj/item/I in get_equipped_items(include_pockets = TRUE))
 		to_delete += I
@@ -39,7 +41,18 @@
 		if(I)
 			to_delete += I
 	QDEL_LIST(to_delete)
+
+/mob/living/carbon/human/species/skeleton/npc/necra_garden/death(gibbed, nocutscene = FALSE)
+	necra_garden_purge_inventory()
 	..()
+	new /obj/effect/temp_visual/gib_animation(get_turf(src), "gibbed-h")
+	qdel(src)
+
+/mob/living/carbon/human/species/skeleton/npc/necra_garden/proc/necra_garden_expire()
+	if(QDELETED(src))
+		return
+	necra_garden_purge_inventory()
+	visible_message(span_warning("[src] рассыпается в прах — сады Некры отзывают своё."))
 	new /obj/effect/temp_visual/gib_animation(get_turf(src), "gibbed-h")
 	qdel(src)
 

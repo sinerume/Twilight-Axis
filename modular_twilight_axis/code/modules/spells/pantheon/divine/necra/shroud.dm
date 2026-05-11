@@ -204,6 +204,7 @@
 	RegisterSignal(owner, COMSIG_ATOM_HITBY, PROC_REF(on_owner_hitby))
 	RegisterSignal(owner, COMSIG_ATOM_ENTERED, PROC_REF(on_owner_entered_by_atom))
 	RegisterSignal(owner, COMSIG_HUMAN_LIFE, PROC_REF(on_owner_life))
+	RegisterSignal(owner, COMSIG_MOB_BEFORE_SPELL_CAST, PROC_REF(on_owner_cast_spell))
 	owner.tranquility_shroud_hide_from_nearby_undead()
 
 /datum/element/tranquility_shroud/Detach(datum/source, ...)
@@ -219,6 +220,7 @@
 		COMSIG_ATOM_HITBY,
 		COMSIG_ATOM_ENTERED,
 		COMSIG_HUMAN_LIFE,
+		COMSIG_MOB_BEFORE_SPELL_CAST,
 	))
 	return ..()
 
@@ -259,6 +261,14 @@
 	if(should_break_from_outgoing_aggression(source, target, null))
 		source.remove_tranquility_shroud(TRANQUILITY_SHROUD_REMOVAL_AGGRESSION)
 
+/datum/element/tranquility_shroud/proc/on_owner_cast_spell(mob/living/source, datum/action/cooldown/spell/spell, atom/cast_on)
+	SIGNAL_HANDLER
+	if(QDELETED(source))
+		return
+	if(istype(spell, /datum/action/cooldown/spell/touch/shroud_of_tranquility))
+		return
+	source.remove_tranquility_shroud(TRANQUILITY_SHROUD_REMOVAL_AGGRESSION)
+
 /datum/element/tranquility_shroud/proc/on_owner_attackby(atom/target, obj/item/weapon, mob/attacker, list/modifiers)
 	SIGNAL_HANDLER
 	break_from_incoming_attack(target, attacker)
@@ -294,9 +304,23 @@
 	var/obj/item/picked_item = entered
 	if(!picked_item.is_expensive_for_tranquility_shroud())
 		return
+	if(tranquility_shroud_turf_has_player_corpse(old_loc, source))
+		return
 	if(!source.tranquility_shroud_has_nearby_protected_undead())
 		return
 	source.break_tranquility_shroud_and_anger_necra("theft")
+
+/proc/tranquility_shroud_turf_has_player_corpse(turf/T, mob/exclude)
+	if(!isturf(T))
+		return FALSE
+	for(var/mob/living/carbon/human/H in T.contents)
+		if(H == exclude)
+			continue
+		if(H.stat != DEAD)
+			continue
+		if(H.ckey || H.mind || H.client)
+			return TRUE
+	return FALSE
 
 /datum/element/tranquility_shroud/proc/on_owner_life(mob/living/carbon/human/source)
 	SIGNAL_HANDLER
@@ -399,6 +423,8 @@
 	if(mind.has_antag_datum(/datum/antagonist/zombie))
 		return TRUE
 	if(mind.has_antag_datum(/datum/antagonist/skeleton))
+		return TRUE
+	if(mind.has_antag_datum(/datum/antagonist/lich))
 		return TRUE
 	return FALSE
 
