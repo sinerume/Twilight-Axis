@@ -391,7 +391,11 @@
 /mob/living/proc/tranquility_shroud_is_undead_witness()
 	if(mob_biotypes & MOB_UNDEAD)
 		return TRUE
-	if(mind?.has_antag_datum(/datum/antagonist/zombie))
+	if(!mind)
+		return FALSE
+	if(mind.has_antag_datum(/datum/antagonist/zombie))
+		return TRUE
+	if(mind.has_antag_datum(/datum/antagonist/skeleton))
 		return TRUE
 	return FALSE
 
