@@ -377,7 +377,7 @@
 	return !!mind?.has_antag_datum(/datum/antagonist/vampire)
 
 /mob/living/proc/tranquility_shroud_has_nearby_protected_undead()
-	for(var/mob/living/witness in viewers(TRANQUILITY_SHROUD_ANGER_RANGE, src))
+	for(var/mob/living/witness in range(TRANQUILITY_SHROUD_ANGER_RANGE, src))
 		if(witness == src)
 			continue
 		if(witness.stat == DEAD)
