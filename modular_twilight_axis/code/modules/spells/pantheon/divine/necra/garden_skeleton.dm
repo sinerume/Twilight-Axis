@@ -1,6 +1,26 @@
+#define NECRA_GARDEN_HOWL_MIN 8 SECONDS
+#define NECRA_GARDEN_HOWL_MAX 18 SECONDS
+#define MOVESPEED_ID_NECRA_GARDEN "necra_garden_swift"
+
 /mob/living/carbon/human/species/skeleton/npc/necra_garden
 	threat_point = THREAT_MODERATE
 	skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/necra_garden
+	pass_flags = PASSCLOSEDTURF
+
+/mob/living/carbon/human/species/skeleton/npc/necra_garden/after_creation()
+	..()
+	pass_flags |= PASSCLOSEDTURF
+	add_movespeed_modifier(MOVESPEED_ID_NECRA_GARDEN, multiplicative_slowdown = -1.0)
+	add_filter("necra_garden_aura", 2, list("type" = "outline", "color" = "#dcdcdc", "alpha" = 220, "size" = 3))
+	add_filter("necra_garden_glow", 1, list("type" = "drop_shadow", "color" = "#c8c8c8a8", "size" = 5, "offset" = 0))
+	addtimer(CALLBACK(src, PROC_REF(necra_garden_howl)), rand(2 SECONDS, 5 SECONDS))
+
+/mob/living/carbon/human/species/skeleton/npc/necra_garden/proc/necra_garden_howl()
+	if(QDELETED(src))
+		return
+	if(stat != DEAD)
+		playsound(get_turf(src), 'sound/effects/ghost.ogg', 70, TRUE)
+	addtimer(CALLBACK(src, PROC_REF(necra_garden_howl)), rand(NECRA_GARDEN_HOWL_MIN, NECRA_GARDEN_HOWL_MAX))
 
 /mob/living/carbon/human/species/skeleton/npc/necra_garden/proc/aggro_at(atom/target)
 	if(QDELETED(src) || QDELETED(target) || stat == DEAD)
@@ -25,11 +45,11 @@
 
 /datum/outfit/job/roguetown/skeleton/npc/necra_garden/pre_equip(mob/living/carbon/human/H)
 	..()
-	H.STASTR = 11
-	H.STASPD = 11
-	H.STACON = 6
-	H.STAWIL = 9
-	H.STAINT = 4
+	H.STASTR = 13
+	H.STASPD = 13
+	H.STACON = 8
+	H.STAWIL = 11
+	H.STAINT = 6
 	name = "Skeleton"
 	head = /obj/item/clothing/head/roguetown/necrahood
 	cloak = /obj/item/clothing/cloak/templar/necran
@@ -43,11 +63,12 @@
 			r_hand = /obj/item/rogueweapon/mace
 		if(3)
 			r_hand = /obj/item/rogueweapon/spear
-	H.adjust_skillrank(/datum/skill/combat/swords, 3, TRUE)
-	H.adjust_skillrank(/datum/skill/combat/maces, 3, TRUE)
-	H.adjust_skillrank(/datum/skill/combat/polearms, 3, TRUE)
-	H.adjust_skillrank(/datum/skill/combat/wrestling, 2, TRUE)
-	H.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/swords, SKILL_LEVEL_EXPERT, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/maces, SKILL_LEVEL_EXPERT, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/polearms, SKILL_LEVEL_EXPERT, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/wrestling, SKILL_LEVEL_EXPERT, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/unarmed, SKILL_LEVEL_EXPERT, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/knives, SKILL_LEVEL_EXPERT, TRUE)
 	ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 
 /datum/outfit/job/roguetown/skeleton/npc/necra_garden/post_equip(mob/living/carbon/human/H)
