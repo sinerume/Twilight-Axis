@@ -11,7 +11,7 @@
 					/datum/action/cooldown/spell/miracle/bloodmiracle					= CLERIC_T1,
 					/datum/action/cooldown/spell/projectile/profane/miracle 			= CLERIC_T1,
 					/datum/action/cooldown/spell/raise_undead_formation/miracle 		= CLERIC_T2,
-					/datum/action/cooldown/spell/raise_undead_guardTA/miracle				= CLERIC_T2,
+					/datum/action/cooldown/spell/raise_undead_guard/miracle				= CLERIC_T2,
 					/datum/action/cooldown/spell/lacrima								= CLERIC_T2,
 					/datum/action/cooldown/spell/convert_heretic						= CLERIC_T2,
 					/datum/action/cooldown/spell/tame_undead/miracle					= CLERIC_T3,
