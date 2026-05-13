@@ -146,28 +146,20 @@
 
 /datum/status_effect/buff/psy_inv/on_apply()
 	duration = 20 SECONDS
-	ADD_TRAIT(owner, TRAIT_NOCSHADES, "redlens")
+	ADD_TRAIT(owner, TRAIT_VOLF, "redlens")
 	effectedstats = list(STATKEY_SPD = 5)
 	. = ..()
 
 /datum/status_effect/buff/psy_inv/on_remove()
 	. = ..()
-	REMOVE_TRAIT(owner, TRAIT_NOCSHADES, "redlens")
+	REMOVE_TRAIT(owner, TRAIT_VOLF, "redlens")
 	owner.visible_message(span_warning("[owner] wavers, their energies simmering down."))
-	owner.OffBalance(1 SECONDS)
+	owner.OffBalance(5 SECONDS)
 
-/datum/status_effect/debuff/blindness/psy
-	id = "blindness"
-	alert_type = /atom/movable/screen/alert/status_effect/debuff/blindness
-	effectedstats = list(STATKEY_PER = -3)
+/atom/movable/screen/fullscreen/volf
+	icon_state = "curse1"
+	layer = BLIND_LAYER
 
-/datum/status_effect/debuff/blindness/on_creation(mob/living/new_owner, assocskill)
-	duration = 10 SECONDS // Just in case someone somehow gets this W/O holy skill.
-	. = ..()
-
-/datum/status_effect/debuff/blindness/psy/on_apply() 
-	. = ..()
-
-/datum/status_effect/debuff/blindness/psy/on_remove()
-	. = ..()
-	to_chat(owner, span_warning("My vision returns...!"))
+/datum/client_colour/volf
+	colour = list(rgb(74, 114, 162), rgb(169, 116, 204), rgb(16, 16, 16), rgb(0,0,0))
+	priority = 1

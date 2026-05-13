@@ -119,10 +119,10 @@
 /atom/movable/screen/alert/status_effect/debuff/psypowder
 	name = "Runed Poison"
 	desc = "This powder is killing my eyes and body. I cant see and move..."
-	icon_state = "debuff"
+	icon_state = "blind"
 
 /datum/status_effect/debuff/psypowder
-	id = "psypowder"
+	id = "blind"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/psypowder
 	effectedstats = list(STATKEY_STR = -3, STATKEY_SPD = -2)
 	duration = 10 SECONDS
