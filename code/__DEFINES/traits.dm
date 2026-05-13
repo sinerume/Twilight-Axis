@@ -421,7 +421,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_KNEESTINGER_IMMUNITY = "I am immune to the shock of kneestingers and vines.",
 	TRAIT_SOUL_EXAMINE = span_deadsay("I know when someone's soul has departed."),
 	TRAIT_CRACKHEAD = span_love("I can use drugs as much as I want!"),
-	TRAIT_BOW_DOUBLESHOT = span_info("Я овладел искусством Двойного выстрела. Могу быстро достать вторую стрелу из колчана."),
+	TRAIT_BOW_DOUBLESHOT = span_info("Я овладел искусством Двойного выстрела. Могу быстро достать вторую стрелу из колчана."),//TA EDIT
 	TRAIT_BOW_LONGSHOT = span_info("Я овладел Дальнобойным выстрелом. Чем дальше моя цель, тем смертоноснее моя стрела."),//TA EDIT
 	TRAIT_BOW_BACKSTEP = span_info("Я овладел искусством Выстрел с отскоком. Дал дал ушел."),//TA EDIT
 	TRAIT_FREEMAN = span_bloody("I can recognize other free men, and they can recognize me too."),

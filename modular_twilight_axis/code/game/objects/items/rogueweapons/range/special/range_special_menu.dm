@@ -54,18 +54,18 @@
 			ADD_TRAIT(owner, TRAIT_BOW_DOUBLESHOT, TRAIT_GENERIC)
 			to_chat(owner, span_greentext("Я освоил Двойной выстрел!"))
 			if(istype(B))
-				B.special = new /datum/special_intent/bow_doubleshot()
+				B.special = new /datum/special_intent/range_special/bow_doubleshot()
 				
 		else if(selected == "longshot")
 			ADD_TRAIT(owner, TRAIT_BOW_LONGSHOT, TRAIT_GENERIC)
 			to_chat(owner, span_greentext("Я освоил Дальнобойный выстрел!"))
 			if(istype(B))
-				B.special = new /datum/special_intent/bow_longshot()
+				B.special = new /datum/special_intent/range_special/bow_longshot()
 		else if(selected == "backstep")
 			ADD_TRAIT(owner, TRAIT_BOW_BACKSTEP, TRAIT_GENERIC)
 			to_chat(owner, span_greentext("Я освоил Выстрел с отскоком!"))
 			if(istype(B))
-				B.special = new /datum/special_intent/bow_backstep()
+				B.special = new /datum/special_intent/range_special/bow_backstep()
 		
 		SStgui.close_uis(src)
 		return TRUE

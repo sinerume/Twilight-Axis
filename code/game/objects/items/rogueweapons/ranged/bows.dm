@@ -125,16 +125,16 @@
 	. = ..()
 	if(slot == ITEM_SLOT_HANDS)
 		if(HAS_TRAIT(user, TRAIT_BOW_DOUBLESHOT))
-			if(!istype(special, /datum/special_intent/bow_doubleshot))
-				special = new /datum/special_intent/bow_doubleshot()
+			if(!istype(special, /datum/special_intent/range_special/bow_doubleshot))
+				special = new /datum/special_intent/range_special/bow_doubleshot()
 				
 		else if(HAS_TRAIT(user, TRAIT_BOW_LONGSHOT))
-			if(!istype(special, /datum/special_intent/bow_longshot))
-				special = new /datum/special_intent/bow_longshot()
+			if(!istype(special, /datum/special_intent/range_special/bow_longshot))
+				special = new /datum/special_intent/range_special/bow_longshot()
 		
 		else if(HAS_TRAIT(user, TRAIT_BOW_BACKSTEP))
-			if(!istype(special, /datum/special_intent/bow_backstep))
-				special = new /datum/special_intent/bow_backstep()
+			if(!istype(special, /datum/special_intent/range_special/bow_backstep))
+				special = new /datum/special_intent/range_special/bow_backstep()
 
 		else
 			special = null

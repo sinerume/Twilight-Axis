@@ -1,177 +1,182 @@
-/datum/special_intent/bow_doubleshot
-	name = "Двойной выстрел"
-	desc = "Моментально выпускает вторую стрелу из колчана вслед за первой."
+/datum/special_intent/range_special
+	abstract_type = /datum/special_intent/range_special
 	use_clickloc = TRUE
 	respect_adjacency = FALSE
-	range = 14
-	delay = 0
-	use_doafter = 1 SECONDS
-	cooldown = 15 SECONDS
-	stamcost = 25
 	custom_skill = /datum/skill/combat/bows
 	tile_coordinates = list()
+	delay = 0
 	var/atom/actual_target 
-
-/datum/special_intent/bow_doubleshot/deploy(mob/living/user, atom/parent, atom/target)
-	actual_target = target
-	return ..()
-
-/datum/special_intent/bow_doubleshot/process_attack()
-	return ..()
-
-/datum/special_intent/bow_doubleshot/on_create()
-	var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/B = iparent
-	if(!istype(B) || !B.chambered)
-		return
-
-	var/atom/target_atom = actual_target ? actual_target : click_loc
+	var/stored_params
 	
-	var/old_charge = 0
-	if(howner.client)
-		old_charge = howner.client.chargedprog
-		howner.client.chargedprog = 100 
+	var/tmp/target_z
+	var/tmp/turf/target_level_turf
+	var/tmp/atom/final_target
+	var/tmp/is_arc_mode = FALSE
 
-	B.process_fire(target_atom, howner)
 
-	if(howner.client)
-		howner.client.chargedprog = old_charge
+/datum/special_intent/range_special/check_range(atom/source, atom/target)
+	var/turf/T1 = get_turf(source)
+	var/turf/T2 = get_turf(target)
+	if(!T1 || !T2) return FALSE
+	if(get_dist(T1, T2) > range)
+		to_chat(source, span_warning("Слишком далеко!"))
+		return FALSE
+	return TRUE
 
-	addtimer(CALLBACK(src, PROC_REF(fire_second_arrow), B, target_atom), 0.2 SECONDS)
+/datum/special_intent/range_special/deploy(mob/living/user, atom/parent, atom/target, params)
+	actual_target = target
+	stored_params = params
+	return ..()
 
-/datum/special_intent/bow_doubleshot/proc/fire_second_arrow(obj/item/gun/ballistic/revolver/grenadelauncher/bow/B, atom/target_atom)
-	if(!howner || howner.stat || howner.incapacitated() || !B || B.loc != howner) 
-		return
+/datum/special_intent/range_special/proc/prepare_shot_data()
+	var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/B = iparent
+	var/mob/living/L = howner
+	if(!istype(B) || !L) return FALSE
+
+	target_z = L.z
+	if(L.client && L.client.eye)
+		var/turf/eye_turf = get_turf(L.client.eye)
+		if(eye_turf) target_z = eye_turf.z
+
+	var/turf/click_turf = get_turf(actual_target ? actual_target : click_loc)
+	target_level_turf = locate(click_turf.x, click_turf.y, target_z)
+	if(!target_level_turf) return FALSE
+
+	final_target = actual_target
+	var/turf/final_targ_turf = get_turf(final_target)
+	if(!final_target || (final_targ_turf && final_targ_turf.z != target_z))
+		final_target = target_level_turf
+
+	is_arc_mode = FALSE
+	var/list/intents_list = B.possible_item_intents
+	var/idx = B.saved_intent_index
+	if(intents_list && idx > 0 && idx <= length(intents_list))
+		if(ispath(intents_list[idx], /datum/intent/arc))
+			is_arc_mode = TRUE
+	return TRUE
+
+/datum/special_intent/range_special/proc/setup_projectile(obj/projectile/proj, proj_range)
+	if(!istype(proj)) return
+	
+	var/final_range = proj_range ? proj_range : src.range
+	
+	proj.range = final_range
+	proj.max_range = final_range
+	proj.decayedRange = final_range
+	proj.target_z = target_z
+	proj.original = final_target
+	if(is_arc_mode)
+		proj.xo = target_level_turf.x - howner.x
+		proj.yo = target_level_turf.y - howner.y
+	else
+		proj.xo = 0
+		proj.yo = 0
+
+/datum/special_intent/range_special/proc/perform_archery_shot()
+	var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/B = iparent
+	var/mob/living/L = howner
+	
+	var/old_charge = L.client ? L.client.chargedprog : 0
+	if(L.client) L.client.chargedprog = 100 
+	
+	var/old_npc_arc = B.npc_force_arc
+	B.npc_force_arc = is_arc_mode
+
+	if(is_arc_mode)
+		B.process_fire(final_target, L, TRUE, null)
+	else
+		B.process_fire(final_target, L, TRUE, stored_params)
+
+	if(L.client) L.client.chargedprog = old_charge
+	B.npc_force_arc = old_npc_arc
+
+
+
+
+/datum/special_intent/range_special/bow_doubleshot
+	name = "Двойной выстрел"
+	desc = "Моментально выпускает вторую стрелу из колчана вслед за первой."
+	range = 14
+	use_doafter = 1 SECONDS
+	stamcost = 25
+	cooldown = 15 SECONDS
+
+/datum/special_intent/range_special/bow_doubleshot/on_create()
+	if(!prepare_shot_data()) return
+	var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/B = iparent
+
+	setup_projectile(B.chambered?.BB) 
+	
+	perform_archery_shot()
+	addtimer(CALLBACK(src, PROC_REF(fire_second_arrow)), 2)
+	apply_cooldown(cooldown)
+
+/datum/special_intent/range_special/bow_doubleshot/proc/fire_second_arrow()
+	var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/B = iparent
+	if(!howner || howner.stat || !B || B.loc != howner) return
 
 	var/obj/item/ammo_casing/caseless/rogue/found_arrow
-	var/obj/item/quiver/used_quiver
-	
 	for(var/obj/item/quiver/Q in howner.contents)
 		if(length(Q.arrows))
 			found_arrow = Q.pick_ammo(/obj/item/ammo_casing/caseless/rogue/arrow)
 			if(found_arrow)
-				used_quiver = Q
+				Q.arrows -= found_arrow
+				Q.update_icon()
 				break
+	if(!found_arrow) return
 
-	if(!found_arrow || !used_quiver)
-		to_chat(howner, span_warning("В колчане не оказалось стрелы для второго выстрела!"))
-		return
-
-	used_quiver.arrows -= found_arrow
-	used_quiver.update_icon()
 	B.chambered = found_arrow
 	found_arrow.forceMove(B)
 
-	var/old_charge = 0
-	if(howner.client)
-		old_charge = howner.client.chargedprog
-		howner.client.chargedprog = 100
+	setup_projectile(B.chambered.BB)
+	perform_archery_shot()
 
-	B.process_fire(target_atom, howner)
-
-	if(howner.client)
-		howner.client.chargedprog = old_charge
-
-/datum/special_intent/bow_longshot
+/datum/special_intent/range_special/bow_longshot
 	name = "Дальнобойный выстрел"
 	desc = "Тщательное прицеливание. Чем дальше цель, тем больше урон."
-	use_clickloc = TRUE
-	respect_adjacency = FALSE
-	range = 25
-	delay = 0
+	range = 25 
 	use_doafter = 1.5 SECONDS
-	cooldown = 20 SECONDS
 	stamcost = 30
-	custom_skill = /datum/skill/combat/bows
-	tile_coordinates = list()
-	var/atom/actual_target 
+	cooldown = 20 SECONDS
 
-/datum/special_intent/bow_longshot/deploy(mob/living/user, atom/parent, atom/target)
-	actual_target = target
-	return ..()
-
-/datum/special_intent/bow_longshot/process_attack()
-	return ..()
-
-/datum/special_intent/bow_longshot/on_create()
+/datum/special_intent/range_special/bow_longshot/on_create()
+	if(!prepare_shot_data()) return
 	var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/B = iparent
-	if(!istype(B) || !B.chambered)
-		return
 
-	var/atom/target_atom = actual_target ? actual_target : click_loc
-	var/dist = get_dist(howner, target_atom)
-	
-	var/dmg_mult = 1.0 + (min(dist, 25) * 0.12)
+	setup_projectile(B.chambered?.BB)
 
-	var/old_charge = 0
-	var/old_damfactor = B.damfactor
-	
-	if(howner.client)
-		old_charge = howner.client.chargedprog
-		howner.client.chargedprog = 100 
+	var/dist_val = get_dist(howner, final_target)
+	B.damfactor *= (1.0 + (min(dist_val, 25) * 0.12))
+	perform_archery_shot()
+	B.damfactor = initial(B.damfactor)
+	apply_cooldown(cooldown)
 
-	var/obj/projectile/proj = B.chambered.BB
-	if(istype(proj))
-		proj.range = 35
-		proj.max_range = 35
-
-	B.damfactor *= dmg_mult
-	B.process_fire(target_atom, howner)
-
-	if(howner.client)
-		howner.client.chargedprog = old_charge
-	B.damfactor = old_damfactor
-
-/datum/special_intent/bow_backstep
+/datum/special_intent/range_special/bow_backstep
 	name = "Выстрел с отскоком"
 	desc = "Выстрел с одновременным прыжком назад и кратковременным бонусом к скорости."
-	use_clickloc = TRUE
-	respect_adjacency = FALSE
 	range = 14
-	delay = 0
 	use_doafter = 0.5 SECONDS 
-	cooldown = 12 SECONDS
 	stamcost = 20
-	custom_skill = /datum/skill/combat/bows
-	tile_coordinates = list()
-	var/atom/actual_target 
+	cooldown = 10 SECONDS
 
-/datum/special_intent/bow_backstep/deploy(mob/living/user, atom/parent, atom/target)
-	actual_target = target
-	return ..()
-
-/datum/special_intent/bow_backstep/process_attack()
-	return ..()
-
-/datum/special_intent/bow_backstep/on_create()
-
+/datum/special_intent/range_special/bow_backstep/on_create()
+	if(!prepare_shot_data()) return
 	var/obj/item/gun/ballistic/revolver/grenadelauncher/bow/B = iparent
-	if(!istype(B))
-		return
-
-	var/atom/target_atom = actual_target 
-	if(!target_atom)
-		target_atom = click_loc
-
-	var/old_charge = 0
-	if(howner.client)
-		old_charge = howner.client.chargedprog
-		howner.client.chargedprog = 100 
-
-	B.process_fire(target_atom, howner)
-
-	if(howner.client)
-		howner.client.chargedprog = old_charge
+	
+	setup_projectile(B.chambered?.BB)
+	
+	perform_archery_shot()
 
 	var/turf/back_turf = get_ranged_target_turf(howner, turn(howner.dir, 180), 2)
-	
 	if(back_turf)
 		howner.jump_action(back_turf)
 
 	howner.apply_status_effect(/datum/status_effect/buff/archer_haste)
+	apply_cooldown(cooldown)
 
 /datum/status_effect/buff/archer_haste
 	id = "archer_haste"
-	duration = 3 SECONDS
+	duration = 5 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/archer_haste
 	effectedstats = list(STATKEY_SPD = 10)
 
