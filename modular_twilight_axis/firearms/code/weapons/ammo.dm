@@ -10,6 +10,8 @@
 	var/critfactor = 1
 	var/gunpowder_npc_critfactor = 1
 	var/gunpowder
+	var/secondary_damage
+	var/secondary_damage_type
 
 	min_range = MIN_BULLET_RANGE
 	max_range = MAX_BULLET_RANGE
@@ -24,7 +26,7 @@
 /obj/projectile/bullet/twilight_lead
 	name = "lead sphere"
 	desc = "Небольшая свинцовая сфера. Хорошо сочетается с порохом."
-	damage = 100
+	damage = 120
 	damage_type = BRUTE
 	icon = 'modular_twilight_axis/firearms/icons/ammo.dmi'
 	icon_state = "musketball_proj"
@@ -37,6 +39,8 @@
 	armor_penetration = PEN_NONE
 	speed = 0.1
 	intdamfactor = 2
+	secondary_damage = 30
+	secondary_damage_type = BURN
 
 /obj/projectile/bullet/twilight_lead/silver
 	name = "silver sphere"
@@ -85,6 +89,8 @@
 	speed = 0.1
 	critfactor = 0.67
 	intdamfactor = 2
+	secondary_damage = 5
+	secondary_damage_type = BURN
 
 /**
  * Special runelock ammo
@@ -106,6 +112,8 @@
 	woundclass = BCLASS_PIERCE
 	flag = "bullet"
 	armor_penetration = PEN_NONE
+	secondary_damage = 0
+	secondary_damage_type = null
 
 /obj/projectile/bullet/twilight_lead/twilight_runelock/blessed
 	name = "blessed sphere"
