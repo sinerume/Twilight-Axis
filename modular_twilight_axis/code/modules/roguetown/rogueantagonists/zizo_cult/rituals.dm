@@ -257,28 +257,6 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 	var/datum/antagonist/zizocultist/PR = user.mind.has_antag_datum(/datum/antagonist/zizocultist)
 	if(!PR)
 		return
-
-	to_chat(user, "[target.real_name] было предложено стать лакеем...")
-	to_chat(target, span_notice("Вам предлагается путь культа Возвышения. Выбирайте мудро."))
-
-	var/list/options = list(
-		"Yield",
-		"Resist"
-	)
-
-	var/chosen = tgui_input_list(target, "Do you yield to the darkness?", "You are shown the path of Zizo.", options)
-
-	if(!chosen)
-		convert_resist(target)
-		return
-
-	if(chosen == "Yield")
-		convert_yield(target, PR)
-	else if(chosen == "Resist")
-		convert_resist(target)
-
-
-/datum/ritual/servantry/convert/proc/convert_yield(mob/living/carbon/human/target, datum/antagonist/zizocultist/PR)
 	target.Immobilize(3 SECONDS)
 	to_chat(target, span_notice("Правда! Она.. ОНА ОТРКЫЛАСЬ МНЕ! Они совсем не плохие... Я... Должен помогать им!"))
 	PR.add_cultist(target.mind)
@@ -287,14 +265,6 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 	target.whisper("O'vena tesa...")
 	log_game("[key_name(target)] was converted to Zizoid Lackey by [key_name(PR.owner.current)]")
 	message_admins("[key_name(target)] was converted to Zizoid Lackey by [key_name(PR.owner.current)]")
-
-/datum/ritual/servantry/convert/proc/convert_resist(mob/living/carbon/human/target)
-	target.Immobilize(3 SECONDS)
-	target.visible_message(span_danger("[target] трясется, отказываясь помогать нам!"))
-	to_chat(target, span_reallybigredtext("СМЕРТНЫЙ! Я ТРЕБУЮ, ЧТОБЫ ТЫ СТАЛ МОИМ ЛАКЕЕМ ДЛЯ НАШЕГО БУДУЩЕГО!"))
-	if(target.electrocute_act(10))
-		target.emote("painscream")
-	log_game("[key_name(target)] was resist to convert by cultist")
 
 /datum/ritual/servantry/zizofication
 	name = "Ритуал Просветления"
@@ -565,6 +535,7 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 	target.Sleeping(60)
 	new /obj/item/reagent_containers/lux(center)
 	target.apply_status_effect(/datum/status_effect/debuff/ritualdefiled/cult)
+
 /obj/item/corruptedheart
 	name = "corrupted heart"
 	desc = "It sparkles with forbidden magic energy. It makes all the heart aches go away."
@@ -580,14 +551,14 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 		to_chat(target, span_notice("My elixir of life is stagnant once again."))
 		qdel(src)
 		return
-	if(!do_after(user, 2 SECONDS, target))
+	if(!do_after(user, 1 SECONDS, target))
 		return
 	if(target.cmode)
-		user.electrocute_act(30)
-	target.Stun(10 SECONDS)
+		to_chat(user, span_danger("Невозможно использовать сердце, когда цель напряжена"))
+	target.Sleeping(40)
 	if(iscarbon(target))
 		var/mob/living/carbon/carbon_target = target
-		carbon_target.silent += 30
+		carbon_target.silent += 80
 	qdel(src)
 
 /*/datum/ritual/servantry/darksunmark //Надо будет переделать мб, или хуй забить
@@ -715,16 +686,15 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 /datum/ritual/fleshcrafting/bunnylegs
 	name = "Сильные ноги"
 	desk = "Даёт возможность прыгать довольно-таки высоко.."
-	cultist_number = 2
-	number_cultist_for_add_limit = 1
-	ritual_limit = 1
+	cultist_number = 6
+	//number_cultist_for_add_limit = 1
+	//ritual_limit = 1
 	center_book = "Культист"
 	center_requirement = /mob/living/carbon/human
 
 	w_req = /obj/item/bodypart/l_leg
 	e_req = /obj/item/bodypart/r_leg
-	n_req = /obj/item/alch/horn
-	s_req = /obj/item/reagent_containers/food/snacks/grown/rogue/fyritius
+	n_req = /obj/item/alch/airdust
 
 	is_cultist_ritual = TRUE
 
@@ -945,12 +915,11 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 /datum/ritual/fleshcrafting/fleshform
 	name = "Форма Плоти"
 	desk = "Превращает жертву в глупую живую плоть."
-	cultist_number = 4
+	cultist_number = 5
 	center_requirement = /mob/living/carbon/human
 	center_book = "Жертва"
 
-	w_req = /obj/item/organ/heart
-	e_req = /obj/item/organ/heart
+	n_req = /obj/item/organ/heart
 	is_cultist_ritual = TRUE
 
 /datum/ritual/fleshcrafting/fleshform/invoke(mob/living/user, turf/center)
@@ -960,9 +929,23 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 	if(is_zizocultist(target.mind))
 		to_chat(target, span_danger("I'm not letting my strongest follower become a mindless brute."))
 		return
-	if(!target.mind)
-		to_chat(target, span_warning("A mindless beast will not serve our cause."))
-		return
+	
+	if(!target.ckey || !target.mind)
+		var/list/candidates = pollGhostCandidates("Do you want to play as cultistic flesh?", null, null, null, 10 SECONDS, POLL_IGNORE_LICH_SKELETON)
+		if(!LAZYLEN(candidates))
+			to_chat(user, span_warning("The depths are hollow."))
+			return
+
+		var/mob/dead/mob = pick(candidates)
+		if(!istype(mob))
+			return
+
+		if(istype(mob, /mob/dead/new_player))
+			var/mob/dead/new_player/new_player = mob
+			new_player.close_spawn_windows()
+
+		target.key = mob.key
+
 	to_chat(target, span_warning("SOON I WILL BECOME A HIGHER FORM!"))
 	addtimer(CALLBACK(src, PROC_REF(flesh_convert), target, center), 5 SECONDS)
 
@@ -1400,7 +1383,7 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 
 	w_req = /obj/item/ingot/steel/zizo
 	e_req = /obj/item/ingot/steel/zizo
-	n_req = /obj/item/natural/bone
+	n_req = /obj/item/reagent_containers/lux
 	s_req = /obj/item/natural/bone
 
 /datum/ritual/weaponary/summonneant/invoke(mob/living/user, turf/center)

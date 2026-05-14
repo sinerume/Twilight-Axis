@@ -80,6 +80,16 @@ GLOBAL_DATUM_INIT(html_tags, /regex, regex(@"<.*?>", "g"))
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "ROBE")
 
+/obj/item/clothing/suit/roguetown/armor/leather/studded/cult/equipped(mob/living/carbon/human/user, slot)
+	. = ..()
+	if(slot == SLOT_ARMOR)
+		user.apply_status_effect(/datum/status_effect/buff/cultlight)
+
+/obj/item/clothing/suit/roguetown/armor/leather/studded/cult/dropped(mob/living/carbon/human/user)
+	. = ..()
+	if(istype(user) && user?.wear_armor == src)
+		user.remove_status_effect(/datum/status_effect/buff/cultlight)
+
 //котелок, но культа
 /obj/item/clothing/head/roguetown/helmet/skullcap/cult
 	name = "Ascension's hood"
@@ -576,3 +586,13 @@ GLOBAL_DATUM_INIT(html_tags, /regex, regex(@"<.*?>", "g"))
 /atom/movable/screen/alert/status_effect/debuff/arcynestolen
 	name = "Stolen arcyne"
 	desc = "This cultists is stolen my magic.. Maybe it will come back later.."
+
+/datum/status_effect/buff/cultlight
+	id = "cultlight"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/cultlight
+	effectedstats = list(STATKEY_SPD = 1)
+
+/atom/movable/screen/alert/status_effect/buff/cultlight
+	name = "Cult light armor"
+	desc = "Robe of my queen makes me speedy!"
+	icon_state = "buff"

@@ -39,11 +39,11 @@
 	shared_occurence_type = SHARED_HIGH_THREAT
 
 	base_antags = 1
-	maximum_antags = 3
+	maximum_antags = 5
 
 	denominator = 40
 
-	weight = 5
+	weight = 12
 	max_occurrences = 1
 
 	earliest_start = 0 SECONDS
@@ -67,7 +67,7 @@
 	else
 		if(!antag_mind.has_antag_datum(antag_datum))
 			var/datum/job/J = SSjob.GetJob(antag_mind.current?.job)
-			J?.current_positions = max(J?.current_positions-1, 0)
+			J?.current_positions = max(J?.current_positions-3, 0)
 			var/datum/antagonist/zizocultist/servante = new /datum/antagonist/zizocultist
 			antag_mind.add_antag_datum(servante)
 			return
