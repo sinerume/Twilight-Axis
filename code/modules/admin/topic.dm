@@ -629,6 +629,8 @@
 		browse_messages("watchlist entry", filter = TRUE)
 
 	else if(href_list["showmessageckey"])
+		if(usr.client?.holder?.rank.name == "Eventmin") // TA EDIT
+			return // TA EDIT
 		if(!check_rights(R_BAN))
 			return
 		var/target = href_list["showmessageckey"]
