@@ -1647,6 +1647,8 @@
 				to_chat(C, "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message linkify\">Your PQ has been adjusted by [amt2change] by [usr.key] for reason: [raisin]</span></span>")
 				return
 	else if(href_list["showpq"])
+		if(usr.client?.holder?.rank.name == "Eventmin") // TA EDIT
+			return // TA EDIT
 		if(!check_rights(R_BAN))
 			return
 		var/mob/M = locate(href_list["mob"]) in GLOB.mob_list
