@@ -3,6 +3,8 @@ export type FamilyDisplayEntry = {
   label?: string | null;
   details?: string[];
   accentColor?: string | null;
+  personRef?: string | null;
+  descriptor?: string | null;
 };
 
 export type FamilyDisplaySection = {
@@ -15,8 +17,11 @@ export type FamilyTreeNode = FamilyDisplayEntry & {
   children?: FamilyTreeNode[];
   isSelf?: boolean;
   phantom?: boolean;
+  cosmetic?: boolean;
   generation?: number | null;
   parents?: string[];
+  personRef?: string | null;
+  descriptor?: string | null;
 };
 
 export type FamilyDisplayData = {

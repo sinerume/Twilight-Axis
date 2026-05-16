@@ -6,6 +6,7 @@
 	var/adoption_status = FALSE
 	var/generation = 0
 	var/phantom = FALSE
+	var/cosmetic = FALSE
 	var/tmp/recalculating_generation = FALSE
 	var/mutable_appearance/cloned_look
 
@@ -105,14 +106,14 @@
 		return FALSE
 	if(IsAncestorOf(parent))
 		return FALSE
-	if(person && parent.person && !adoption_status && !SSfamilytree.familytree_biological_parent_allowed(parent.person, person, family))
+	if(person && parent.person && !adoption_status && !parent.cosmetic && !cosmetic && !SSfamilytree.familytree_biological_parent_allowed(parent.person, person, family))
 		return FALSE
-	if(person && parent.person && !adoption_status)
+	if(person && parent.person && !adoption_status && !parent.cosmetic && !cosmetic)
 		for(var/datum/family_member/existing_parent as anything in current_parents)
-			if(existing_parent?.person && !SSfamilytree.familytree_biological_parent_pair_allowed(parent.person, existing_parent.person, person, family))
+			if(existing_parent?.person && !existing_parent.cosmetic && !SSfamilytree.familytree_biological_parent_pair_allowed(parent.person, existing_parent.person, person, family))
 				return FALSE
 
-	if(parent.phantom || !parent.person)
+	if(parent.phantom || parent.cosmetic || cosmetic || !parent.person)
 		phantom_parent_members += parent
 		if(!(src in parent.phantom_child_members))
 			parent.phantom_child_members += src

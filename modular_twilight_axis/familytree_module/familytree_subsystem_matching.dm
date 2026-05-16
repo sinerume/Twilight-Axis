@@ -725,6 +725,8 @@
 	var/list/possible_roles = list()
 	if(!house || !person || !anchor?.person || anchor.person == person)
 		return possible_roles
+	if(anchor.cosmetic || anchor.phantom)
+		return possible_roles
 	if(!familytree_relative_species_compatible(person, anchor.person))
 		return possible_roles
 
@@ -754,6 +756,8 @@
 	var/list/anchor_parents = anchor.get_parent_members()
 	for(var/datum/family_member/parent as anything in anchor_parents)
 		if(!parent?.person)
+			continue
+		if(parent.cosmetic)
 			continue
 		if(!familytree_relative_species_compatible(person, parent.person))
 			return FALSE
@@ -832,7 +836,11 @@
 			if(success && coparent_link_mode && new_member.get_parent_members().len < 2)
 				familytree_add_parent_link(new_member, coparent, coparent_link_mode)
 		if("sibling")
-			var/list/anchor_parents = anchor.get_parent_members()
+			var/list/all_anchor_parents = anchor.get_parent_members()
+			var/list/anchor_parents = list()
+			for(var/datum/family_member/p as anything in all_anchor_parents)
+				if(p && !p.cosmetic)
+					anchor_parents += p
 			if(anchor_parents.len)
 				success = TRUE
 				var/force_adoptive_sibling_parentage = adopted
@@ -862,6 +870,8 @@
 			var/parent_link_mode = familytree_parent_link_mode(person, anchor.person, house, adopted)
 			if(!adopted)
 				for(var/datum/family_member/existing_parent as anything in anchor.get_parent_members())
+					if(existing_parent?.cosmetic)
+						continue
 					if(existing_parent?.person && !familytree_biological_parent_pair_allowed(person, existing_parent.person, anchor.person, house))
 						parent_link_mode = "adoptive"
 						break
@@ -915,6 +925,8 @@
 	for(var/datum/family_member/member as anything in house.members)
 		if(member == exclude || !member?.person)
 			continue
+		if(member.cosmetic || member.phantom)
+			continue
 		if(!CanBeParentOf(member.person, child))
 			continue
 		if(!familytree_biological_parent_allowed(member.person, child, house))
@@ -933,6 +945,8 @@
 	for(var/datum/family_member/member as anything in house.members)
 		if(!member?.person)
 			continue
+		if(member.cosmetic || member.phantom)
+			continue
 		if(!CanBeSiblings(member.person.age, person.age))
 			continue
 		candidates += member
@@ -947,6 +961,8 @@
 	for(var/datum/family_member/member as anything in house.members)
 		if(!member?.person)
 			continue
+		if(member.cosmetic || member.phantom)
+			continue
 		if(member.get_parent_members().len >= 2)
 			continue
 		if(!CanBeParentOf(parent, member.person))
@@ -955,7 +971,7 @@
 			continue
 		var/parent_pair_allowed = TRUE
 		for(var/datum/family_member/existing_parent as anything in member.get_parent_members())
-			if(existing_parent?.person && !familytree_biological_parent_pair_allowed(parent, existing_parent.person, member.person, house))
+			if(existing_parent?.person && !existing_parent.cosmetic && !familytree_biological_parent_pair_allowed(parent, existing_parent.person, member.person, house))
 				parent_pair_allowed = FALSE
 				break
 		if(!parent_pair_allowed)

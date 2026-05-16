@@ -605,7 +605,7 @@
 	if(chosen_species_type)
 		set_species_type(parent_mob, chosen_species_type)
 
-	var/datum/family_member/parent_member = house.CreateFamilyMember(parent_mob)
+	var/datum/family_member/parent_member = house.CreateCosmeticFamilyMember(parent_mob)
 	if(!parent_member)
 		return
 	parent_member.generation = parent_generation
@@ -651,7 +651,7 @@
 		sibling.real_name = sibling_name
 		set_species_type(sibling, species_type)
 
-		var/datum/family_member/sibling_member = house.CreateFamilyMember(sibling)
+		var/datum/family_member/sibling_member = house.CreateCosmeticFamilyMember(sibling)
 		if(!sibling_member)
 			qdel(sibling)
 			continue
@@ -682,7 +682,7 @@
 		child.real_name = child_name
 		set_species_type(child, species_type)
 
-		var/datum/family_member/child_member = house.CreateFamilyMember(child)
+		var/datum/family_member/child_member = house.CreateCosmeticFamilyMember(child)
 		if(!child_member)
 			qdel(child)
 			continue

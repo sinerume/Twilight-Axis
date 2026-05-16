@@ -182,6 +182,8 @@
 
 	var/high_count = 0
 	for(var/datum/family_member/member as anything in house.members)
+		if(member.cosmetic || member.phantom)
+			continue
 		if(member.person && familytree_get_role_tier(member.person) == ROLE_TIER_HIGH)
 			high_count++
 			if(high_count >= 2)

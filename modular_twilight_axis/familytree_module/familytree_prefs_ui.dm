@@ -389,6 +389,27 @@
 		"tree" = tree_data,
 	)
 
+/datum/familytree_display_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
+		return
+
+	if(!viewer || ui?.user != viewer)
+		return FALSE
+
+	switch(action)
+		if("examine")
+			var/target_ref = params["ref"]
+			if(!istext(target_ref) || !length(target_ref))
+				return FALSE
+			var/atom/target = locate(target_ref)
+			if(!ishuman(target))
+				return FALSE
+			viewer.examinate(target)
+			return TRUE
+
+	return FALSE
+
 /datum/familytree_display_panel/ui_close()
 	QDEL_NULL(src)
 

@@ -657,6 +657,34 @@ GLOBAL_LIST_INIT(familytree_title_prefixes, list(
 			return familytree_role_text_ru("spouse")
 	return null
 
+/datum/controller/subsystem/familytree/proc/familytree_build_member_descriptor(datum/family_member/member)
+	if(!member?.person)
+		return null
+	var/mob/living/carbon/human/H = member.person
+	var/list/parts = list()
+	if(member.cosmetic)
+		parts += "Вымышленный родственник, существующий лишь в семейных преданиях."
+	var/species_name = H.dna?.species?.name
+	if(species_name)
+		parts += "Раса: [species_name]."
+	if(H.age)
+		parts += "Возраст: [H.age]."
+	var/gender_text
+	switch(H.gender)
+		if(MALE)
+			gender_text = "мужской"
+		if(FEMALE)
+			gender_text = "женский"
+		if(PLURAL)
+			gender_text = "множественный"
+		if(NEUTER)
+			gender_text = "средний"
+	if(gender_text)
+		parts += "Пол: [gender_text]."
+	if(!member.cosmetic && istext(H.flavortext_cached) && length(H.flavortext_cached))
+		parts += H.flavortext_cached
+	return parts.Join("\n")
+
 /datum/controller/subsystem/familytree/proc/familytree_format_fate_reveal(mob/living/carbon/human/partner)
 	if(!partner)
 		return ""
