@@ -395,6 +395,32 @@
 			parent_names += parent_name
 	return parent_names
 
+/datum/heritage/proc/BuildInLawParentNode(datum/family_member/member, datum/family_member/checker_member)
+	if(!member?.person || !member.cosmetic)
+		return null
+
+	var/relation_text = checker_member ? checker_member.GetRelationshipTo(member) : null
+	var/list/details = list("NPC")
+	if(member.person?.dna?.species?.name)
+		details += member.person.dna.species.name
+	var/list/parent_names = BuildFamilyTreeParentNames(member)
+
+	return list(
+		"name" = member.person.real_name,
+		"label" = relation_text ? uppertext(relation_text) : null,
+		"details" = details,
+		"accentColor" = GetRelationColor(relation_text),
+		"isSelf" = FALSE,
+		"phantom" = member.phantom,
+		"cosmetic" = member.cosmetic,
+		"generation" = member.generation,
+		"parents" = parent_names,
+		"spouses" = list(),
+		"children" = list(),
+		"personRef" = null,
+		"descriptor" = SSfamilytree.familytree_build_member_descriptor(member),
+	)
+
 /datum/heritage/proc/FamilyTreeHasRealParent(datum/family_member/member, datum/family_member/ignore_parent = null)
 	if(!member)
 		return FALSE

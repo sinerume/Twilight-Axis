@@ -13,6 +13,7 @@ export type FamilyDisplaySection = {
 };
 
 export type FamilyTreeNode = FamilyDisplayEntry & {
+  parentNodes?: FamilyTreeNode[];
   spouses?: FamilyTreeNode[];
   children?: FamilyTreeNode[];
   isSelf?: boolean;

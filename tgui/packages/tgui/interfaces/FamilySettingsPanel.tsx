@@ -706,7 +706,7 @@ export const FamilySettingsPanel = () => {
       width={FAMILY_WINDOW_FULLSCREEN_SIZE}
       height={FAMILY_WINDOW_FULLSCREEN_SIZE}
     >
-      <Window.Content>
+      <Window.Content style={{ backgroundImage: 'none' }}>
         <div className="FamilySettingsPanel">
           <div className="FamilySettingsPanel__header">
             <div className="FamilySettingsPanel__header-left">
