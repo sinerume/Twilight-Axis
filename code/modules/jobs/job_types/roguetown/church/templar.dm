@@ -25,8 +25,9 @@
 	virtue_restrictions = list(/datum/virtue/utility/noble)
 	job_subclasses = list(
 		/datum/advclass/templar/monk,
-		/datum/advclass/templar/crusader,
-		/datum/advclass/templar/noc_spellblade,
+	//	/datum/advclass/templar/crusader,
+	//	/datum/advclass/templar/noc_spellblade,
+		/datum/advclass/noctite_spellblade,
 		/datum/advclass/templar/guardian
 	)
 
@@ -311,4 +312,3 @@
 		H.adjust_skillrank(/datum/skill/misc/lockpicking, SKILL_LEVEL_NOVICE, TRUE)
 		H.adjust_skillrank(/datum/skill/misc/music, SKILL_LEVEL_NOVICE, TRUE)
 	// -- End of section for god specific bonuses --
-
