@@ -25,7 +25,7 @@
 	virtue_restrictions = list(/datum/virtue/utility/noble)
 	job_subclasses = list(
 		/datum/advclass/templar/monk,
-	//	/datum/advclass/templar/crusader,
+		/datum/advclass/templar/crusader,
 	//	/datum/advclass/templar/noc_spellblade,
 		/datum/advclass/noctite_spellblade,
 		/datum/advclass/templar/guardian
