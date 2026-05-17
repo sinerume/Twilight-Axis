@@ -30,14 +30,13 @@
 	return manor_type
 
 /datum/manor/proc/get_manor_size(mob/living/carbon/human/owner)
-	if(!owner)
-		return manor_size
-	if(owner.advjob == "Knight Banneret" || owner.mind?.assigned_role in list("Marshal", "Steward", "Hand"))
-		return "big"
-	if(owner.mind?.assigned_role in list("Councillor", "Knight"))
-		return "medium"
-	if(HAS_TRAIT(owner, TRAIT_NOBLE) && HAS_TRAIT(owner, TRAIT_RESIDENT))
-		return "small"
+	if(owner)
+		if(owner.advjob == "Knight Banneret" || owner.mind?.assigned_role in list("Marshal", "Steward", "Hand"))
+			return "big"
+		if(owner.mind?.assigned_role in list("Councillor", "Knight"))
+			return "medium"
+		if(HAS_TRAIT(owner, TRAIT_NOBLE) && HAS_TRAIT(owner, TRAIT_RESIDENT))
+			return "small"
 	return manor_size
 
 /datum/manor/proc/update_workstation_types(type = "manor", manor_size = "big")
@@ -74,8 +73,9 @@
 					workstation_types = list(
 						/datum/workstation/field/medium,
 						/datum/workstation/fruit/medium,
-						/datum/workstation/hunt/medium
+						/datum/workstation/hunt/medium,
 					)
+			min_workers = 15
 		if("medium")
 			switch(type)
 				if("village")
@@ -106,8 +106,9 @@
 					workstation_types = list(
 						/datum/workstation/field/medium,
 						/datum/workstation/fruit,
-						/datum/workstation/hunt
+						/datum/workstation/hunt,
 					)
+			min_workers = 10
 		else
 			switch(type)
 				if("village")
@@ -140,8 +141,8 @@
 /datum/manor/proc/get_owner_patron(mob/living/carbon/human/owner)
 	if(!owner || !owner.mind)
 		return null
-	if(islist(owner.mind.vars) && ("patron" in owner.mind.vars))
-		return owner.mind.vars["patron"]
+	if(owner.patron)
+		return owner.patron.type
 	return null
 
 /datum/manor/proc/on_creation(mob/living/carbon/human/owner)
@@ -220,7 +221,7 @@
 	as_text = replacetext(as_text, "_", " ")
 	if(!length(as_text))
 		return fallback
-	return uppertext(copytext(as_text, 1, 1)) + copytext(as_text, 2)
+	return uppertext(copytext(as_text, 1, 2)) + copytext(as_text, 2)
 
 /datum/manor/proc/produce_resources(mob/living/carbon/human/owner, is_dawn = FALSE, is_dusk = FALSE)
 	if(!owner || !owner.mind || owner.mind.get_owned_manor() != src)
@@ -257,11 +258,10 @@
 			if(units <= 0)
 				continue
 			if(patron == /datum/patron/divine/noc)
-				switch(workstation.workstation_theme)
-					if("hunt")
-						units = max(1, ceil(units * 1.2))
-					if("farm")
-						units = max(0, floor(units * 0.8))
+				if(istype(workstation, /datum/workstation/hunt))
+					units = max(1, ceil(units * 1.2))
+				else if(istype(workstation, /datum/workstation/field))
+					units = max(0, floor(units * 0.8))
 
 			var/datum/roguestock/stockpile_entry = get_stockpile_entry_for_good(selected_good)
 			if(!stockpile_entry)
@@ -290,16 +290,16 @@
 			SStreasury.generate_money_account(total_profit_money, owner)
 			coin_income += total_profit_money
 
-	var/message = "Доход вашего поместья за этот дае: "
+	var/message = "За этот дае ваше поместье поставило Короне: "
 	for(var/good in produced_summary)
 		message += "[produced_summary[good]]x [get_readable_good_name(good)]; "
 
 	if(coin_income)
-		message += "[coin_income] маммон чистой прибыли."
+		message += "чистая прибыль составила [coin_income] маммон."
 	else
-		message += "прибыль от поместья отсутствует."
+		message += "чистая прибыль от поместья отсутствует."
 	if(owner.client)
-		to_chat(owner, span_info(message))
+		to_chat(owner, span_notice(message))
 
 	return list(
 		"products" = produced_summary,
@@ -324,8 +324,6 @@
 
 	var/mob/living/carbon/human/H = user
 	if(!Adjacent(H))
-		return
-	if(!can_open_manor_panel(H))
 		return
 
 	var/datum/manor_panel/panel = new(H)

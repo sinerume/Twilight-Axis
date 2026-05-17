@@ -19,6 +19,20 @@
 		ui = new(user, src, "ManorPanel", "Владение")
 		ui.open()
 
+/datum/asset/simple/manor
+	assets = list(
+		"field_icon.jpg" = 'modular_twilight_axis/manors/icons/field_icon.jpg',
+		"fishing_icon.jpg" = 'modular_twilight_axis/manors/icons/fishing_icon.jpg',
+		"forest_icon.jpg" = 'modular_twilight_axis/manors/icons/forest_icon.jpg',
+		"fruit_icon.jpg" = 'modular_twilight_axis/manors/icons/fruit_icon.jpg',
+		"hunting_icon.jpg" = 'modular_twilight_axis/manors/icons/hunting_icon.jpg',
+		"ranch_icon.jpg" = 'modular_twilight_axis/manors/icons/ranch_icon.jpg',
+		"trade_icon.jpg" = 'modular_twilight_axis/manors/icons/trade_icon.jpg',
+	)
+
+/datum/manor_panel/ui_assets(mob/user)
+	return list(get_asset_datum(/datum/asset/simple/manor))
+
 /datum/manor_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
@@ -65,15 +79,20 @@
 	return lowertext("[user.mind.assigned_role]")
 
 /datum/manor_panel/proc/is_allowed_manor_role(mob/user)
-	var/role_name = get_primary_role(user)
-	if(user?.advjob == "Knight Banneret")
+	var/is_noble = HAS_TRAIT(user, TRAIT_NOBLE)
+	var/is_resident = HAS_TRAIT(user, TRAIT_RESIDENT)
+	var/datum/job/J = SSjob.GetJob(user.job)
+
+	if(J)
+		if((J.department_flag & RETINUE) && (TRAIT_NOBLE in J.job_traits))
+			return TRUE
+
+		if((J.department_flag & COURTIERS) && is_noble)
+			return TRUE
+
+	if(is_noble  && is_resident) 
 		return TRUE
-	if(role_name in list("marshal", "steward", "hand"))
-		return TRUE
-	if(role_name in list("councillor", "knight"))
-		return TRUE
-	if(HAS_TRAIT(user, TRAIT_NOBLE) && HAS_TRAIT(user, TRAIT_RESIDENT))
-		return TRUE
+
 	return FALSE
 
 /datum/manor_panel/proc/can_have_manor(mob/user)

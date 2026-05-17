@@ -763,7 +763,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			dat += "<br><b>Family Preferences:</b> <a href='?_src_=prefs;preference=family_options;task=input'>Change</a>" // TA EDIT
 			dat += "<br><b>Loadout Items:</b> <a href='?_src_=prefs;preference=loadout_item;task=input'>Change</a>"
 
-			dat += "<b>Manor Name:</b> <a href='?_src_=prefs;preference=manor_name;task=input'>[manor_name ? manor_name : "Unknown Manor"]</a><BR>" // TA EDIT
+			dat += "<BR><BR><b>Manor Name:</b> <a href='?_src_=prefs;preference=manor_name;task=input'>[manor_name ? manor_name : "Unknown Manor"]</a><BR>" // TA EDIT
 			dat += "<b>Manor Type:</b> <a href='?_src_=prefs;preference=manor_type;task=input'>[get_manor_type_display_name(manor_type)]</a><BR>" //TA EDIT
 
 			dat += "</td>"

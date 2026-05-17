@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
+import { resolveAsset } from '../assets';
 import type { ManorPanelData, WorkstationData } from './ManorPanelData';
 
 const GOD_ICONS: Record<string, string> = {
@@ -35,7 +36,7 @@ const getKindTheme = (kind: string) => {
         card: 'linear-gradient(180deg, rgba(110,74,30,0.96), rgba(71,45,18,0.98))',
         overlay: 'linear-gradient(135deg, rgba(222,168,77,0.18), rgba(0,0,0,0.08) 70%)',
         chip: 'rgba(244, 213, 151, 0.12)',
-        subtitle: 'Злаки и огороды',
+        subtitle: 'Злаки и овощи',
       };
     case 'orchard':
       return {
@@ -71,7 +72,34 @@ const getKindTheme = (kind: string) => {
         card: 'linear-gradient(180deg, rgba(88,53,96,0.97), rgba(47,28,55,0.98))',
         overlay: 'linear-gradient(135deg, rgba(206,153,241,0.16), rgba(0,0,0,0.1) 70%)',
         chip: 'rgba(222, 191, 248, 0.11)',
-        subtitle: 'Торговля и прибыль',
+        subtitle: 'Экзотические товары и прибыль',
+      };
+    case 'fish':
+      return {
+        accent: '#a2bfe5',
+        border: 'rgba(180, 203, 245, 0.34)',
+        card: 'linear-gradient(180deg, rgba(88,53,96,0.97), rgba(47,28,55,0.98))',
+        overlay: 'linear-gradient(135deg, rgba(206,153,241,0.16), rgba(0,0,0,0.1) 70%)',
+        chip: 'rgba(203, 191, 248, 0.11)',
+        subtitle: 'Рыба и морские сокровища',
+      };
+    case 'mining':
+      return {
+        accent: '#e5a2a2',
+        border: 'rgba(245, 180, 180, 0.34)',
+        card: 'linear-gradient(180deg, rgba(88,53,96,0.97), rgba(47,28,55,0.98))',
+        overlay: 'linear-gradient(135deg, rgba(206,153,241,0.16), rgba(0,0,0,0.1) 70%)',
+        chip: 'rgba(222, 191, 248, 0.11)',
+        subtitle: 'Руды и ископаемые',
+      };
+    case 'forest':
+      return {
+        accent: '#a2e5a7',
+        border: 'rgba(180, 245, 196, 0.34)',
+        card: 'linear-gradient(180deg, rgba(88,53,96,0.97), rgba(47,28,55,0.98))',
+        overlay: 'linear-gradient(135deg, rgba(206,153,241,0.16), rgba(0,0,0,0.1) 70%)',
+        chip: 'rgba(222, 191, 248, 0.11)',
+        subtitle: 'Древисина и уголь',
       };
     default:
       return {
@@ -188,42 +216,23 @@ const Scene = ({ kind }: { kind: string }) => {
   if (kind === 'field') {
     return (
       <>
-        <div style={{ ...common, inset: 0, background: 'repeating-linear-gradient(160deg, rgba(232,189,96,0.14) 0 12px, rgba(0,0,0,0) 12px 24px)' }} />
-        <div style={{ ...common, top: '18px', right: '18px', width: '38px', height: '38px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,231,169,0.84), rgba(255,187,74,0.0) 72%)' }} />
-        <div style={{ ...common, left: '0', right: '0', bottom: '0', height: '44px', background: 'linear-gradient(180deg, rgba(88,74,24,0.92), rgba(50,39,14,1))' }} />
+        <div style={{ ...common, left: '0', right: '0', bottom: '0', width: '100%', height: '100%' }}><img src={resolveAsset('field_icon.jpg')} alt="Поля" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block', userSelect: 'none'}} /></div>
       </>
     );
   }
 
   if (kind === 'orchard') {
-    const tree = (left: string, bottom: string, crown: string) => (
-      <>
-        <div style={{ ...common, left, bottom, width: '10px', height: '42px', background: 'linear-gradient(180deg, #6a401f, #382111)', borderRadius: '10px' }} />
-        <div style={{ ...common, left: `calc(${left} - 14px)`, bottom: `calc(${bottom} + 20px)`, width: '40px', height: '40px', borderRadius: '50%', background: crown }} />
-      </>
-    );
     return (
       <>
-        {tree('16%', '22px', 'radial-gradient(circle at 40% 35%, #a4e07c, #48783a 68%)')}
-        {tree('40%', '18px', 'radial-gradient(circle at 40% 35%, #b5ec82, #5b8742 68%)')}
-        {tree('64%', '24px', 'radial-gradient(circle at 40% 35%, #9cd976, #416f34 68%)')}
-        <div style={{ ...common, left: '0', right: '0', bottom: '0', height: '26px', background: 'linear-gradient(180deg, rgba(60,91,37,0.96), rgba(35,57,20,1))' }} />
+        <div style={{ ...common, left: '0', right: '0', bottom: '0', width: '100%', height: '100%' }}><img src={resolveAsset('fruit_icon.jpg')} alt="Сады" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block', userSelect: 'none'}} /></div>
       </>
     );
   }
 
   if (kind === 'hunt') {
-    const pine = (left: string, bottom: string, scale = 1) => (
-      <div style={{ ...common, left, bottom, width: `${34 * scale}px`, height: `${68 * scale}px`, clipPath: 'polygon(50% 0%, 100% 70%, 72% 70%, 100% 100%, 0 100%, 28% 70%, 0 70%)', background: 'linear-gradient(180deg, #6e88b9 0%, #314661 26%, #1e2b3e 72%, #162031 100%)', opacity: 0.94 }} />
-    );
     return (
       <>
-        <div style={{ ...common, top: '18px', right: '18px', width: '30px', height: '30px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(244,246,255,0.9) 0%, rgba(179,198,226,0.0) 72%)' }} />
-        {pine('14%', '12px', 0.9)}
-        {pine('31%', '8px', 1.0)}
-        {pine('53%', '14px', 0.92)}
-        {pine('70%', '10px', 0.96)}
-        <div style={{ ...common, left: '0', right: '0', bottom: '0', height: '24px', background: 'linear-gradient(180deg, rgba(25,44,33,0.96), rgba(18,29,22,1))' }} />
+        <div style={{ ...common, left: '0', right: '0', bottom: '0', width: '100%', height: '100%' }}><img src={resolveAsset('hunting_icon.jpg')} alt="Охотничьи угодья" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block', userSelect: 'none'}} /></div>
       </>
     );
   }
@@ -231,10 +240,7 @@ const Scene = ({ kind }: { kind: string }) => {
   if (kind === 'farm') {
     return (
       <>
-        <div style={{ ...common, left: '14%', bottom: '20px', width: '78px', height: '58px', borderRadius: '8px', background: 'linear-gradient(180deg, #a96d37, #6b3d18)' }} />
-        <div style={{ ...common, left: '11%', bottom: '70px', width: '84px', height: '46px', clipPath: 'polygon(50% 0%, 100% 100%, 0% 100%)', background: 'linear-gradient(180deg, #dec298, #8a6940)' }} />
-        <div style={{ ...common, left: '60%', right: '10%', bottom: '24px', height: '7px', background: 'rgba(255,227,172,0.42)', boxShadow: '0 -14px 0 rgba(255,227,172,0.24), 0 -28px 0 rgba(255,227,172,0.18)' }} />
-        <div style={{ ...common, left: '0', right: '0', bottom: '0', height: '24px', background: 'linear-gradient(180deg, rgba(110,81,37,0.96), rgba(66,46,19,1))' }} />
+        <div style={{ ...common, left: '0', right: '0', bottom: '0', width: '100%', height: '100%' }}><img src={resolveAsset('ranch_icon.jpg')} alt="Фермы" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block', userSelect: 'none'}} /></div>
       </>
     );
   }
@@ -242,11 +248,31 @@ const Scene = ({ kind }: { kind: string }) => {
   if (kind === 'trade') {
     return (
       <>
-        <div style={{ ...common, left: '11%', bottom: '26px', width: '68px', height: '44px', background: 'linear-gradient(180deg, #7f5189, #4b2f55)', borderRadius: '8px' }} />
-        <div style={{ ...common, left: '10%', bottom: '70px', width: '70px', height: '14px', background: 'repeating-linear-gradient(90deg, #ffd7a4 0 12px, #945bb3 12px 24px)', borderRadius: '8px 8px 0 0' }} />
-        <div style={{ ...common, left: '42%', bottom: '30px', width: '62px', height: '40px', background: 'linear-gradient(180deg, #a17157, #623c2a)', borderRadius: '8px' }} />
-        <div style={{ ...common, left: '41%', bottom: '70px', width: '64px', height: '12px', background: 'repeating-linear-gradient(90deg, #f4d4a6 0 10px, #7256b3 10px 20px)', borderRadius: '8px 8px 0 0' }} />
-        <div style={{ ...common, left: '0', right: '0', bottom: '0', height: '24px', background: 'linear-gradient(180deg, rgba(63,44,78,0.96), rgba(40,28,53,1))' }} />
+        <div style={{ ...common, left: '0', right: '0', bottom: '0', width: '100%', height: '100%' }}><img src={resolveAsset('trade_icon.jpg')} alt="Торговые ряды" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block', userSelect: 'none'}} /></div>
+      </>
+    );
+  }
+
+  if (kind === 'fish') {
+    return (
+      <>
+        <div style={{ ...common, left: '0', right: '0', bottom: '0', width: '100%', height: '100%' }}><img src={resolveAsset('fishing_icon.jpg')} alt="Заводи" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block', userSelect: 'none'}} /></div>
+      </>
+    );
+  }
+
+  if (kind === 'mining') {
+    return (
+      <>
+        <div style={{ ...common, left: '0', right: '0', bottom: '0', width: '100%', height: '100%' }}><img src={resolveAsset('mine_icon.jpg')} alt="Шахты" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block', userSelect: 'none'}} /></div>
+      </>
+    );
+  }
+
+  if (kind === 'forest') {
+    return (
+      <>
+        <div style={{ ...common, left: '0', right: '0', bottom: '0', width: '100%', height: '100%' }}><img src={resolveAsset('forest_icon.jpg')} alt="Леса" style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block', userSelect: 'none'}} /></div>
       </>
     );
   }
@@ -269,12 +295,13 @@ const WorkstationCard = ({ ws, act }: { ws: WorkstationData; act: (action: strin
         background: `${theme.overlay}, ${theme.card}`,
         border: `1px solid ${theme.border}`,
         boxShadow: '0 14px 24px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.05)',
+        textShadow: '-1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black',
       }}>
       <Scene kind={ws.kind} />
       <div style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
           <div>
-            <div style={{ fontSize: '25px', fontWeight: 800, lineHeight: 1.1, textShadow: '0 2px 10px rgba(0,0,0,0.35)' }}>{ws.name}</div>
+            <div style={{ fontSize: '25px', fontWeight: 800, lineHeight: 1.1, textShadow: '-2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black' }}>{ws.name}</div>
             <div style={{ fontSize: '11px', marginTop: '5px', letterSpacing: '0.12em', textTransform: 'uppercase', opacity: 0.78 }}>{theme.subtitle}</div>
           </div>
           <div style={{ textAlign: 'right' }}>
