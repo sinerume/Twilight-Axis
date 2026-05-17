@@ -120,8 +120,6 @@
 		return
 	next_click = world.time + 1
 
-	var/list/modifiers = (click_params == params && click_mods) ? click_mods : params2list(params)
-
 
 	last_client_interact = world.time
 
