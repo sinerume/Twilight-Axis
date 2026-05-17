@@ -118,8 +118,7 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 	// Специальная проверка для ритуала ASCEND
 	var/required_cultists = pickritual.cultist_number
 	if(istype(pickritual, /datum/ritual/fleshcrafting/ascend))
-		var/player_count = length(GLOB.joined_player_list)
-		required_cultists = max(1, round(player_count / 6))
+		required_cultists = SSmapping.retainer.get_cult_ascension_required_cultists()
 		
 		if(current_cultists < required_cultists)
 			to_chat(user, span_danger("This ritual requires at least [required_cultists] cultists, but there are only [current_cultists]. You need [required_cultists - current_cultists] more cultists."))
@@ -1017,9 +1016,8 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 	is_cultist_ritual = TRUE
 
 /datum/ritual/fleshcrafting/ascend/invoke(mob/living/user, turf/center)
-	// Динамический расчет требуемых культистов. Формулу можно поменять как угодно. Пока затычка на 1/6
-	var/player_count = length(GLOB.joined_player_list)
-	var/required_cultists = max(1, round(player_count / 6))
+	// Требование культистов фиксируется на раундстарте и больше не растет по ходу раунда.
+	var/required_cultists = SSmapping.retainer.get_cult_ascension_required_cultists()
 	// Меняя формулу и требование меняйте это все и в /mob/living/carbon/human/proc/ascension_check() чтобы оно совпадало и не псиопило культистов
 	var/current_cultists = length(SSmapping.retainer.cultists)
 	
@@ -1038,32 +1036,32 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 	var/target_role = null
 	var/obj/item/clothing/head/roguetown/crown/crown_target = null
 	
-	// Приоритет 1: Герцог (SSticker.rulermob)
-	if(SSticker.rulermob && istype(SSticker.rulermob, /mob/living/carbon/human))
-		var/mob/living/carbon/human/ruler = SSticker.rulermob
-		if(ruler.stat != DEAD)
-			sacrifice_target = ruler
-			target_role = "Ruler"
-	
-	// Приоритет 2: Епископ
-	if(!sacrifice_target)
-		for(var/mob/living/carbon/human/H in GLOB.human_list)
-			if(H.stat == DEAD)
-				continue
-			var/role_title
-			if(H.mind && H.mind.assigned_role)
-				if(istext(H.mind.assigned_role))
-					role_title = H.mind.assigned_role
-				else if(istype(H.mind.assigned_role))
-					role_title = H.mind.assigned_role.title
-				else
-					role_title = null
+	// Приоритет 1: Епископ
+	for(var/mob/living/carbon/human/H in GLOB.human_list)
+		if(H.stat == DEAD)
+			continue
+		var/role_title
+		if(H.mind && H.mind.assigned_role)
+			if(istext(H.mind.assigned_role))
+				role_title = H.mind.assigned_role
+			else if(istype(H.mind.assigned_role))
+				role_title = H.mind.assigned_role.title
 			else
 				role_title = null
-			if(role_title == "Bishop")
-				sacrifice_target = H
-				target_role = "Bishop"
-				break
+		else
+			role_title = null
+		if(role_title == "Bishop")
+			sacrifice_target = H
+			target_role = "Bishop"
+			break
+	
+	// Приоритет 2: Герцог/Король
+	if(!sacrifice_target)
+		if(SSticker.rulermob && istype(SSticker.rulermob, /mob/living/carbon/human))
+			var/mob/living/carbon/human/ruler = SSticker.rulermob
+			if(ruler.stat != DEAD)
+				sacrifice_target = ruler
+				target_role = "Ruler"
 	
 	// Приоритет 3: Десница
 	if(!sacrifice_target)
