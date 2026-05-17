@@ -160,6 +160,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/no_language_fonts = FALSE
 	var/no_language_icon = FALSE
 	var/no_redflash = FALSE
+	var/no_storyteller_events = FALSE
 
 	var/lastclass
 
@@ -381,6 +382,8 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	reset_descriptors()
 	virtue_origin = new pref_species.origin_default
 	taur_type = null
+	var/datum/charflaw/no_flaw = new /datum/charflaw/noflaw()
+	charflaws = list(no_flaw)
 
 #define APPEARANCE_CATEGORY_COLUMN "<td valign='top' width='14%'>"
 #define MAX_MUTANT_ROWS 4
@@ -800,6 +803,8 @@ GLOBAL_LIST_EMPTY(chosen_names)
 						dat += "<b>[capitalize(i)]:</b> <font color=red> \[IN [days_remaining] DAYS]</font><br>"
 					else
 						dat += "<b>[capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[i]'>[(i in be_special) ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<br><b>Storyteller:</b> <a href='?_src_=prefs;preference=storyteller'>[no_storyteller_events ? "Disabled" : "Enabled"]</a><br>"
+
 //			dat += "<br>"
 //			dat += "<b>Midround Antagonist:</b> <a href='?_src_=prefs;preference=allow_midround_antag'>[(toggles & MIDROUND_ANTAG) ? "Enabled" : "Disabled"]</a><br>"
 
@@ -1585,7 +1590,11 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			for(var/key in cf_list)
 				if(cf_list[key] == /datum/charflaw/noflaw)
 					cf_list.Remove(key)
-					break
+				else
+					var/datum/charflaw/cf = cf_list[key]
+					cf = new cf()
+					if(length(cf.restricted_species) && (pref_species.type in cf.restricted_species))
+						cf_list.Remove(key)
 
 			for(var/datum/charflaw/cf in charflaws)
 				for(var/key in cf_list)
@@ -2932,6 +2941,9 @@ GLOBAL_LIST_EMPTY(chosen_names)
 						be_special -= be_special_type
 					else
 						be_special += be_special_type
+
+				if("storyteller")
+					no_storyteller_events = !no_storyteller_events
 
 				if("toggle_random")
 					var/random_type = href_list["random_type"]
