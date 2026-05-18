@@ -1789,6 +1789,12 @@ GLOBAL_LIST_EMPTY(loadout_items_by_category)
 	category = list("Одежда", "Донат")
 	donatitem = TRUE
 
+/datum/loadout_item/donator/willmbrink/padded_dress
+	name = "Donator Item - Padded Dress"
+	path = /obj/item/clothing/suit/roguetown/shirt/dress/willmbrink
+	category = list("Одежда", "Донат")
+	donatitem = TRUE
+
 /datum/loadout_item/donator_dasfox
 	name = "Donator Kit - Archaic Ceremonial Valkyrhelm - Required: Armet"
 	path = /obj/item/enchantingkit/dasfox_helm
