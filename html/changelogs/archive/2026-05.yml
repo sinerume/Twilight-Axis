@@ -1312,7 +1312,53 @@
   borneblood:
   - bugfix: Holstered Greatswords are no longer upside-down.
   kbitykbitykbity:
-  - bugfix: Fixed small races being barred from every nomad adventurer class.
+  - bugfix: Fixed small races being barred from every nomad adventurer class.3
+2026-05-18:
+  BICLOGAN:
+  - rscadd: Reimagined Barber Surgeon starting clothes and backpack items.
+  - rscadd: Leather Boots and Leather Gloves as loadout items
+  - bugfix: Plague mask not being craftable, despite being in the code
+  FreeStylaLT:
+  - rscadd: Tracking now shows other player mobs above.
+  - balance: Skin Armor now resets its regen timer on every defense.
+  - balance: Gnoll skin armor now costs blue to regenerate.
+  - refactor: Added a Game Settings toggle for opting out of Storyteller events. (God's
+      Chosen)
+  Ketrai:
+  - rscadd: Added a new dish for saiga ribs
+  - rscadd: Added 4 new dishes for deadite saiga meat
+  - refactor: adds a refactored food slapcrafting method
+  - qol: Food now previews what it can be cooked into when examined (not all foods
+      supported, but the majority)
+  Lamasmaster:
+  - bugfix: Arcyne Affinity Descripition
+  Quinalion:
+  - rscadd: Ported Dwarven Shield and Dwarven Warpick from Scarlet Reach.
+  - rscadd: Grudgebearer Smith now wears steel bracers.
+  - rscadd: Added a proper Grudgebearer loadout to ensure correct weapon selection
+      on spawn.
+  - image: Reflavoured all Grudgebearer mercenary armor to match the palette..
+  - balance: Grudgebearer Soldier has expanded selectable weapons; selecting certain
+      weapons grants Expert-tier skill with that weapon.
+  - balance: Lowered Grudgebearer Soldier's base weapon skills to Journeyman-tier.
+  - balance: Grudgebearer Smith Weaponsmith skill increased to Journeyman-tier.
+  - balance: Grudgebearer Soldier Weaponsmith skill increased to Apprentice-tier.
+  - bugfix: Added missing intent icon for Perforating Strike.
+  - rscdel: Removed Tracking skill from Grudgebearer Soldier.
+  Rannoooo:
+  - bugfix: fixes ordinators not getting otavais
+  - bugfix: inspectors are forced otavan
+  Ryan180602:
+  - bugfix: try fix LMB mousedowns.
+  SomeDeviant:
+  - bugfix: fixed stress-face being able to use all of its emotional damage states
+  WeNeedMorePhoron:
+  - refactor: Optimized preview icon in the character creator by up to 80% (Around
+      50% on live). Report odd behaviors, especially with tauric character, species
+      swap.
+  - refactor: Optimized AI target finding by around 15% and cut down frequency of
+      scan by 50%. Report odd behaviors. Otherwise should save us a little CPU.
+=======
   msw7007:
   - server: "\u043F\u0435\u0440\u0435\u0431\u0440\u043E\u0441 \u043C\u043E\u0434\u0443\
       \u043B\u0435\u0439"
