@@ -509,6 +509,11 @@ GLOBAL_LIST_EMPTY(loadout_items_by_category)
 	path = /obj/item/clothing/cloak/sleevedtabard
 
 //SHOES
+/datum/loadout_item/leatherboots
+	name = "Leather Boots"
+	category = "Обувь"
+	path = /obj/item/clothing/shoes/roguetown/boots/leather
+
 /datum/loadout_item/darkboots
 	name = "Dark Boots"
 	category = "Обувь"
@@ -1725,6 +1730,20 @@ GLOBAL_LIST_EMPTY(loadout_items_by_category)
 	category = list("Плащи", "Донат")
 	path = /obj/item/enchantingkit/zoe
 	donatitem = TRUE
+
+/datum/loadout_item/donator/magi1138
+	name = "Donator Kit - Stolen Xylix Cloak"
+	path = /obj/item/clothing/cloak/magi1138
+	category = list("Плащи", "Донат")
+	donatitem = TRUE
+	donat_tier = 2
+
+/datum/loadout_item/donator/magi1138/specs
+	name = "Donator Kit - Modified Nocshade Lens-pair"
+	path = /obj/item/clothing/mask/rogue/spectacles/magi1138
+	category = list("Одежда", "Донат")
+	donatitem = TRUE
+	donat_tier = 2
 
 /datum/loadout_item/donator_zoe_shovel
 	name = "Donator Kit - Silence - Required: Shovel"
