@@ -201,7 +201,7 @@
 		. += max(workstation.last_cycle_productivity, 0)
 		. += max(workstation.production_increase, 0)
 
-/datum/manor/proc/get_stockpile_entry_for_good(good_path)
+/datum/manor/proc/get_stockpile_entry_for_good(/datum/roguestock/stockpile/good_path)
 	if(!good_path)
 		return null
 	var/trade_good_id = initial(good_path.trade_good_id)
@@ -245,7 +245,7 @@
 
 		var/this_workstation_units = 0
 		for(var/i = 1; i <= workstation.workers_employed; i++)
-			var/selected_good = pick(selected_produce)
+			var/datum/roguestock/stockpile/selected_good = pick(selected_produce)
 			var/min_units = patron == /datum/patron/divine/noc ? 1 : 0
 			var/max_units = patron == /datum/patron/divine/noc ? 3 : 2
 			var/units = rand(min_units, max_units)
@@ -285,7 +285,7 @@
 			coin_income += total_profit_money
 
 	var/message = "За этот дае ваше поместье поставило Короне: "
-	for(var/good in produced_summary)
+	for(var/datum/roguestock/stockpile/good in produced_summary)
 		message += "[produced_summary[good]]x [get_readable_good_name(good)]; "
 
 	if(coin_income)
