@@ -209,7 +209,7 @@
 		return null
 	return SSeconomy.find_stockpile_by_trade_good(trade_good_id)
 
-/datum/manor/proc/get_readable_good_name(good_path, fallback = "Ресурс")
+/datum/manor/proc/get_readable_good_name(/datum/roguestock/stockpile/good_path, fallback = "Ресурс")
 	if(!good_path)
 		return fallback
 	var/as_text = initial(good_path.name)
