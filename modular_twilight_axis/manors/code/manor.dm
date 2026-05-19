@@ -199,7 +199,7 @@
 		workstations += new_workstation
 		workers_limit += new_workstation.workstation_size
 	
-	workers_limit += set_up_patron_bonuses(workers_limit)
+	workers_limit = set_up_patron_bonuses(workers_limit)
 
 	if(workers_limit < min_workers)
 		workers_limit = min_workers
@@ -226,19 +226,27 @@
 		. += max(workstation.last_cycle_productivity, 0)
 		. += max(workstation.production_increase, 0)
 
-/datum/manor/proc/get_stockpile_entry_for_good(datum/roguestock/stockpile/good_path)
+/datum/manor/proc/get_stockpile_entry_for_good(good_path)
 	if(!good_path)
 		return null
-	var/trade_good_id = initial(good_path.trade_good_id)
+	var/datum/roguestock/stockpile/stockpile = new good_path()
+	if(!stockpile)
+		return null
+	var/trade_good_id = stockpile.trade_good_id
+	qdel(stockpile)
 	if(!trade_good_id)
 		return null
 	return SSeconomy.find_stockpile_by_trade_good(trade_good_id)
 
-/datum/manor/proc/get_readable_good_name(datum/roguestock/stockpile/good_path, fallback = "Ресурс")
+/datum/manor/proc/get_readable_good_name(good_path, fallback = "Ресурс")
 	if(!good_path)
 		return fallback
-	var/as_text = initial(good_path.name)
-	if(!as_text)
+	var/as_text = "[good_path]"
+	var/last_slash = findlasttext(as_text, "/")
+	if(last_slash)
+		as_text = copytext(as_text, last_slash + 1)
+	as_text = replacetext(as_text, "_", " ")
+	if(!length(as_text))
 		return fallback
 	return uppertext(copytext(as_text, 1, 2)) + copytext(as_text, 2)
 
@@ -270,7 +278,7 @@
 
 		var/this_workstation_units = 0
 		for(var/i = 1; i <= workstation.workers_employed; i++)
-			var/datum/roguestock/stockpile/selected_good = pick(selected_produce)
+			var/selected_good = pick(selected_produce)
 			var/min_units = patron == /datum/patron/divine/noc ? 1 : 0
 			var/max_units = patron == /datum/patron/divine/noc ? 3 : 2
 			var/units = rand(min_units, max_units)
@@ -309,7 +317,7 @@
 			coin_income += total_profit_money
 
 	var/message = "За этот дае ваше имение поставило Короне: "
-	for(var/datum/roguestock/stockpile/good in produced_summary)
+	for(var/good in produced_summary)
 		message += "[produced_summary[good]]x [get_readable_good_name(good)]; "
 
 	if(coin_income)
