@@ -43,8 +43,8 @@
 	switch(patron)
 		if(/datum/patron/old_god)
 			var/datum/workstation/cathedral/new_cathedral = new /datum/workstation/cathedral()
-			workstations += cathedral
-			workers_limit += cathedral.workstation_size
+			workstations += new_cathedral
+			workers_limit += new_cathedral.workstation_size
 		if(/datum/patron/divine/xylix)
 			var/has_trade_district = FALSE
 			for(var/datum/workstation/ws in workstations)
@@ -64,15 +64,15 @@
 				else if(istype(ws, /datum/workstation/hunt))
 					ws.production_modifier = 1.3
 			var/datum/workstation/mage_tower/new_mage_tower = new /datum/workstation/mage_tower()
-			workstations += mage_tower
-			workers_limit += mage_tower.workstation_size
+			workstations += new_mage_tower
+			workers_limit += new_mage_tower.workstation_size
 		if(/datum/patron/inhumen/zizo)
 			for(var/datum/workstation/ws in workstations)
 				if(istype(ws, /datum/workstation/trade))
 					ws.production_modifier = 0.5
 			var/datum/workstation/mage_tower/new_mage_tower = new /datum/workstation/mage_tower()
-			workstations += mage_tower
-			workers_limit += mage_tower.workstation_size
+			workstations += new_mage_tower
+			workers_limit += new_mage_tower.workstation_size
 		if(/datum/patron/divine/malum)
 			var/has_mine_district = FALSE
 			for(var/datum/workstation/ws in workstations)
