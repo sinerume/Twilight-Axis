@@ -119,6 +119,24 @@ const getKindTheme = (kind: string) => {
         chip: 'rgba(222, 191, 248, 0.11)',
         subtitle: 'Древисина и уголь',
       };
+      case 'mage_tower':
+      return {
+        accent: '#d5a2e5',
+        border: 'transparent',
+        card: 'transparent',
+        overlay: 'transparent',
+        chip: 'rgba(222, 191, 248, 0.11)',
+        subtitle: 'Магические реагенты',
+      };
+      case 'cathedral':
+      return {
+        accent: '#fafafa',
+        border: 'transparent',
+        card: 'transparent',
+        overlay: 'transparent',
+        chip: 'rgba(222, 191, 248, 0.11)',
+        subtitle: 'Вознесем хвалу Ему',
+      };
     default:
       return {
         accent: '#d9c39a',
@@ -307,6 +325,22 @@ const Scene = ({ kind }: { kind: string }) => {
   }
 
   if (kind === 'forest') {
+    return (
+      <>
+        <div style={{ ...common, left: '0', right: '0', bottom: '0', width: '100%', height: '100%' }}><img src={resolveAsset('forest_icon.png')} alt="Леса" style={{width: '100%', height: '100%', objectFit: 'fill', display: 'block', userSelect: 'none'}} /></div>
+      </>
+    );
+  }
+
+  if (kind === 'mage_tower') {
+    return (
+      <>
+        <div style={{ ...common, left: '0', right: '0', bottom: '0', width: '100%', height: '100%' }}><img src={resolveAsset('forest_icon.png')} alt="Леса" style={{width: '100%', height: '100%', objectFit: 'fill', display: 'block', userSelect: 'none'}} /></div>
+      </>
+    );
+  }
+
+  if (kind === 'cathedral') {
     return (
       <>
         <div style={{ ...common, left: '0', right: '0', bottom: '0', width: '100%', height: '100%' }}><img src={resolveAsset('forest_icon.png')} alt="Леса" style={{width: '100%', height: '100%', objectFit: 'fill', display: 'block', userSelect: 'none'}} /></div>
