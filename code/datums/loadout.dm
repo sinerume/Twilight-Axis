@@ -799,13 +799,13 @@ GLOBAL_LIST_EMPTY(loadout_items_by_category)
 /datum/loadout_item/velvetdress
 	name = "Velvet Dress"
 	category = list("Одежда", "Донат")
-	path = /obj/item/clothing/suit/roguetown/shirt/velvetdress
+	path = /obj/item/clothing/suit/roguetown/shirt/dress/velvetdress
 	donatitem = TRUE
 
 /datum/loadout_item/nobledress
 	name = "Noble's Pinafore"
 	category = list("Одежда", "Донат")
-	path = /obj/item/clothing/suit/roguetown/shirt/nobledress
+	path = /obj/item/clothing/suit/roguetown/shirt/dress/nobledress
 	donatitem = TRUE
 
 /datum/loadout_item/formalshirt
