@@ -276,7 +276,7 @@
 			to_chat(owner, span_warning("Ваш иностранный доход не может быть доставлен - почтовый терминал HERMES недоступен."))
 		return
 
-	var/obj/item/paper/P = new
+	var/obj/item/paper/P = new()
 	P.mailer = manor_name
 	P.mailedto = owner.real_name
 	var/title_greeting = (owner.titles_pref == TITLES_F) ? "Миледи" : "Милорд"
@@ -288,7 +288,7 @@
 	if(import_tariff)
 		P.info += "\nИмпортный тариф: [import_tariff] маммон."
 	P.update_icon()
-	var/obj/item/smallDelivery/delivery = new
+	var/obj/item/smallDelivery/delivery = new()
 	if(coin_income > 0)
 		budget2change(coin_income, null, null, FALSE, delivery)
 	delivery.note = P
@@ -361,8 +361,8 @@
 			if(!is_foreign)
 				stockpile_entry.stockpile_amount += units
 			else
-				var/region_info = SSeconomy.get_best_import_region(stockpile_entry.trade_good_id)
-				var/unit_price = region_info ? region_info.unit_price : (GLOB.trade_goods[stockpile_entry.trade_good_id] ? GLOB.trade_goods[stockpile_entry.trade_good_id].base_price : 1)
+				var/list/region_info = SSeconomy.get_best_import_region(stockpile_entry.trade_good_id)
+				var/unit_price = region_info ? region_info["unit_price"] : (GLOB.trade_goods[stockpile_entry.trade_good_id] ? GLOB.trade_goods[stockpile_entry.trade_good_id].base_price : 1)
 				this_workstation_money += unit_price * units
 
 			produced_summary[selected_good] = produced_summary[selected_good] ? produced_summary[selected_good] + units : units
