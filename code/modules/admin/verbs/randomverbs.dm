@@ -428,7 +428,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Rejuvinate") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/admin_spawn_cake(mob/living/M in GLOB.mob_list)
-	set category = "-GameMaster-"
+	set category = "GAME MASTER"
 	set name = "Give Cake Slice"
 
 	if(!check_rights(R_ADMIN))
