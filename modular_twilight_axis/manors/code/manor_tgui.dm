@@ -31,6 +31,7 @@
 		"mine_icon.png" = 'modular_twilight_axis/manors/icons/mine_icon.png',
 		"mage_tower_icon.png" = 'modular_twilight_axis/manors/icons/mage_tower_icon.png',
 		"cathedral_icon.png" = 'modular_twilight_axis/manors/icons/cathedral_icon.png',
+		"outpost_icon.png" = 'modular_twilight_axis/manors/icons/outpost_icon.png',
 	)
 
 /datum/manor_panel/ui_assets(mob/user)

@@ -100,7 +100,7 @@
 	workstation_size = 20
 
 /datum/workstation/outpost
-	workstation_name = "Outpost"
+	workstation_name = "Аванпост"
 	workstation_theme = "outpost"
 	produce = list()
 	workstation_size = 6
