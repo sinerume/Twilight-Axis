@@ -461,13 +461,13 @@
 			coin_income = foreign_estate_fund.balance
 			qdel(foreign_estate_fund)
 			send_foreign_estate_income_mail(owner, coin_income, estate_levy, import_tariff)
-	else
-		var/datum/fund/owner_account = SStreasury.get_account(owner)
-		if(owner_account)
-			if(patron != /datum/patron/inhumen/matthios) //FREEDOM OF TRANSACTION
-				estate_levy = SStreasury.apply_tax(owner_account, coin_income, TAX_CATEGORY_ESTATE_LEVY, "Estate production income")
-				coin_income -= estate_levy
-			SStreasury.generate_money_account(coin_income, owner)
+		else
+			var/datum/fund/owner_account = SStreasury.get_account(owner)
+			if(owner_account)
+				if(patron != /datum/patron/inhumen/matthios) //FREEDOM OF TRANSACTION
+					estate_levy = SStreasury.apply_tax(owner_account, coin_income, TAX_CATEGORY_ESTATE_LEVY, "Estate production income")
+					coin_income -= estate_levy
+				SStreasury.generate_money_account(coin_income, owner)
 
 	var/message = "За этот дае ваше имение поставило Короне: "
 	for(var/good in produced_summary)
