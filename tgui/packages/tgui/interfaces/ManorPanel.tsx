@@ -1,8 +1,13 @@
 import React from 'react';
-import { Button } from 'tgui-core/components';
+import {
+  Box,
+  Button,
+  Stack,
+} from 'tgui-core/components';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
+import { useState } from 'react';
 import type { ManorPanelData, WorkstationData } from './ManorPanelData';
 
 const GOD_ICONS: Record<string, string> = {
@@ -41,6 +46,47 @@ const GOD_TOOLTIPS: Record<string, string> = {
   'undivided': '',
   'xylix': 'Торговцы часто прибывают к вашему имению, и прибыль от сделок течет рекой. Возможно, в этом замешана благосклонность Ксайликса.',
   'zizo': 'Благодаря Её благословению, рабочие вашего имения не знают усталости, поставляя плоды своего труда дважды в день, на закате и на рассвете. Торговля со смертными требует маскировки, что значительно снижает её эффективность.',
+};
+
+const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+
+const HoverCard = ({ data }: { data: HoverCardData | null }) => {
+  if (!data) {
+    return null;
+  }
+
+  return (
+    <Box
+      style={{
+        position: 'fixed',
+        left: '50%',
+        top: '72px',
+        transform: 'translateX(-50%)',
+        width: '720px',
+        maxWidth: 'calc(100vw - 48px)',
+        padding: '10px 12px',
+        borderRadius: '8px',
+        background: 'rgba(10, 12, 22, 0.96)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        boxShadow: '0 8px 20px rgba(0,0,0,0.45)',
+        zIndex: 1000,
+        pointerEvents: 'none',
+      }}>
+      <Stack>
+        <Stack.Item grow basis="55%">
+          {!!data.text && (
+            <Box mb={0.75} style={{ opacity: 0.9, lineHeight: 1.35, whiteSpace: 'pre-line' }}>
+              {data.text}
+            </Box>
+          )}
+        </Stack.Item>
+      </Stack>
+    </Box>
+  );
+};
+
+type HoverCardData = {
+  text: string;
 };
 
 const clamp = (value: number, min = 0, max = 100) => Math.max(min, Math.min(max, value));
@@ -260,7 +306,6 @@ const PatronMedallion = ({ patronKey }: { patronKey: string }) => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      tooltip: {godtooltip},
     }}>
       <div style={{
         width: '92px',
@@ -274,7 +319,13 @@ const PatronMedallion = ({ patronKey }: { patronKey: string }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-      }}>
+      }}
+      onMouseEnter={() =>
+        setHoveredItem({
+          text: {godtooltip},
+        })
+      }
+      onMouseLeave={() => setHoveredItem(null)}>
         <img
           src={icon}
           style={{
@@ -569,6 +620,7 @@ export const ManorPanel = () => {
             </div>
           )}
         </div>
+        <HoverCard data={hoveredItem} />
       </Window.Content>
     </Window>
   );
