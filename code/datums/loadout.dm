@@ -66,6 +66,28 @@ GLOBAL_LIST_EMPTY(loadout_items_by_category)
 
 	return null
 
+/proc/get_donator_triumph_discount(key)
+	key = ckey(key)
+	if(!key)
+		return 0
+
+	switch(check_patreon_lvl(key))
+		if(1)
+			return 3
+		if(2)
+			return 5
+		if(3)
+			return 7
+		if(4)
+			return 10
+		if(5)
+			return 15
+
+	if(is_donator(key))
+		return 3
+
+	return 0
+
 //Miscellaneous
 
 /datum/loadout_item/card_deck

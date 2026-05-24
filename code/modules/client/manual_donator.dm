@@ -6,13 +6,16 @@ GLOBAL_VAR_INIT(donatorLoaded, 0)
 
 /proc/is_donator(key)
 	key = ckey(key)
+	if(!key) // TA EDIT START
+		return FALSE
+
+	if(check_patreon_lvl(key) > 0)
+		return TRUE // TA EDIT END
 
 	if(!GLOB.donatorLoaded)
 		load_donators()
-	if(LAZYISIN(GLOB.donatorCkeys, key))
-		return TRUE
-	else
-		return FALSE
+
+	return LAZYISIN(GLOB.donatorCkeys, key) // TA EDIT
 
 /proc/donator_addkey(key)
 	var/keyAsCkey = ckey(key)
