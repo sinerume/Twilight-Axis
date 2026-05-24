@@ -35,8 +35,8 @@
 	roguesmooth(adjacencies)
 
 /turf/open/floor/rogue/dunes/Initialize(mapload)
-	dir = pick(GLOB.cardinals)
 	. = ..()
+	dir = pick(GLOB.cardinals)
 	icon_state = "dune[rand(1,16)]"
 
 /obj/effect/decal/duneedge
