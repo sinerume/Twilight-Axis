@@ -3983,4 +3983,13 @@
 #include "modular_twilight_axis\modular\Neu_food\code\cookware\cup.dm"
 #include "modular_twilight_axis\code\datums\flaws\gefheretic.dm"
 #include "modular_twilight_axis\code\datums\magic_items\mythical_items\mythic.dm"
+#include "modular_deserttown\camel.dm"
+#include "modular_deserttown\desertareas.dm"
+#include "modular_deserttown\desertfloor.dm"
+#include "modular_deserttown\desertmapgen.dm"
+#include "modular_deserttown\desertspawns.dm"
+#include "modular_deserttown\desertstuff.dm"
+#include "modular_deserttown\desertwalls.dm"
+#include "modular_deserttown\hyena.dm"
+#include "modular_twilight_axis\code\controllers\subsystem\rogue\regional_threat\deserttown.dm"
 // END_INCLUDE
