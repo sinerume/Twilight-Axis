@@ -25,7 +25,7 @@
 
 	var/list/outpost_info = get_outpost_banditry_support() //TA EDIT START
 	if(outpost_info["workers"] > 0)
-		var/reduction = min(result["total"], outpost_info["workers"] * 2)
+		var/reduction = min(result["total"], ceil(outpost_info["workers"] * 7 * outpost_info["production_modifier"]))
 		if(reduction > 0)
 			result["total"] -= reduction
 			result["outpost_reduction"] = reduction
@@ -40,10 +40,11 @@
 		var/datum/manor/manor = H.mind.get_owned_manor()
 		if(!manor)
 			continue
-		var/num_workers = manor.get_outpost_workers()
-		if(num_workers <= 0)
+		var/list/ws_info = manor.get_outpost_workers()
+		if(ws_info["workers"] <= 0)
 			continue
-		info["workers"] += num_workers
+		info["production_modifier"] = ws_info["production_modifier"]
+		info["workers"] += ws_info["workers"]
 		info["manors"] += list("[manor.manor_name]" = "[H.real_name]")
 	return info //TA EDIT END
 

@@ -281,10 +281,11 @@
 	return max(total_workers - get_assigned_workers(), 0)
 
 /datum/manor/proc/get_outpost_workers()
-	var/total = 0
+	var/list/total = list("workers" = 0, "production_modifier" = 1)
 	for(var/datum/workstation/ws in workstations)
 		if(istype(ws, /datum/workstation/outpost))
-			total += ws.workers_employed
+			total["workers"] += ws.workers_employed
+			total["production_modifier"] = ws.production_modifier
 	return total
 
 /datum/manor/proc/get_stockpile_entry_for_good(good_path)
