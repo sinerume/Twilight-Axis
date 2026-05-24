@@ -13,7 +13,7 @@
 	subclass_stats = list(
 		STATKEY_INT = 2,
 		STATKEY_WIL = 2,
-		STATKEY_CON = 0,
+		STATKEY_CON = -3, // ta edit
 		STATKEY_PER = 1,
 		STATKEY_STR = -1,
 	 ) // Weighted 3 - Loses str because Int makes sense for a caster. 0 CON for limb reattachment tradeoff.
@@ -23,7 +23,7 @@
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN, // ta edit
 		/datum/skill/magic/arcane = SKILL_LEVEL_APPRENTICE,
 	)
 
@@ -44,7 +44,7 @@
 	H.become_skeleton()
 
 	// Skeleton antag datum + patron (matching greater_skeleton setup)
-	H.set_patron(/datum/patron/inhumen/zizo)
+	// H.set_patron(/datum/patron/inhumen/zizo) TA EDIT
 	if(H.mind)
 		H.mind.add_antag_datum(new /datum/antagonist/skeleton())
 

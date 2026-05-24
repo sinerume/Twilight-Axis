@@ -3573,6 +3573,7 @@
 #include "modular_twilight_axis\code\modules\cargo\packsrogue\Mage.dm"
 #include "modular_twilight_axis\code\modules\cargo\packsrogue\merch_armor_exotic.dm"
 #include "modular_twilight_axis\code\modules\cargo\packsrogue\merch_armor_heavy.dm"
+#include "modular_twilight_axis\code\modules\mob\living\carbon\human\skeletonize.dm"
 #include "modular_twilight_axis\code\modules\roguetown\roguecrafting\alchemy\master_alchemy\alch_powder.dm"
 #include "modular_twilight_axis\code\modules\cargo\packsrogue\merch_armor_light.dm"
 #include "modular_twilight_axis\code\modules\roguetown\roguecrafting\alchemy\master_alchemy\alchem_item.dm"
