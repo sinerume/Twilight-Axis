@@ -558,7 +558,21 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 /datum/preferences/proc/_load_combat_music(S)
 	var/combat_music_type
 	S["combat_music"] >> combat_music_type
-	if (GLOB.cmode_tracks_by_type[combat_music_type])
+	S["custom_cmode_name"] >> custom_cmode_name // TA EDIT START
+	S["custom_cmode_file"] >> custom_cmode_file
+	S["custom_cmode_enabled"] >> custom_cmode_enabled
+
+	if(custom_cmode_file && !is_valid_custom_combat_music_path(custom_cmode_file))
+		custom_cmode_file = null
+		custom_cmode_name = null
+		custom_cmode_enabled = FALSE
+
+	if(custom_cmode_enabled)
+		if(build_custom_combat_music(parent?.ckey))
+			return
+		custom_cmode_enabled = FALSE
+
+	if(GLOB.cmode_tracks_by_type[combat_music_type]) // TA EDIT END
 		combat_music = GLOB.cmode_tracks_by_type[combat_music_type]
 	else
 		combat_music = GLOB.cmode_tracks_by_type[default_cmusic_type]
@@ -1048,7 +1062,13 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["virtuetwo"], virtuetwo)
 	WRITE_FILE(S["virtue_origin"], virtue_origin.type)
 	WRITE_FILE(S["race_bonus"], race_bonus)
-	WRITE_FILE(S["combat_music"], combat_music.type)
+	var/combat_music_save_type = default_cmusic_type // TA EDIT START
+	if(!custom_cmode_enabled && combat_music)
+		combat_music_save_type = combat_music.type
+	WRITE_FILE(S["combat_music"], combat_music_save_type)
+	WRITE_FILE(S["custom_cmode_name"], custom_cmode_name)
+	WRITE_FILE(S["custom_cmode_file"], custom_cmode_file)
+	WRITE_FILE(S["custom_cmode_enabled"], custom_cmode_enabled) // TA EDIT END
 	WRITE_FILE(S["body_size"] , features["body_size"])
 	WRITE_FILE(S["nsfwflavortext"] , html_decode(nsfwflavortext))
 	WRITE_FILE(S["nsfw_ooc_extra_img"] , nsfw_ooc_extra_img)
