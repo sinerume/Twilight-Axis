@@ -10,7 +10,7 @@
 
 /datum/manor
 	var/manor_name = "Неизвестное имение"
-	var/manor_size = "big"
+	var/manor_size = "small"
 	var/manor_type = "manor"
 	var/datum/virtue/virtue_origin
 	var/min_workers = 5
