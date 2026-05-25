@@ -436,8 +436,6 @@
 	if(is_foreign)
 		coin_income = total_profit_money
 	else if(SStreasury.has_account(owner))
-		if(total_units)
-			coin_income = ceil(total_units / 5)
 		if(total_profit_money)
 			coin_income += total_profit_money
 
