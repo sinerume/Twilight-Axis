@@ -21,7 +21,7 @@
 	max_pq = null
 	round_contrib_points = 3
 	cmode_music = 'sound/music/combat_desert2.ogg'
-	job_traits = list(TRAIT_NOBLE)
+	job_traits = list(TRAIT_NOBLE, TRAIT_SEEPRICES)
 	job_subclasses = list(
 		/datum/advclass/vizier/dtblademaster,
 		/datum/advclass/vizier/dtspymaster,
