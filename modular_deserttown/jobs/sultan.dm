@@ -41,9 +41,25 @@
 
 /datum/outfit/job/roguetown/sultan
 	job_bitflag = BITFLAG_ROYALTY
-
+	
 /datum/job/roguetown/sultan/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	. = ..()
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		var/prev_real_name = H.real_name
+		var/prev_name = H.name
+		var/nobility = "Sultan"
+		if(H.titles_pref == TITLES_F)
+			nobility = "Sultana"
+		H.real_name = "[nobility] [prev_real_name]"
+		H.name = "[nobility] [prev_name]"
+
+		for(var/X in peopleknowme)
+			for(var/datum/mind/MF in get_minds(X))
+				if(MF.known_people)
+					MF.known_people -= prev_real_name
+					H.mind.person_knows_me(MF)
+
 	if(L)
 		var/list/chopped_name = splittext(L.real_name, " ")
 		if(length(chopped_name) > 1)
@@ -52,7 +68,14 @@
 		else
 			GLOB.lordsurname = "of [L.real_name]"
 		SSticker.set_ruler_mob(L)
-		to_chat(world, "<b><span class='notice'><span class='big'>[L.real_name] is [SSticker.rulertype] of Rotwood Vale.</span></span></b>")
+		
+		var/display_title = title
+		if(ishuman(L))
+			var/mob/living/carbon/human/H = L
+			if(H.titles_pref == TITLES_F)
+				display_title = f_title
+		SSticker.rulertype = display_title
+		to_chat(world, "<b><span class='notice'><span class='big'>[L.real_name] is [display_title] of Al-Ashur.</span></span></b>")
 		if(istype(SSticker.regentmob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/regentbuddy = SSticker.regentmob
 			to_chat(L, span_notice("Word reached me on the approach that [regentbuddy.real_name], the [regentbuddy.job], served as regent in my absence."))
