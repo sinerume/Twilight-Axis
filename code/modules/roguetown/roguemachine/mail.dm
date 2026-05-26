@@ -279,27 +279,16 @@
 				return TRUE
 
 			var/free_send = check_free_send(user, send2place) // TA EDIT BEGIN
+			var/is_free = free_send_ready(user)
 
-			if(!free_send && coin_loaded < 1)
-				to_chat(user, span_warning("Not enough coins."))
+			if(!free_send && !is_free && coin_loaded < 1)
+				to_chat(user, span_warning("No free letter ready and no coin loaded. Wait the cooldown or insert a coin."))
 				return TRUE // TA EDIT END
 
 			if(length(content) > 2000)
 				to_chat(user, span_warning("Letter too long."))
 				return TRUE
 
-			var/is_free = free_send_ready(user)
-			if(!is_free && coin_loaded < 1)
-				to_chat(user, span_warning("No free letter ready and no coin loaded. Wait the cooldown or insert a coin."))
-				return TRUE
-			var/send2place = params["recipient"]
-			var/sentfrom = params["sender"]
-			var/content = params["content"]
-			if(!send2place)
-				return TRUE
-			if(length(content) > 2000)
-				to_chat(user, span_warning("Letter too long."))
-				return TRUE
 			var/obj/item/paper/P = new
 			P.info += content
 			P.mailer = sentfrom
@@ -343,12 +332,6 @@
 					log_mail_send(user, sentfrom, send2place)
 					visible_message(span_warning("[user] sends something."))
 					playsound(loc, 'sound/misc/disposalflush.ogg', 100, FALSE, -1)
-					if(!free_send)
-						SStreasury.mint(SStreasury.discretionary_fund, 1, "Mail Income")
-						record_round_statistic(STATS_TAXES_COLLECTED, 1)
-						coin_loaded -= 1
-						if(coin_loaded <= 0)
-							update_icon()
 					sent_ok = TRUE
 				else
 					to_chat(user, span_warning("Failed to send. Bad number?"))
@@ -369,15 +352,6 @@
 					log_mail_send(user, sentfrom, send2place)
 					visible_message(span_warning("[user] sends something."))
 					playsound(loc, 'sound/misc/disposalflush.ogg', 100, FALSE, -1)
-					if(!free_send)
-						SStreasury.mint(SStreasury.discretionary_fund, 1, "Mail Income")
-						record_round_statistic(STATS_TAXES_COLLECTED, 1)
-						coin_loaded -= 1
-						if(coin_loaded <= 0)
-							update_icon()
-				else
-					to_chat(user, span_warning("The master of mails has perished?"))
-					qdel(P)
 					sent_ok = TRUE
 				else
 					to_chat(user, span_warning("The master of mails has perished?"))
