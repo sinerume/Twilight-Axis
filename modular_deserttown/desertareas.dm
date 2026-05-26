@@ -12,8 +12,8 @@
 	ambush_times = list("night")
 	ambush_mobs = list(
 		/mob/living/simple_animal/hostile/retaliate/rogue/badger  = 10,
-	//	/mob/living/simple_animal/hostile/retaliate/rogue/wolf/raccoon = 25,
-	//	/mob/living/simple_animal/hostile/retaliate/rogue/wolf/bobcat = 20,
+		/mob/living/simple_animal/hostile/retaliate/rogue/raccoon = 25,
+		/mob/living/simple_animal/hostile/retaliate/rogue/bobcat = 20,
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf = 30,
 		/mob/living/simple_animal/hostile/retaliate/rogue/fox = 30,
 		/mob/living/carbon/human/species/skeleton/npc/supereasy = 30)
@@ -220,12 +220,12 @@
 
 /area/rogue/indoors/town/magician/desert
 	name = "Wizard's Tower"
-	// spookysounds = SPOOKY_MYSTICAL
-	// spookynight = SPOOKY_MYSTICAL
-	// droning_sound = 'sound/music/area/magiciantower.ogg'
-	// droning_sound_dusk = null
-	// droning_sound_night = null
-	// keep_area = TRUE
+	spookysounds = SPOOKY_MYSTICAL
+	spookynight = SPOOKY_MYSTICAL
+	droning_sound = 'sound/music/area/magiciantower.ogg'
+	droning_sound_dusk = null
+	droning_sound_night = null
+	keep_area = TRUE
 
 /area/rogue/indoors/town/shop/desert
 	name = "Bazaar"
@@ -241,7 +241,7 @@
 
 /area/rogue/indoors/town/physician/desert
 	name = "Physician"
-	//droning_sound = 'sound/music/area/academy.ogg'
+// droning_sound = 'sound/music/area/academy.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
 
@@ -317,7 +317,7 @@
 	ambientnight = AMB_CAVEWATER
 	spookysounds = SPOOKY_CAVE
 	spookynight = SPOOKY_CAVE
-	//droning_sound = 'sound/music/area/underdark2.ogg'
+	droning_sound = 'sound/music/area/underdark.ogg'
 
 /area/rogue/indoors/town/church/psy
 	name = "church"
