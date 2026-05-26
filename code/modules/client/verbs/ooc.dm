@@ -62,17 +62,15 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	return "[icon2html(badge_icon, viewer)] "
 
 /client/proc/get_ooc_name_color(default_color)
-	if(holder)
-		return "#4972bc"
-	if(prefs?.donor_ooc_color && ta_is_donor_visual_ckey(ckey))
-		return "#FFD27A"
 	return default_color
 
 /client/proc/get_ooc_message_color(default_color)
 	if(holder)
 		return "#4972bc"
+
 	if(prefs?.donor_ooc_color && ta_is_donor_visual_ckey(ckey))
 		return "#ffde90"
+
 	return default_color // TA EDIT END
 
 
