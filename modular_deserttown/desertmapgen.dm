@@ -29,7 +29,8 @@
 							/obj/item/magic/manacrystal = 0.05,
 							/obj/structure/flora/roguegrass/herb/random = 0.5,
 							/obj/effect/decal/remains/bear = 0.5,
-							/obj/effect/decal/remains/human = 0.3,)
+							/obj/effect/decal/remains/human = 0.3,
+							/obj/effect/landmark/desert_track_spawner = 4) // Added for modular hunting
 	//spawnableTurfs = list(/turf/open/floor/rogue/dirt/road=2,
 	// 					/turf/open/water/swamp=2,)
 	allowed_areas = list(/area/rogue/outdoors/desert, /area/rogue/outdoors/desertdeep)
@@ -60,7 +61,8 @@
 							/obj/structure/flora/roguegrass/herb/random = 2,
 							/obj/effect/decal/remains/bear = 0.5,
 							/obj/effect/decal/remains/human = 0.3,
-							/obj/structure/zizo_bane = 0.5,)
+							/obj/structure/zizo_bane = 0.5,
+							/obj/effect/landmark/desert_track_spawner = 4) // Added for modular hunting
 	// spawnableTurfs = list(/turf/open/floor/rogue/dirt/road=2,
 	// 					/turf/open/water/swamp=2,)
 	allowed_areas = list(/area/rogue/outdoors/desert, /area/rogue/outdoors/desertdeep)
@@ -78,4 +80,28 @@
 	spawnableAtoms = list(	/obj/structure/flora/roguetree/stump/log = 1,
 							/obj/structure/flora/ausbushes/reedbush = 1,
 							/obj/structure/flora/roguegrass/water/reeds = 1,)
+
+// Smart proxy spawner for modular hunting tracks in desert
+/obj/effect/landmark/desert_track_spawner
+	name = "desert track spawner proxy"
+	icon = 'icons/effects/landmarks_static.dmi'
+	icon_state = "x4"
+	invisibility = INVISIBILITY_MAXIMUM
+	anchored = TRUE
+
+/obj/effect/landmark/desert_track_spawner/Initialize(mapload)
+	. = ..()
+	var/area/current_area = get_area(src)
+
+	var/spawn_chance = 0
+	if(istype(current_area, /area/rogue/outdoors/desertdeep))
+		spawn_chance = 75 // Medium amount of tracks in deep desert
+	else if(istype(current_area, /area/rogue/outdoors/desert))
+		spawn_chance = 20 // Low amount of tracks in regular desert
+
+	if(prob(spawn_chance))
+		new /obj/effect/hunting_track(src.loc)
+
+	// In all cases, we delete the proxy spawner after checking
+	return INITIALIZE_HINT_QDEL
 

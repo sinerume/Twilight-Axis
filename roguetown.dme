@@ -4011,4 +4011,5 @@
 #include "modular_deserttown\jobs\garrison\janissary\janissary.dm"
 #include "modular_deserttown\jobs\garrison\janissary\jezail.dm"
 #include "modular_deserttown\jobs\garrison\janissary\zephyr.dm"
+#include "modular_deserttown\desert_hunting.dm"
 // END_INCLUDE
