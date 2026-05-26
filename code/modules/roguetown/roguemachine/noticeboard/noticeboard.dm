@@ -293,7 +293,7 @@
 	for(var/merc_key in statue.mercenary_status)
 		var/list/merc_data = statue.mercenary_status[merc_key]
 		var/mob/living/carbon/human/merc = merc_data["mob"]
-		if(!merc)
+		if(!merc || QDELETED(merc))
 			continue
 		var/status = merc_data["status"] || "Available"
 		var/list/entry = list(
