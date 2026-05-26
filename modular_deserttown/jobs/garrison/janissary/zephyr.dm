@@ -1,7 +1,9 @@
 // In exchange for martial skills beyond ranged, they can now set traps, too.
 /datum/advclass/janissary/zephyr
 	name = "Janissary Zephyr"
-	tutorial = "You are a professional soldier of the realm, specializing in ranged implements. You sport a keen eye, looking for your enemies weaknesses."
+	tutorial = "Ты — профессиональный солдат Султанского воинства, мастер дальнего боя. \
+        Твой взор остер, а рука тверда: ты выслеживаешь уязвимости в доспехах врага, \
+        неся погибель любому, кто осмелится бросить вызов порядку Султаната."
 	outfit = /datum/outfit/job/roguetown/janissary/zephyr
 
 	category_tags = list(CTAG_JANISSARY)
@@ -9,7 +11,8 @@
 		STATKEY_SPD = 2,// seems kinda lame but remember guardsman bonus!!
 		STATKEY_PER = 2,
 		STATKEY_WIL = 1,
-		traits_applied = list(TRAIT_DODGEEXPERT))
+	)
+	traits_applied = list(TRAIT_DODGEEXPERT)
 
 	subclass_skills = list(
 		/datum/skill/combat/crossbows = SKILL_LEVEL_MASTER,
@@ -35,7 +38,7 @@
 	..()
 	neck = /obj/item/clothing/neck/roguetown/chaincoif/chainmantle
 	pants = /obj/item/clothing/under/roguetown/splintlegs
-	// wrists = /obj/item/clothing/wrists/roguetown/splintarms
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/brigandine
 	gloves = /obj/item/clothing/gloves/roguetown/fingerless_leather
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/raneshen
 	head = /obj/item/clothing/head/roguetown/helmet/janissaryhelm
@@ -56,7 +59,7 @@
 		H.set_blindness(0)
 		switch(weapon_choice)
 			if("Crossbow")
-		//		beltr = /obj/item/quiver/bolts
+				beltr = /obj/item/quiver/bolt/standard
 				r_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
 			if("Bow") // They can head down to the armory to sideshift into one of the other bows.
 				beltr = /obj/item/quiver/arrows
@@ -70,7 +73,7 @@
 		switch(weapon_choice2)
 			if("Scimitar")
 				beltl = /obj/item/rogueweapon/scabbard/sword
-			//	l_hand = /obj/item/rogueweapon/sword/sabre/iron
+				l_hand = /obj/item/rogueweapon/sword/sabre/shamshir
 			if("Whip") // They can head down to the armory to sideshift into one of the other bows.
 				beltl = /obj/item/rogueweapon/whip
 			if("Club")
@@ -78,7 +81,7 @@
 
 		switch(armor_choice)
 			if("Light Armor")
-			//	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/zyb
+				armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/raneshen
 				ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
 			if("Medium Armor")
 				armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/janissary
@@ -86,4 +89,4 @@
 
 		H.verbs |= /mob/proc/haltyell
 		//Skirmishers get funny spells. Wowzers.
-	//	H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/skirmisher_trap)
+	//	H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/skirmisher_trap) <--------- Я НЕ ЗНАЮ ЧТО ЭТО, НАЙТИ АНАЛОГ?

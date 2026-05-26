@@ -1,7 +1,9 @@
 // In exchange for martial skills beyond ranged, they can now set traps, too.
 /datum/advclass/janissary/jezail
 	name = "Janissary Jezail"
-	tutorial = "You are a professional soldier of the realm, specializing in ranged implements. You sport a keen eye, looking for your enemies weaknesses."
+	tutorial = "Ты — профессиональный солдат Султанского воинства, чей талант раскрывается в обращении с пороховым оружием. \
+        Твой взор остер, а рука безошибочна: ты видишь слабые места врага сквозь дымную завесу, \
+        используя мощь кулеврин и аркебуз, чтобы сеять погибель во имя порядка."
 	outfit = /datum/outfit/job/roguetown/janissary/jezail
 
 	maximum_possible_slots = 2//One always tells the truth, the other only lies. Guess wrong and they both shoot you.
@@ -13,11 +15,11 @@
 		STATKEY_PER = 2,
 		STATKEY_WIL = 2,
 		STATKEY_INT = 1,
-		traits_applied = list(TRAIT_DODGEEXPERT)
-		)
+	)
+	traits_applied = list(TRAIT_FIREARMS_MARKSMAN,TRAIT_DODGEEXPERT)
 
 	subclass_skills = list(
-//		/datum/skill/combat/firearms = 5,//Your entire point is GUN.
+		/datum/skill/combat/twilight_firearms = 5,//Your entire point is GUN.
 		/datum/skill/combat/crossbows = 3,
 		/datum/skill/combat/bows = 2,
 		/datum/skill/combat/slings = 2,
@@ -32,49 +34,46 @@
 		/datum/skill/combat/unarmed = 3,
 		/datum/skill/misc/reading = 1,
 		/datum/skill/misc/tracking = 3,
-		/datum/skill/craft/engineering = 1,//know how your gun works
 	)
 
 /datum/outfit/job/roguetown/janissary/jezail/pre_equip(mob/living/carbon/human/H)
 	..()
 	neck = /obj/item/clothing/neck/roguetown/chaincoif/chainmantle
 	pants = /obj/item/clothing/under/roguetown/splintlegs
-	// wrists = /obj/item/clothing/wrists/roguetown/splintarms
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/brigandine
 	gloves = /obj/item/clothing/gloves/roguetown/fingerless_leather
 	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/janissary
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/raneshen
 	head = /obj/item/clothing/head/roguetown/helmet/janissaryhelm
-	// beltr = /obj/item/quiver/bullet/lead//nice to have variety but blunderbus might not fit the vibe
-	// r_hand = /obj/item/gun/ballistic/firearm/arquebus
 	backpack_contents = list(
 		/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1,
 		/obj/item/rope/chain = 1,
-		// /obj/item/storage/keyring/guardcastle = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
-		/obj/item/reagent_containers/glass/bottle/alchemical/healthpot = 1,
-		// /obj/item/powderflask,
+		/obj/item/reagent_containers/glass/bottle/rogue/healthpot = 1,
 		/obj/item/impact_grenade/smoke/blind_gas,
 		)
 
 	H.adjust_blindness(-3)
 	if(H.mind)
-		// var/weapons = list("Long Rifle","Blunderbuss")
-		// var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+		var/weapons = list("Arquebus","Culverin + Fyre Powder")
+		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
-		// switch(weapon_choice)
-		// 	if("Long Rifle")
-		// 		beltr = /obj/item/quiver/bullet/lead
-		// 		r_hand = /obj/item/gun/ballistic/firearm/arquebus
-		// 	if("Blunderbuss") 
-		// 		beltr = /obj/item/quiver/bullet/grapeshot
-		// 		r_hand = /obj/item/gun/ballistic/firearm/blunderbuss
-				
+		switch(weapon_choice)
+			if("Arquebus")
+				beltr = /obj/item/quiver/twilight_bullet/lead
+				r_hand = /obj/item/gun/ballistic/twilight_firearm/arquebus/bayonet
+				backpack_contents[/obj/item/twilight_powderflask] = 1
+			if("Culverin + Fyre Powder") 
+				beltr = /obj/item/quiver/twilight_bullet/cannonball/lead
+				r_hand = /obj/item/gun/ballistic/twilight_firearm/handgonne
+				backpack_contents[/obj/item/twilight_powderflask/fyre] = 1
+				backpack_contents[/obj/item/natural/bundle/fibers/full] = 1
 		var/weapons2 = list("Scimitar","Whip","Club")
 		var/weapon_choice2 = input(H, "Choose your sidearm.", "TAKE UP ARMS") as anything in weapons2
 		switch(weapon_choice2)
 			if("Scimitar")
 				beltl = /obj/item/rogueweapon/scabbard/sword
-				// l_hand = /obj/item/rogueweapon/sword/sabre/iron
+				l_hand = /obj/item/rogueweapon/sword/sabre/shamshir
 			if("Whip") 
 				beltl = /obj/item/rogueweapon/whip
 			if("Club")
