@@ -13,7 +13,10 @@
 	display_order = JDO_DUNGEONEER
 	advclass_cat_rolls = list(CTAG_SLAVEMASTER = 2)
 
-	tutorial = "CHANGE THIS!! something something WHIPS something something keeping the rabble in line something something sterin guiding hand. You have a swanky room in the keep, you catch escaped slaves, and you put existing slaves to work. Check the jails for prisoners to enslave."
+	tutorial = "Твоя рука карает кнутом, дабы держать чернь в узде, и лишь твоя воля заставляет ленивых рабов трудиться на благо Султана. \
+        В цитадели тебе отведены богатые покои, но твой истинный дом — это невольничий рынок и зиндан. \
+        Ты ловишь беглых абдов, принуждаешь к труду нерадивых и следишь, чтобы ни один прикованный не помышлял о свободе. \
+        Проверяй зинданы: там всегда найдутся те, кого стоит заставить отрабатывать свой долг."
 
 	announce_latejoin = FALSE
 	outfit = /datum/outfit/job/roguetown/slavemaster
@@ -89,7 +92,7 @@
 	pants = /obj/item/clothing/under/roguetown/chainlegs/kilt
 	wrists = /obj/item/clothing/wrists/roguetown/bracers
 	gloves = /obj/item/clothing/gloves/roguetown/angle
-//	shirt = // /obj/item/clothing/suit/roguetown/armor/gambeson/zyb
+	shirt =  /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/raneshen
 	belt = /obj/item/storage/belt/rogue/leather/shalal/purple
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/scale
 	cloak = /obj/item/clothing/cloak/cape/purple

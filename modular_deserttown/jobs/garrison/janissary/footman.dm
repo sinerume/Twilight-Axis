@@ -1,7 +1,7 @@
 // Melee goon. STR and martial setup.
 /datum/advclass/janissary/footman
 	name = "Janissary Footman"
-	tutorial = "You are a member of the Sultans Retinue. Ensure the safety of the Sultan and their subjects, defend the powers that be from the horrors of the outside world, and keep the Sultanate alive."
+	tutorial = "Ты — член свиты Султана. Обеспечивай безопасность Султана и его подданных, защищай власть предержащих от ужасов внешнего мира и делай всё возможное, чтобы Султанат продолжал жить."
 	outfit = /datum/outfit/job/roguetown/janissary/footman
 
 	category_tags = list(CTAG_JANISSARY)

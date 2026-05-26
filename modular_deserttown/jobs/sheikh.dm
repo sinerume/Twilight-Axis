@@ -9,10 +9,10 @@
 	allowed_races = list(RACES_RESPECTED)
 	allowed_sexes = list(MALE, FEMALE)
 	display_order = JDO_COUNCILLOR
-	tutorial = "You may have inherited this role, bought your way into it, or were appointed by the Royal Family themselves; \
-			Regardless of origin, you now serve as an assistant, planner, and juror for the Vizier. \
-			You help him oversee the taxation, construction, and planning of new laws. \
-			Your main focus is to assist the Vizier with their duties, answering only to them and the Sultan."
+	tutorial = "Возможно, ты унаследовал этот чин, выкупил его за щедрые маммоны или был назначен самой султанской династией; \
+            независимо от происхождения, отныне ты служишь помощником, распорядителем и заседателем при Вазире. \
+            Ты помогаешь ему блюсти сбор налогов, надзирать за строительством и координировать новые султанские указы. \
+            Твоя главная забота - облегчать бремя Вазира, а держать ответ ты должен лишь перед ним и самим Султаном."
 	whitelist_req = FALSE
 	outfit = /datum/outfit/job/roguetown/sheikh
 	advclass_cat_rolls = list(CTAG_SHEIKH = 2)

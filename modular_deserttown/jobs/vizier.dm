@@ -10,10 +10,10 @@
 	outfit = /datum/outfit/job/roguetown/vizier
 	advclass_cat_rolls = list(CTAG_VIZIER = 20)
 	display_order = JDO_HAND
-	tutorial = "You are one of the most important men within the realm itself. \
-	You have played spymaster and confidant to the Noble-Family for so long that you are a vault of intrigue, something you exploit with potent conviction.\
-	 Let no man ever forget whose ear you whisper into. You've killed more men with those lips than any blademaster could ever claim to.\
-	 ALSO (rewrite this) YOU MANAGE FINANCES TOO!!"
+	tutorial = "Ты - один из самых могущественных мужей во всём Султанате. \
+        Ты так долго правил тайной стражей и служил наперсником правящей династии, что превратился в живую сокровищницу интриг, и пользуешься этим с пугающей хваткой. \
+        В твоих руках сходятся как чужие секреты, так и султанская казна - ты лично ведаешь всеми расходами и маммонами государства. \
+        Пусть никто не забывает, в чье ухо ты шепчешь. Этими губами ты погубил больше людей, чем любой мастер клинка за всю свою жизнь."
 	whitelist_req = TRUE
 	give_bank_account = 44
 	noble_income = 22

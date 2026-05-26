@@ -6,12 +6,11 @@
 	total_positions = 1
 	spawn_positions = 1
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = list(ALL_RACES_TYPES)
-	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED, AGE_OLD)
-	tutorial = "An experienced soldier of the Sultan's Azeb Corp you have been tasked with overseeing the newly constructed border. \
-				You report to the Royal Family and their sheikhs, \
-				and your job is to keep the younger Janissaries in line and to ensure the routes to the city remain safe.\
-				The Border must not fall."
+	allowed_races = list(RACES_RESPECTED)
+	tutorial = "Как опытный воин султанского корпуса азебов, ты получил приказ принять командование над нововозведенным фронтиром. \
+                Ты держишь ответ перед султанской династией и их благородными шейхами, \
+                а твоя задача - держать в узде молодых азебов и обеспечивать безопасность караванных путей к сердцу града. \
+                Граница не должна пасть."
 	display_order = JDO_SERGEANT
 	round_contrib_points = 3
 
@@ -29,24 +28,26 @@
 /datum/outfit/job/roguetown/azebagha
 	job_bitflag = BITFLAG_GARRISON
 
-/datum/job/roguetown/azebagha/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
+/*/datum/job/roguetown/azebagha/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	. = ..()
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(ishuman(L))
 			if(istype(H.cloak, /obj/item/clothing/cloak/dunestalker))
 				var/obj/item/clothing/S = H.cloak
+		if(istype(H.cloak, /obj/item/clothing/cloak/dunestalker))
+			var/obj/item/clothing/S = H.cloak
 				var/index = findtext(H.real_name, " ")
 				if(index)
 					index = copytext(H.real_name, 1,index)
 				if(!index)
 					index = H.real_name
-				S.name = "Agha Cloak ([index])"
+				S.name = "Agha Cloak ([index])"*/
 
 //All skills/traits are on the loadouts. All are identical. Welcome to the stupid way we have to make sub-classes...
 /datum/outfit/job/roguetown/azebagha
 	armor = /obj/item/clothing/suit/roguetown/armor/brigandine/agha
-//	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/zyb
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/raneshen
 	pants = /obj/item/clothing/under/roguetown/chainlegs/kilt
 	cloak = /obj/item/clothing/cloak/dunestalker
 	neck = /obj/item/clothing/neck/roguetown/bevor

@@ -8,8 +8,10 @@
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = list(RACES_RESPECTED)
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED, AGE_OLD)
-	tutorial = "You are the most experienced of the SULTAN's Soldiery, leading the Janissary in maintaining order and attending to threats and crimes below the PALACE's attention. \
-				See to those under your command and fill in the gaps CATAPHRACTS leave in their wake. Obey the orders of your Marshal and the SULTAN."
+	tutorial = "Ты — один из самых опытных воинов Султанской гвардии, ведущий янычар в поддержании порядка и борьбе с угрозами, \
+        которые еще не достигли внимания Дворца. \
+        Следи за теми, кто находится под твоим командованием, и заполняй пробелы, которые оставляют после себя Фарисы. \
+        Повинуйся приказам своего Мушира и Султана."
 	display_order = JDO_ROYALSERGEANT
 	round_contrib_points = 3
 
@@ -49,7 +51,7 @@
 	id = /obj/item/scomstone/garrison
 
 /datum/advclass/janissarysergeant/janissarysergeant
-	name = "Sergeant-at-Arms"
+	name = "Sergeant"
 	tutorial = "You are the most experienced of the SULTAN's Soldiery, leading the Janissary in maintaining order and attending to threats and crimes below the PALACE's attention. \
 				See to those under your command and fill in the gaps CATAPHRACTS leave in their wake. Obey the orders of your Marshal and the SULTAN."
 	outfit = /datum/outfit/job/roguetown/janissarysergeant/janissarysergeant

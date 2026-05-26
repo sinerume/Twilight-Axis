@@ -8,9 +8,9 @@
 	allowed_races = list(RACES_RESPECTED)
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED)
-	tutorial = "A Cataphract with expert training; \
-	Born into petty nobility and raised as a squire from a young age, now you guard the royal family, answer to their commands, and act as a last beacon of chivalry in these dark times. \
-	You're wholly dedicated to the standing Regent and their safety. Do not fail."
+	tutorial = "Ты — Фарис, катафрактарий высочайшей выучки. \
+        Ты был рожден в семье мелкой хассы и с малых лет воспитывался как радиф, ныне же ты стоишь в страже у трона Султанской династии, внимая их приказам и являясь последним оплотом рыцарской чести в эти темные времена. \
+        Твой взор устремлен лишь на правящего Султана, а твоя жизнь принадлежит его безопасности. Не подведи."
 	display_order = JDO_KNIGHT
 	whitelist_req = TRUE
 	outfit = /datum/outfit/job/roguetown/cataphract
@@ -82,8 +82,9 @@
 	)
 
 /datum/advclass/cataphract/greatweapon
-	name = "Great-weapon warrior"
-	tutorial = "You've trained thoroughly and hit far harder than most - masterfully proficient in mighty swords, axes, maces or polearms."
+	name = "Greatweapon Warrior"
+	tutorial = "Твои тренировки были суровы, а удары твои сокрушают врагов с силой самой пустынной бури. \
+    Ты довел до совершенства владение тяжелыми мечами, боевыми топорами, булавами и алебардами, что подобает истинному Фарису."
 	outfit = /datum/outfit/job/roguetown/cataphract/greatweapon
 
 	category_tags = list(CTAG_CATAPHRACT)
@@ -169,8 +170,8 @@
 
 /datum/advclass/cataphract/shieldmaster
 	name = "Shieldmaster"
-	tutorial = "You are accustomed to traditional foot-soldiery, masterfully proficient in swords, flails, or maces. \
-	Your fortitude and mastery with the versatile combination of a shield and weapon makes you a fearsome opponent to take down!"
+	tutorial = "Ты обучен традиционной пешей рати, мастерски владея мечами, кистенями или палицами. \
+    Твоя стойкость и искусство сочетать надежный щит с клинком делают тебя противником, чью оборону почти невозможно сокрушить!"
 	outfit = /datum/outfit/job/roguetown/cataphract/shieldmaster
 
 	category_tags = list(CTAG_CATAPHRACT)
@@ -361,9 +362,9 @@
 
 /datum/advclass/cataphract/dervish
 	name = "Royal Dervish"
-	tutorial = "Your skillset is abnormal for a cataphract. \
-	Your swift maneuvers and masterful technique impress both lords and ladies alike, and you have a preference for quicker, more elegant blades. \
-	While you are an effective fighting force in medium armor, your evasive skills will only truly shine if you don even lighter protection."
+	tutorial = "Твои боевые навыки необычны для Фариса. \
+    Твои стремительные маневры и мастерское владение клинком приводят в восторг даже самую искушенную хассу, ведь ты отдаешь предпочтение быстрым и элегантным стальным клинкам. \
+    Пусть ты вполне эффективен в средних доспехах, но твои навыки уклонения по-настоящему раскроются, лишь когда ты облачишься в более легкую защиту."
 	outfit = /datum/outfit/job/roguetown/cataphract/dervish
 
 	traits_applied = list(TRAIT_MEDIUMARMOR, TRAIT_DODGEEXPERT)
@@ -432,11 +433,11 @@
 
 		switch(armor_choice)
 			if("Light Coat")
-				// shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/zyb
+				shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/raneshen
 				pants = /obj/item/clothing/under/roguetown/heavy_leather_pants
 				armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat
 			if("Light Brigandine")
-				// shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/zyb
+				shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/raneshen
 				pants = /obj/item/clothing/under/roguetown/splintlegs
 				armor = /obj/item/clothing/suit/roguetown/armor/brigandine/light/retinue
 			if("Scalemail")

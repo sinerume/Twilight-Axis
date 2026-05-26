@@ -13,31 +13,42 @@
 		THREAT_REGION_DESERT_DEEP
 	)
 	// END DESERT TOWN CONTRACTS
+	realm_type = "Sultanate"
+	realm_type_short = "Sultanate"
 	slot_adjust = list(
 		// /datum/job/roguetown/mercenary = 7, //haha fuck you one less slot!!
 		// /datum/job/roguetown/apothecary = 1, //remodelled the building for more room
 		/datum/job/roguetown/gnoll = 3,//hyenas just belong here!
 	)
 	title_adjust = list(
+		/datum/job/roguetown/marshal = list(display_title = "Mushir", f_title = "Mushira"),
 		/datum/job/roguetown/prince = list(display_title = "Amir", f_title = "Amira"),
-		// /datum/job/roguetown/marshal = list(display_title = "Mayor"),
 		/datum/job/roguetown/priest =  list(display_title = "High Priest", f_title = "High Priestess"),
-	//	/datum/job/roguetown/captain = list(display_title = "Cataphract Captain"),
+		/datum/job/roguetown/clerk = list(display_title = "Katib", f_title = "Katiba"),
+		/datum/job/roguetown/squire = list(display_title = "Radif", f_title = "Radifah"),
 		/datum/job/roguetown/physician = list(display_title = "Palace Physician"),
 		/datum/job/roguetown/villager = list(display_title = "Villager"),
 		/datum/job/roguetown/magician = list(display_title = "Palace Magician"),
 		/datum/job/roguetown/pilgrim = list(display_title = "Nomad"),
 	)
 	tutorial_adjust = list(
-		// /datum/job/roguetown/marshal = "CHANGE THIS LATER. Manage the town outside of the palace. Hang out in the mayor building!!!",
-		/datum/job/roguetown/marshal = "CHANGE THIS LATER. You are entrusted as the highest military authority by the Sultan. Hang out in your fancy house. Act as the primary go-between and coordinator between the main pillars of might - The Cataphract Captain (and their Cataphracts), the Janissary Sergeant (and their Janissaries) and the Azeb Agha (and the Azebs)",
-		/datum/job/roguetown/physician = "You are a master physician, trusted by the Sultan themself to administer expert care to the Royal family, the court, \
-		its protectors and its subjects. While primarily a resident of the keep in the palace medical wing, you also have access \
-		 to the local clinic in the bazaar, where lesser licensed apothecaries ply their trade under your occasional passing tutelage.",
-		/datum/job/roguetown/magician = "Your creed is one dedicated to the conquering of the arcane arts and the constant thrill of knowledge. \
-		You owe your life to the Sultan, for it was his coin that allowed you to continue your studies in these dark times. \
-		In return, you have proven time and time again as justicar and trusted advisor to their reign.",
-		/datum/job/roguetown/shophand = "You work the largest store in Al-Ashur by grace of the Merchant who has shackled you to this drudgery. The work of stocking shelves and taking inventory for your employer is mind-numbing and repetitive--but at least you have a roof over your head and comfortable surroundings. With time, perhaps you will one day be more than a glorified servant.",
+		/datum/job/roguetown/marshal = "Зибантия никогда не была спокойным местом, всегда находились пустынники что решили развязать войну за торговые маршруты. Однако ситуация значительно ухудшилась после сумеречной войны. Вы - Мушир, главнокомандующий воинства Султана. В вашем распоряжении находятся катафракты, янычары и азебы - к последним вы всегда относились настороженно, какой верности можно ожидать от рабов?",
+		/datum/job/roguetown/physician = "Вы личный лекарь Султана, который лично избрал вас для такого ответственного занятия. В вашем распоряжении значительные интеллектуальные труды всего востока - не посмейте же посрамить право называться лекарем самого Султана!",
+		/datum/job/roguetown/magician = "Твой путь это священный обет, посвященный покорению искусства арканы и неутолимой жажды познания. \
+        Ты обязан своей жизнью Султану, ибо лишь его щедрые маммоны позволили тебе продолжать изыскания в эти суровые времена. \
+        Взамен ты не раз доказывал свою верность престолу, служа справедливым кади его величества.",
+		/datum/job/roguetown/squire = "Ты - Радиф, младший соратник и верный оруженосец на службе у закованного в сталь Фариса. \
+        Твой удел - нести щит своего мастера, чистить его пластинчатый доспех и ухаживать за его боевым сайгаком в прохладе оазисов. \
+        Пусть знатная хасса и шейхи во дворцах едва замечают твое присутствие, на поле боя ты — его щит, его тень и его самый верный клинок. \
+        Учись прилежно, стойко терпи суровость тренировок в песках фронтира, и однажды, пролив достаточно вражеской крови в грядущих войнах славы, \
+        ты заслужишь право омыть свой лик золотом и самому наречься истинным Фарисом Султаната.",
+		/datum/job/roguetown/prince = "Ты никогда не ведал, что такое зимняя стужа, не знал терзаний голода и, конечно, не трудился ни дня в своей жизни. \
+        Ты волен, словно птица в небесах, и можешь предаваться любым порокам, покуда твои родители восседают на престоле. \
+        Но однажды тебе придется повзрослеть, и тогда настанет день, когда твоя беспечность обойдется тебе куда дороже, чем несколько растраченных маммонов.",
+		/datum/job/roguetown/clerk = "Писец-катиб, сборщик податей, благословенный глупец. Ты помогаешь султанскому Визирю во всем, что ему потребуется, и берешь на себя его бремя, когда тот отсутствует. Пусть ты и не принадлежишь к благородной хассе, это далеко не худшая доля. Вот только есть одна оговорка: если султанские маммоны будут утеряны или бесследно исчезнут, знатный вельможа всегда сможет откупиться и избежать рабских колодок. А ты? Эх... Ну, говорят, в Гизе в это время года на редкость красиво.",
+		/datum/job/roguetown/shophand = "Ты трудишься в величайшей лавке Аль-Ашура по воле купца, который приковал тебя к этой тягостной рутине. \
+        Раскладывать товары по полкам и вести учет для своего господина — занятие монотонное и отупляющее, но у тебя хотя бы есть кров \
+        и сытая жизнь в тепле. Быть может, со временем тебе удастся стать кем-то большим, нежели просто слугой.",
 	)
 	/// Jobs that this map won't use
 	blacklist = list(

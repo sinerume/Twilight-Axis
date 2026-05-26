@@ -22,7 +22,7 @@
 	visuals_only_outfit = /datum/outfit/job/roguetown/sultan/visuals
 
 	display_order = JDO_LORD
-	tutorial = "Elevated upon your throne through a web of intrigue and political upheaval, you are the absolute authority of these lands and at the center of every plot within it. Every man, woman and child is envious of your position and would replace you in less than a heartbeat: Show them the error of their ways."
+	tutorial = "Рождённый в пустынях Зибантии вы всегда знали, что ваши родственники - а следовательно и вы - связаны с родом Базилевса Манса-Падеши. Вы не знали ни голода ни нужды, пока сотни рабов обхаживали и удовлетворяли любые ваши нужды. Теперь же вы волею судьбы взошли на престол Аль-Ашура, так что даже дальше? Утонуть в гедонизме и пороке или повести своих подданных и рабов в светлое будущее?"
 	whitelist_req = FALSE
 	min_pq = 10
 	max_pq = null
@@ -128,7 +128,7 @@
 */
 /datum/advclass/sultan/dtwarrior
 	name = "Sultan Warrior"
-	tutorial = "You're a noble warrior. You rose to your rank through your own strength and skill, whether by leading your men or by fighting alongside them. Or perhaps you are none of that, but simply a well-trained heir elevated to the position of Lord. You're trained in the usage of heavy armor, and knows swordsmanship well."
+	tutorial = "С детства вы росли среди катафрактов Базилевса, с детства вы видели эти сияющие доспехи и стальное оружие, тяжёлая кавалерия воспитала в вас непоколебимый дух. Вы можете - и вы готовы - дать отпор любому, кто покусится на ваши права занимать престол Аль-Ашура."
 	outfit = /datum/outfit/job/roguetown/sultan/warrior
 	category_tags = list(CTAG_SULTAN)
 	traits_applied = list(TRAIT_NOBLE, TRAIT_HEAVYARMOR)
@@ -169,8 +169,7 @@
 */
 /datum/advclass/sultan/dtmerchant
 	name = "Wise Dealer"
-	tutorial = "You were always talented with coins and trade. And your talents have brought you to the position of the Sultan of Al-Ashur. You could be a merchant who bought his way into nobility and power, or an exceptionally talented noble who were inclined to be good with coins. Fighting directly is not your forte\
-	But you have plenty of wealth, keen ears, and know a good deal from a bad one."
+	tutorial = "С детства вы росли в среде великих базаров и великих торговцев Зибантии. С детства вы знаете запахи всех сортов специй, умеете отличать качественный шёлк от некачественного, умеете обхитрить своей харизмой любого сомневающегося, способны продавать камни по цене золотых самородков. Вы выстроили вокруг своего престола многочисленные схемы и деловые операции, ваша торговая хватка позволила увеличить поступающие в казну богатства."
 	outfit = /datum/outfit/job/roguetown/sultan/merchant
 	category_tags = list(CTAG_SULTAN)
 	noble_income = 400 // Let's go crazy. This is +400 per day for a total of 2400 per round at the end of a day. This is probably equal to doubling passive incomes of the keep.
@@ -208,7 +207,7 @@
 */
 /datum/advclass/sultan/dtwizard
 	name = "Sorcerous Sultan"
-	tutorial = "A good ruler is backed with force. You just happen to have a keen amount of mastery over the world's strongest forces: Magic. Of course, having to manage your realm has meant that you aren't as studied as the realm's greatest wizards- but your cunning sorcery is what has you sat upon the throne."
+	tutorial = "С детства вы росли в среде волшебников двора Базилевса. Быть может, вы были учеником у кого-то из выживших членов ордена Новолуния - или были удостоены чести учиться в Башне Нок? Так или иначе вы отточили своё мастерство арканной магии до весьма выдающихся успехов... К Вашему сожалению, глубокая связь с арканным мастерством ослабило ваш люкс - и теперь всякая смерть будет необратимой."
 	outfit = /datum/outfit/job/roguetown/sultan/wizard
 	category_tags = list(CTAG_SULTAN)
 	traits_applied = list(TRAIT_NOBLE, TRAIT_ARCYNE, TRAIT_MAGEARMOR, TRAIT_INTELLECTUAL, TRAIT_DNR)
@@ -246,7 +245,7 @@
 */
 /datum/advclass/sultan/dtinbred
 	name = "Inbred Sultan"
-	tutorial = "Psydon and Astrata smiles upon you. For despite your inbred and weak body, and your family's conspiracies to remove you from succession, you have somehow become the Sultan of Al Ashur. May your reign lasts a hundred years."
+	tutorial = "О горе, горе вам! Вы - дегенерат! Должно быть, сама Иблис прокляла вашу душу, или это лишь результат каких-то куда менее прозаичных событий?.. Так или иначе вы жалки, едва ли ваших сил хватит чтобы сражаться, однако само по себе выживание в вашем положении - признак расположения богов или удачи."
 	outfit = /datum/outfit/job/roguetown/sultan/inbred
 	category_tags = list(CTAG_SULTAN)
 	traits_applied = list(TRAIT_NOBLE, TRAIT_CRITICAL_WEAKNESS, TRAIT_NORUN, TRAIT_HEAVYARMOR, TRAIT_GOODLOVER)

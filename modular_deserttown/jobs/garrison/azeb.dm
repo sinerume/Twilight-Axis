@@ -6,10 +6,10 @@
 	total_positions = 8
 	spawn_positions = 8
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = list(ALL_RACES_TYPES)
-	tutorial = "Beholden to the royal family as property, you where raised from birth as a slave soldier. \
-		Sent to guard the border and keep the city safe as your more esteemed counterparts live lavishly within the city\
-		 walls yours is a thankless duty but one that must be upheld."
+	allowed_races = list(RACES_RESPECTED)
+	tutorial = "Будучи живой собственностью правящей династии, ты с младенчества воспитывался как воин-невольник. \
+        Тебя отправили охранять рубежи и беречь покой града, пока высокородная хасса купается в роскоши за неприступными \
+        городскими стенами. Твой долг неблагодарен, но эта священная ноша должна быть пронесена до конца."
 	display_order = JDO_GUARD
 
 	outfit = /datum/outfit/job/roguetown/azeb
@@ -27,19 +27,21 @@
 	)
 
 	
-/datum/job/roguetown/sergeant/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
+/*/datum/job/roguetown/azeb/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	. = ..()
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(ishuman(L))
 			if(istype(H.cloak, /obj/item/clothing/cloak/dunestalker))
 				var/obj/item/clothing/S = H.cloak
+		if(istype(H.cloak, /obj/item/clothing/cloak/dunestalker))
+			var/obj/item/clothing/S = H.cloak
 				var/index = findtext(H.real_name, " ")
 				if(index)
 					index = copytext(H.real_name, 1,index)
 				if(!index)
 					index = H.real_name
-				S.name = "Azeb Cloak ([index])"
+				S.name = "Azeb Cloak ([index])"*/
 
 /datum/outfit/job/roguetown/azeb
 	backr = /obj/item/storage/backpack/rogue/satchel

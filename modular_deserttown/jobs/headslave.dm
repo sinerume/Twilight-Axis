@@ -13,7 +13,6 @@
 	min_pq = 3
 	max_pq = null
 	round_contrib_points = 3
-	allowed_ages = list(AGE_MIDDLEAGED, AGE_OLD)
 	cmode_music = 'sound/music/combat_desert2.ogg'
 	job_subclasses = list(
 		/datum/advclass/headslave,
