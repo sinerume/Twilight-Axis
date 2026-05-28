@@ -132,8 +132,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		var/randomnote = "~"
 	#else
 		var/randomnote = pick(9835, 9834, 9836)
-	#endif
 		randomnote = ascii2text(randomnote)
+	#endif
 		spans |= SPAN_SINGING
 		message = "[randomnote] [message] [randomnote]"
 
