@@ -1981,6 +1981,8 @@
       \u0435\u043F\u043E\u0441\u0440\u0435\u0434\u0441\u0442\u0432\u0435\u043D\u043D\
       \u043E \u0434\u0435\u0441\u043D\u0438\u0446\u0435"
 2026-05-29:
+  Aisu9:
+  - bugfix: Fixed Mystic's quarterstaff weapon choice not working correctly.
   EtheoBoxxman:
   - bugfix: Fixes Vampire Scrying Eye Movement
   Quinalion:
@@ -1995,6 +1997,10 @@
       \u0442\u0430\u0432\u0430\u0442\u044C\u0441\u044F \u0432 \u0432\u043E\u0437\u0434\
       \u0443\u0445\u0435 \u0441 \u043F\u043E\u043C\u043E\u0449\u044C\u044E Advance!"
   WeNeedMorePhoron:
+  - rscadd: Fixes Tailoring Commissioner and make most recipes appear there
+  - rscadd: Dedupe a fencing jacket recipe
+  - rscadd: Consolidated the fine & luxury garments category together since fine only
+      have 2 items
   - bugfix: Placed the noticeboard in clinic in the proper position
   changelingonberry:
   - admin: Adds coordinates to lockpicking and doorbreaking
