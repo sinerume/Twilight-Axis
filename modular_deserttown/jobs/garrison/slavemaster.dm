@@ -9,7 +9,7 @@
 	allowed_races = list(RACES_RESPECTED)
 	allowed_sexes = list(MALE, FEMALE)
 
-	job_traits = list(TRAIT_STEELHEARTED, TRAIT_DUNGEONMASTER, TRAIT_GUARDSMAN, /*TRAIT_DEATHBYSNUSNU,*/ TRAIT_PURITAN_ADVENTURER, TRAIT_MEDIUMARMOR, TRAIT_XENOPHOBIC, TRAIT_NOBLE) //'PURITAN_ADVENTURER' is the codename. Presents as 'INTERROGATOR', in-game. Doesn't provide any Inquisition-related boons, but gives instrucitons on how to use certain mechanics.
+	job_traits = list(TRAIT_STEELHEARTED, TRAIT_DUNGEONMASTER, TRAIT_GUARDSMAN, TRAIT_PURITAN_ADVENTURER, TRAIT_MEDIUMARMOR, TRAIT_XENOPHOBIC, TRAIT_NOBLE) //'PURITAN_ADVENTURER' is the codename. Presents as 'INTERROGATOR', in-game. Doesn't provide any Inquisition-related boons, but gives instrucitons on how to use certain mechanics.
 	display_order = JDO_DUNGEONEER
 	advclass_cat_rolls = list(CTAG_SLAVEMASTER = 2)
 

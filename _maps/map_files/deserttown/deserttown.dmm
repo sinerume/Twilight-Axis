@@ -6038,6 +6038,10 @@
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors/town/manor/desert)
+"cvQ" = (
+/obj/effect/landmark/quest_spawner/generic,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/outdoors/desert)
 "cvR" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -14432,6 +14436,10 @@
 "fQY" = (
 /turf/open/floor/rogue/lightpath,
 /area/rogue/druidsgrove)
+"fRd" = (
+/obj/effect/landmark/quest_spawner/generic,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/outdoors/desertdeep)
 "fRg" = (
 /obj/structure/fluff/railing/border{
 	dir = 6
@@ -17305,6 +17313,10 @@
 /obj/structure/fluff/walldeco/chains,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/church/basement)
+"heB" = (
+/obj/effect/landmark/quest_spawner/generic,
+/turf/open/floor/rogue/lightpath,
+/area/rogue/outdoors/desertdeep)
 "heI" = (
 /obj/machinery/light/rogue/hearth{
 	pixel_y = 10
@@ -21079,6 +21091,10 @@
 /obj/item/natural/cloth,
 /turf/open/floor/rogue/woodturned,
 /area/rogue/indoors/town/manor/desert)
+"iPD" = (
+/obj/effect/landmark/quest_spawner/generic,
+/turf/open/floor/rogue/naturalstone/sandstone,
+/area/rogue/outdoors/desertdeep)
 "iPG" = (
 /turf/open/floor/rogue/tile/harem,
 /area/rogue/indoors/town/dwarfin/desert)
@@ -32294,6 +32310,13 @@
 "nBh" = (
 /turf/open/floor/rogue/churchmarble,
 /area/rogue/under/cave/licharena)
+"nBs" = (
+/obj/structure/fluff/traveltile/wretch{
+	aportalgoesto = "wretchin1";
+	aportalid = "wretchout1"
+	},
+/turf/open/floor/rogue/dunes,
+/area/rogue/outdoors/desertdeep)
 "nBz" = (
 /obj/structure/table/wood{
 	icon_state = "map4"
@@ -41960,6 +41983,10 @@
 /obj/item/reagent_containers/glass/bowl/aalloy,
 /turf/open/water/swamp,
 /area/rogue/under/cave/dungeon1)
+"rBK" = (
+/obj/effect/landmark/quest_spawner/generic,
+/turf/open/floor/rogue/dunes,
+/area/rogue/outdoors/desertdeep)
 "rCd" = (
 /obj/item/paper/scroll,
 /obj/item/paper/scroll,
@@ -48481,6 +48508,10 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/under/town/basement/desert)
+"uge" = (
+/obj/effect/landmark/quest_spawner/generic,
+/turf/open/floor/rogue/dunes,
+/area/rogue/outdoors/desert)
 "ugj" = (
 /obj/structure/table/wood{
 	dir = 1;
@@ -53813,6 +53844,10 @@
 /obj/item/cushion/desert1,
 /turf/open/floor/rogue/citybrick/citybrick2,
 /area/rogue/indoors/town/manor/desert)
+"wlM" = (
+/obj/effect/landmark/quest_spawner/generic,
+/turf/open/floor/rogue/lightpath,
+/area/rogue/under/cave)
 "wlN" = (
 /obj/effect/spawner/roguemap/hauntpile,
 /turf/open/floor/rogue/deserttile{
@@ -186523,7 +186558,7 @@ kvr
 kvr
 kvr
 eBo
-eBo
+wlM
 eBo
 eBo
 kvr
@@ -200227,7 +200262,7 @@ eBo
 eBo
 eBo
 eBo
-eBo
+wlM
 iuX
 eBo
 eBo
@@ -202707,7 +202742,7 @@ eBo
 eBo
 eBo
 eBo
-eBo
+wlM
 eBo
 eBo
 eBo
@@ -233070,7 +233105,7 @@ eBo
 eBo
 eBo
 eBo
-eBo
+wlM
 eBo
 eBo
 eBo
@@ -297377,9 +297412,9 @@ ydN
 ydN
 mVA
 mVA
-mVA
-mVA
-mVA
+nBs
+nBs
+nBs
 ydN
 ydN
 ydN
@@ -297889,7 +297924,7 @@ wcj
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -299428,7 +299463,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -299858,7 +299893,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -300142,7 +300177,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -301979,7 +302014,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -305499,7 +305534,7 @@ mOL
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -305934,7 +305969,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -306055,7 +306090,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -309466,7 +309501,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -311893,7 +311928,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -313512,7 +313547,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -318291,7 +318326,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -324184,7 +324219,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -325339,7 +325374,7 @@ ydN
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -325463,7 +325498,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -327877,7 +327912,7 @@ lSK
 lSK
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 lSK
@@ -330079,7 +330114,7 @@ mVA
 mVA
 bFa
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -331966,7 +332001,7 @@ ydN
 ydN
 ydN
 ydN
-vEf
+iPD
 ydN
 ydN
 ydN
@@ -332935,7 +332970,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -333434,7 +333469,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -333541,7 +333576,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -333836,7 +333871,7 @@ vEf
 vEf
 vEf
 vEf
-vEf
+iPD
 vEf
 vEf
 vEf
@@ -336337,7 +336372,7 @@ ydN
 ydN
 ydN
 vEf
-vEf
+iPD
 vEf
 ydN
 ydN
@@ -339398,7 +339433,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -339755,7 +339790,7 @@ vmB
 vmB
 vmB
 vmB
-mVA
+rBK
 mVA
 iwP
 mVA
@@ -341309,7 +341344,7 @@ vmB
 vmB
 vmB
 mVA
-vmB
+heB
 vmB
 vmB
 vmB
@@ -342838,7 +342873,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -344155,7 +344190,7 @@ mVA
 vmB
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -345664,7 +345699,7 @@ iwP
 eBg
 ezD
 ezD
-vmB
+heB
 vmB
 vmB
 mVA
@@ -346004,7 +346039,7 @@ mVA
 iwP
 mVA
 vmB
-mVA
+rBK
 mVA
 iwP
 mVA
@@ -352772,7 +352807,7 @@ eMy
 adk
 cRY
 adk
-adk
+cvQ
 fzM
 cRY
 adk
@@ -353761,7 +353796,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -355265,7 +355300,7 @@ eMy
 sYX
 adk
 adk
-adk
+cvQ
 adk
 adk
 eMy
@@ -356616,7 +356651,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -357586,7 +357621,7 @@ mVA
 mVA
 vmB
 vmB
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -357771,7 +357806,7 @@ adk
 cRY
 fzM
 adk
-adk
+cvQ
 eMy
 eMy
 eMy
@@ -358070,7 +358105,7 @@ eMy
 bRL
 adk
 adk
-adk
+cvQ
 adk
 adk
 adk
@@ -362831,7 +362866,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -368468,7 +368503,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -369765,7 +369800,7 @@ uZE
 vmB
 uaV
 jzA
-mVA
+rBK
 ezD
 vmB
 vmB
@@ -373195,7 +373230,7 @@ vmB
 vmB
 mVA
 omu
-vmB
+heB
 mVA
 mVA
 stP
@@ -377514,7 +377549,7 @@ ydN
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 bFa
 mVA
@@ -392503,7 +392538,7 @@ xeM
 iwP
 mVA
 vmB
-vmB
+heB
 vmB
 mVA
 mVA
@@ -398734,7 +398769,7 @@ mVA
 mVA
 mVA
 iwP
-ezD
+fRd
 ezD
 ezD
 ezD
@@ -403688,7 +403723,7 @@ ydN
 ydN
 mVA
 mVA
-mVA
+rBK
 mVA
 ydN
 ydN
@@ -404350,7 +404385,7 @@ mVA
 mVA
 iwP
 ezD
-ezD
+fRd
 mVA
 mVA
 iwP
@@ -406231,7 +406266,7 @@ mVA
 mVA
 ezD
 ezD
-ezD
+fRd
 ezD
 iwP
 iwP
@@ -412410,7 +412445,7 @@ mVA
 mVA
 mVA
 mVA
-mVA
+rBK
 mVA
 mVA
 mVA
@@ -428813,7 +428848,7 @@ eMy
 eMy
 eMy
 eMy
-eMy
+uge
 eMy
 mGA
 mGA
@@ -429106,7 +429141,7 @@ mGA
 mGA
 mGA
 eMy
-eMy
+uge
 mGA
 mGA
 mGA
@@ -433454,7 +433489,7 @@ mGA
 mGA
 eMy
 eMy
-eMy
+uge
 eMy
 eMy
 mGA
@@ -438506,7 +438541,7 @@ mGA
 mGA
 mGA
 eMy
-eMy
+uge
 eMy
 mGA
 mGA
@@ -456863,7 +456898,7 @@ bWp
 dHJ
 cRY
 cRY
-adk
+cvQ
 cRY
 jIE
 cRY
@@ -458437,7 +458472,7 @@ eMy
 eMy
 eMy
 eMy
-eMy
+uge
 eMy
 eMy
 eMy
@@ -459706,7 +459741,7 @@ eMy
 eMy
 adk
 eMy
-eMy
+uge
 eMy
 eMy
 eMy
@@ -467183,7 +467218,7 @@ dQV
 adk
 bxi
 adk
-adk
+cvQ
 eMy
 eMy
 dQV
