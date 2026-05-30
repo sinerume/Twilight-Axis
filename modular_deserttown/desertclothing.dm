@@ -6,8 +6,7 @@
 	slot_flags = ITEM_SLOT_ARMOR
 	name = "janissary chainmail"
 	desc = "A longer steel maille that protects the legs."
-	sleeved = null
-	sleevetype = null
+	sleeved = 'modular_twilight_axis/icons/roguetown/clothing/onmob/helpers/sleeves_armor.dmi'
 	icon = 'modular_deserttown/icons/clothing/armor.dmi'
 	mob_overlay_icon = 'modular_deserttown/icons/clothing/onmob/armor.dmi'
 	icon_state = "mamaluke"
@@ -25,8 +24,7 @@
 	mob_overlay_icon = 'modular_deserttown/icons/clothing/onmob/armor.dmi'
 	icon_state = "cataphract"
 	body_parts_covered = COVERAGE_FULL
-	sleeved = null
-	sleevetype = null
+	sleeved = 'modular_twilight_axis/icons/roguetown/clothing/onmob/helpers/sleeves_armor.dmi'
 	max_integrity = ARMOR_INT_CHEST_PLATE_STEEL
 	// anvilrepair = /datum/skill/craft/armorsmithing
 	// smeltresult = /obj/item/ingot/steel
@@ -121,6 +119,7 @@ name = "Janissaries Helm"
 	icon = 'modular_deserttown/icons/clothing/armor.dmi'
 	mob_overlay_icon = 'modular_deserttown/icons/clothing/onmob/armor.dmi'
 	icon_state = "openvest"
+	sleeved = 'modular_twilight_axis/icons/roguetown/clothing/onmob/helpers/sleeves_armor.dmi'
 	body_parts_covered = CHEST|VITALS
 
 /obj/item/clothing/suit/roguetown/armor/leather/vest/open/purple
@@ -153,6 +152,7 @@ name = "Janissaries Helm"
 	desc = "A long robe typical in Zybantine."
 	icon = 'modular_deserttown/icons/clothing/easternclothes.dmi'
 	mob_overlay_icon = 'modular_deserttown/icons/clothing/onmob/easternclothes.dmi'
+	sleeved = 'modular_twilight_axis/icons/roguetown/clothing/onmob/helpers/sleeves_armor.dmi'
 	icon_state = "greythawb"
 	item_state = "greythawb"
 	color = null
@@ -189,12 +189,14 @@ name = "Janissaries Helm"
 	name = "grey bisht"
 	icon_state = "bluethawb"
 	item_state = "bluethawb"
+	sleeved = 'modular_twilight_axis/icons/roguetown/clothing/onmob/helpers/sleeves_armor.dmi'
 
 /obj/item/clothing/suit/roguetown/shirt/robe/bisht/purple
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
 	name = "purple bisht"
 	icon_state = "purplethawb"
 	item_state = "purplethawb"
+	sleeved = 'modular_twilight_axis/icons/roguetown/clothing/onmob/helpers/sleeves_armor.dmi'
 
 /obj/item/clothing/suit/roguetown/shirt/robe/bisht/merchantbisht
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
@@ -206,6 +208,7 @@ name = "Janissaries Helm"
 	armor = ARMOR_PADDED
 	icon_state = "merbisht"
 	item_state = "merbisht"
+	sleeved = 'modular_twilight_axis/icons/roguetown/clothing/onmob/helpers/sleeves_armor.dmi'
 	color = null
 
 /datum/crafting_recipe/roguetown/sewing/bisht
@@ -231,6 +234,7 @@ name = "Janissaries Helm"
 	body_parts_covered = CHEST|GROIN|LEGS|VITALS
 	icon = 'modular_deserttown/icons/clothing/shirts.dmi'
 	mob_overlay_icon = 'modular_deserttown/icons/clothing/onmob/shirts.dmi'
+	sleeved = 'modular_twilight_axis/icons/roguetown/clothing/onmob/helpers/sleeves_armor.dmi'
 	icon_state = "thawb"
 	item_state = "thawb"
 
@@ -271,6 +275,7 @@ name = "Janissaries Helm"
 	body_parts_covered = CHEST|GROIN|LEGS|VITALS
 	icon = 'modular_deserttown/icons/clothing/shirts.dmi'
 	mob_overlay_icon = 'modular_deserttown/icons/clothing/onmob/shirts.dmi'
+	sleeved = 'modular_twilight_axis/icons/roguetown/clothing/onmob/helpers/sleeves_armor.dmi'
 	icon_state = "thawbgold"
 	item_state = "thawbgold"
 
@@ -325,7 +330,7 @@ name = "Janissaries Helm"
 	boobed = FALSE
 	icon = 'modular_deserttown/icons/clothing/shirts.dmi'
 	mob_overlay_icon = 'modular_deserttown/icons/clothing/onmob/shirts.dmi'
-	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_shirts.dmi'
+	sleeved = 'modular_twilight_axis/icons/roguetown/clothing/onmob/helpers/sleeves_armor.dmi'
 	icon_state = "jafar"
 	item_state = "jafar"
 	flags_inv = HIDECROTCH|HIDEBOOB
