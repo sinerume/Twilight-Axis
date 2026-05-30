@@ -28,21 +28,18 @@
 /datum/outfit/job/roguetown/azebagha
 	job_bitflag = BITFLAG_GARRISON
 
-/*/datum/job/roguetown/azebagha/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
+/datum/job/roguetown/azeb/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	. = ..()
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		if(ishuman(L))
-			if(istype(H.cloak, /obj/item/clothing/cloak/dunestalker))
-				var/obj/item/clothing/S = H.cloak
 		if(istype(H.cloak, /obj/item/clothing/cloak/dunestalker))
 			var/obj/item/clothing/S = H.cloak
-				var/index = findtext(H.real_name, " ")
-				if(index)
-					index = copytext(H.real_name, 1,index)
-				if(!index)
-					index = H.real_name
-				S.name = "Agha Cloak ([index])"*/
+			var/index = findtext(H.real_name, " ")
+			if(index)
+				index = copytext(H.real_name, 1,index)
+			if(!index)
+				index = H.real_name
+			S.name = "Azeb Cloak ([index])"
 
 //All skills/traits are on the loadouts. All are identical. Welcome to the stupid way we have to make sub-classes...
 /datum/outfit/job/roguetown/azebagha

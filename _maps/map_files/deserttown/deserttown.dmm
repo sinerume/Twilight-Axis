@@ -37388,10 +37388,6 @@
 /obj/structure/stairs/desert,
 /turf/open/floor/rogue/lightpath,
 /area/rogue/outdoors/desert/above)
-"pAd" = (
-/obj/machinery/light/rogue/firebowl/standing/blue,
-/turf/closed/basic,
-/area/rogue)
 "pAl" = (
 /turf/closed/wall/mineral/rogue/decostone/end,
 /area/rogue/indoors/town/church)
@@ -307435,7 +307431,7 @@ nFL
 nFL
 nFL
 nFL
-pAd
+nFL
 lbf
 lbf
 rRb
