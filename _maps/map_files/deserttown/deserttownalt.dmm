@@ -6,6 +6,14 @@
 	},
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/vampire_manor)
+"ae" = (
+/obj/structure/mineral_door/wood/donjon/stone{
+	name = "Bedroom IX";
+	lockid = "zurch_bedroom_9";
+	locked = 1
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "af" = (
 /obj/structure/roguewindow,
 /obj/structure/drape/zybantine{
@@ -26,10 +34,6 @@
 	pixel_y = 13
 	},
 /turf/open/floor/rogue/citybrick/citybrick1,
-/area/rogue/under/cave/inhumen)
-"ah" = (
-/obj/effect/decal/cleanable/blood/gibs/torso,
-/turf/open/floor/rogue/citybrick,
 /area/rogue/under/cave/inhumen)
 "aj" = (
 /obj/machinery/light/rogue/torchholder{
@@ -64,13 +68,6 @@
 /obj/structure/curtain/black,
 /turf/open/floor/rogue/citybrick/citybrick1,
 /area/rogue/under/cave/inhumen)
-"ao" = (
-/obj/effect/decal/duneedge{
-	dir = 8
-	},
-/obj/effect/decal/duneedge,
-/turf/open/floor/rogue/darkpath,
-/area/rogue/outdoors/desertdeep/safe)
 "ap" = (
 /obj/structure/table/wood{
 	dir = 6;
@@ -88,20 +85,6 @@
 /obj/machinery/light/rogue/candle/blue/r,
 /turf/open/water/cleanshallow,
 /area/rogue/indoors/vampire_manor)
-"at" = (
-/obj/machinery/light/rogue/candle/r,
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
-"av" = (
-/obj/structure/stairs/stone{
-	dir = 1
-	},
-/obj/structure/fluff/railing/border/east,
-/obj/structure/stairs/desert{
-	dir = 1
-	},
-/turf/open/floor/rogue/naturalstone,
-/area/rogue/under/cave/inhumen)
 "aw" = (
 /obj/item/rogueweapon/shield/wood,
 /obj/structure/rack/rogue,
@@ -120,6 +103,10 @@
 	},
 /turf/open/water/pond,
 /area/rogue/outdoors/desert)
+"aC" = (
+/obj/item/reagent_containers/glass/bucket,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "aI" = (
 /turf/open/floor/rogue/twig,
 /area/rogue/indoors/banditcamp/desert)
@@ -129,19 +116,13 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
-"aL" = (
-/obj/item/clothing/neck/roguetown/psicross/inhumen/baotha,
-/obj/item/clothing/neck/roguetown/psicross/inhumen/baotha,
-/obj/item/clothing/neck/roguetown/psicross/inhumen/baotha,
-/obj/structure/closet/crate/chest,
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
-"aN" = (
-/obj/effect/landmark/start/wretch{
-	dir = 8
+"aM" = (
+/obj/effect/decal/cleanable/blood{
+	icon_state = "floor4-old"
 	},
-/obj/machinery/light/rogue/torchholder/r,
-/turf/open/floor/rogue/darkpath,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
 /area/rogue/under/cave/inhumen)
 "aP" = (
 /obj/effect/decal/cleanable/blood,
@@ -170,6 +151,14 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
+"aX" = (
+/obj/effect/decal/carpet/kover_black{
+	dir = 4;
+	pixel_x = -12;
+	pixel_y = 3
+	},
+/turf/open/floor/carpet/red,
+/area/rogue/under/cave/inhumen)
 "aY" = (
 /obj/item/natural/rock/desert,
 /turf/open/floor/rogue/lightpath,
@@ -181,21 +170,17 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/rogue/indoors/banditcamp/desert)
-"bb" = (
-/obj/structure/fluff/railing/border/west,
-/obj/structure/fluff/railing/border/west{
-	dir = 2
+"bc" = (
+/obj/structure/table/church{
+	icon_state = "churchtable_end"
 	},
-/obj/structure/fluff/railing/border/west{
-	dir = 10
+/obj/item/reagent_containers/glass/cup/silver/pewter{
+	pixel_x = -11
 	},
+/obj/item/roguecoin/aalloy/pile,
 /turf/open/floor/rogue/deserttile{
 	icon_state = "tilegreyblu"
 	},
-/area/rogue/under/cave/inhumen)
-"bd" = (
-/obj/effect/decal/cleanable/blood/gibs/core,
-/turf/closed/mineral/rogue/sandstone,
 /area/rogue/under/cave/inhumen)
 "bg" = (
 /obj/structure/flora/roguetree/burnt,
@@ -207,18 +192,12 @@
 	},
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
-"bl" = (
-/obj/structure/mineral_door/wood/donjon/stone{
-	name = "Bedroom XII";
-	lockid = "zurch_bedroom_12";
-	locked = 1
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "bn" = (
-/obj/structure/closet/crate/chest/gold,
-/turf/open/floor/rogue/darkpath{
-	color = "#919191"
+/obj/effect/landmark/start/wretch{
+	dir = 1
+	},
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
 	},
 /area/rogue/under/cave/inhumen)
 "bo" = (
@@ -233,15 +212,15 @@
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
 "br" = (
-/obj/effect/decal/duneedge{
-	dir = 4
-	},
+/obj/structure/table/optable,
+/obj/machinery/light/rogue/candle/r,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"bs" = (
+/obj/machinery/light/rogue/torchholder/r,
 /turf/open/floor/rogue/darkpath{
 	color = "#b0b0b0"
 	},
-/area/rogue/outdoors/desertdeep/safe)
-"bt" = (
-/turf/open/floor/rogue/citybrick,
 /area/rogue/under/cave/inhumen)
 "bu" = (
 /obj/machinery/light/rogue/firebowl,
@@ -252,15 +231,6 @@
 /obj/structure/flora/roguegrass/water/reeds,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desert)
-"by" = (
-/obj/machinery/light/rogue/candle/r,
-/obj/structure/bookcase/random/archive,
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
-"bA" = (
-/obj/structure/closet/crate/chest/wicker,
-/turf/open/floor/rogue/citybrick,
-/area/rogue/under/cave/inhumen)
 "bC" = (
 /obj/item/roguecoin/gold/pile,
 /obj/item/roguegem/random,
@@ -309,10 +279,6 @@
 /mob/living/simple_animal/hostile/retaliate/rogue/camel/tame,
 /turf/open/floor/rogue/hay,
 /area/rogue/indoors/banditcamp/desert)
-"bL" = (
-/obj/effect/decal/cleanable/discharge,
-/turf/open/floor/rogue/citybrick/citybrick3,
-/area/rogue/under/cave/inhumen)
 "bO" = (
 /obj/structure/table/wood{
 	dir = 4;
@@ -366,6 +332,15 @@
 "ce" = (
 /turf/open/floor/rogue/grass/desert,
 /area/rogue/indoors)
+"cg" = (
+/obj/item/cushion/zybantine{
+	pixel_y = 3;
+	pixel_x = 1
+	},
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
+/area/rogue/under/cave/inhumen)
 "cm" = (
 /obj/effect/decal/desertgrassedge{
 	dir = 1
@@ -394,6 +369,12 @@
 /obj/effect/decal/cleanable/debris/glassy,
 /turf/open/floor/rogue/citybrick/citybrick2,
 /area/rogue/under/cave/inhumen)
+"cv" = (
+/obj/machinery/light/rogue/torchholder/r{
+	dir = 1
+	},
+/turf/open/floor/rogue/desert_grass,
+/area/rogue/outdoors/desertdeep/safe)
 "cy" = (
 /obj/item/roguebin/water/gross,
 /turf/open/floor/rogue/sandbrick{
@@ -416,12 +397,6 @@
 /obj/item/roguegem/random,
 /turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue/indoors/banditcamp/desert)
-"cH" = (
-/obj/effect/decal/desertgrassedge{
-	dir = 1
-	},
-/turf/open/floor/rogue/dirt/desert,
-/area/rogue/outdoors/desertdeep/safe)
 "cI" = (
 /obj/structure/stairs/stone{
 	dir = 1;
@@ -435,23 +410,9 @@
 /obj/structure/drape/zybantine,
 /turf/open/floor/rogue/herringbone,
 /area/rogue/indoors/vampire_manor)
-"cN" = (
-/obj/effect/decal/duneedge{
-	dir = 4
-	},
-/obj/effect/decal/duneedge{
-	dir = 8
-	},
-/obj/effect/decal/duneedge,
-/turf/open/floor/rogue/darkpath,
-/area/rogue/outdoors/desertdeep/safe)
 "cQ" = (
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
-"cR" = (
-/obj/effect/decal/duneedge,
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
 "cS" = (
 /obj/structure/closet/crate/roguecloset,
 /obj/item/soap/bath,
@@ -465,25 +426,12 @@
 	icon_state = "bricktile"
 	},
 /area/rogue/indoors/vampire_manor)
-"cT" = (
-/obj/effect/decal/duneedge{
-	dir = 4
-	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
 "cV" = (
 /obj/structure/closet/crate/chest,
 /obj/item/rogue/instrument/accord,
 /obj/item/rogue/instrument/guitar,
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors/banditcamp/desert)
-"cW" = (
-/obj/effect/decal/carpet/square{
-	pixel_x = 12;
-	pixel_y = 16
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "cX" = (
 /obj/structure/flora/roguegrass/water,
 /obj/effect/decal/duneedge,
@@ -495,13 +443,6 @@
 "cZ" = (
 /turf/open/floor/rogue/darkpath,
 /area/rogue/outdoors/banditcamp/desert)
-"de" = (
-/obj/item/cushion/desert1{
-	pixel_x = 1;
-	pixel_y = 7
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "df" = (
 /turf/open/floor/rogue/deserttile{
 	icon_state = "tilespecial2"
@@ -517,6 +458,20 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
+"dm" = (
+/obj/structure/closet/crate/chest/old_crate,
+/obj/item/heart_blood_canister/filled,
+/obj/item/heart_blood_canister/filled,
+/obj/item/heart_blood_canister/filled,
+/obj/item/heart_blood_canister/filled,
+/obj/item/heart_blood_canister/filled,
+/obj/item/heart_blood_canister/filled,
+/obj/item/heart_blood_canister/filled,
+/obj/item/heart_blood_canister/filled,
+/obj/item/heart_blood_canister/filled,
+/obj/item/heart_blood_canister/filled,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "dn" = (
 /obj/structure/flora/roguetree/burnt,
 /obj/effect/decal/duneedge{
@@ -549,13 +504,12 @@
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/vampire_manor)
 "dC" = (
-/obj/structure/closet/crate/chest,
-/obj/item/clothing/head/roguetown/menacing/bandit,
-/obj/item/clothing/head/roguetown/menacing/bandit,
-/obj/item/clothing/head/roguetown/menacing/bandit,
-/turf/open/floor/rogue/darkpath{
-	color = "#919191"
+/obj/structure/mineral_door/wood/donjon/stone{
+	name = "Bedroom III";
+	lockid = "zurch_bedroom_3";
+	locked = 1
 	},
+/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "dD" = (
 /obj/structure/far_travel,
@@ -564,12 +518,12 @@
 	},
 /turf/open/floor/rogue/dunes,
 /area/rogue/indoors)
-"dE" = (
-/obj/effect/decal/desertgrassedge{
-	dir = 4
+"dF" = (
+/obj/effect/decal/cleanable/sigil/SW,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
 	},
-/turf/open/floor/rogue/dirt/desert,
-/area/rogue/outdoors/desertdeep/safe)
+/area/rogue/under/cave/inhumen)
 "dG" = (
 /turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue/indoors/vampire_manor)
@@ -595,28 +549,22 @@
 /obj/item/natural/feather,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/banditcamp/desert)
-"dP" = (
-/obj/structure/stairs/desert{
+"dO" = (
+/obj/machinery/light/rogue/torchholder/r{
 	dir = 4
 	},
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tilegreyblu"
+/turf/open/floor/rogue/dirt/desert,
+/area/rogue/outdoors/desertdeep/safe)
+"dP" = (
+/obj/structure/shisha/hookah{
+	pixel_y = 14
 	},
+/turf/open/floor/carpet/red,
 /area/rogue/under/cave/inhumen)
 "dS" = (
-/obj/effect/decal/duneedge{
-	dir = 1
-	},
-/obj/effect/decal/duneedge{
-	dir = 8
-	},
+/obj/structure/fluff/psycross/graggar/decorated,
+/obj/effect/decal/cleanable/blood/gibs/body,
 /turf/open/floor/rogue/darkpath,
-/area/rogue/outdoors/desertdeep/safe)
-"dU" = (
-/obj/effect/decal/cleanable/sigil/NE,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
 /area/rogue/under/cave/inhumen)
 "dW" = (
 /obj/structure/flora/roguegrass/bush/desert,
@@ -624,38 +572,27 @@
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desertdeep/safe)
 "dY" = (
-/obj/machinery/light/rogue/candle/floorcandle/alt{
-	pixel_y = -9
+/obj/item/cushion/zybantine{
+	pixel_y = 5;
+	pixel_x = -8
 	},
-/turf/open/floor/rogue/darkpath{
-	color = "#919191"
-	},
+/obj/machinery/light/rogue/candle/r,
+/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
-"dZ" = (
-/obj/effect/particle_effect/smoke{
-	lifetime = 14400
-	},
-/turf/open/water/cleanshallow,
-/area/rogue/outdoors/desertdeep/safe)
 "ea" = (
 /turf/closed/basic,
 /area/rogue)
 "eb" = (
-/obj/structure/shisha/hookah{
-	pixel_x = 14;
-	pixel_y = 1
+/obj/machinery/light/rogue/candle/floorcandle/alt,
+/turf/open/floor/rogue/darkpath{
+	color = "#919191"
 	},
-/turf/open/floor/carpet/red,
 /area/rogue/under/cave/inhumen)
 "ed" = (
-/obj/item/cushion/zybantine{
-	pixel_y = 15;
-	pixel_x = 2
-	},
-/obj/effect/decal/carpet{
-	pixel_x = 21;
-	dir = 4;
-	pixel_y = -15
+/obj/structure/mineral_door/wood/donjon/stone{
+	name = "Bedroom VI";
+	lockid = "zurch_bedroom_6";
+	locked = 1
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
@@ -699,10 +636,20 @@
 	},
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/indoors/banditcamp/desert)
+"eo" = (
+/obj/machinery/light/rogue/candle{
+	pixel_y = -32
+	},
+/turf/open/floor/rogue/citybrick/citybrick4,
+/area/rogue/under/cave/inhumen)
 "eq" = (
 /obj/structure/closet/crate/chest/gold,
 /turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue/indoors/banditcamp/desert)
+"es" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
 "ev" = (
 /obj/structure/vampire/scryingorb{
 	pixel_x = -16;
@@ -714,6 +661,11 @@
 	},
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/vampire_manor)
+"ex" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light/rogue/candle/r,
+/turf/open/floor/rogue/citybrick/citybrick2,
+/area/rogue/under/cave/inhumen)
 "ey" = (
 /obj/structure/closet/crate/roguecloset,
 /obj/item/clothing/suit/roguetown/shirt/tunic/noblecoat,
@@ -797,6 +749,13 @@
 	color = "#c4abff"
 	},
 /area/rogue/indoors/vampire_manor)
+"eQ" = (
+/obj/item/clothing/neck/roguetown/psicross/inhumen/baotha,
+/obj/item/clothing/neck/roguetown/psicross/inhumen/baotha,
+/obj/item/clothing/neck/roguetown/psicross/inhumen/baotha,
+/obj/structure/closet/crate/chest,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
 "eT" = (
 /obj/structure/mineral_door/bars,
 /obj/structure/fluff/railing/border/east,
@@ -805,13 +764,29 @@
 "eX" = (
 /turf/closed/wall/mineral/rogue/sandstone,
 /area/rogue/indoors/banditcamp/desert)
-"eZ" = (
-/obj/structure/mineral_door/wood/donjon/stone{
-	name = "Bedroom VII";
-	lockid = "zurch_bedroom_7";
-	locked = 1
+"eY" = (
+/obj/effect/landmark/start/wretchlate,
+/obj/effect/decal/duneedge{
+	dir = 1
 	},
-/turf/open/floor/rogue/sandbrick,
+/obj/effect/decal/duneedge{
+	dir = 4
+	},
+/turf/open/floor/rogue/darkpath,
+/area/rogue/outdoors/desertdeep/safe)
+"ff" = (
+/obj/structure/table/wood/poor,
+/obj/item/herbseed/manabloom,
+/obj/item/rogueweapon/huntingknife/chefknife{
+	pixel_x = -3;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/glass/bottle/rogue{
+	layer = 6;
+	pixel_x = -13;
+	pixel_y = 4
+	},
+/turf/open/floor/rogue/citybrick,
 /area/rogue/under/cave/inhumen)
 "fm" = (
 /obj/effect/decal/desertgrassedge{
@@ -819,10 +794,6 @@
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors)
-"fo" = (
-/obj/effect/decal/remains/human,
-/turf/open/water/bloody,
-/area/rogue/under/cave/inhumen)
 "fp" = (
 /turf/open/floor/rogue/darkpath,
 /area/rogue/outdoors/desert)
@@ -845,15 +816,6 @@
 	icon_state = "harem"
 	},
 /area/rogue/indoors/vampire_manor)
-"fx" = (
-/obj/effect/decal/desertgrassedge{
-	dir = 1
-	},
-/obj/effect/decal/desertgrassedge{
-	dir = 4
-	},
-/turf/open/water/cleanshallow,
-/area/rogue/outdoors/desertdeep/safe)
 "fA" = (
 /obj/effect/decal/desertgrassedge{
 	dir = 4
@@ -876,10 +838,6 @@
 /obj/structure/flora/junglebush/b,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desert)
-"fE" = (
-/obj/structure/roguemachine/mail,
-/turf/open/floor/rogue/citybrick/citybrick1,
-/area/rogue/under/cave/inhumen)
 "fF" = (
 /obj/structure/stairs/desert,
 /turf/open/floor/rogue/lightpath,
@@ -902,9 +860,6 @@
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors)
-"fQ" = (
-/turf/open/water/cleanshallow,
-/area/rogue/outdoors/desertdeep/safe)
 "fR" = (
 /obj/structure/flora/roguetree/burnt,
 /obj/effect/decal/duneedge{
@@ -938,6 +893,12 @@
 	lockid = "inhumen"
 	},
 /turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"fZ" = (
+/obj/effect/decal/cleanable/blood/gibs/limb,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
 /area/rogue/under/cave/inhumen)
 "ga" = (
 /obj/effect/decal/desertgrassedge{
@@ -1007,6 +968,19 @@
 	dir = 1
 	},
 /area/rogue/indoors/banditcamp/desert)
+"gu" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood{
+	icon_state = "floor5-old"
+	},
+/obj/machinery/light/rogue/candle/floorcandle{
+	pixel_y = -11
+	},
+/obj/structure/ritualcircle/graggar,
+/turf/open/floor/rogue/darkpath{
+	color = "#c4abff"
+	},
+/area/rogue/under/cave/inhumen)
 "gv" = (
 /obj/structure/table/wood{
 	dir = 5;
@@ -1056,9 +1030,6 @@
 /obj/structure/flora/newtree,
 /turf/open/floor/rogue/grass/desert,
 /area/rogue/outdoors/desert)
-"gK" = (
-/turf/open/floor/rogue/dirt/desert,
-/area/rogue/outdoors/desertdeep/safe)
 "gN" = (
 /obj/structure/well,
 /turf/open/floor/rogue/dirt/road/desert,
@@ -1071,16 +1042,9 @@
 /turf/open/floor/rogue/citybrick/citybrick5,
 /area/rogue/under/cave/inhumen)
 "gS" = (
-/obj/effect/decal/cleanable/blood{
-	icon_state = "floor6-old"
-	},
-/obj/structure/fluff/psycross/graggar/decorated,
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
-"gT" = (
-/obj/structure/fluff/psycross/zizocross/stone,
-/turf/open/floor/rogue/citybrick,
-/area/rogue/under/cave/inhumen)
+/obj/structure/flora/roguegrass,
+/turf/open/floor/rogue/dirt/road/desert,
+/area/rogue/outdoors/desertdeep/safe)
 "hb" = (
 /obj/structure/fluff/walldeco/rpainting/forest,
 /turf/closed/wall/mineral/rogue/sandbrick,
@@ -1090,16 +1054,6 @@
 /obj/structure/fluff/wallclock,
 /turf/open/floor/rogue/twig,
 /area/rogue/indoors/banditcamp/desert)
-"hf" = (
-/obj/item/cushion/desert1{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/effect/landmark/start/wretch{
-	dir = 1
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "hg" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/structure/bed/rogue/shit,
@@ -1107,23 +1061,6 @@
 	color = "#c4abff"
 	},
 /area/rogue/indoors/vampire_manor)
-"hk" = (
-/obj/item/storage/belt/rogue/surgery_bag/full,
-/obj/structure/table/wood/poor,
-/obj/structure/fluff/walldeco/med3{
-	pixel_x = 32
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
-"hn" = (
-/obj/effect/decal/duneedge{
-	dir = 1
-	},
-/obj/effect/decal/duneedge{
-	dir = 4
-	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
 "hr" = (
 /obj/item/grown/log/tree,
 /turf/open/floor/rogue/sandbrick,
@@ -1132,10 +1069,6 @@
 /obj/structure/flora/roguetree/palm,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/banditcamp/desert)
-"hv" = (
-/obj/effect/decal/duneedge,
-/turf/open/floor/rogue/darkpath,
-/area/rogue/outdoors/desertdeep/safe)
 "hw" = (
 /obj/structure/flora/roguegrass/water,
 /obj/effect/decal/duneedge{
@@ -1165,11 +1098,6 @@
 /obj/structure/flora/roguegrass/bush/desert,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desertdeep/safe)
-"hC" = (
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tilegreyblu"
-	},
-/area/rogue/under/cave/inhumen)
 "hD" = (
 /obj/structure/fluff/walldeco/church/line{
 	dir = 4
@@ -1184,10 +1112,6 @@
 	},
 /turf/open/floor/rogue/tile/bath,
 /area/rogue/indoors/vampire_manor)
-"hF" = (
-/obj/effect/decal/cleanable/blood/splatter/walls,
-/turf/closed/mineral/rogue/bedrock/sandstone,
-/area/rogue/under/cave/inhumen)
 "hJ" = (
 /obj/structure/table/wood/poor,
 /obj/item/needle/thorn{
@@ -1198,12 +1122,6 @@
 	color = "#c4abff"
 	},
 /area/rogue/under/cave/inhumen)
-"hK" = (
-/obj/effect/decal/duneedge{
-	dir = 1
-	},
-/turf/closed/wall/mineral/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "hL" = (
 /obj/effect/decal/desertgrassedge,
 /obj/effect/decal/desertgrassedge{
@@ -1211,14 +1129,6 @@
 	},
 /turf/open/water/pond,
 /area/rogue/outdoors/desert)
-"hM" = (
-/obj/effect/decal/cleanable/blood{
-	icon_state = "floor5-old"
-	},
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
-/area/rogue/under/cave/inhumen)
 "hN" = (
 /obj/effect/decal/desertgrassedge{
 	dir = 8
@@ -1249,12 +1159,46 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/rogue/indoors/banditcamp/desert)
+"hW" = (
+/obj/structure/table/wood/poor,
+/obj/item/reagent_containers/glass/mortar{
+	pixel_x = 7;
+	pixel_y = 5
+	},
+/obj/item/pestle{
+	pixel_x = -10;
+	pixel_y = 1
+	},
+/obj/item/reagent_containers/glass/bottle/rogue{
+	layer = 6;
+	pixel_x = -13;
+	pixel_y = 19
+	},
+/turf/open/floor/rogue/citybrick,
+/area/rogue/under/cave/inhumen)
 "hX" = (
 /obj/structure/rack/rogue,
 /obj/item/coveter,
 /obj/item/coveter,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/banditcamp/desert)
+"hY" = (
+/obj/effect/landmark/start/wretch{
+	dir = 8
+	},
+/obj/machinery/light/rogue/torchholder/r,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
+"ia" = (
+/obj/effect/decal/cleanable/dirt/cobweb,
+/turf/open/floor/rogue/citybrick/citybrick5,
+/area/rogue/under/cave/inhumen)
+"ig" = (
+/obj/machinery/light/rogue/candle{
+	pixel_y = -32
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "ii" = (
 /turf/closed/mineral/rogue/bedrock,
 /area/rogue/outdoors/desert)
@@ -1262,17 +1206,14 @@
 /obj/structure/bars/cemetery,
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
-"ir" = (
-/obj/effect/decal/cleanable/blood{
-	icon_state = "floor4-old"
-	},
-/obj/effect/decal/cleanable/blood/gibs/core,
-/obj/structure/fluff/railing/border/west{
-	dir = 4
-	},
-/turf/open/floor/rogue/sandbrick{
-	color = "#c4abff"
-	},
+"iq" = (
+/obj/effect/particle_effect/smoke,
+/turf/open/water/cleanshallow,
+/area/rogue/outdoors/desertdeep/safe)
+"it" = (
+/obj/structure/table/wood/poor,
+/obj/machinery/light/rogue/candle/r,
+/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "ix" = (
 /obj/structure/fermentation_keg/sandpot/random/water,
@@ -1291,12 +1232,6 @@
 "iB" = (
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/vampire_manor)
-"iD" = (
-/obj/effect/decal/cleanable/blood/old{
-	icon_state = "floor5-old"
-	},
-/turf/open/floor/rogue/citybrick/citybrick2,
-/area/rogue/under/cave/inhumen)
 "iG" = (
 /obj/structure/rack/rogue,
 /turf/open/floor/rogue/tile/harem,
@@ -1312,6 +1247,14 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
+/area/rogue/under/cave/inhumen)
+"iM" = (
+/obj/effect/landmark/start/wretch{
+	dir = 4
+	},
 /turf/open/floor/rogue/deserttile{
 	icon_state = "tiledrab2"
 	},
@@ -1333,6 +1276,20 @@
 /obj/item/clothing/head/roguetown/helmet/leather/volfhelm,
 /turf/open/floor/rogue/tile/harem,
 /area/rogue/indoors/banditcamp/desert)
+"iX" = (
+/obj/effect/decal/cleanable/blood{
+	icon_state = "floor5-old"
+	},
+/obj/machinery/light/rogue/candle/floorcandle{
+	pixel_y = -14
+	},
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
+"iY" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/ritualcircle/graggar,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
 "iZ" = (
 /obj/item/cushion/zybantine{
 	pixel_x = 0;
@@ -1348,6 +1305,13 @@
 	},
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
+"jc" = (
+/obj/effect/decal/carpet/square{
+	pixel_x = 16;
+	pixel_y = -4
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "jd" = (
 /turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue)
@@ -1370,7 +1334,7 @@
 /turf/open/floor/rogue/hexstone,
 /area/rogue/indoors/vampire_manor)
 "jj" = (
-/turf/open/water/cleanshallow,
+/turf/open/floor/rogue/dunes,
 /area/rogue/under/cave/inhumen)
 "jk" = (
 /obj/structure/table/vtable/v2,
@@ -1398,17 +1362,22 @@
 	},
 /turf/open/floor/rogue/dunes,
 /area/rogue/indoors)
+"jv" = (
+/obj/effect/decal/carpet/kover_black{
+	pixel_x = 16;
+	pixel_y = -12
+	},
+/turf/open/floor/carpet/red,
+/area/rogue/under/cave/inhumen)
 "jw" = (
 /obj/machinery/tanningrack,
 /turf/open/floor/rogue/tile/bfloorz{
 	icon_state = "harem"
 	},
 /area/rogue/indoors/vampire_manor)
-"jx" = (
-/obj/effect/decal/cleanable/sigil/S,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
+"jB" = (
+/obj/effect/decal/cleanable/blood/gibs/torso,
+/turf/open/floor/rogue/citybrick,
 /area/rogue/under/cave/inhumen)
 "jC" = (
 /obj/machinery/light/rogue/firebowl,
@@ -1447,10 +1416,6 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
-"jN" = (
-/obj/effect/decal/cleanable/blood/splatter/walls,
-/turf/closed/wall/mineral/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "jO" = (
 /obj/effect/decal/edge{
 	color = "#3f3f3f";
@@ -1502,18 +1467,6 @@
 	},
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/banditcamp/desert)
-"kf" = (
-/obj/structure/table/church{
-	icon_state = "churchtable_end"
-	},
-/obj/item/reagent_containers/glass/cup/silver/pewter{
-	pixel_x = -11
-	},
-/obj/item/roguecoin/aalloy/pile,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tilegreyblu"
-	},
-/area/rogue/under/cave/inhumen)
 "kh" = (
 /obj/structure/table/vtable,
 /turf/open/floor/rogue/hexstone{
@@ -1537,8 +1490,12 @@
 	},
 /area/rogue/indoors/vampire_manor)
 "km" = (
-/obj/structure/chair/frankenstein/zizo,
-/turf/open/floor/rogue/concrete,
+/obj/effect/decal/carpet{
+	pixel_x = 21;
+	dir = 4;
+	pixel_y = -15
+	},
+/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "kn" = (
 /obj/machinery/light/rogue/candle/blue/r,
@@ -1554,18 +1511,9 @@
 	color = "#c4abff"
 	},
 /area/rogue/under/cave/inhumen)
-"kq" = (
-/obj/structure/fluff/statue/femalestatue{
-	pixel_y = 0
-	},
-/turf/open/floor/rogue/churchbrick,
-/area/rogue/under/cave/inhumen)
-"ks" = (
-/obj/structure/shisha/hookah{
-	pixel_x = 4;
-	pixel_y = 12
-	},
-/turf/open/floor/carpet/red,
+"kr" = (
+/obj/structure/bookcase/random/archive,
+/turf/open/floor/rogue/citybrick/citybrick3,
 /area/rogue/under/cave/inhumen)
 "ku" = (
 /obj/structure/bed/rogue/shit,
@@ -1573,6 +1521,14 @@
 	color = "#c4abff"
 	},
 /area/rogue/indoors/vampire_manor)
+"kv" = (
+/obj/structure/mineral_door/wood/donjon/stone{
+	name = "Bedroom XI";
+	lockid = "zurch_bedroom_11";
+	locked = 1
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "kx" = (
 /turf/open/floor/rogue/twig{
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
@@ -1595,6 +1551,15 @@
 /obj/effect/landmark/start/vampirelord,
 /turf/open/floor/carpet/red,
 /area/rogue/indoors/vampire_manor)
+"kG" = (
+/obj/structure/table/wood/poor,
+/obj/item/natural/bundle/stick,
+/obj/item/flint{
+	pixel_x = 6;
+	pixel_y = 4
+	},
+/turf/open/floor/rogue/citybrick,
+/area/rogue/under/cave/inhumen)
 "kH" = (
 /obj/structure/fluff/walldeco/bath/wallrope,
 /turf/closed/wall/mineral/rogue/sandbrick,
@@ -1640,10 +1605,6 @@
 /obj/item/rogueweapon/pick,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/cave)
-"kP" = (
-/obj/structure/bookcase/random/archive,
-/turf/open/floor/rogue/citybrick,
-/area/rogue/under/cave/inhumen)
 "kU" = (
 /obj/structure/bed/rogue/inn/wool,
 /obj/item/bedsheet/rogue/wool,
@@ -1652,15 +1613,9 @@
 "kV" = (
 /turf/open/water/cleanshallow,
 /area/rogue/outdoors/banditcamp/desert)
-"la" = (
-/obj/effect/decal/duneedge{
-	dir = 1
-	},
-/obj/effect/decal/duneedge{
-	dir = 8
-	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
+"kX" = (
+/turf/open/floor/rogue/dirt/desert,
+/area/rogue/outdoors/desertdeep/safe)
 "lb" = (
 /obj/structure/roguewindow,
 /obj/structure/bars,
@@ -1668,14 +1623,27 @@
 /turf/open/floor/rogue/herringbone,
 /area/rogue/indoors/vampire_manor)
 "lc" = (
-/obj/structure/fluff/clock,
+/obj/effect/decal/cleanable/blood{
+	icon_state = "floor6-old"
+	},
+/obj/structure/fluff/psycross/graggar/decorated,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
+"ld" = (
+/obj/effect/decal/duneedge{
+	dir = 8
+	},
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
+"le" = (
+/obj/item/cushion/desert1{
+	pixel_y = 6
+	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
-"lh" = (
-/obj/structure/fluff/statue/evil,
-/turf/open/floor/rogue/darkpath{
-	color = "#919191"
-	},
+"lf" = (
+/obj/structure/closet/crate/chest/wicker,
+/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "lr" = (
 /obj/structure/stairs/desert{
@@ -1684,12 +1652,6 @@
 /obj/structure/fluff/railing/border,
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/banditcamp/desert)
-"ls" = (
-/obj/item/cushion/desert1{
-	pixel_y = 6
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "lu" = (
 /obj/structure/flora/roguetree/burnt,
 /turf/open/floor/rogue/dunes,
@@ -1707,10 +1669,6 @@
 /obj/effect/spawner/roguemap/stump,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desertdeep/safe)
-"lD" = (
-/obj/structure/fermentation_keg/fancypot/water,
-/turf/open/floor/rogue/desert_grass,
-/area/rogue/outdoors/desertdeep/safe)
 "lE" = (
 /obj/structure/table/wood/poor,
 /obj/item/branding_letters{
@@ -1723,6 +1681,15 @@
 	},
 /turf/closed/basic,
 /area/rogue/under/cave/inhumen)
+"lF" = (
+/obj/effect/decal/desertgrassedge{
+	dir = 1
+	},
+/obj/effect/decal/desertgrassedge{
+	dir = 8
+	},
+/turf/open/water/cleanshallow,
+/area/rogue/outdoors/desertdeep/safe)
 "lI" = (
 /obj/structure/flora/roguegrass/water,
 /obj/effect/decal/desertgrassedge{
@@ -1742,16 +1709,12 @@
 /turf/open/floor/rogue/grass/desert,
 /area/rogue/outdoors/desert)
 "lL" = (
-/obj/effect/decal/carpet/square{
-	dir = 8;
-	pixel_x = 5;
-	pixel_y = 0
+/obj/structure/mineral_door/wood/donjon/stone{
+	name = "Bedroom X";
+	lockid = "zurch_bedroom_10";
+	locked = 1
 	},
 /turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
-"lM" = (
-/obj/effect/decal/cleanable/dirt/cobweb,
-/turf/open/floor/rogue/citybrick/citybrick5,
 /area/rogue/under/cave/inhumen)
 "lN" = (
 /turf/closed/mineral/random/rogue/sandstone/high,
@@ -1766,21 +1729,9 @@
 /obj/effect/decal/desertgrassedge,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/outdoors/desert)
-"lU" = (
-/obj/effect/decal/duneedge{
-	dir = 4
-	},
-/obj/structure/fluff/traveltile/wretch{
-	aportalgoesto = "wretchout2";
-	aportalid = "wretchin2"
-	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
-"lV" = (
-/obj/structure/chair/bench/church,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
+"lT" = (
+/obj/machinery/light/rogue/candle/r,
+/turf/open/floor/rogue/citybrick/citybrick2,
 /area/rogue/under/cave/inhumen)
 "lX" = (
 /obj/effect/decal/desertgrassedge{
@@ -1795,18 +1746,16 @@
 	},
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/vampire_manor)
-"lZ" = (
-/obj/structure/table/church,
-/obj/effect/spawner/lootdrop/roguetown/dungeon/money,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tilegreyblu"
-	},
+"mc" = (
+/obj/structure/fluff/alch,
+/turf/open/floor/rogue/citybrick,
 /area/rogue/under/cave/inhumen)
-"mh" = (
-/obj/machinery/light/rogue/candle/floorcandle/pink{
-	pixel_x = -1
+"me" = (
+/obj/item/cushion/desert1{
+	pixel_x = 1;
+	pixel_y = 7
 	},
-/turf/open/floor/rogue/darkpath,
+/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "ml" = (
 /obj/structure/roguemachine/mail{
@@ -1818,19 +1767,6 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
-"mn" = (
-/obj/effect/decal/cleanable/blood{
-	icon_state = "floor4-old"
-	},
-/turf/open/floor/rogue/citybrick,
-/area/rogue/under/cave/inhumen)
-"mq" = (
-/obj/structure/flora/roguetree/palm{
-	pixel_x = -22;
-	pixel_y = 3
-	},
-/turf/open/floor/rogue/desert_grass,
-/area/rogue/outdoors/desertdeep/safe)
 "mr" = (
 /obj/structure/fluff/railing/border/east,
 /obj/structure/flora/junglebush/large,
@@ -1866,22 +1802,23 @@
 /obj/machinery/light/rogue/chand,
 /turf/open/transparent/openspace,
 /area/rogue/outdoors/banditcamp/desert)
-"mB" = (
-/obj/structure/table/church,
-/obj/machinery/light/rogue/candle/floorcandle,
-/turf/open/floor/rogue/sandbrick{
-	color = "#c4abff"
+"mz" = (
+/obj/item/cushion/desert2{
+	pixel_x = 0;
+	pixel_y = -5
 	},
+/obj/machinery/light/rogue/candle/r,
+/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "mC" = (
 /turf/open/floor/rogue/citybrick/citybrick1,
 /area/rogue/under/cave/inhumen)
-"mF" = (
-/obj/item/cushion/desert1{
-	pixel_x = -1;
-	pixel_y = 5
+"mE" = (
+/obj/structure/mineral_door/wood/donjon/stone{
+	name = "Bedroom I";
+	lockid = "zurch_bedroom_1";
+	locked = 1
 	},
-/obj/machinery/light/rogue/candle/r,
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "mG" = (
@@ -1904,21 +1841,26 @@
 /obj/item/candle/skull/lit,
 /turf/open/floor/carpet/purple,
 /area/rogue/indoors/banditcamp/desert)
-"mS" = (
-/obj/structure/table/wood/poor,
-/obj/item/roguekey/zurch_bedroom,
-/obj/item/roguekey/zurch_bedroom/two,
-/obj/item/roguekey/zurch_bedroom/three,
-/obj/item/roguekey/zurch_bedroom/four,
-/obj/item/roguekey/zurch_bedroom/five,
-/obj/item/roguekey/zurch_bedroom/six,
-/obj/item/roguekey/zurch_bedroom/seven,
-/obj/item/roguekey/zurch_bedroom/eight,
-/obj/item/roguekey/zurch_bedroom/nine,
-/obj/item/roguekey/zurch_bedroom/ten,
-/obj/item/roguekey/zurch_bedroom/eleven,
-/obj/item/roguekey/zurch_bedroom/twelve,
+"mN" = (
+/obj/structure/shisha/hookah,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
+"mO" = (
+/obj/item/cushion/desert1{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/effect/landmark/start/wretch{
+	dir = 1
+	},
 /turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"mR" = (
+/obj/effect/decal/duneedge{
+	dir = 8
+	},
+/obj/effect/decal/duneedge,
+/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "mT" = (
 /obj/structure/stairs/desert,
@@ -1926,13 +1868,12 @@
 	color = "#b0b0b0"
 	},
 /area/rogue/under/cave/inhumen)
-"mU" = (
-/obj/structure/mineral_door/wood/donjon/stone{
-	name = "Bedroom XI";
-	lockid = "zurch_bedroom_11";
-	locked = 1
+"mW" = (
+/obj/structure/fluff/traveltile/wretch{
+	aportalgoesto = "wretchout2";
+	aportalid = "wretchin2"
 	},
-/turf/open/floor/rogue/sandbrick,
+/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "mY" = (
 /obj/structure/fluff/walldeco/bigpainting/lake{
@@ -1941,11 +1882,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/rogue/indoors/vampire_manor)
-"nc" = (
-/obj/structure/table/optable,
-/obj/machinery/light/rogue/candle/r,
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "ne" = (
 /obj/effect/decal/duneedge{
 	dir = 4
@@ -1969,9 +1905,6 @@
 	icon_state = "harem"
 	},
 /area/rogue/indoors/vampire_manor)
-"nh" = (
-/turf/open/floor/rogue/dirt/road/desert,
-/area/rogue/outdoors/desertdeep/safe)
 "ni" = (
 /obj/item/reagent_containers/glass/bucket,
 /turf/open/floor/rogue/citybrick/citybrick1,
@@ -2002,13 +1935,6 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
-"nt" = (
-/obj/structure/table/wood/poor,
-/obj/item/reagent_containers/glass/bottle,
-/obj/item/reagent_containers/glass/bottle,
-/obj/machinery/light/rogue/candle/l,
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "nv" = (
 /obj/effect/decal/desertgrassedge,
 /turf/open/floor/rogue/dunes,
@@ -2026,12 +1952,6 @@
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
-"ny" = (
-/obj/effect/decal/duneedge{
-	dir = 1
-	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/outdoors/desertdeep/safe)
 "nF" = (
 /obj/structure/rack/rogue/shelf/biggest{
 	pixel_y = 14
@@ -2042,6 +1962,13 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
+"nH" = (
+/obj/machinery/light/rogue/candle/floorcandle/pink{
+	pixel_x = 1;
+	pixel_y = -7
+	},
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
 "nJ" = (
 /obj/effect/decal/duneedge,
 /obj/effect/decal/duneedge{
@@ -2050,8 +1977,9 @@
 /turf/open/water/pond,
 /area/rogue/outdoors/desert)
 "nK" = (
-/obj/effect/landmark/start/wretch,
-/turf/open/floor/rogue/citybrick/citybrick3,
+/obj/effect/decal/cleanable/blood,
+/obj/structure/fluff/walldeco/vinez/red,
+/turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "nL" = (
 /obj/effect/decal/cobbleedge{
@@ -2110,6 +2038,13 @@
 	},
 /turf/open/floor/rogue/darkpath,
 /area/rogue/outdoors/desert)
+"oc" = (
+/obj/structure/closet/crate/chest,
+/obj/item/clothing/neck/roguetown/psicross/inhumen/matthios,
+/obj/item/clothing/neck/roguetown/psicross/inhumen/matthios,
+/obj/item/clothing/neck/roguetown/psicross/inhumen/matthios,
+/turf/open/floor/rogue/cobble,
+/area/rogue/under/cave/inhumen)
 "oe" = (
 /obj/structure/flora/roguegrass,
 /turf/open/floor/rogue/desert_grass,
@@ -2128,12 +2063,6 @@
 /turf/open/floor/rogue/deserttile{
 	icon_state = "tiledrab2"
 	},
-/area/rogue/under/cave/inhumen)
-"ol" = (
-/obj/machinery/light/rogue/torchholder/r{
-	dir = 1
-	},
-/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "om" = (
 /obj/machinery/light/rogue/firebowl/standing,
@@ -2158,6 +2087,10 @@
 "or" = (
 /turf/open/floor/rogue/tile/harem1,
 /area/rogue/indoors/banditcamp/desert)
+"ov" = (
+/obj/structure/fluff/walldeco/vinez/red,
+/turf/closed/mineral/rogue/sandstone,
+/area/rogue/under/cave/inhumen)
 "ow" = (
 /obj/structure/fluff/railing/border,
 /obj/structure/flora/junglebush/large,
@@ -2188,6 +2121,15 @@
 "oy" = (
 /turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
+"oz" = (
+/obj/effect/decal/duneedge{
+	dir = 1
+	},
+/obj/effect/decal/duneedge{
+	dir = 8
+	},
+/turf/open/floor/rogue/darkpath,
+/area/rogue/outdoors/desertdeep/safe)
 "oA" = (
 /obj/structure/fluff/railing/border{
 	dir = 5
@@ -2260,22 +2202,17 @@
 	},
 /turf/open/floor/rogue/hexstone,
 /area/rogue/indoors/vampire_manor)
-"oR" = (
-/obj/effect/decal/cleanable/sigil/SW,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
+"oT" = (
+/obj/effect/decal/cleanable/blood{
+	icon_state = "floor4-old"
 	},
-/area/rogue/under/cave/inhumen)
-"oU" = (
-/obj/structure/ritualcircle/matthios,
-/obj/item/roguecoin/aalloy/pile,
-/turf/open/floor/rogue/darkpath{
-	color = "#919191"
+/obj/item/clothing/neck/roguetown/psicross/inhumen/graggar/bronze,
+/obj/structure/fluff/railing/border/west{
+	layer = 4.3
 	},
-/area/rogue/under/cave/inhumen)
-"oV" = (
-/obj/structure/ritualcircle/graggar,
-/turf/open/floor/rogue/darkpath,
+/turf/open/floor/rogue/sandbrick{
+	color = "#c4abff"
+	},
 /area/rogue/under/cave/inhumen)
 "oW" = (
 /obj/structure/mannequin,
@@ -2298,6 +2235,32 @@
 	},
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/banditcamp/desert)
+"pa" = (
+/obj/structure/table/wood/poor,
+/obj/item/storage/keyring,
+/obj/item/storage/keyring,
+/obj/item/storage/keyring,
+/obj/item/storage/keyring,
+/obj/item/storage/keyring,
+/obj/item/storage/keyring,
+/obj/item/storage/keyring,
+/obj/item/storage/keyring,
+/obj/item/storage/keyring,
+/obj/item/storage/keyring,
+/obj/item/storage/keyring,
+/obj/machinery/light/rogue/candle/r,
+/obj/item/roguekey/inhumen,
+/obj/item/roguekey/inhumen,
+/obj/item/roguekey/inhumen,
+/obj/item/roguekey/inhumen,
+/obj/item/roguekey/inhumen,
+/obj/item/roguekey/inhumen,
+/obj/item/roguekey/inhumen,
+/obj/item/roguekey/inhumen,
+/obj/item/roguekey/inhumen,
+/obj/item/roguekey/inhumen,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "pb" = (
 /obj/structure/mineral_door/bars{
 	locked = 1;
@@ -2318,26 +2281,6 @@
 /obj/machinery/light/rogue/candle/l,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/vampire_manor)
-"pe" = (
-/obj/structure/stairs/desert{
-	dir = 8
-	},
-/turf/open/transparent/openspace,
-/area/rogue/under/cave/inhumen)
-"pf" = (
-/obj/structure/table/wood/poor,
-/obj/item/herbseed/manabloom,
-/obj/item/rogueweapon/huntingknife/chefknife{
-	pixel_x = -3;
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/glass/bottle/rogue{
-	layer = 6;
-	pixel_x = -13;
-	pixel_y = 4
-	},
-/turf/open/floor/rogue/citybrick,
-/area/rogue/under/cave/inhumen)
 "pg" = (
 /obj/machinery/light/rogue/firebowl/standing,
 /turf/open/floor/carpet/red,
@@ -2432,6 +2375,12 @@
 /obj/structure/fluff/statue/gargoyle,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desert)
+"pR" = (
+/obj/item/roguecoin/aalloy/pile,
+/turf/open/floor/rogue/darkpath{
+	color = "#919191"
+	},
+/area/rogue/under/cave/inhumen)
 "pT" = (
 /obj/structure/chair/wood/rogue/fancy,
 /turf/open/floor/carpet/inn,
@@ -2496,11 +2445,29 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
-"qk" = (
-/obj/effect/landmark/start/wretch{
-	dir = 8
+"qg" = (
+/obj/structure/far_travel,
+/turf/open/floor/rogue/darkpath{
+	color = "#b0b0b0"
 	},
-/turf/open/floor/carpet/red,
+/area/rogue/outdoors/desertdeep/safe)
+"qj" = (
+/obj/structure/stairs/stone{
+	dir = 1
+	},
+/obj/structure/fluff/railing/border/east,
+/obj/structure/stairs/desert{
+	dir = 1
+	},
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/under/cave/inhumen)
+"qk" = (
+/obj/structure/fluff/railing/border/west{
+	layer = 4.3
+	},
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tilegreyblu"
+	},
 /area/rogue/under/cave/inhumen)
 "ql" = (
 /obj/structure/closet/crate/roguecloset/inn,
@@ -2555,12 +2522,15 @@
 	color = "#c4abff"
 	},
 /area/rogue/indoors/vampire_manor)
-"qt" = (
-/obj/effect/decal/carpet/square/black{
-	pixel_x = 16;
-	pixel_y = -15
+"qv" = (
+/obj/effect/decal/carpet/square{
+	pixel_y = -9;
+	dir = 4;
+	pixel_x = 8
 	},
-/turf/open/floor/rogue/sandbrick,
+/turf/open/floor/rogue/darkpath{
+	color = "#919191"
+	},
 /area/rogue/under/cave/inhumen)
 "qw" = (
 /obj/structure/stairs/desert{
@@ -2568,14 +2538,6 @@
 	},
 /turf/open/floor/rogue/lightpath,
 /area/rogue/outdoors/desertdeep/safe)
-"qx" = (
-/obj/effect/decal/cleanable/blood/old{
-	icon_state = "floor5-old"
-	},
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tilegreyblu"
-	},
-/area/rogue/under/cave/inhumen)
 "qy" = (
 /obj/structure/bookcase/random{
 	density = 0;
@@ -2612,6 +2574,14 @@
 /obj/structure/flora/roguegrass,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desertdeep/safe)
+"qK" = (
+/obj/structure/mineral_door/wood/donjon/stone{
+	name = "Bedroom VII";
+	lockid = "zurch_bedroom_7";
+	locked = 1
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "qM" = (
 /obj/machinery/anvil,
 /obj/item/rogueweapon/hammer/iron,
@@ -2622,33 +2592,27 @@
 /obj/structure/flora/roguegrass/water,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desert)
-"qU" = (
-/obj/structure/fluff/railing/border/west{
-	dir = 4
-	},
-/obj/structure/fluff/railing/border/west{
-	dir = 2
-	},
-/obj/structure/fluff/railing/border/west{
-	dir = 6
-	},
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tilegreyblu"
-	},
-/area/rogue/under/cave/inhumen)
 "qV" = (
 /obj/effect/decal/desertgrassedge{
 	dir = 8
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/outdoors/desert)
-"qY" = (
-/obj/effect/decal/carpet/kover_darkred{
-	dir = 8;
-	pixel_y = 16;
-	pixel_x = -1
+"qW" = (
+/obj/effect/decal/duneedge{
+	dir = 4
 	},
-/turf/open/floor/rogue/sandbrick,
+/obj/structure/fluff/traveltile/wretch{
+	aportalgoesto = "wretchout2";
+	aportalid = "wretchin2"
+	},
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
+"qY" = (
+/obj/machinery/light/rogue/firebowl,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
 /area/rogue/under/cave/inhumen)
 "rb" = (
 /obj/structure/fluff/railing/border{
@@ -2664,6 +2628,21 @@
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/outdoors/banditcamp/desert)
+"re" = (
+/obj/structure/chair/bench/church,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
+/area/rogue/under/cave/inhumen)
+"rl" = (
+/obj/structure/fluff/railing/border{
+	dir = 5
+	},
+/obj/machinery/light/rogue/firebowl,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
+/area/rogue/under/cave/inhumen)
 "rq" = (
 /obj/structure/table/wood{
 	dir = 5;
@@ -2699,6 +2678,22 @@
 	},
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/vampire_manor)
+"rs" = (
+/obj/structure/table/wood/poor,
+/obj/item/roguekey/zurch_bedroom,
+/obj/item/roguekey/zurch_bedroom/two,
+/obj/item/roguekey/zurch_bedroom/three,
+/obj/item/roguekey/zurch_bedroom/four,
+/obj/item/roguekey/zurch_bedroom/five,
+/obj/item/roguekey/zurch_bedroom/six,
+/obj/item/roguekey/zurch_bedroom/seven,
+/obj/item/roguekey/zurch_bedroom/eight,
+/obj/item/roguekey/zurch_bedroom/nine,
+/obj/item/roguekey/zurch_bedroom/ten,
+/obj/item/roguekey/zurch_bedroom/eleven,
+/obj/item/roguekey/zurch_bedroom/twelve,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "rx" = (
 /obj/effect/landmark/vteleport,
 /obj/structure/fluff/walldeco/church/line{
@@ -2707,16 +2702,25 @@
 	},
 /turf/open/floor/rogue/hexstone,
 /area/rogue/indoors/vampire_manor)
-"ry" = (
-/obj/machinery/light/rogue/candle,
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "rA" = (
 /obj/structure/fluff/walldeco/chains{
 	icon_state = "chains4";
 	pixel_y = 28;
 	pixel_x = 11
 	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"rC" = (
+/obj/structure/curtain/black,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"rE" = (
+/obj/machinery/light/rogue/candle/r,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"rF" = (
+/obj/machinery/light/rogue/candle,
+/obj/structure/curtain/black,
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "rG" = (
@@ -2737,11 +2741,6 @@
 "rU" = (
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/outdoors/banditcamp/desert)
-"rV" = (
-/obj/structure/table/wood/poor,
-/obj/item/recipe_book/alchemy,
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "rX" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/rogue/citybrick/citybrick5,
@@ -2762,18 +2761,26 @@
 	},
 /area/rogue/under/cave/inhumen)
 "sd" = (
-/obj/structure/fluff/statue/femalestatue/zizo{
-	name = "Ancient Statue";
-	pixel_y = 0
+/obj/structure/fermentation_keg/random/water{
+	icon_state = "barrel_tapped_ready";
+	pixel_x = -9;
+	anchored = 1
 	},
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tilegreyblu"
+/obj/structure/fermentation_keg/random/water{
+	icon_state = "barrel_tapped_ready";
+	pixel_x = 9;
+	anchored = 1
 	},
+/obj/structure/fermentation_keg/random/water{
+	icon_state = "barrel_tapped_ready";
+	pixel_x = 1;
+	pixel_y = 10;
+	layer = 3.5;
+	anchored = 1
+	},
+/obj/machinery/light/rogue/candle,
+/turf/open/floor/rogue/citybrick,
 /area/rogue/under/cave/inhumen)
-"sg" = (
-/obj/effect/particle_effect/smoke,
-/turf/open/water/cleanshallow,
-/area/rogue/outdoors/desertdeep/safe)
 "sh" = (
 /obj/effect/decal/desertgrassedge,
 /obj/effect/decal/desertgrassedge{
@@ -2808,21 +2815,25 @@
 /turf/open/floor/rogue/hay,
 /area/rogue/indoors/banditcamp/desert)
 "sq" = (
-/obj/structure/flora/roguegrass,
-/obj/effect/decal/desertgrassedge{
-	dir = 8
-	},
-/turf/open/floor/rogue/dirt/road/desert,
-/area/rogue/outdoors/desertdeep/safe)
-"st" = (
-/obj/structure/rack/rogue/shelf/biggest,
-/obj/item/burial_shroud{
-	pixel_y = 2
-	},
-/obj/item/burial_shroud{
-	pixel_y = 14
+/obj/item/cushion/zybantine{
+	pixel_y = 3;
+	pixel_x = -12
 	},
 /turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"sr" = (
+/obj/structure/mineral_door/wood/donjon/stone{
+	name = "Bedroom XII";
+	lockid = "zurch_bedroom_12";
+	locked = 1
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"st" = (
+/obj/structure/fluff/psycross/zizocross/golden,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tilegreyblu"
+	},
 /area/rogue/under/cave/inhumen)
 "sw" = (
 /obj/effect/decal/desertgrassedge{
@@ -2834,6 +2845,16 @@
 /obj/structure/roguewindow/harem3,
 /turf/open/floor/rogue/twig,
 /area/rogue/indoors/banditcamp/desert)
+"sy" = (
+/obj/structure/rack/rogue/shelf/biggest,
+/obj/item/burial_shroud{
+	pixel_y = 2
+	},
+/obj/item/burial_shroud{
+	pixel_y = 14
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "sB" = (
 /obj/structure/pillar/sand1{
 	color = "#c4d9ff"
@@ -2872,14 +2893,6 @@
 /obj/structure/flora/junglebush/c,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desert)
-"sN" = (
-/obj/effect/decal/carpet/kover_black{
-	dir = 4;
-	pixel_x = -12;
-	pixel_y = 3
-	},
-/turf/open/floor/carpet/red,
-/area/rogue/under/cave/inhumen)
 "sO" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/rogue/grass/desert,
@@ -2960,12 +2973,6 @@
 "sX" = (
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/vampire_manor)
-"tb" = (
-/obj/effect/decal/cleanable/sigil/SE,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
-/area/rogue/under/cave/inhumen)
 "tg" = (
 /obj/effect/decal/cleanable/blood/footprints,
 /obj/machinery/light/rogue/candle/l,
@@ -2981,18 +2988,6 @@
 	},
 /turf/open/floor/rogue/darkpath,
 /area/rogue/outdoors/desert)
-"tj" = (
-/obj/effect/landmark/start/wretch{
-	dir = 4
-	},
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
-/area/rogue/under/cave/inhumen)
-"tm" = (
-/obj/structure/shisha/hookah,
-/turf/open/floor/carpet/red,
-/area/rogue/under/cave/inhumen)
 "tn" = (
 /obj/effect/landmark/start/vampireknight,
 /obj/structure/fluff/walldeco/church/line{
@@ -3009,15 +3004,6 @@
 /obj/structure/far_travel,
 /turf/open/floor/rogue/dunes,
 /area/rogue/indoors)
-"ty" = (
-/obj/effect/decal/duneedge{
-	dir = 1
-	},
-/obj/effect/decal/duneedge{
-	dir = 8
-	},
-/turf/closed/wall/mineral/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "tB" = (
 /obj/machinery/light/rogue/torchholder/c,
 /turf/open/floor/rogue/twig,
@@ -3032,30 +3018,8 @@
 	},
 /area/rogue/under/cave/inhumen)
 "tD" = (
-/obj/structure/table/wood/poor,
-/obj/item/storage/keyring,
-/obj/item/storage/keyring,
-/obj/item/storage/keyring,
-/obj/item/storage/keyring,
-/obj/item/storage/keyring,
-/obj/item/storage/keyring,
-/obj/item/storage/keyring,
-/obj/item/storage/keyring,
-/obj/item/storage/keyring,
-/obj/item/storage/keyring,
-/obj/item/storage/keyring,
-/obj/machinery/light/rogue/candle/r,
-/obj/item/roguekey/inhumen,
-/obj/item/roguekey/inhumen,
-/obj/item/roguekey/inhumen,
-/obj/item/roguekey/inhumen,
-/obj/item/roguekey/inhumen,
-/obj/item/roguekey/inhumen,
-/obj/item/roguekey/inhumen,
-/obj/item/roguekey/inhumen,
-/obj/item/roguekey/inhumen,
-/obj/item/roguekey/inhumen,
-/turf/open/floor/rogue/sandbrick,
+/obj/effect/decal/cleanable/dirt/cobweb/cobweb2,
+/turf/open/floor/rogue/citybrick/citybrick6,
 /area/rogue/under/cave/inhumen)
 "tE" = (
 /obj/structure/table/wood/long_table/right,
@@ -3065,33 +3029,19 @@
 /obj/machinery/light/rogue/candle/r,
 /turf/open/floor/carpet/purple,
 /area/rogue/indoors/vampire_manor)
-"tH" = (
-/obj/structure/mineral_door/wood/donjon/stone{
-	name = "Bedroom X";
-	lockid = "zurch_bedroom_10";
-	locked = 1
+"tL" = (
+/obj/structure/fluff/railing/border/west{
+	dir = 4
 	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
-"tI" = (
-/obj/effect/decal/cleanable/blood{
-	icon_state = "floor6-old"
+/obj/structure/fluff/railing/border/west{
+	dir = 2
+	},
+/obj/structure/fluff/railing/border/west{
+	dir = 6
 	},
 /turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
+	icon_state = "tilegreyblu"
 	},
-/area/rogue/under/cave/inhumen)
-"tL" = (
-/obj/structure/ritualcircle/graggar,
-/obj/item/rogueweapon/stoneaxe/boneaxe,
-/turf/open/floor/rogue/sandbrick{
-	color = "#c4abff"
-	},
-/area/rogue/under/cave/inhumen)
-"tM" = (
-/obj/structure/fluff/psycross/graggar/decorated,
-/obj/effect/decal/cleanable/blood/gibs/body,
-/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "tN" = (
 /turf/open/floor/rogue/tile{
@@ -3119,22 +3069,13 @@
 /obj/structure/closet/crate/chest/old_crate,
 /turf/open/floor/rogue/citybrick/citybrick1,
 /area/rogue/under/cave/inhumen)
-"ue" = (
-/obj/structure/table/wood/poor,
-/obj/item/reagent_containers/glass/mortar{
-	pixel_x = 7;
-	pixel_y = 5
+"uf" = (
+/obj/machinery/light/rogue/candle/floorcandle/alt{
+	pixel_y = -9
 	},
-/obj/item/pestle{
-	pixel_x = -10;
-	pixel_y = 1
+/turf/open/floor/rogue/darkpath{
+	color = "#919191"
 	},
-/obj/item/reagent_containers/glass/bottle/rogue{
-	layer = 6;
-	pixel_x = -13;
-	pixel_y = 19
-	},
-/turf/open/floor/rogue/citybrick,
 /area/rogue/under/cave/inhumen)
 "ug" = (
 /obj/effect/decal/carpet/kover_darkred{
@@ -3143,6 +3084,10 @@
 	},
 /turf/open/floor/rogue/darkpath,
 /area/rogue/outdoors/banditcamp/desert)
+"uh" = (
+/obj/structure/bookcase/random/archive,
+/turf/open/floor/rogue/citybrick/citybrick5,
+/area/rogue/under/cave/inhumen)
 "ui" = (
 /obj/item/roguecoin/gold/pile,
 /turf/open/floor/rogue/tile/harem2,
@@ -3150,44 +3095,8 @@
 "uj" = (
 /turf/open/floor/rogue/citybrick/citybrick2,
 /area/rogue/indoors/vampire_manor)
-"um" = (
-/obj/effect/decal/cleanable/blood,
-/turf/open/floor/rogue/concrete,
-/area/rogue/under/cave/inhumen)
-"un" = (
-/obj/item/skull{
-	pixel_y = 4
-	},
-/obj/structure/fluff/headstake,
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
-"ur" = (
-/obj/machinery/light/rogue/cauldron,
-/obj/effect/decal/edge{
-	color = "#3f3f3f";
-	dir = 4
-	},
-/obj/effect/decal/edge{
-	color = "#3f3f3f";
-	dir = 8
-	},
-/obj/effect/decal/edge{
-	color = "#3f3f3f";
-	dir = 1
-	},
-/obj/effect/decal/edge{
-	color = "#3f3f3f"
-	},
-/turf/open/floor/rogue/sandbrick{
-	color = "#c4abff"
-	},
-/area/rogue/under/cave/inhumen)
 "us" = (
 /turf/closed/wall/mineral/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
-"ux" = (
-/obj/structure/fermentation_keg/sandpot/water,
-/turf/open/floor/rogue/citybrick/citybrick6,
 /area/rogue/under/cave/inhumen)
 "uA" = (
 /obj/structure/mineral_door/bars{
@@ -3205,12 +3114,6 @@
 "uF" = (
 /turf/closed/mineral/random/rogue/high,
 /area/rogue/indoors/cave)
-"uG" = (
-/obj/effect/decal/desertgrassedge{
-	dir = 10
-	},
-/turf/open/floor/rogue/dirt/desert,
-/area/rogue/outdoors/desertdeep/safe)
 "uI" = (
 /obj/item/natural/rock/desert,
 /turf/open/floor/rogue/dunes,
@@ -3224,10 +3127,6 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
-"uO" = (
-/obj/machinery/light/rogue/candle/r,
-/turf/open/floor/rogue/citybrick/citybrick2,
-/area/rogue/under/cave/inhumen)
 "uP" = (
 /obj/structure/roguewindow/harem3{
 	max_integrity = 800;
@@ -3272,12 +3171,6 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/rogue/indoors/vampire_manor)
-"vf" = (
-/obj/structure/stairs/desert{
-	dir = 8
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "vi" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -3303,15 +3196,6 @@
 /obj/item/storage/belt/rogue/pouch,
 /turf/open/floor/rogue/tile/brownbrick,
 /area/rogue/indoors/banditcamp/desert)
-"vm" = (
-/obj/item/cushion/zybantine{
-	pixel_y = 3;
-	pixel_x = 1
-	},
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
-/area/rogue/under/cave/inhumen)
 "vn" = (
 /obj/structure/arcyne_wall{
 	desc = "A wall of pure arcyne force. Powerful covetous magic protects the dragon's hoard.";
@@ -3328,6 +3212,10 @@
 /obj/effect/decal/desertgrassedge,
 /turf/closed/wall/mineral/rogue/sandstone,
 /area/rogue/outdoors/desert)
+"vr" = (
+/obj/structure/chair/frankenstein/zizo,
+/turf/open/floor/rogue/concrete,
+/area/rogue/under/cave/inhumen)
 "vv" = (
 /obj/machinery/light/rogue/firebowl,
 /turf/open/floor/rogue/dunes,
@@ -3388,6 +3276,10 @@
 	},
 /turf/open/water/pond,
 /area/rogue/outdoors/desert)
+"vM" = (
+/obj/effect/landmark/start/wretchlate,
+/turf/open/floor/rogue/dunes,
+/area/rogue/outdoors/desertdeep/safe)
 "vN" = (
 /obj/structure/stairs/desert{
 	dir = 4
@@ -3395,23 +3287,16 @@
 /obj/structure/fluff/railing/border,
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/outdoors/banditcamp/desert)
-"vO" = (
-/obj/structure/table/wood/poor,
-/obj/item/natural/bundle/stick,
-/obj/item/flint{
-	pixel_x = 6;
-	pixel_y = 4
-	},
-/turf/open/floor/rogue/citybrick,
-/area/rogue/under/cave/inhumen)
 "vR" = (
 /obj/structure/fluff/railing/corner,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desert)
-"vT" = (
-/obj/effect/decal/desertgrassedge,
-/turf/open/floor/rogue/dunes,
-/area/rogue/outdoors/desertdeep/safe)
+"vS" = (
+/obj/structure/ritualcircle/zizo,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
+/area/rogue/under/cave/inhumen)
 "vU" = (
 /obj/structure/closet/crate/roguecloset/dark,
 /obj/item/flashlight/flare/torch/metal,
@@ -3428,6 +3313,28 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
+"wb" = (
+/obj/structure/rack/rogue/shelf/biggest,
+/obj/item/needle/thorn{
+	pixel_x = 5
+	},
+/obj/item/needle/thorn,
+/obj/item/natural/bundle/cloth/bandage/full{
+	pixel_x = -1;
+	pixel_y = 13
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"wc" = (
+/obj/item/cushion/desert1{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/obj/effect/landmark/start/wretch{
+	dir = 8
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "wf" = (
 /obj/structure/table/wood{
 	icon_state = "tablewood1"
@@ -3442,15 +3349,27 @@
 /obj/structure/fermentation_keg/sandpot/wine,
 /turf/open/floor/rogue/citybrick/citybrick1,
 /area/rogue/under/cave/inhumen)
-"wn" = (
-/obj/effect/decal/cleanable/dirt/cobweb/cobweb2,
-/turf/open/floor/rogue/citybrick/citybrick6,
-/area/rogue/under/cave/inhumen)
-"ws" = (
-/obj/effect/decal/cleanable/sigil/N,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
+"wl" = (
+/obj/structure/mineral_door/wood/donjon/stone{
+	name = "Bedroom IV";
+	lockid = "zurch_bedroom_4";
+	locked = 1
 	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"wo" = (
+/obj/effect/decal/carpet/kover_purple{
+	dir = 4;
+	pixel_x = 20;
+	pixel_y = -15
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"wp" = (
+/obj/structure/stairs/desert{
+	dir = 8
+	},
+/turf/open/transparent/openspace,
 /area/rogue/under/cave/inhumen)
 "wt" = (
 /obj/effect/decal/carpet/kover_black{
@@ -3476,13 +3395,6 @@
 /obj/item/grown/log/tree,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/banditcamp/desert)
-"wy" = (
-/obj/effect/decal/cleanable/sigil,
-/obj/effect/decal/cleanable/blood/splatter,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
-/area/rogue/under/cave/inhumen)
 "wA" = (
 /obj/structure/spider/stickyweb{
 	color = "#aba6a2"
@@ -3498,29 +3410,6 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
-"wF" = (
-/obj/effect/decal/duneedge{
-	dir = 4
-	},
-/obj/effect/decal/duneedge{
-	dir = 1
-	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
-"wH" = (
-/obj/structure/closet/crate/chest/old_crate,
-/obj/item/heart_blood_canister/filled,
-/obj/item/heart_blood_canister/filled,
-/obj/item/heart_blood_canister/filled,
-/obj/item/heart_blood_canister/filled,
-/obj/item/heart_blood_canister/filled,
-/obj/item/heart_blood_canister/filled,
-/obj/item/heart_blood_canister/filled,
-/obj/item/heart_blood_canister/filled,
-/obj/item/heart_blood_canister/filled,
-/obj/item/heart_blood_canister/filled,
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "wI" = (
 /obj/structure/rack/rogue,
 /obj/item/roguekey/vampire,
@@ -3533,10 +3422,6 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
-"wK" = (
-/obj/item/natural/rock/desert,
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
 "wM" = (
 /obj/structure/bars/cemetery,
 /obj/effect/decal/desertgrassedge{
@@ -3551,10 +3436,13 @@
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/banditcamp/desert)
 "wT" = (
-/obj/effect/decal/carpet{
-	pixel_y = 17
+/obj/effect/decal/duneedge{
+	dir = 1
 	},
-/turf/open/floor/rogue/sandbrick,
+/obj/effect/decal/duneedge{
+	dir = 8
+	},
+/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "wV" = (
 /obj/structure/mineral_door/wood/deadbolt{
@@ -3570,12 +3458,6 @@
 /obj/item/natural/stone,
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors/banditcamp/desert)
-"xa" = (
-/obj/structure/fluff/psycross/matthios/decorated,
-/turf/open/floor/rogue/darkpath{
-	color = "#919191"
-	},
-/area/rogue/under/cave/inhumen)
 "xb" = (
 /turf/open/floor/rogue/deserttile{
 	icon_state = "tilewhitebluespecial"
@@ -3586,12 +3468,13 @@
 /turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "xe" = (
-/obj/structure/flora/roguegrass,
-/obj/effect/decal/desertgrassedge{
-	dir = 4
+/obj/effect/decal/carpet/square{
+	dir = 8;
+	pixel_x = 5;
+	pixel_y = 0
 	},
-/turf/open/floor/rogue/dirt/road/desert,
-/area/rogue/outdoors/desertdeep/safe)
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "xf" = (
 /obj/machinery/light/roguestreet/orange,
 /turf/open/floor/rogue/sandbrick,
@@ -3608,6 +3491,12 @@
 /obj/machinery/light/rogue/candle/floorcandle,
 /turf/open/floor/rogue/tile/harem,
 /area/rogue/indoors/banditcamp/desert)
+"xo" = (
+/obj/effect/decal/desertgrassedge{
+	dir = 5
+	},
+/turf/open/water/cleanshallow,
+/area/rogue/outdoors/desertdeep/safe)
 "xp" = (
 /obj/effect/decal/desertgrassedge{
 	dir = 1
@@ -3618,11 +3507,17 @@
 /turf/open/water/pond,
 /area/rogue/outdoors/desert)
 "xr" = (
-/obj/effect/decal/duneedge{
+/obj/effect/decal/desertgrassedge{
+	dir = 9
+	},
+/turf/open/water/cleanshallow,
+/area/rogue/outdoors/desertdeep/safe)
+"xs" = (
+/obj/effect/landmark/start/wretch{
 	dir = 8
 	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/outdoors/desertdeep/safe)
+/turf/open/floor/carpet/red,
+/area/rogue/under/cave/inhumen)
 "xu" = (
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/outdoors/desertdeep/safe)
@@ -3632,10 +3527,9 @@
 	icon_state = "bricktile"
 	},
 /area/rogue/indoors/vampire_manor)
-"xw" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/rogue/candle/r,
-/turf/open/floor/rogue/citybrick/citybrick2,
+"xx" = (
+/obj/effect/decal/cleanable/blood/splatter/walls,
+/turf/closed/mineral/rogue/sandstone,
 /area/rogue/under/cave/inhumen)
 "xy" = (
 /obj/structure/roguewindow/harem3,
@@ -3643,26 +3537,25 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/outdoors/banditcamp/desert)
+"xz" = (
+/obj/structure/shisha/hookah{
+	pixel_x = 14;
+	pixel_y = 1
+	},
+/turf/open/floor/carpet/red,
+/area/rogue/under/cave/inhumen)
 "xA" = (
 /obj/structure/fluff/railing/border{
 	dir = 4
 	},
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/vampire_manor)
-"xC" = (
-/obj/structure/fluff/walldeco/vinez/red,
-/turf/closed/mineral/rogue/sandstone,
-/area/rogue/under/cave/inhumen)
-"xF" = (
-/obj/effect/decal/desertgrassedge{
-	dir = 1
+"xI" = (
+/obj/structure/fluff/psycross/graggar/decorated,
+/turf/open/floor/rogue/darkpath{
+	color = "#c4abff"
 	},
-/turf/open/water/cleanshallow,
-/area/rogue/outdoors/desertdeep/safe)
-"xG" = (
-/obj/effect/landmark/start/wretchlate,
-/turf/open/floor/rogue/dunes,
-/area/rogue/outdoors/desertdeep/safe)
+/area/rogue/under/cave/inhumen)
 "xJ" = (
 /obj/structure/closet/crate/chest/neu,
 /turf/open/floor/rogue/citybrick/citybrick1,
@@ -3675,16 +3568,13 @@
 /obj/item/reagent_containers/glass/cup/skull,
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/vampire_manor)
-"xL" = (
-/obj/effect/decal/duneedge{
-	dir = 4
-	},
-/obj/effect/decal/duneedge,
-/turf/open/floor/rogue/darkpath,
-/area/rogue/outdoors/desertdeep/safe)
 "xN" = (
 /obj/structure/chair/stool/rogue,
 /turf/open/floor/rogue/citybrick/citybrick1,
+/area/rogue/under/cave/inhumen)
+"xO" = (
+/obj/effect/decal/cleanable/blood/gibs/core,
+/turf/closed/mineral/rogue/sandstone,
 /area/rogue/under/cave/inhumen)
 "xQ" = (
 /obj/structure/closet/crate/roguecloset/inn,
@@ -3699,10 +3589,6 @@
 	icon_state = "weird1"
 	},
 /area/rogue/indoors/vampire_manor)
-"xT" = (
-/obj/effect/decal/desertgrassedge,
-/turf/open/floor/rogue/dirt/desert,
-/area/rogue/outdoors/desertdeep/safe)
 "xV" = (
 /obj/structure/fluff/walldeco/church/line{
 	dir = 1
@@ -3711,14 +3597,6 @@
 	icon_state = "bricktile"
 	},
 /area/rogue/indoors/vampire_manor)
-"xX" = (
-/obj/structure/mineral_door/wood/donjon/stone{
-	name = "Bedroom IV";
-	lockid = "zurch_bedroom_4";
-	locked = 1
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "xY" = (
 /obj/effect/decal/duneedge,
 /obj/effect/decal/desertgrassedge{
@@ -3746,10 +3624,28 @@
 	},
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
+"yh" = (
+/obj/structure/stairs/stone{
+	dir = 1
+	},
+/obj/structure/fluff/railing/border/west,
+/obj/structure/stairs/desert{
+	dir = 1
+	},
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/under/cave/inhumen)
 "yj" = (
 /obj/structure/glowshroom,
 /turf/open/water/pond,
 /area/rogue/outdoors/desert)
+"yl" = (
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor2-old"
+	},
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
+/area/rogue/under/cave/inhumen)
 "ym" = (
 /obj/effect/decal/cleanable/blood/gibs/body,
 /obj/structure/fermentation_keg/water{
@@ -3760,51 +3656,15 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
-"yo" = (
-/obj/effect/decal/carpet/square{
-	pixel_x = 16;
-	pixel_y = -4
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "yp" = (
 /obj/item/grown/log/tree/small,
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors/banditcamp/desert)
-"yq" = (
-/obj/machinery/light/rogue/candle{
-	pixel_y = -32
-	},
-/obj/structure/curtain/black,
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "yr" = (
 /obj/machinery/anvil,
 /obj/machinery/light/rogue/torchholder/c,
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors/vampire_manor)
-"yt" = (
-/obj/machinery/light/rogue/candle,
-/obj/structure/curtain/black,
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
-"yu" = (
-/obj/structure/stairs/stone{
-	dir = 1
-	},
-/obj/structure/stairs/desert{
-	dir = 1
-	},
-/turf/open/floor/rogue/naturalstone,
-/area/rogue/under/cave/inhumen)
-"yx" = (
-/obj/structure/mineral_door/wood/donjon/stone{
-	name = "Bedroom VI";
-	lockid = "zurch_bedroom_6";
-	locked = 1
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "yy" = (
 /obj/structure/roguemachine/bounty{
 	color = "#ffc4c2"
@@ -3830,25 +3690,16 @@
 /turf/open/water/pond,
 /area/rogue/outdoors/desert)
 "yI" = (
-/obj/item/cushion/desert2{
-	pixel_x = 1;
-	pixel_y = 7
+/obj/structure/bars/cemetery,
+/obj/structure/drape/zybantine{
+	layer = 5
 	},
-/turf/open/floor/rogue/sandbrick,
+/turf/open/floor/rogue/citybrick/citybrick2,
 /area/rogue/under/cave/inhumen)
 "yJ" = (
 /obj/structure/rack/rogue,
 /obj/item/rogueweapon/whip,
 /turf/open/floor/rogue/citybrick/citybrick3,
-/area/rogue/under/cave/inhumen)
-"yK" = (
-/obj/structure/table/church{
-	icon_state = "churchtable_end"
-	},
-/obj/machinery/light/rogue/candle/floorcandle,
-/turf/open/floor/rogue/sandbrick{
-	color = "#c4abff"
-	},
 /area/rogue/under/cave/inhumen)
 "yL" = (
 /obj/structure/fluff/walldeco/maidendrape{
@@ -3874,12 +3725,6 @@
 	color = "#c4abff"
 	},
 /area/rogue/under/cave/inhumen)
-"yP" = (
-/obj/structure/shisha/hookah{
-	pixel_y = 14
-	},
-/turf/open/floor/carpet/red,
-/area/rogue/under/cave/inhumen)
 "yQ" = (
 /obj/effect/decal/edge{
 	color = "#3f3f3f";
@@ -3888,18 +3733,6 @@
 /turf/open/floor/rogue/deserttile{
 	icon_state = "tiledrab2"
 	},
-/area/rogue/under/cave/inhumen)
-"yR" = (
-/obj/structure/rack/rogue/shelf/biggest,
-/obj/item/needle/thorn{
-	pixel_x = 5
-	},
-/obj/item/needle/thorn,
-/obj/item/natural/bundle/cloth/bandage/full{
-	pixel_x = -1;
-	pixel_y = 13
-	},
-/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "yT" = (
 /obj/machinery/light/rogue/firebowl,
@@ -3913,10 +3746,6 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
-"yW" = (
-/obj/structure/fermentation_keg/sandpot,
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
 "yX" = (
 /obj/item/paper,
 /obj/item/paper,
@@ -3940,13 +3769,6 @@
 	},
 /turf/open/floor/rogue/lightpath,
 /area/rogue/outdoors/banditcamp/desert)
-"yZ" = (
-/obj/effect/decal/duneedge{
-	dir = 8
-	},
-/obj/effect/decal/duneedge,
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
 "za" = (
 /obj/effect/decal/desertgrassedge{
 	dir = 8
@@ -3956,17 +3778,21 @@
 	},
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
+"zb" = (
+/obj/effect/decal/cleanable/discharge,
+/turf/open/floor/rogue/citybrick/citybrick3,
+/area/rogue/under/cave/inhumen)
+"zc" = (
+/obj/machinery/light/rogue/candle/floorcandle{
+	pixel_x = -1;
+	pixel_y = -12
+	},
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
 "zg" = (
 /obj/structure/flora/junglebush,
 /turf/open/floor/rogue/grass/desert,
 /area/rogue/outdoors/desert)
-"zh" = (
-/obj/item/rogueweapon/shovel,
-/obj/effect/decal/desertgrassedge{
-	dir = 4
-	},
-/turf/open/floor/rogue/dirt/road/desert,
-/area/rogue/outdoors/desertdeep/safe)
 "zi" = (
 /obj/effect/decal/desertgrassedge{
 	dir = 1
@@ -3979,35 +3805,33 @@
 	},
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
-"zl" = (
-/obj/effect/decal/cleanable/blood/gibs/limb,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
+"zm" = (
+/obj/structure/mineral_door/wood/donjon/stone{
+	name = "Bedroom V";
+	lockid = "zurch_bedroom_5";
+	locked = 1
 	},
+/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
-"zn" = (
-/obj/structure/fluff/railing/border/west{
-	dir = 2
+"zo" = (
+/obj/effect/decal/duneedge{
+	dir = 4
 	},
-/obj/structure/fluff/railing/border{
-	dir = 6
+/obj/effect/decal/duneedge{
+	dir = 1
 	},
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tilegreyblu"
-	},
+/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "zp" = (
 /turf/closed/wall/mineral/rogue/stonebrick,
 /area/rogue/indoors/vampire_manor)
 "zr" = (
-/obj/effect/decal/cleanable/blood/footprints/mud,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
+/obj/machinery/light/rogue/torchholder/r{
+	dir = 4
 	},
-/area/rogue/under/cave/inhumen)
-"zs" = (
-/obj/item/reagent_containers/glass/bucket,
-/turf/open/floor/rogue/sandbrick,
+/turf/open/floor/rogue/darkpath{
+	color = "#b0b0b0"
+	},
 /area/rogue/under/cave/inhumen)
 "zu" = (
 /obj/item/cushion/desert1{
@@ -4020,11 +3844,10 @@
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "zx" = (
-/obj/structure/bars/cemetery,
-/obj/structure/drape/zybantine{
-	layer = 5
+/obj/effect/decal/cleanable/blood/footprints/mud,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
 	},
-/turf/open/floor/rogue/citybrick/citybrick2,
 /area/rogue/under/cave/inhumen)
 "zz" = (
 /obj/structure/fluff/wallclock/vampire/l,
@@ -4032,12 +3855,6 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
-"zA" = (
-/obj/effect/decal/duneedge{
-	dir = 1
-	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
 "zC" = (
 /obj/structure/fluff/nest,
 /turf/open/floor/rogue/dirt/road/desert,
@@ -4050,15 +3867,17 @@
 /obj/effect/decal/desertgrassedge,
 /turf/open/water/pond,
 /area/rogue/outdoors/desert)
+"zL" = (
+/obj/effect/decal/cleanable/blood{
+	icon_state = "floor4-old"
+	},
+/obj/structure/fluff/psycross/graggar/decorated,
+/obj/effect/decal/cleanable/blood/gibs/down,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
 "zM" = (
 /turf/closed/wall/mineral/rogue/sandstone,
 /area/rogue/outdoors/desert)
-"zN" = (
-/obj/machinery/light/rogue/candle/floorcandle/pink{
-	pixel_y = -11
-	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
 "zO" = (
 /obj/effect/decal/desertgrassedge{
 	dir = 8
@@ -4080,12 +3899,6 @@
 	},
 /turf/open/floor/rogue/darkpath,
 /area/rogue/outdoors/desert)
-"zT" = (
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tilegreyblu"
-	},
-/area/rogue/under/cave/inhumen)
 "zU" = (
 /obj/effect/decal/desertgrassedge{
 	dir = 4
@@ -4108,14 +3921,6 @@
 	},
 /turf/open/floor/rogue/concrete,
 /area/rogue/under/cave/inhumen)
-"zX" = (
-/obj/effect/decal/cleanable/blood{
-	icon_state = "floor4-old"
-	},
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
-/area/rogue/under/cave/inhumen)
 "zY" = (
 /obj/machinery/light/rogue/firebowl/standing{
 	density = 0;
@@ -4124,20 +3929,22 @@
 	},
 /turf/open/floor/rogue/tile,
 /area/rogue/indoors/vampire_manor)
-"zZ" = (
-/obj/machinery/light/rogue/candle/floorcandle/pink{
-	pixel_x = 1;
-	pixel_y = -7
-	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
 "Aa" = (
 /obj/structure/flora/ausbushes/grassybush,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desert)
-"Ae" = (
-/obj/structure/table/wood/poor,
-/obj/machinery/light/rogue/candle/r,
+"Ab" = (
+/obj/structure/chair/bench/church/mid,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
+/area/rogue/under/cave/inhumen)
+"Af" = (
+/obj/structure/mineral_door/wood/donjon/stone{
+	name = "Bedroom VIII";
+	lockid = "zurch_bedroom_8";
+	locked = 1
+	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "Ag" = (
@@ -4153,12 +3960,7 @@
 /turf/open/floor/rogue/citybrick/citybrick1,
 /area/rogue/under/cave/inhumen)
 "Ai" = (
-/obj/effect/decal/desertgrassedge{
-	dir = 5
-	},
-/turf/open/water/cleanshallow,
-/area/rogue/outdoors/desertdeep/safe)
-"Al" = (
+/obj/structure/closet/crate/chest/gold,
 /turf/open/floor/rogue/darkpath{
 	color = "#919191"
 	},
@@ -4200,6 +4002,10 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
+"Ax" = (
+/obj/item/rogueweapon/shovel,
+/turf/open/floor/rogue/dirt/road/desert,
+/area/rogue/outdoors/desertdeep/safe)
 "AA" = (
 /obj/structure/curtain/red,
 /turf/open/floor/rogue/churchmarble,
@@ -4220,10 +4026,17 @@
 	},
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
-"AH" = (
-/obj/effect/decal/desertgrassedge,
-/turf/open/floor/rogue/dirt/road/desert,
-/area/rogue/outdoors/desertdeep/safe)
+"AG" = (
+/obj/item/skull{
+	pixel_y = 4
+	},
+/obj/structure/fluff/headstake,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
+"AI" = (
+/obj/structure/curtain/black,
+/turf/open/floor/rogue/citybrick/citybrick2,
+/area/rogue/under/cave/inhumen)
 "AK" = (
 /obj/structure/flora/roguegrass/water,
 /obj/effect/decal/desertgrassedge{
@@ -4273,16 +4086,11 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
-"AT" = (
-/obj/effect/landmark/start/wretch,
-/turf/open/floor/rogue/citybrick/citybrick4,
-/area/rogue/under/cave/inhumen)
-"AW" = (
-/obj/structure/fluff/traveltile/wretch{
-	aportalgoesto = "wretchout2";
-	aportalid = "wretchin2"
+"AS" = (
+/obj/effect/decal/cleanable/sigil/SE,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
 	},
-/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "AX" = (
 /obj/structure/bars,
@@ -4293,33 +4101,34 @@
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "AY" = (
-/obj/effect/decal/cleanable/sigil/E,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
+/obj/structure/fluff/clock,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"AZ" = (
+/obj/structure/table/wood/poor,
+/obj/item/recipe_book/alchemy,
+/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "Ba" = (
 /obj/structure/fluff/nest,
 /turf/open/floor/rogue/hay,
 /area/rogue/indoors/banditcamp/desert)
-"Bd" = (
-/obj/structure/fluff/walldeco/chains{
-	icon_state = "chains3"
-	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
 "Bg" = (
 /turf/open/floor/rogue/naturalstone/sandstone,
 /area/rogue/outdoors/banditcamp/desert)
+"Bh" = (
+/obj/structure/fluff/railing/border{
+	dir = 9
+	},
+/obj/machinery/light/rogue/firebowl,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
+/area/rogue/under/cave/inhumen)
 "Bp" = (
 /obj/structure/flora/grass/jungle,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/indoors)
-"Bq" = (
-/obj/structure/table/wood/poor,
-/obj/item/recipe_book/cooking,
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "Br" = (
 /obj/effect/decal/desertgrassedge{
 	dir = 8
@@ -4345,12 +4154,6 @@
 /obj/effect/decal/duneedge,
 /turf/open/water/pond,
 /area/rogue/outdoors/desert)
-"Bx" = (
-/obj/effect/decal/duneedge{
-	dir = 8
-	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
 "By" = (
 /obj/machinery/light/rogue/forge,
 /turf/open/floor/rogue/citybrick/citybrick4,
@@ -4370,6 +4173,13 @@
 	},
 /turf/open/floor/rogue/hexstone,
 /area/rogue/indoors/vampire_manor)
+"BB" = (
+/obj/item/cushion/zybantine{
+	pixel_y = 5;
+	pixel_x = 8
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "BF" = (
 /obj/effect/decal/desertgrassedge{
 	dir = 1
@@ -4386,10 +4196,20 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/rogue/indoors/banditcamp/desert)
+"BI" = (
+/obj/effect/decal/cleanable/blood/splatter/walls,
+/turf/closed/wall/mineral/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "BJ" = (
 /obj/structure/fluff/walldeco/med5,
 /turf/closed/mineral/rogue/bedrock/sandstone,
 /area/rogue/indoors/banditcamp/desert)
+"BK" = (
+/obj/effect/decal/carpet/square{
+	pixel_y = 4
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "BL" = (
 /obj/structure/bars{
 	icon_state = "barsbent";
@@ -4397,14 +4217,6 @@
 	},
 /turf/closed/wall/mineral/rogue/wooddark/window,
 /area/rogue/indoors/banditcamp/desert)
-"BM" = (
-/obj/structure/mineral_door/wood/donjon/stone{
-	name = "Bedroom V";
-	lockid = "zurch_bedroom_5";
-	locked = 1
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "BN" = (
 /obj/machinery/light/roguestreet/orange,
 /turf/open/floor/rogue/dunes,
@@ -4432,14 +4244,6 @@
 "BU" = (
 /turf/open/floor/carpet/purple,
 /area/rogue/indoors/banditcamp/desert)
-"BX" = (
-/obj/effect/decal/carpet/kover_purple{
-	dir = 4;
-	pixel_x = 20;
-	pixel_y = -15
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "BY" = (
 /obj/structure/fluff/pillow/magenta{
 	color = "#a32121";
@@ -4451,23 +4255,26 @@
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/vampire_manor)
 "Ca" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/rogue/sandbrick,
+/obj/effect/decal/cleanable/blood{
+	icon_state = "floor4-old"
+	},
+/turf/open/floor/rogue/citybrick,
 /area/rogue/under/cave/inhumen)
-"Cb" = (
-/obj/structure/closet/crate/chest/wicker,
+"Cc" = (
+/obj/effect/decal/carpet/square/black{
+	pixel_x = 16;
+	pixel_y = -15
+	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "Cd" = (
 /turf/open/floor/rogue/citybrick/citybrick3,
 /area/rogue/under/cave/inhumen)
-"Cl" = (
-/obj/item/cushion/desert2{
-	pixel_x = 0;
-	pixel_y = -5
+"Cg" = (
+/obj/effect/decal/cleanable/sigil/E,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
 	},
-/obj/machinery/light/rogue/candle/r,
-/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "Cm" = (
 /obj/machinery/tanningrack,
@@ -4481,12 +4288,6 @@
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors/banditcamp/desert)
-"Cq" = (
-/obj/effect/decal/desertgrassedge{
-	dir = 4
-	},
-/turf/open/floor/rogue/dirt/road/desert,
-/area/rogue/outdoors/desertdeep/safe)
 "Cs" = (
 /obj/structure/glowshroom{
 	icon_state = "glowshroom3"
@@ -4519,12 +4320,6 @@
 /obj/effect/turf_decal/sand,
 /turf/open/floor/rogue/citybrick/citybrick1,
 /area/rogue/under/cave/inhumen)
-"Cx" = (
-/obj/item/roguecoin/aalloy/pile,
-/turf/open/floor/rogue/darkpath{
-	color = "#919191"
-	},
-/area/rogue/under/cave/inhumen)
 "CA" = (
 /obj/structure/table/wood/poor,
 /obj/item/rogueweapon/huntingknife,
@@ -4544,10 +4339,20 @@
 	icon_state = "weird1"
 	},
 /area/rogue/indoors/vampire_manor)
-"CG" = (
-/obj/structure/fluff/walldeco/vinez/red,
-/obj/structure/fluff/walldeco/psybanner/zizo,
-/turf/closed/wall/mineral/rogue/sandbrick,
+"CF" = (
+/obj/effect/landmark/start/wretch{
+	dir = 4
+	},
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
+"CI" = (
+/obj/structure/fluff/statue/femalestatue/zizo{
+	name = "Ancient Statue";
+	pixel_y = 0
+	},
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tilegreyblu"
+	},
 /area/rogue/under/cave/inhumen)
 "CJ" = (
 /obj/structure/flora/roguegrass/water,
@@ -4571,6 +4376,10 @@
 	},
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors)
+"CR" = (
+/obj/machinery/light/rogue/torchholder/r,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
 "CS" = (
 /obj/item/candle/skull/lit{
 	pixel_x = 10;
@@ -4590,20 +4399,29 @@
 /obj/structure/fermentation_keg/random/water,
 /turf/open/floor/rogue/citybrick/citybrick1,
 /area/rogue/under/cave/inhumen)
+"CZ" = (
+/obj/item/storage/belt/rogue/surgery_bag/full,
+/obj/structure/table/wood/poor,
+/obj/structure/fluff/walldeco/med3{
+	pixel_x = 32
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "Da" = (
 /obj/machinery/light/rogue/firebowl/standing,
 /turf/open/floor/rogue/ruinedwood{
 	icon_state = "weird1"
 	},
 /area/rogue/indoors/vampire_manor)
-"Df" = (
-/obj/structure/fluff/railing/border{
-	dir = 5
+"Db" = (
+/obj/structure/chair/wood/zybantine{
+	dir = 8
 	},
-/obj/machinery/light/rogue/firebowl,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"De" = (
+/obj/machinery/light/rogue/candle/floorcandle/pink,
+/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "Dh" = (
 /obj/structure/drape/desert,
@@ -4621,11 +4439,8 @@
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/indoors)
 "Do" = (
-/obj/structure/far_travel,
-/turf/open/floor/rogue/darkpath{
-	color = "#b0b0b0"
-	},
-/area/rogue/outdoors/desertdeep/safe)
+/turf/open/floor/carpet/red,
+/area/rogue/under/cave/inhumen)
 "Dp" = (
 /obj/effect/decal/duneedge{
 	dir = 8
@@ -4652,11 +4467,18 @@
 	},
 /turf/closed/wall/mineral/rogue/sandstone,
 /area/rogue/indoors/vampire_manor)
-"Dy" = (
-/obj/structure/chair/bench/church/r,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
+"DA" = (
+/obj/structure/fluff/psycross/zizocross/stone,
+/turf/open/floor/rogue/citybrick/citybrick2,
+/area/rogue/under/cave/inhumen)
+"DB" = (
+/obj/effect/decal/duneedge{
+	dir = 1
 	},
+/obj/effect/decal/duneedge{
+	dir = 8
+	},
+/turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "DE" = (
 /turf/closed/mineral/rogue/bedrock/sandstone,
@@ -4678,37 +4500,37 @@
 /obj/structure/flora/junglebush,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desert)
-"DM" = (
-/obj/effect/landmark/start/wretch{
-	dir = 4
-	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
 "DN" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desert)
 "DQ" = (
-/obj/machinery/light/rogue/torchholder/r{
-	dir = 1
-	},
-/turf/open/floor/rogue/desert_grass,
-/area/rogue/outdoors/desertdeep/safe)
-"DT" = (
-/turf/closed/wall/mineral/rogue/tent,
-/area/rogue/indoors/banditcamp/desert)
-"DW" = (
 /obj/effect/decal/cleanable/blood{
 	icon_state = "floor4-old"
 	},
-/obj/item/clothing/neck/roguetown/psicross/inhumen/graggar/bronze,
+/obj/effect/decal/cleanable/blood/gibs/core,
 /obj/structure/fluff/railing/border/west{
-	layer = 4.3
+	dir = 4
 	},
 /turf/open/floor/rogue/sandbrick{
 	color = "#c4abff"
 	},
 /area/rogue/under/cave/inhumen)
+"DR" = (
+/obj/structure/shisha/hookah{
+	pixel_x = 4;
+	pixel_y = 12
+	},
+/turf/open/floor/carpet/red,
+/area/rogue/under/cave/inhumen)
+"DS" = (
+/turf/open/floor/rogue/darkpath{
+	color = "#919191"
+	},
+/area/rogue/under/cave/inhumen)
+"DT" = (
+/turf/closed/wall/mineral/rogue/tent,
+/area/rogue/indoors/banditcamp/desert)
 "DX" = (
 /turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/vampire_manor)
@@ -4718,14 +4540,6 @@
 "Eb" = (
 /turf/open/floor/rogue/lightpath,
 /area/rogue/outdoors/desertdeep/safe)
-"Ec" = (
-/obj/effect/decal/cleanable/blood{
-	icon_state = "floor4-old"
-	},
-/obj/structure/fluff/psycross/graggar/decorated,
-/obj/effect/decal/cleanable/blood/gibs/down,
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
 "Ed" = (
 /obj/machinery/light/rogue/firebowl/standing,
 /obj/structure/fluff/statue/knight{
@@ -4734,14 +4548,6 @@
 /obj/item/cushion/desert1,
 /turf/open/floor/rogue/tile/harem,
 /area/rogue/indoors/banditcamp/desert)
-"Ee" = (
-/obj/structure/mineral_door/wood/donjon/stone{
-	name = "Bedroom II";
-	lockid = "zurch_bedroom_2";
-	locked = 1
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "Eh" = (
 /obj/item/clothing/cloak/raincloak/mortus,
 /obj/item/clothing/cloak/raincloak/mortus,
@@ -4777,12 +4583,6 @@
 	},
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
-"Em" = (
-/obj/effect/decal/carpet{
-	pixel_y = 6
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "En" = (
 /obj/structure/flora/roguegrass/water/reeds,
 /obj/effect/decal/desertgrassedge,
@@ -4810,6 +4610,19 @@
 	},
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/vampire_manor)
+"EB" = (
+/obj/structure/table/church/m,
+/obj/item/clothing/neck/roguetown/psicross/inhumen/paalloy,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tilegreyblu"
+	},
+/area/rogue/under/cave/inhumen)
+"EC" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tilegreyblu"
+	},
+/area/rogue/under/cave/inhumen)
 "ED" = (
 /obj/structure/toilet,
 /turf/open/floor/rogue/sandbrick,
@@ -4821,25 +4634,9 @@
 /obj/effect/decal/desertgrassedge,
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
-"EG" = (
-/obj/machinery/light/rogue/candle/l,
-/obj/structure/table/wood/poor,
-/obj/item/paper/scroll,
-/obj/item/natural/feather{
-	pixel_x = 5
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
-"EH" = (
-/obj/structure/fluff/psycross/zizocross/golden,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tilegreyblu"
-	},
-/area/rogue/under/cave/inhumen)
 "EI" = (
-/obj/structure/chair/wood/zybantine{
-	dir = 8
-	},
+/obj/structure/table/wood/poor,
+/obj/item/reagent_containers/lux_impure,
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "EL" = (
@@ -4849,12 +4646,6 @@
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
-"EM" = (
-/obj/effect/decal/cleanable/sigil/W,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
-/area/rogue/under/cave/inhumen)
 "EO" = (
 /obj/structure/fluff/railing/corner,
 /obj/effect/decal/desertgrassedge{
@@ -4862,6 +4653,20 @@
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors)
+"ET" = (
+/obj/structure/fermentation_keg/sandpot,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
+"EV" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"EW" = (
+/obj/structure/fluff/statue/femalestatue{
+	pixel_y = 0
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/under/cave/inhumen)
 "EZ" = (
 /obj/machinery/light/rogue/torchholder/c,
 /turf/open/floor/rogue/dunes,
@@ -4887,6 +4692,13 @@
 "Fl" = (
 /turf/closed/mineral/rogue/sandstone,
 /area/rogue/outdoors/banditcamp/desert)
+"Fm" = (
+/obj/structure/ritualcircle/matthios,
+/obj/item/roguecoin/aalloy/pile,
+/turf/open/floor/rogue/darkpath{
+	color = "#919191"
+	},
+/area/rogue/under/cave/inhumen)
 "Fn" = (
 /obj/structure/closet/crate/roguecloset{
 	keylock = 1;
@@ -4917,18 +4729,11 @@
 /obj/effect/decal/duneedge,
 /turf/open/water/pond,
 /area/rogue/outdoors/desert)
-"Fs" = (
-/obj/machinery/light/rogue/torchholder/r,
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
-"Fu" = (
-/obj/structure/closet/crate/roguecloset/inn,
-/obj/item/rope/chain,
-/obj/item/natural/feather,
-/obj/item/storage/belt/rogue/pouch,
-/obj/item/paper/scroll,
-/obj/item/paper/scroll,
-/turf/open/floor/carpet/red,
+"Ft" = (
+/obj/effect/decal/carpet{
+	pixel_y = 6
+	},
+/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "Fw" = (
 /obj/structure/table/wood/poor,
@@ -4941,6 +4746,10 @@
 	icon_state = "tilewhitebluespecial"
 	},
 /area/rogue/indoors)
+"FA" = (
+/obj/machinery/light/rogue/candle,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "FC" = (
 /obj/structure/table/optable,
 /turf/open/floor/rogue/citybrick/citybrick2,
@@ -4956,6 +4765,10 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
+"FO" = (
+/obj/machinery/light/rogue/torchholder/r,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "FT" = (
 /obj/item/reagent_containers/food/snacks/smallrat,
 /turf/open/floor/rogue/dirt/road/desert,
@@ -4976,15 +4789,13 @@
 	},
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
-"FX" = (
-/obj/effect/decal/duneedge{
-	dir = 1
+"FW" = (
+/obj/item/cushion/desert2{
+	pixel_x = 1;
+	pixel_y = 7
 	},
-/obj/effect/decal/duneedge{
-	dir = 4
-	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/outdoors/desertdeep/safe)
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "FY" = (
 /obj/item/natural/rock,
 /turf/open/floor/rogue/darkpath,
@@ -4996,21 +4807,14 @@
 	},
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/vampire_manor)
-"Ga" = (
-/obj/structure/bookcase/random/archive,
-/turf/open/floor/rogue/citybrick/citybrick5,
-/area/rogue/under/cave/inhumen)
-"Gd" = (
-/obj/structure/table/church/m,
-/obj/item/clothing/neck/roguetown/psicross/inhumen/paalloy,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tilegreyblu"
-	},
-/area/rogue/under/cave/inhumen)
-"Gf" = (
-/obj/structure/fluff/psycross/baotha/decorated,
-/obj/effect/decal/cleanable/roguerune/god/baotha,
-/turf/open/floor/rogue/darkpath,
+"Ge" = (
+/obj/structure/closet/crate/roguecloset/inn,
+/obj/item/rope/chain,
+/obj/item/natural/feather,
+/obj/item/storage/belt/rogue/pouch,
+/obj/item/paper/scroll,
+/obj/item/paper/scroll,
+/turf/open/floor/carpet/red,
 /area/rogue/under/cave/inhumen)
 "Gg" = (
 /turf/closed,
@@ -5034,6 +4838,12 @@
 /obj/item/roguebin,
 /turf/open/floor/rogue/hay,
 /area/rogue/indoors/banditcamp/desert)
+"Gt" = (
+/obj/effect/decal/duneedge{
+	dir = 8
+	},
+/turf/open/floor/rogue/darkpath,
+/area/rogue/outdoors/desertdeep/safe)
 "Gy" = (
 /turf/open/floor/rogue/citybrick/citybrick5,
 /area/rogue/under/cave/inhumen)
@@ -5057,6 +4867,9 @@
 /obj/structure/curtain/black,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
+"GH" = (
+/turf/open/floor/rogue/dirt/road/desert,
+/area/rogue/outdoors/desertdeep/safe)
 "GJ" = (
 /obj/effect/decal/desertgrassedge{
 	dir = 4
@@ -5084,7 +4897,12 @@
 	dir = 4
 	},
 /turf/open/floor/rogue/darkpath,
-/area/rogue/outdoors/desertdeep/safe)
+/area/rogue/under/cave/inhumen)
+"GP" = (
+/obj/structure/table/wood/poor,
+/obj/item/recipe_book/cooking,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "GQ" = (
 /obj/structure/spider/stickyweb{
 	dir = 1
@@ -5097,30 +4915,47 @@
 	},
 /turf/open/floor/rogue/lightpath,
 /area/rogue/outdoors/banditcamp/desert)
-"GS" = (
-/obj/structure/fluff/railing/border/west{
-	layer = 4.3
-	},
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tilegreyblu"
-	},
-/area/rogue/under/cave/inhumen)
 "GT" = (
-/obj/structure/flora/roguegrass,
-/obj/effect/decal/desertgrassedge,
-/turf/open/floor/rogue/dirt/road/desert,
-/area/rogue/outdoors/desertdeep/safe)
+/obj/effect/decal/carpet/square{
+	pixel_x = 12;
+	pixel_y = 16
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "GV" = (
 /obj/structure/fermentation_keg/sandpot/random,
 /turf/open/floor/rogue/tile/brownbrick,
 /area/rogue/indoors/banditcamp/desert)
 "GW" = (
-/obj/effect/decal/remains/human,
-/turf/open/floor/rogue/darkpath,
+/obj/machinery/light/rogue/cauldron,
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 4
+	},
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 8
+	},
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 1
+	},
+/obj/effect/decal/edge{
+	color = "#3f3f3f"
+	},
+/turf/open/floor/rogue/sandbrick{
+	color = "#c4abff"
+	},
 /area/rogue/under/cave/inhumen)
 "GX" = (
 /turf/closed/mineral/rogue/bedrock/sandstone,
 /area/rogue)
+"GY" = (
+/obj/effect/decal/duneedge{
+	dir = 4
+	},
+/turf/open/floor/rogue/darkpath,
+/area/rogue/outdoors/desertdeep/safe)
 "GZ" = (
 /obj/structure/fluff/statue/gargoyle,
 /turf/open/floor/rogue/darkpath,
@@ -5152,6 +4987,14 @@
 	},
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
+"Hh" = (
+/obj/item/cushion/desert1{
+	pixel_x = -1;
+	pixel_y = 5
+	},
+/obj/machinery/light/rogue/candle/r,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "Hj" = (
 /obj/effect/decal/edge{
 	color = "#3f3f3f";
@@ -5197,16 +5040,6 @@
 	},
 /turf/open/floor/rogue/darkpath,
 /area/rogue/outdoors/desert)
-"Ht" = (
-/obj/effect/landmark/start/wretchlate,
-/obj/effect/decal/duneedge{
-	dir = 1
-	},
-/obj/effect/decal/duneedge{
-	dir = 4
-	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/outdoors/desertdeep/safe)
 "Hv" = (
 /turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue/outdoors/banditcamp/desert)
@@ -5237,6 +5070,17 @@
 /obj/item/grown/log/tree/small,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/banditcamp/desert)
+"HC" = (
+/obj/structure/fluff/railing/border/west{
+	dir = 2
+	},
+/obj/structure/fluff/railing/border{
+	dir = 10
+	},
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tilegreyblu"
+	},
+/area/rogue/under/cave/inhumen)
 "HD" = (
 /obj/item/cushion/zybantine{
 	pixel_x = 0;
@@ -5244,6 +5088,13 @@
 	},
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/vampire_manor)
+"HE" = (
+/obj/machinery/light/rogue/candle{
+	pixel_y = -32
+	},
+/obj/structure/curtain/black,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "HI" = (
 /obj/machinery/light/roguestreet/orange/walllamp{
 	dir = 4;
@@ -5259,13 +5110,15 @@
 /obj/item/bedsheet/rogue/cloth,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/outdoors/banditcamp/desert)
-"HL" = (
-/obj/item/cushion/zybantine{
-	pixel_y = 5;
-	pixel_x = -8
+"HN" = (
+/obj/structure/fermentation_keg/sandpot/water,
+/turf/open/floor/rogue/citybrick/citybrick6,
+/area/rogue/under/cave/inhumen)
+"HO" = (
+/obj/machinery/light/rogue/candle/floorcandle/pink{
+	pixel_y = -11
 	},
-/obj/machinery/light/rogue/candle/r,
-/turf/open/floor/rogue/sandbrick,
+/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "HT" = (
 /obj/structure/rack/rogue,
@@ -5310,15 +5163,6 @@
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
-"HY" = (
-/obj/structure/fluff/railing/border{
-	dir = 9
-	},
-/obj/machinery/light/rogue/firebowl,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
-/area/rogue/under/cave/inhumen)
 "Ic" = (
 /obj/structure/closet/crate/roguecloset{
 	name = "odd closet";
@@ -5353,12 +5197,14 @@
 /obj/item/roguegem/random,
 /turf/open/floor/rogue/tile/harem2,
 /area/rogue/indoors/banditcamp/desert)
-"Im" = (
-/obj/effect/decal/desertgrassedge{
-	dir = 9
+"Il" = (
+/obj/structure/stairs/desert{
+	dir = 4
 	},
-/turf/open/water/cleanshallow,
-/area/rogue/outdoors/desertdeep/safe)
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tilegreyblu"
+	},
+/area/rogue/under/cave/inhumen)
 "In" = (
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desertdeep/safe)
@@ -5393,6 +5239,13 @@
 /obj/machinery/light/rogue/firebowl,
 /turf/open/floor/rogue/citybrick/citybrick5,
 /area/rogue/under/cave/inhumen)
+"Ix" = (
+/obj/effect/decal/duneedge{
+	dir = 4
+	},
+/obj/effect/decal/duneedge,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/outdoors/desertdeep/safe)
 "Iy" = (
 /obj/machinery/gear_painter,
 /turf/open/floor/rogue/citybrick/citybrick4,
@@ -5423,9 +5276,24 @@
 	},
 /area/rogue/indoors/vampire_manor)
 "IJ" = (
-/obj/structure/table/wood/poor,
-/obj/item/reagent_containers/lux_impure,
-/turf/open/floor/rogue/sandbrick,
+/obj/structure/table/church/m,
+/obj/structure/fluff/statue/gargoyle{
+	pixel_y = 16;
+	name = "the dark star"
+	},
+/turf/open/floor/rogue/sandbrick{
+	color = "#c4abff"
+	},
+/area/rogue/under/cave/inhumen)
+"IM" = (
+/obj/effect/decal/duneedge{
+	dir = 4
+	},
+/obj/effect/decal/duneedge{
+	dir = 8
+	},
+/obj/effect/decal/duneedge,
+/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "IP" = (
 /obj/structure/bed/rogue/shit,
@@ -5452,12 +5320,6 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
-"IV" = (
-/obj/structure/ritualcircle/zizo,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tilegreyblu"
-	},
-/area/rogue/under/cave/inhumen)
 "IW" = (
 /obj/effect/decal/desertgrassedge{
 	dir = 1
@@ -5482,13 +5344,14 @@
 /obj/effect/turf_decal/sand,
 /turf/open/floor/rogue/citybrick/citybrick1,
 /area/rogue/under/cave/inhumen)
-"Jf" = (
-/obj/structure/table/wood/poor,
-/obj/item/candle/skull{
-	pixel_x = 14;
-	pixel_y = 7
+"Jp" = (
+/obj/structure/closet/crate/chest,
+/obj/item/clothing/head/roguetown/menacing/bandit,
+/obj/item/clothing/head/roguetown/menacing/bandit,
+/obj/item/clothing/head/roguetown/menacing/bandit,
+/turf/open/floor/rogue/darkpath{
+	color = "#919191"
 	},
-/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "Jq" = (
 /obj/machinery/light/rogue/candle{
@@ -5498,25 +5361,21 @@
 	icon_state = "weird1"
 	},
 /area/rogue/indoors/vampire_manor)
-"Jr" = (
-/obj/item/cushion/zybantine{
-	pixel_y = 5;
-	pixel_x = 8
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
-"Ju" = (
-/obj/structure/closet/crate/chest/neu_iron,
-/obj/item/rogueweapon/thresher,
-/obj/item/rogueweapon/hoe,
-/turf/open/floor/rogue/desert_grass,
-/area/rogue/outdoors/desertdeep/safe)
 "Jv" = (
 /obj/machinery/gear_painter,
 /turf/open/floor/rogue/ruinedwood{
 	icon_state = "weird1"
 	},
 /area/rogue/indoors/vampire_manor)
+"Jw" = (
+/obj/structure/stairs/stone{
+	dir = 1
+	},
+/obj/structure/stairs/desert{
+	dir = 1
+	},
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/under/cave/inhumen)
 "JA" = (
 /turf/open/floor/rogue/sandbrick{
 	color = "#c4abff"
@@ -5532,10 +5391,6 @@
 	},
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/banditcamp/desert)
-"JE" = (
-/obj/effect/decal/cleanable/blood/splatter/walls,
-/turf/closed/mineral/rogue/sandstone,
-/area/rogue/under/cave/inhumen)
 "JF" = (
 /obj/structure/vampire/bloodpool{
 	pixel_x = -18;
@@ -5548,10 +5403,6 @@
 /obj/machinery/light/rogue/candle,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/banditcamp/desert)
-"JJ" = (
-/obj/machinery/light/rogue/firebowl,
-/turf/open/floor/rogue/citybrick,
-/area/rogue/under/cave/inhumen)
 "JK" = (
 /obj/structure/fluff/railing/border{
 	dir = 1
@@ -5595,15 +5446,6 @@
 	},
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/vampire_manor)
-"JN" = (
-/obj/effect/decal/desertgrassedge{
-	dir = 1
-	},
-/obj/effect/decal/desertgrassedge{
-	dir = 8
-	},
-/turf/open/water/cleanshallow,
-/area/rogue/outdoors/desertdeep/safe)
 "JO" = (
 /obj/structure/flora/junglebush,
 /obj/effect/decal/desertgrassedge,
@@ -5619,13 +5461,10 @@
 	icon_state = "tilegreyblu"
 	},
 /area/rogue/indoors/banditcamp/desert)
-"JT" = (
-/obj/effect/landmark/start/wretch{
-	dir = 1
-	},
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
+"JU" = (
+/obj/structure/fluff/walldeco/vinez/red,
+/obj/structure/fluff/walldeco/psybanner/zizo,
+/turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "JW" = (
 /obj/structure/closet/crate/chest/wicker,
@@ -5635,10 +5474,6 @@
 /obj/structure/table/wood/poor,
 /obj/machinery/light/rogue/candle/floorcandle,
 /turf/open/floor/rogue/citybrick/citybrick4,
-/area/rogue/under/cave/inhumen)
-"JZ" = (
-/obj/structure/fluff/psycross/zizocross/stone,
-/turf/open/floor/rogue/citybrick/citybrick2,
 /area/rogue/under/cave/inhumen)
 "Ka" = (
 /obj/effect/decal/desertgrassedge{
@@ -5716,6 +5551,14 @@
 	},
 /turf/open/water/pond,
 /area/rogue/outdoors/desert)
+"Kt" = (
+/obj/structure/fluff/railing/border/west{
+	dir = 4
+	},
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tilegreyblu"
+	},
+/area/rogue/under/cave/inhumen)
 "Ku" = (
 /obj/structure/fluff/railing/border,
 /turf/open/floor/rogue/sandbrick,
@@ -5735,12 +5578,6 @@
 	},
 /turf/open/water/pond,
 /area/rogue/outdoors/desert)
-"Ky" = (
-/obj/effect/decal/cleanable/sigil/NW,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
-/area/rogue/under/cave/inhumen)
 "KD" = (
 /obj/structure/bed/rogue/inn/wool{
 	dir = 1
@@ -5788,13 +5625,6 @@
 /obj/effect/decal/desertgrassedge,
 /turf/open/floor/rogue/grass/desert,
 /area/rogue/outdoors/desert)
-"KP" = (
-/obj/machinery/light/rogue/candle/floorcandle{
-	pixel_x = -1;
-	pixel_y = -12
-	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
 "KV" = (
 /obj/structure/flora/bush,
 /turf/open/floor/rogue/desert_grass,
@@ -5805,65 +5635,10 @@
 	},
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/banditcamp/desert)
-"KY" = (
-/obj/structure/rack/rogue/shelf/biggest,
-/obj/item/reagent_containers/glass/bottle/alchemical{
-	pixel_y = -8
-	},
-/obj/item/reagent_containers/glass/bottle/alchemical{
-	pixel_x = 1;
-	pixel_y = -1
-	},
-/obj/item/reagent_containers/glass/bottle/alchemical{
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/glass/bottle/alchemical{
-	pixel_x = 6;
-	pixel_y = -5
-	},
-/obj/item/reagent_containers/glass/bottle/alchemical{
-	pixel_x = 5
-	},
-/obj/item/reagent_containers/glass/bottle/alchemical{
-	pixel_x = 6;
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/glass/bottle/alchemical{
-	pixel_x = -5;
-	pixel_y = -8
-	},
-/obj/item/reagent_containers/glass/bottle/alchemical{
-	pixel_x = -6;
-	pixel_y = -2
-	},
-/obj/item/reagent_containers/glass/bottle/alchemical{
-	pixel_x = -5;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/glass/bottle/alchemical{
-	pixel_x = -11;
-	pixel_y = -6
-	},
-/obj/item/reagent_containers/glass/bottle/alchemical{
-	pixel_x = -11;
-	pixel_y = -1
-	},
-/obj/item/reagent_containers/glass/bottle/alchemical{
-	pixel_x = -11;
-	pixel_y = 5
-	},
-/turf/open/floor/rogue/citybrick,
-/area/rogue/under/cave/inhumen)
 "KZ" = (
 /obj/structure/fluff/grindwheel,
 /turf/open/floor/rogue/sandbrick{
 	color = "#c4abff"
-	},
-/area/rogue/under/cave/inhumen)
-"Le" = (
-/obj/structure/ritualcircle/zizo,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
 	},
 /area/rogue/under/cave/inhumen)
 "Lg" = (
@@ -5888,25 +5663,13 @@
 	color = "#c4abff"
 	},
 /area/rogue/indoors/vampire_manor)
-"Lk" = (
-/obj/structure/table/church/m,
-/obj/structure/fluff/statue/gargoyle{
-	pixel_y = 16;
-	name = "the dark star"
-	},
-/turf/open/floor/rogue/sandbrick{
-	color = "#c4abff"
-	},
+"Lm" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/rogue/citybrick/citybrick5,
 /area/rogue/under/cave/inhumen)
 "Lo" = (
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/outdoors/desert)
-"Lp" = (
-/obj/machinery/light/rogue/candle/floorcandle/alt,
-/turf/open/floor/rogue/darkpath{
-	color = "#919191"
-	},
-/area/rogue/under/cave/inhumen)
 "Lu" = (
 /obj/structure/bed/rogue/inn/wool,
 /obj/item/bedsheet/rogue/cloth,
@@ -5920,6 +5683,12 @@
 /obj/machinery/light/rogue/torchholder/r,
 /turf/open/floor/rogue/twig,
 /area/rogue/indoors/banditcamp/desert)
+"Lx" = (
+/obj/effect/decal/cleanable/sigil/NE,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
+/area/rogue/under/cave/inhumen)
 "Ly" = (
 /obj/structure/rack/rogue/shelf,
 /obj/item/reagent_containers/glass/bottle/rogue/redwine{
@@ -6008,6 +5777,10 @@
 	icon_state = "tiledrab2"
 	},
 /area/rogue/under/cave/inhumen)
+"LS" = (
+/obj/effect/landmark/start/wretch,
+/turf/open/floor/rogue/citybrick/citybrick4,
+/area/rogue/under/cave/inhumen)
 "LT" = (
 /obj/effect/decal/desertgrassedge{
 	dir = 8
@@ -6015,6 +5788,12 @@
 /obj/effect/decal/desertgrassedge,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/outdoors/desert)
+"LU" = (
+/obj/structure/fluff/psycross/matthios/decorated,
+/turf/open/floor/rogue/darkpath{
+	color = "#919191"
+	},
+/area/rogue/under/cave/inhumen)
 "LW" = (
 /obj/effect/decal/desertgrassedge{
 	dir = 1
@@ -6027,26 +5806,30 @@
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors/vampire_manor)
 "Ma" = (
-/obj/item/cushion/desert1{
-	pixel_x = 2;
-	pixel_y = 4
+/obj/structure/fluff/railing/border/west,
+/obj/structure/fluff/railing/border/west{
+	dir = 2
 	},
-/obj/effect/landmark/start/wretch{
-	dir = 4
+/obj/structure/fluff/railing/border/west{
+	dir = 10
 	},
-/turf/open/floor/rogue/sandbrick,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tilegreyblu"
+	},
 /area/rogue/under/cave/inhumen)
 "Mb" = (
 /obj/item/rogueweapon/pick,
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors/banditcamp/desert)
+"Md" = (
+/obj/structure/fluff/walldeco/chains{
+	icon_state = "chains3"
+	},
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
 "Mf" = (
-/obj/structure/flora/roguegrass,
-/turf/open/floor/rogue/dirt/road/desert,
-/area/rogue/outdoors/desertdeep/safe)
-"Mi" = (
-/obj/structure/bookcase/random/archive,
-/turf/open/floor/rogue/citybrick/citybrick2,
+/obj/effect/landmark/start/wretch,
+/turf/open/floor/rogue/citybrick/citybrick3,
 /area/rogue/under/cave/inhumen)
 "Mk" = (
 /obj/effect/decal/desertgrassedge{
@@ -6068,6 +5851,14 @@
 	},
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
+"Mo" = (
+/obj/effect/decal/carpet/kover_darkred{
+	dir = 8;
+	pixel_y = 16;
+	pixel_x = -1
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "Mq" = (
 /obj/structure/flora/roguegrass/water,
 /turf/open/water/pond,
@@ -6079,13 +5870,19 @@
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors)
+"Mv" = (
+/obj/effect/decal/cleanable/sigil/W,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
+/area/rogue/under/cave/inhumen)
 "Mw" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
-"Mz" = (
-/obj/structure/curtain/black,
-/turf/open/floor/rogue/sandbrick,
+"Mx" = (
+/obj/effect/decal/remains/human,
+/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "MB" = (
 /obj/structure/fluff/railing/border/north,
@@ -6124,16 +5921,19 @@
 /obj/structure/roguewindow/harem3,
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors/banditcamp/desert)
-"MX" = (
-/obj/machinery/light/rogue/candle/floorcandle/pink,
-/turf/open/floor/rogue/darkpath,
+"MU" = (
+/obj/structure/stairs/desert{
+	dir = 8
+	},
+/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "MZ" = (
 /turf/open/floor/rogue/dunes,
 /area/rogue/indoors)
 "Nd" = (
-/obj/structure/fluff/walldeco/psybanner/zizo,
-/turf/closed/wall/mineral/rogue/sandbrick,
+/obj/machinery/light/rogue/candle/r,
+/obj/structure/bookcase/random/archive,
+/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "Ne" = (
 /obj/item/roguegem,
@@ -6161,20 +5961,6 @@
 /obj/item/rogueweapon/thresher,
 /turf/open/floor/rogue/citybrick/citybrick2,
 /area/rogue/under/cave/inhumen)
-"No" = (
-/obj/structure/mineral_door/wood/donjon/stone{
-	name = "Bedroom IX";
-	lockid = "zurch_bedroom_9";
-	locked = 1
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
-"Nq" = (
-/obj/structure/curtain/black,
-/turf/open/floor/rogue/darkpath{
-	color = "#919191"
-	},
-/area/rogue/under/cave/inhumen)
 "Ns" = (
 /obj/structure/closet/crate/chest/old_crate,
 /obj/item/reagent_containers/powder/ozium,
@@ -6183,15 +5969,11 @@
 	},
 /turf/open/floor/rogue/twig,
 /area/rogue/indoors/banditcamp/desert)
-"Nw" = (
-/obj/effect/decal/carpet/square{
-	pixel_y = -9;
-	dir = 4;
-	pixel_x = 8
+"Nu" = (
+/obj/machinery/light/rogue/torchholder/r{
+	dir = 1
 	},
-/turf/open/floor/rogue/darkpath{
-	color = "#919191"
-	},
+/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "Nx" = (
 /obj/effect/decal/desertgrassedge{
@@ -6208,18 +5990,6 @@
 	},
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
-"NF" = (
-/obj/structure/bookcase/random/archive,
-/turf/open/floor/rogue/citybrick/citybrick3,
-/area/rogue/under/cave/inhumen)
-"NH" = (
-/obj/structure/mineral_door/wood/donjon/stone{
-	name = "Bedroom VIII";
-	lockid = "zurch_bedroom_8";
-	locked = 1
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "NI" = (
 /obj/structure/mineral_door/wood{
 	lockid = "mansionvampire"
@@ -6260,19 +6030,17 @@
 /obj/machinery/light/rogue/forge,
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors/vampire_manor)
-"NV" = (
-/obj/effect/decal/desertgrassedge{
-	dir = 1
-	},
-/obj/effect/decal/desertgrassedge{
-	dir = 8
-	},
-/turf/open/floor/rogue/dirt/desert,
-/area/rogue/outdoors/desertdeep/safe)
 "NY" = (
 /obj/item/cushion/zybantine,
 /turf/open/floor/carpet/purple,
 /area/rogue/indoors/banditcamp/desert)
+"Oa" = (
+/obj/effect/decal/cleanable/sigil,
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
+/area/rogue/under/cave/inhumen)
 "Oc" = (
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desertdeep/safe)
@@ -6303,9 +6071,25 @@
 /obj/item/grown/log/tree/small,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/vampire_manor)
+"Om" = (
+/obj/machinery/light/rogue/candle/floorcandle/pink{
+	pixel_x = -3;
+	pixel_y = -12
+	},
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
 "Op" = (
 /obj/structure/sandrock/sandrock1,
 /turf/open/floor/rogue/dunes,
+/area/rogue/outdoors/desertdeep/safe)
+"Ow" = (
+/obj/effect/decal/desertgrassedge{
+	dir = 1
+	},
+/obj/effect/decal/desertgrassedge{
+	dir = 4
+	},
+/turf/open/water/cleanshallow,
 /area/rogue/outdoors/desertdeep/safe)
 "Oz" = (
 /turf/open/floor/carpet/red,
@@ -6329,13 +6113,10 @@
 /obj/structure/flora/junglebush/large,
 /turf/open/floor/rogue/grass/desert,
 /area/rogue/outdoors/desert)
-"OO" = (
-/obj/structure/closet/crate/chest,
-/obj/item/clothing/neck/roguetown/psicross/inhumen/matthios,
-/obj/item/clothing/neck/roguetown/psicross/inhumen/matthios,
-/obj/item/clothing/neck/roguetown/psicross/inhumen/matthios,
-/turf/open/floor/rogue/cobble,
-/area/rogue/under/cave/inhumen)
+"OQ" = (
+/obj/structure/fermentation_keg/fancypot/water,
+/turf/open/floor/rogue/desert_grass,
+/area/rogue/outdoors/desertdeep/safe)
 "OS" = (
 /obj/structure/ichor_stone,
 /turf/open/floor/carpet/red,
@@ -6376,6 +6157,11 @@
 "Pg" = (
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/banditcamp/desert)
+"Pi" = (
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tilegreyblu"
+	},
+/area/rogue/under/cave/inhumen)
 "Pk" = (
 /turf/closed/wall/mineral/rogue/sandstone,
 /area/rogue/indoors)
@@ -6386,6 +6172,15 @@
 "Pm" = (
 /obj/machinery/light/rogue/candle,
 /turf/closed/wall/mineral/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"Pn" = (
+/obj/machinery/light/rogue/candle/l,
+/obj/structure/table/wood/poor,
+/obj/item/paper/scroll,
+/obj/item/natural/feather{
+	pixel_x = 5
+	},
+/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "Po" = (
 /obj/item/cushion/desert1,
@@ -6399,19 +6194,30 @@
 /turf/open/water/pond,
 /area/rogue/outdoors/desert)
 "Pq" = (
-/obj/effect/decal/carpet{
-	pixel_x = 21;
-	dir = 4;
-	pixel_y = -15
+/obj/structure/table/wood/poor,
+/obj/item/candle/skull{
+	pixel_x = 14;
+	pixel_y = 7
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
-"Ps" = (
-/obj/machinery/light/rogue/candle/floorcandle/pink{
-	pixel_x = -3;
-	pixel_y = -12
-	},
+"Pu" = (
+/obj/structure/ritualcircle/graggar,
 /turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
+"Pv" = (
+/obj/structure/closet/crate/chest/neu_iron,
+/obj/item/rogueweapon/thresher,
+/obj/item/rogueweapon/hoe,
+/turf/open/floor/rogue/desert_grass,
+/area/rogue/outdoors/desertdeep/safe)
+"Pw" = (
+/obj/structure/stairs/desert{
+	dir = 8
+	},
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tilegreyblu"
+	},
 /area/rogue/under/cave/inhumen)
 "Px" = (
 /obj/item/cushion/zybantine{
@@ -6427,12 +6233,17 @@
 /obj/structure/closet/crate/drawer,
 /turf/open/floor/carpet/red,
 /area/rogue/indoors/vampire_manor)
-"PB" = (
-/obj/effect/decal/desertgrassedge{
-	dir = 6
+"PC" = (
+/obj/structure/ritualcircle/graggar,
+/obj/item/rogueweapon/stoneaxe/boneaxe,
+/turf/open/floor/rogue/sandbrick{
+	color = "#c4abff"
 	},
-/turf/open/floor/rogue/dirt/desert,
-/area/rogue/outdoors/desertdeep/safe)
+/area/rogue/under/cave/inhumen)
+"PE" = (
+/obj/structure/bookcase/random/archive,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "PF" = (
 /obj/structure/chair/stool/rogue,
 /turf/open/floor/rogue/twig,
@@ -6460,16 +6271,29 @@
 	icon_state = "tiledrab2"
 	},
 /area/rogue/under/cave/inhumen)
+"PR" = (
+/obj/structure/ritualcircle/zizo,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tilegreyblu"
+	},
+/area/rogue/under/cave/inhumen)
 "PT" = (
 /obj/structure/stairs/desert{
 	dir = 1
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors/banditcamp/desert)
-"PW" = (
-/obj/effect/decal/cleanable/blood,
-/obj/structure/fluff/walldeco/vinez/red,
-/turf/closed/wall/mineral/rogue/sandbrick,
+"PU" = (
+/obj/structure/fluff/statue/evil,
+/turf/open/floor/rogue/darkpath{
+	color = "#919191"
+	},
+/area/rogue/under/cave/inhumen)
+"PX" = (
+/obj/machinery/light/rogue/candle/floorcandle/pink{
+	pixel_x = -1
+	},
+/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "Qa" = (
 /obj/structure/fluff/grindwheel,
@@ -6501,16 +6325,6 @@
 	},
 /turf/open/water/pond,
 /area/rogue/outdoors/desert)
-"Ql" = (
-/obj/item/cushion/desert1{
-	pixel_x = 2;
-	pixel_y = 4
-	},
-/obj/effect/landmark/start/wretch{
-	dir = 8
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "Qm" = (
 /obj/effect/decal/edge{
 	color = "#3f3f3f"
@@ -6565,14 +6379,16 @@
 /obj/effect/turf_decal/sand,
 /turf/open/floor/rogue/concrete,
 /area/rogue/under/cave/inhumen)
-"QI" = (
-/obj/structure/fluff/railing/border/west{
-	dir = 4
+"QE" = (
+/obj/structure/flora/roguegrass,
+/turf/open/floor/rogue/dirt/desert,
+/area/rogue/outdoors/desertdeep/safe)
+"QO" = (
+/obj/effect/decal/desertgrassedge{
+	dir = 1
 	},
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tilegreyblu"
-	},
-/area/rogue/under/cave/inhumen)
+/turf/open/water/cleanshallow,
+/area/rogue/outdoors/desertdeep/safe)
 "QR" = (
 /obj/structure/table/wood/poor,
 /obj/item/candle/skull{
@@ -6598,24 +6414,6 @@
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
-"QZ" = (
-/obj/structure/fluff/railing/border/west{
-	dir = 2
-	},
-/obj/structure/fluff/railing/border{
-	dir = 10
-	},
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tilegreyblu"
-	},
-/area/rogue/under/cave/inhumen)
-"Rb" = (
-/obj/effect/decal/carpet/kover_black{
-	pixel_x = 16;
-	pixel_y = -12
-	},
-/turf/open/floor/carpet/red,
-/area/rogue/under/cave/inhumen)
 "Rd" = (
 /obj/effect/decal/cleanable/debris/glassy,
 /turf/open/floor/rogue/citybrick/citybrick4,
@@ -6633,10 +6431,6 @@
 "Rg" = (
 /turf/closed,
 /area/rogue/outdoors/banditcamp/desert)
-"Rh" = (
-/obj/structure/table/optable,
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "Rm" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/rogue/citybrick/citybrick3,
@@ -6646,31 +6440,10 @@
 /obj/structure/flora/roguegrass/herb/random,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desert)
-"Rp" = (
-/obj/effect/decal/cleanable/blood{
-	icon_state = "floor5-old"
-	},
-/obj/machinery/light/rogue/candle/floorcandle{
-	pixel_y = -14
-	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
 "Rr" = (
 /obj/item/reagent_containers/glass/bowl,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/banditcamp/desert)
-"Ru" = (
-/obj/structure/bookcase/random/archive,
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
-"Rv" = (
-/obj/structure/stairs/desert{
-	dir = 8
-	},
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tilegreyblu"
-	},
-/area/rogue/under/cave/inhumen)
 "Rx" = (
 /obj/structure/rack/rogue/shelf,
 /obj/structure/table/wood/poor,
@@ -6702,11 +6475,17 @@
 	icon_state = "harem"
 	},
 /area/rogue/indoors/vampire_manor)
-"RC" = (
-/obj/structure/fluff/psycross/graggar/decorated,
-/turf/open/floor/rogue/darkpath{
-	color = "#c4abff"
+"RA" = (
+/obj/effect/decal/cleanable/sigil/N,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
 	},
+/area/rogue/under/cave/inhumen)
+"RE" = (
+/obj/effect/decal/carpet{
+	pixel_y = 17
+	},
+/turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "RH" = (
 /obj/structure/spider/stickyweb{
@@ -6714,6 +6493,17 @@
 	icon_state = "stickyweb2"
 	},
 /turf/open/floor/rogue/churchmarble,
+/area/rogue/under/cave/inhumen)
+"RJ" = (
+/obj/structure/table/wood/poor,
+/obj/item/reagent_containers/glass/bottle,
+/obj/item/reagent_containers/glass/bottle,
+/obj/machinery/light/rogue/candle/l,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"RK" = (
+/obj/machinery/light/rogue/firebowl,
+/turf/open/floor/rogue/citybrick,
 /area/rogue/under/cave/inhumen)
 "RM" = (
 /obj/structure/roguewindow,
@@ -6740,12 +6530,6 @@
 /obj/structure/curtain/red,
 /turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/vampire_manor)
-"RR" = (
-/obj/machinery/light/rogue/firebowl,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
-/area/rogue/under/cave/inhumen)
 "RU" = (
 /obj/machinery/light/rogue/candle,
 /turf/open/floor/rogue/darkpath,
@@ -6820,6 +6604,14 @@
 /obj/machinery/light/rogue/torchholder/c,
 /turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/vampire_manor)
+"SB" = (
+/obj/structure/mineral_door/wood/donjon/stone{
+	name = "Bedroom II";
+	lockid = "zurch_bedroom_2";
+	locked = 1
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "SC" = (
 /obj/item/cushion/zybantine{
 	pixel_y = 5;
@@ -6860,6 +6652,10 @@
 "SM" = (
 /turf/closed/mineral/random/rogue/sandstone,
 /area/rogue/indoors/banditcamp/desert)
+"SR" = (
+/obj/effect/decal/duneedge,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
 "SS" = (
 /obj/structure/flora/roguegrass,
 /obj/structure/flora/roguegrass/bush/desertshrub,
@@ -6886,14 +6682,28 @@
 	icon_state = "tiledrab2"
 	},
 /area/rogue/under/cave/inhumen)
-"SZ" = (
-/obj/structure/curtain/black,
-/turf/open/floor/rogue/citybrick/citybrick2,
+"SX" = (
+/obj/effect/particle_effect/smoke{
+	lifetime = 14400
+	},
+/turf/open/water/cleanshallow,
+/area/rogue/outdoors/desertdeep/safe)
+"SY" = (
+/obj/effect/decal/cleanable/blood{
+	icon_state = "floor6-old"
+	},
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
 /area/rogue/under/cave/inhumen)
 "Ta" = (
 /obj/item/natural/stone,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/banditcamp/desert)
+"Td" = (
+/obj/structure/fluff/psycross/zizocross/stone,
+/turf/open/floor/rogue/citybrick,
+/area/rogue/under/cave/inhumen)
 "Te" = (
 /turf/closed/wall/mineral/rogue/wooddark,
 /area/rogue/indoors/banditcamp/desert)
@@ -6910,18 +6720,32 @@
 	},
 /turf/open/floor/rogue/lightpath,
 /area/rogue/outdoors/desertdeep/safe)
+"Tl" = (
+/obj/structure/table/optable,
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"Tm" = (
+/obj/effect/decal/duneedge{
+	dir = 4
+	},
+/turf/open/floor/rogue/darkpath{
+	color = "#b0b0b0"
+	},
+/area/rogue/outdoors/desertdeep/safe)
+"Tn" = (
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor5-old"
+	},
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tilegreyblu"
+	},
+/area/rogue/under/cave/inhumen)
 "To" = (
 /obj/structure/pillory{
 	lockid = "inhumen"
 	},
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
-"Tp" = (
-/obj/structure/pillory{
-	lockid = "inhumen"
-	},
-/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "Tq" = (
 /obj/structure/flora/roguegrass/water,
@@ -6959,22 +6783,9 @@
 /obj/effect/decal/cleanable/debris/glassy,
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
-"TB" = (
-/obj/structure/flora/roguegrass,
-/obj/effect/decal/desertgrassedge{
-	dir = 1
-	},
-/turf/open/floor/rogue/dirt/desert,
+"TI" = (
+/turf/open/water/cleanshallow,
 /area/rogue/outdoors/desertdeep/safe)
-"TF" = (
-/obj/machinery/light/rogue/candle{
-	pixel_y = -32
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
-"TK" = (
-/turf/open/floor/rogue/dunes,
-/area/rogue/under/cave/inhumen)
 "TL" = (
 /obj/structure/table/wood{
 	dir = 9;
@@ -6985,16 +6796,12 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
-"TN" = (
-/obj/structure/stairs/stone{
+"TM" = (
+/obj/effect/decal/duneedge{
 	dir = 1
 	},
-/obj/structure/fluff/railing/border/west,
-/obj/structure/stairs/desert{
-	dir = 1
-	},
-/turf/open/floor/rogue/naturalstone,
-/area/rogue/under/cave/inhumen)
+/turf/open/floor/rogue/darkpath,
+/area/rogue/outdoors/desertdeep/safe)
 "TO" = (
 /turf/open/floor/rogue/twig{
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
@@ -7005,12 +6812,14 @@
 /turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue/indoors/vampire_manor)
 "TT" = (
-/obj/item/cushion/zybantine{
-	pixel_y = 3;
-	pixel_x = -12
+/obj/effect/decal/duneedge{
+	dir = 1
 	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
+/obj/effect/decal/duneedge{
+	dir = 4
+	},
+/turf/open/floor/rogue/darkpath,
+/area/rogue/outdoors/desertdeep/safe)
 "TU" = (
 /obj/structure/glowshroom,
 /obj/effect/decal/duneedge{
@@ -7019,6 +6828,17 @@
 /obj/effect/decal/duneedge,
 /turf/open/water/pond,
 /area/rogue/outdoors/desert)
+"TV" = (
+/obj/structure/fluff/railing/border/west{
+	dir = 2
+	},
+/obj/structure/fluff/railing/border{
+	dir = 6
+	},
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tilegreyblu"
+	},
+/area/rogue/under/cave/inhumen)
 "TX" = (
 /obj/item/cushion/zybantine{
 	pixel_y = 2;
@@ -7047,6 +6867,18 @@
 /obj/structure/bars/cemetery,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors)
+"Ui" = (
+/obj/item/cushion/zybantine{
+	pixel_y = 15;
+	pixel_x = 2
+	},
+/obj/effect/decal/carpet{
+	pixel_x = 21;
+	dir = 4;
+	pixel_y = -15
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "Uk" = (
 /obj/effect/decal/duneedge{
 	dir = 1
@@ -7066,6 +6898,12 @@
 /obj/structure/bars,
 /turf/open/floor/rogue/citybrick/citybrick1,
 /area/rogue/under/cave/inhumen)
+"Uq" = (
+/obj/effect/decal/cleanable/sigil/S,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
+/area/rogue/under/cave/inhumen)
 "Ur" = (
 /obj/structure/mineral_door/wood/donjon/stone{
 	name = "Temple"
@@ -7075,14 +6913,6 @@
 "Us" = (
 /turf/open/transparent/openspace,
 /area/rogue/under/cave/inhumen)
-"Uu" = (
-/obj/structure/mineral_door/wood/donjon/stone{
-	name = "Bedroom III";
-	lockid = "zurch_bedroom_3";
-	locked = 1
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "Uv" = (
 /obj/structure/closet/crate/coffin/vampire{
 	pixel_y = 11
@@ -7091,10 +6921,6 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
-"Uy" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
 "UA" = (
 /obj/effect/decal/desertgrassedge,
 /obj/effect/decal/desertgrassedge{
@@ -7114,10 +6940,32 @@
 	},
 /turf/open/floor/rogue/citybrick/citybrick1,
 /area/rogue/under/cave/inhumen)
+"UE" = (
+/obj/structure/table/church,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/money,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tilegreyblu"
+	},
+/area/rogue/under/cave/inhumen)
+"UG" = (
+/obj/effect/decal/duneedge,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/outdoors/desertdeep/safe)
+"UH" = (
+/obj/structure/bookcase/random/archive,
+/turf/open/floor/rogue/citybrick,
+/area/rogue/under/cave/inhumen)
 "UJ" = (
 /obj/structure/closet/dirthole/closed/loot,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desert)
+"UM" = (
+/obj/structure/table/church,
+/obj/machinery/light/rogue/candle/floorcandle,
+/turf/open/floor/rogue/sandbrick{
+	color = "#c4abff"
+	},
+/area/rogue/under/cave/inhumen)
 "UN" = (
 /obj/structure/rack/rogue,
 /obj/item/rope/chain,
@@ -7159,21 +7007,15 @@
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/banditcamp/desert)
 "Va" = (
-/obj/effect/decal/desertgrassedge{
-	dir = 8
-	},
-/turf/open/floor/rogue/dirt/desert,
-/area/rogue/outdoors/desertdeep/safe)
+/obj/structure/bookcase/random/archive,
+/turf/open/floor/rogue/citybrick/citybrick2,
+/area/rogue/under/cave/inhumen)
 "Vb" = (
 /obj/structure/rack/rogue,
 /obj/item/clothing/head/roguetown/roguehood/shalal,
 /obj/item/clothing/head/roguetown/roguehood/shalal,
 /turf/open/floor/rogue/tile/brownbrick,
 /area/rogue/indoors/banditcamp/desert)
-"Ve" = (
-/obj/structure/fluff/alch,
-/turf/open/floor/rogue/citybrick,
-/area/rogue/under/cave/inhumen)
 "Vf" = (
 /obj/structure/mineral_door/wood/donjon{
 	dir = 1;
@@ -7185,11 +7027,8 @@
 	},
 /area/rogue/indoors)
 "Vh" = (
-/obj/effect/decal/desertgrassedge{
-	dir = 9
-	},
-/turf/open/floor/rogue/dirt/desert,
-/area/rogue/outdoors/desertdeep/safe)
+/turf/open/water/cleanshallow,
+/area/rogue/under/cave/inhumen)
 "Vl" = (
 /turf/open/floor/rogue/ruinedwood{
 	icon_state = "weird1"
@@ -7203,18 +7042,6 @@
 /obj/structure/flora/junglebush/large,
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desert)
-"VA" = (
-/obj/machinery/light/rogue/torchholder/r{
-	dir = 4
-	},
-/obj/effect/decal/desertgrassedge{
-	dir = 1
-	},
-/obj/effect/decal/desertgrassedge{
-	dir = 6
-	},
-/turf/open/floor/rogue/dirt/desert,
-/area/rogue/outdoors/desertdeep/safe)
 "VB" = (
 /obj/structure/bed/rogue/shit,
 /turf/open/floor/rogue/sandbrick,
@@ -7231,21 +7058,15 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
-"VJ" = (
-/obj/effect/decal/remains/human,
-/obj/effect/decal/cleanable/blood{
-	icon_state = "floor5-old"
-	},
-/obj/machinery/light/rogue/candle/floorcandle{
-	pixel_y = -11
-	},
-/obj/structure/ritualcircle/graggar,
-/turf/open/floor/rogue/darkpath{
-	color = "#c4abff"
-	},
-/area/rogue/under/cave/inhumen)
 "VK" = (
 /obj/structure/flora/ausbushes/ppflowers,
+/turf/open/floor/rogue/desert_grass,
+/area/rogue/outdoors/desertdeep/safe)
+"VL" = (
+/obj/structure/flora/roguetree/palm{
+	pixel_x = -22;
+	pixel_y = 3
+	},
 /turf/open/floor/rogue/desert_grass,
 /area/rogue/outdoors/desertdeep/safe)
 "VM" = (
@@ -7293,28 +7114,60 @@
 	icon_state = "harem"
 	},
 /area/rogue/indoors/vampire_manor)
-"VZ" = (
-/turf/open/floor/carpet/red,
+"VW" = (
+/obj/effect/decal/cleanable/blood/splatter/walls,
+/turf/closed/mineral/rogue/bedrock/sandstone,
 /area/rogue/under/cave/inhumen)
-"Wc" = (
-/obj/structure/fermentation_keg/random/water{
-	icon_state = "barrel_tapped_ready";
-	pixel_x = -9;
-	anchored = 1
+"VX" = (
+/obj/structure/rack/rogue/shelf/biggest,
+/obj/item/reagent_containers/glass/bottle/alchemical{
+	pixel_y = -8
 	},
-/obj/structure/fermentation_keg/random/water{
-	icon_state = "barrel_tapped_ready";
-	pixel_x = 9;
-	anchored = 1
-	},
-/obj/structure/fermentation_keg/random/water{
-	icon_state = "barrel_tapped_ready";
+/obj/item/reagent_containers/glass/bottle/alchemical{
 	pixel_x = 1;
-	pixel_y = 10;
-	layer = 3.5;
-	anchored = 1
+	pixel_y = -1
 	},
-/obj/machinery/light/rogue/candle,
+/obj/item/reagent_containers/glass/bottle/alchemical{
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/glass/bottle/alchemical{
+	pixel_x = 6;
+	pixel_y = -5
+	},
+/obj/item/reagent_containers/glass/bottle/alchemical{
+	pixel_x = 5
+	},
+/obj/item/reagent_containers/glass/bottle/alchemical{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/glass/bottle/alchemical{
+	pixel_x = -5;
+	pixel_y = -8
+	},
+/obj/item/reagent_containers/glass/bottle/alchemical{
+	pixel_x = -6;
+	pixel_y = -2
+	},
+/obj/item/reagent_containers/glass/bottle/alchemical{
+	pixel_x = -5;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/glass/bottle/alchemical{
+	pixel_x = -11;
+	pixel_y = -6
+	},
+/obj/item/reagent_containers/glass/bottle/alchemical{
+	pixel_x = -11;
+	pixel_y = -1
+	},
+/obj/item/reagent_containers/glass/bottle/alchemical{
+	pixel_x = -11;
+	pixel_y = 5
+	},
+/turf/open/floor/rogue/citybrick,
+/area/rogue/under/cave/inhumen)
+"VZ" = (
 /turf/open/floor/rogue/citybrick,
 /area/rogue/under/cave/inhumen)
 "Wd" = (
@@ -7330,13 +7183,11 @@
 /obj/effect/landmark/start/wretch,
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
-"Wh" = (
-/obj/effect/decal/cleanable/blood/old{
-	icon_state = "floor2-old"
+"Wg" = (
+/obj/effect/decal/duneedge{
+	dir = 1
 	},
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
+/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "Wk" = (
 /obj/item/cushion/desert2,
@@ -7364,10 +7215,6 @@
 /obj/structure/flora/junglebush/c,
 /turf/open/floor/rogue/grass/desert,
 /area/rogue/outdoors/desert)
-"Ww" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/rogue/citybrick/citybrick5,
-/area/rogue/under/cave/inhumen)
 "Wx" = (
 /obj/machinery/light/roguestreet/orange/walllamp{
 	dir = 8;
@@ -7387,6 +7234,24 @@
 	icon_state = "weird1"
 	},
 /area/rogue/indoors/vampire_manor)
+"WB" = (
+/turf/open/floor/rogue/concrete,
+/area/rogue/under/cave/inhumen)
+"WC" = (
+/obj/structure/table/church{
+	icon_state = "churchtable_end"
+	},
+/obj/machinery/light/rogue/candle/floorcandle,
+/turf/open/floor/rogue/sandbrick{
+	color = "#c4abff"
+	},
+/area/rogue/under/cave/inhumen)
+"WE" = (
+/obj/structure/pillory{
+	lockid = "inhumen"
+	},
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
 "WH" = (
 /obj/structure/stairs{
 	dir = 4
@@ -7395,12 +7260,22 @@
 	icon_state = "weird1"
 	},
 /area/rogue/indoors/vampire_manor)
+"WJ" = (
+/obj/structure/closet/crate/chest/wicker,
+/turf/open/floor/rogue/citybrick,
+/area/rogue/under/cave/inhumen)
 "WK" = (
 /obj/effect/decal/carpet,
 /turf/open/floor/rogue/ruinedwood{
 	icon_state = "weird1"
 	},
 /area/rogue/indoors/vampire_manor)
+"WM" = (
+/obj/machinery/light/rogue/candle{
+	pixel_y = -32
+	},
+/turf/open/floor/rogue/citybrick,
+/area/rogue/under/cave/inhumen)
 "WO" = (
 /obj/structure/table/wood{
 	dir = 6;
@@ -7415,6 +7290,16 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/indoors/vampire_manor)
+"WS" = (
+/obj/item/cushion/desert1{
+	pixel_x = 2;
+	pixel_y = 4
+	},
+/obj/effect/landmark/start/wretch{
+	dir = 4
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
 "WT" = (
 /obj/structure/bed/rogue/inn/wool,
 /obj/item/bedsheet/rogue/cloth,
@@ -7428,6 +7313,12 @@
 	pixel_y = 0
 	},
 /turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"WW" = (
+/obj/effect/decal/duneedge{
+	dir = 1
+	},
+/turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "WX" = (
 /obj/structure/flora/grass/jungle,
@@ -7444,8 +7335,23 @@
 	},
 /turf/open/floor/rogue/hay,
 /area/rogue/indoors/banditcamp/desert)
-"Xf" = (
-/turf/open/floor/rogue/concrete,
+"Xa" = (
+/obj/structure/roguemachine/mail,
+/turf/open/floor/rogue/citybrick/citybrick1,
+/area/rogue/under/cave/inhumen)
+"Xc" = (
+/obj/structure/curtain/black,
+/turf/open/floor/rogue/darkpath{
+	color = "#919191"
+	},
+/area/rogue/under/cave/inhumen)
+"Xd" = (
+/obj/effect/decal/cleanable/blood{
+	icon_state = "floor5-old"
+	},
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
 /area/rogue/under/cave/inhumen)
 "Xh" = (
 /obj/structure/closet/crate/roguecloset,
@@ -7517,6 +7423,12 @@
 "Xt" = (
 /turf/open/water/pond,
 /area/rogue/outdoors/desert)
+"Xy" = (
+/obj/structure/chair/bench/church/r,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
+/area/rogue/under/cave/inhumen)
 "Xz" = (
 /obj/structure/fluff/walldeco/vinez/red,
 /obj/structure/roguewindow/stained/zizo,
@@ -7528,12 +7440,6 @@
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors)
-"XC" = (
-/obj/effect/decal/carpet/square{
-	pixel_y = 4
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/inhumen)
 "XG" = (
 /obj/effect/decal/desertgrassedge{
 	dir = 1
@@ -7543,6 +7449,13 @@
 	},
 /turf/open/floor/rogue/darkpath,
 /area/rogue/outdoors/desert)
+"XK" = (
+/obj/effect/decal/duneedge{
+	dir = 8
+	},
+/obj/effect/decal/duneedge,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/outdoors/desertdeep/safe)
 "XL" = (
 /obj/structure/bed/rogue/inn/double{
 	dir = 1
@@ -7552,6 +7465,15 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/rogue/indoors/vampire_manor)
+"XN" = (
+/obj/effect/decal/duneedge{
+	dir = 1
+	},
+/obj/effect/decal/duneedge{
+	dir = 4
+	},
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
 "XP" = (
 /obj/structure/well,
 /turf/open/floor/rogue/dunes,
@@ -7595,6 +7517,10 @@
 /obj/structure/chair/wood/rogue/fancy,
 /turf/open/floor/carpet/purple,
 /area/rogue/indoors/vampire_manor)
+"Ye" = (
+/obj/item/natural/rock/desert,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
 "Yf" = (
 /obj/structure/table/wood/poor,
 /obj/item/millstone{
@@ -7629,13 +7555,14 @@
 	},
 /turf/open/floor/rogue/darkpath,
 /area/rogue/outdoors/desert)
-"Yn" = (
-/obj/structure/mineral_door/wood/donjon/stone{
-	name = "Bedroom I";
-	lockid = "zurch_bedroom_1";
-	locked = 1
-	},
-/turf/open/floor/rogue/sandbrick,
+"Ym" = (
+/obj/structure/fluff/walldeco/psybanner/zizo,
+/turf/closed/wall/mineral/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"Yr" = (
+/obj/structure/fluff/psycross/baotha/decorated,
+/obj/effect/decal/cleanable/roguerune/god/baotha,
+/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "Yu" = (
 /turf/open/water/pond,
@@ -7644,6 +7571,10 @@
 /obj/machinery/light/rogue/candle,
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/vampire_manor)
+"Yw" = (
+/obj/effect/decal/remains/human,
+/turf/open/water/bloody,
+/area/rogue/under/cave/inhumen)
 "Yy" = (
 /obj/structure/flora/roguetree/burnt,
 /obj/effect/decal/desertgrassedge,
@@ -7695,6 +7626,12 @@
 	},
 /turf/open/floor/carpet/inn,
 /area/rogue/indoors/vampire_manor)
+"YO" = (
+/obj/effect/decal/cleanable/blood/old{
+	icon_state = "floor5-old"
+	},
+/turf/open/floor/rogue/citybrick/citybrick2,
+/area/rogue/under/cave/inhumen)
 "YP" = (
 /obj/effect/decal/cleanable/blood/splatter{
 	icon_state = "gib4-old"
@@ -7736,6 +7673,10 @@
 /obj/machinery/light/rogue/firebowl/standing,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/banditcamp/desert)
+"Zh" = (
+/obj/effect/decal/cleanable/blood,
+/turf/open/floor/rogue/concrete,
+/area/rogue/under/cave/inhumen)
 "Zi" = (
 /obj/structure/flora/roguetree/palm,
 /turf/open/floor/rogue/desert_grass,
@@ -7774,17 +7715,6 @@
 "Zy" = (
 /turf/open/floor/rogue/citybrick/citybrick6,
 /area/rogue/under/cave/inhumen)
-"ZA" = (
-/obj/effect/decal/cleanable/blood,
-/obj/structure/ritualcircle/graggar,
-/turf/open/floor/rogue/darkpath,
-/area/rogue/under/cave/inhumen)
-"ZC" = (
-/obj/structure/chair/bench/church/mid,
-/turf/open/floor/rogue/deserttile{
-	icon_state = "tiledrab2"
-	},
-/area/rogue/under/cave/inhumen)
 "ZE" = (
 /obj/structure/stairs/desert,
 /turf/open/floor/rogue/darkpath,
@@ -7801,6 +7731,12 @@
 /obj/structure/curtain/red,
 /turf/open/floor/carpet/red,
 /area/rogue/indoors/vampire_manor)
+"ZJ" = (
+/obj/effect/decal/cleanable/sigil/NW,
+/turf/open/floor/rogue/deserttile{
+	icon_state = "tiledrab2"
+	},
+/area/rogue/under/cave/inhumen)
 "ZN" = (
 /obj/structure/flora/roguegrass/water/reeds,
 /obj/effect/decal/desertgrassedge,
@@ -36946,11 +36882,11 @@ us
 Pb
 Pb
 us
-vf
-vf
+MU
+MU
 us
 Pb
-Cb
+lf
 us
 us
 Pa
@@ -37109,16 +37045,16 @@ LO
 LO
 Pa
 us
-mS
+rs
 Pb
 Pb
+FO
 Pb
 Pb
+FO
 Pb
 Pb
-Pb
-Pb
-Cb
+lf
 us
 Pa
 LO
@@ -37276,12 +37212,12 @@ Pa
 Pa
 Pa
 us
-tD
+pa
 Pb
 Pb
 us
-Mz
-Mz
+rC
+rC
 us
 Pb
 Pb
@@ -37447,8 +37383,8 @@ us
 us
 us
 us
-ry
-TF
+FA
+ig
 us
 us
 us
@@ -37602,11 +37538,11 @@ LO
 Pa
 us
 us
-Ga
-Mi
-Mi
-Mi
-NF
+uh
+Va
+Va
+Va
+kr
 us
 us
 us
@@ -37614,8 +37550,8 @@ WT
 Vq
 Vq
 us
-VZ
-VZ
+Do
+Do
 us
 Pb
 nx
@@ -37768,24 +37704,24 @@ LO
 LO
 Pa
 us
-lM
+ia
 Hx
 Pb
 Pb
 oy
 Zy
-bL
+zb
 us
 us
+Pb
+Ui
 Pb
 ed
+Do
+Do
+dC
 Pb
-yx
-VZ
-VZ
-Uu
-Pb
-wT
+RE
 WT
 us
 Pa
@@ -37935,24 +37871,24 @@ LO
 LO
 Pa
 us
-Wc
+sd
 Pb
-rV
-Jf
+AZ
+Pq
 Vq
 oy
-bt
+WM
 us
 us
 oB
-at
+rE
 Pb
 us
-VZ
-VZ
+Do
+Do
 us
 Pb
-at
+rE
 oB
 us
 Pa
@@ -38102,21 +38038,21 @@ LO
 LO
 Pa
 us
-Ve
+mc
 Pb
 Vq
-Bq
+GP
 Vq
 oy
-bt
+VZ
 us
 us
 us
 us
 us
 us
-ry
-TF
+FA
+ig
 us
 us
 us
@@ -38269,25 +38205,25 @@ LO
 LO
 Pa
 us
-KY
+VX
 Pb
 oy
 oy
 Pb
-Ca
-bt
+EV
+VZ
 us
 us
 oB
 WT
 Pb
 us
-VZ
-VZ
+Do
+Do
 us
 oB
 Vq
-de
+me
 us
 us
 us
@@ -38436,30 +38372,30 @@ Pa
 Pa
 Pa
 us
-kP
+UH
 Pb
 Pb
 Pb
 Pb
 Pb
-pf
+ff
 us
 us
 Pb
-qY
+Mo
 Pb
-BM
-VZ
-VZ
-Ee
+zm
+Do
+Do
+SB
 Pb
 Pb
 Pb
 us
 us
 gR
-AT
-Ma
+LS
+WS
 WU
 zu
 Pb
@@ -38595,7 +38531,7 @@ us
 us
 Kq
 us
-Nd
+Ym
 us
 us
 us
@@ -38603,24 +38539,24 @@ us
 Pa
 Pa
 us
-kP
+UH
 Pb
 Pb
 Pb
 Pb
 oy
-ue
+hW
 us
 us
 Vq
-HL
+dY
 Pb
 us
-VZ
-VZ
+Do
+Do
 us
 Pb
-at
+rE
 WT
 us
 us
@@ -38629,7 +38565,7 @@ Pb
 Vq
 Vq
 Vq
-hf
+mO
 Pb
 qo
 us
@@ -38760,8 +38696,8 @@ Pa
 us
 Gy
 YV
-JZ
-iD
+DA
+YO
 YV
 YV
 YV
@@ -38770,28 +38706,28 @@ Kq
 us
 Pa
 us
-kP
+UH
 Pb
-ur
-zs
-ur
+GW
+aC
+GW
 Pb
-vO
+kG
 us
 us
 us
 us
 us
 us
-ry
-TF
+FA
+ig
 us
 us
 us
 us
 us
 us
-fE
+Xa
 We
 Vq
 jY
@@ -38925,35 +38861,35 @@ LO
 LO
 Pa
 us
-mn
+Ca
 am
 am
 am
 am
 am
-hM
+Xd
 Zy
 Cd
-jN
+BI
 Pa
 us
-Wc
+sd
 Pb
 Pb
 Pb
 oy
-Uy
-bA
+es
+WJ
 us
 us
 WT
 Pb
 oB
 us
-VZ
-VZ
+Do
+Do
 us
-Fu
+Ge
 Pb
 Vq
 us
@@ -39092,15 +39028,15 @@ LO
 LO
 Pa
 Kq
-bt
-RR
+VZ
+qY
 am
-zX
-lV
-lV
-lV
+aM
+re
+re
+re
 am
-gT
+Td
 us
 Pa
 us
@@ -39109,27 +39045,27 @@ Cd
 Pb
 Pb
 oy
-Ww
-Hx
+Lm
+eo
 us
 us
 Vq
-qt
+Cc
 Pb
-xX
-VZ
-VZ
-Yn
+wl
+Do
+Do
+mE
 Pb
-XC
-ls
+BK
+le
 us
 us
-ux
-nK
+HN
+Mf
 Px
 VP
-Ql
+wc
 HW
 Gy
 PO
@@ -39258,37 +39194,37 @@ LO
 LO
 LO
 Pa
-jN
-dP
-GS
-bb
+BI
+Il
+qk
+Ma
 am
-ZC
-ZC
-ZC
+Ab
+Ab
+Ab
 am
-ah
-Nd
+jB
+Ym
 Pa
 us
 us
-wn
-uO
+tD
+lT
 YV
-xw
+ex
 Hx
 us
 us
 us
 Vq
-mF
+Hh
 Pb
 us
-VZ
-qk
+Do
+xs
 us
 WT
-at
+rE
 oB
 us
 us
@@ -39426,22 +39362,22 @@ LO
 LO
 Pa
 Kq
-hC
-qx
-zn
-Df
-Dy
-Dy
-Dy
+Pi
+Tn
+TV
+rl
+Xy
+Xy
+Xy
 am
-JJ
+RK
 us
 us
 us
 us
 us
 us
-SZ
+AI
 us
 us
 us
@@ -39451,8 +39387,8 @@ us
 us
 us
 us
-Mz
-Mz
+rC
+rC
 us
 us
 us
@@ -39593,15 +39529,15 @@ LO
 LO
 Pa
 us
-EH
-hC
-lZ
-Ky
-EM
-oR
+st
+Pi
+UE
+ZJ
+Mv
+dF
 am
-Le
-bt
+vS
+VZ
 GF
 oy
 oy
@@ -39760,15 +39696,15 @@ LO
 LO
 Pa
 us
-sd
-IV
-Gd
-ws
-wy
-jx
-zr
-zr
-bt
+CI
+PR
+EB
+RA
+Oa
+Uq
+zx
+zx
+VZ
 us
 oy
 oy
@@ -39927,46 +39863,46 @@ LO
 LO
 Pa
 us
-EH
-hC
-kf
-dU
-AY
-tb
+st
+Pi
+bc
+Lx
+Cg
+AS
 am
-Le
-bt
+vS
+VZ
 GF
 oy
-Fs
+CR
 oy
 oy
 oy
-Fs
-oy
-oy
-oy
-oy
-Fs
+CR
 oy
 oy
 oy
 oy
-oy
-oy
-oy
-Fs
+CR
 oy
 oy
 oy
 oy
 oy
-aN
+oy
+oy
+CR
 oy
 oy
 oy
 oy
-Fs
+oy
+hY
+oy
+oy
+oy
+oy
+CR
 oy
 oy
 oy
@@ -40094,15 +40030,15 @@ LO
 LO
 Pa
 Kq
-zT
-hC
-QZ
-HY
-lV
-lV
-lV
+EC
+Pi
+HC
+Bh
+re
+re
+re
 am
-JJ
+RK
 us
 us
 us
@@ -40261,16 +40197,16 @@ LO
 LO
 Pa
 us
-Rv
-QI
-qU
+Pw
+Kt
+tL
 am
-ZC
-ZC
-ZC
+Ab
+Ab
+Ab
 am
-bt
-CG
+VZ
+JU
 Pa
 Pa
 Pa
@@ -40428,15 +40364,15 @@ LO
 LO
 Pa
 us
-bt
-RR
+VZ
+qY
 am
-Wh
-Dy
-Dy
-Dy
-tI
-gT
+yl
+Xy
+Xy
+Xy
+SY
+Td
 us
 Pa
 LO
@@ -40472,7 +40408,7 @@ LO
 LO
 oy
 oy
-wK
+Ye
 LO
 LO
 LO
@@ -40595,10 +40531,10 @@ LO
 LO
 Pa
 us
-bt
+VZ
 am
 am
-zl
+fZ
 am
 am
 am
@@ -40638,10 +40574,10 @@ us
 Pm
 us
 LO
-Fs
+CR
 oy
 oy
-MX
+oy
 LO
 LO
 LO
@@ -40764,16 +40700,16 @@ Pa
 us
 Zy
 YV
-JZ
+DA
 YV
 YV
 YV
 YV
 Hx
-jN
+BI
 Pa
 Pa
-wK
+Ye
 oy
 LO
 LO
@@ -40808,7 +40744,7 @@ LO
 LO
 LO
 oy
-ol
+Nu
 LO
 LO
 LO
@@ -40933,7 +40869,7 @@ us
 us
 us
 Kq
-Nd
+Ym
 Kq
 us
 Kq
@@ -41120,7 +41056,7 @@ Zy
 sE
 Hx
 oy
-DM
+CF
 Pb
 Zy
 Uo
@@ -41145,7 +41081,7 @@ LO
 LO
 oy
 oy
-Gf
+Yr
 oy
 oy
 LO
@@ -41311,9 +41247,9 @@ LO
 LO
 oy
 oy
-VZ
-VZ
-eb
+Do
+Do
+xz
 oy
 oy
 LO
@@ -41473,15 +41409,15 @@ us
 Pa
 Pa
 LO
+De
 oy
 oy
+Yr
 oy
-Gf
-oy
-VZ
-sN
-VZ
-Gf
+Do
+aX
+Do
+Yr
 oy
 LO
 Pa
@@ -41640,16 +41576,16 @@ us
 Pa
 Pa
 LO
+Do
+Do
+mN
 oy
-VZ
-tm
-oy
-zN
-oy
-oy
+HO
 oy
 oy
-mh
+oy
+oy
+PX
 LO
 LO
 Pa
@@ -41767,14 +41703,14 @@ LO
 LO
 LO
 LO
-xa
-Al
-OO
+LU
+DS
+oc
 LO
 LO
-yW
+ET
 oy
-wK
+Ye
 LO
 LO
 LO
@@ -41807,13 +41743,13 @@ Pa
 LO
 Pa
 LO
+Do
+Do
 oy
-VZ
-VZ
-jj
-jj
-jj
-Tp
+Vh
+Vh
+Vh
+WE
 oy
 xc
 oy
@@ -41932,12 +41868,12 @@ LO
 LO
 LO
 LO
-Lp
-Al
-Al
-Cx
-Al
-dY
+eb
+DS
+DS
+pR
+DS
+uf
 LO
 oy
 oy
@@ -41975,11 +41911,11 @@ LO
 Pa
 LO
 oy
-Gf
+Yr
 oy
-jj
-kq
-jj
+Vh
+EW
+Vh
 oy
 oy
 LO
@@ -42099,15 +42035,15 @@ LO
 LO
 LO
 LO
-lh
-oU
-Nw
-Al
-Cx
-Al
-Nq
+PU
+Fm
+qv
+DS
+pR
+DS
+Xc
 oy
-ol
+Nu
 LO
 LO
 LO
@@ -42142,14 +42078,14 @@ LO
 Pa
 LO
 oy
-aL
+eQ
 oy
-jj
-jj
-jj
+Vh
+Vh
+Vh
 oy
-Rb
-VZ
+jv
+Do
 oy
 LO
 LO
@@ -42266,16 +42202,16 @@ LO
 LO
 LO
 LO
-Al
-Al
-Al
-Al
-Al
+DS
+DS
+DS
+DS
+DS
 LO
 LO
 LO
 oy
-JE
+xx
 LO
 LO
 LO
@@ -42310,13 +42246,13 @@ Pa
 LO
 oy
 oy
-Bd
+Md
 oy
-VZ
-VZ
 oy
-VZ
-ks
+oy
+oy
+Do
+DR
 oy
 LO
 LO
@@ -42434,16 +42370,16 @@ LO
 LO
 LO
 LO
-xa
-Cx
-Lp
-Al
-xa
+LU
+pR
+eb
+DS
+LU
 LO
-JE
+xx
 oy
 oy
-un
+AG
 LO
 LO
 LO
@@ -42476,13 +42412,13 @@ LO
 Pa
 LO
 LO
-zZ
+nH
 oy
 oy
-yP
-VZ
+dP
+Do
 oy
-Gf
+Yr
 oy
 oy
 LO
@@ -42600,15 +42536,15 @@ LO
 LO
 LO
 LO
-bd
+xO
 LO
 LO
-Al
-Al
-dC
+DS
+DS
+Jp
 LO
 LO
-oV
+Pu
 oy
 oy
 oy
@@ -42646,9 +42582,9 @@ LO
 LO
 LO
 oy
-oy
-oy
-Ps
+Do
+Do
+Om
 oy
 LO
 LO
@@ -42770,18 +42706,18 @@ LO
 LO
 LO
 LO
-bn
-Al
+Ai
+DS
 LO
 LO
 LO
 LO
-un
+AG
 oy
 oy
-ZA
-JE
-xC
+iY
+xx
+ov
 Pa
 Pa
 us
@@ -42944,13 +42880,13 @@ LO
 LO
 LO
 LO
-xC
+ov
 oy
 oy
-KP
+zc
 NS
-gS
-hF
+lc
+VW
 Pa
 us
 Kq
@@ -43111,12 +43047,12 @@ LO
 LO
 LO
 Kq
-PW
-Ec
+nK
+zL
 oy
 oy
 oy
-GW
+Mx
 NS
 Pa
 Pa
@@ -43278,14 +43214,14 @@ LO
 LO
 LO
 Kq
-mB
-DW
-TN
+UM
+oT
+yh
 oy
 oy
 oo
 oo
-xC
+ov
 LO
 LO
 LO
@@ -43445,14 +43381,14 @@ LO
 LO
 LO
 us
-Lk
-tL
-yu
+IJ
+PC
+Jw
 oy
-Rp
+iX
 oo
-RC
-xC
+xI
+ov
 LO
 LO
 LO
@@ -43612,14 +43548,14 @@ LO
 LO
 LO
 us
-yK
-ir
-av
-tM
-fo
+WC
+DQ
+qj
+dS
+Yw
 oo
-VJ
-xC
+gu
+ov
 LO
 LO
 LO
@@ -43783,8 +43719,8 @@ us
 us
 Kq
 Kq
-JE
-xC
+xx
+ov
 LO
 LO
 LO
@@ -61150,11 +61086,11 @@ LO
 LO
 Pa
 us
-nt
-wH
+RJ
+dm
 Pb
 Pb
-EG
+Pn
 Vq
 us
 Pa
@@ -61317,11 +61253,11 @@ LO
 LO
 Pa
 us
-IJ
-Pb
-Pb
-Pb
 EI
+Pb
+Pb
+Pb
+Db
 Pb
 YA
 us
@@ -61485,19 +61421,19 @@ LO
 Pa
 us
 Pb
-Xf
-Xf
-Xf
+WB
+WB
+WB
 Pb
 Pb
-Mz
+rC
 Pb
 Pb
 Pb
 Pb
 Pb
-VZ
-VZ
+Do
+Do
 Pb
 Pb
 Pb
@@ -61652,20 +61588,20 @@ LO
 Pa
 us
 Pb
-Xf
-km
-Xf
+WB
+vr
+WB
 Pb
 Pb
-Mz
+rC
 Pb
 Pb
 Pb
 Pb
-Pb
-VZ
-VZ
-Pb
+FO
+Do
+Do
+FO
 Pb
 Pb
 Pb
@@ -61684,12 +61620,12 @@ LO
 LO
 LO
 Pa
-Do
+qg
 Oh
-xr
-xr
-xr
-xr
+Gt
+Gt
+Gt
+Gt
 Pa
 LO
 LO
@@ -61819,22 +61755,22 @@ LO
 Pa
 us
 Pb
-Xf
-Xf
-um
+WB
+WB
+Zh
 Pb
-st
+sy
 YA
 us
 us
-Mz
+rC
 us
 us
-pe
-pe
+wp
+wp
 us
 us
-Mz
+rC
 us
 us
 Pa
@@ -61851,13 +61787,13 @@ LO
 LO
 LO
 Pa
-Do
-ny
+qg
+TM
 In
 In
-xG
+vM
 In
-xr
+Gt
 Pa
 Pa
 Pa
@@ -61990,10 +61926,10 @@ Pb
 Pb
 Pb
 Pb
-yR
+wb
 us
 us
-Ru
+PE
 Pb
 Pb
 us
@@ -62002,7 +61938,7 @@ Us
 us
 Pb
 Pb
-Ru
+PE
 us
 Pa
 LO
@@ -62018,15 +61954,15 @@ LO
 LO
 LO
 Pa
-Do
+qg
 Oh
-ny
+TM
 In
 In
 In
 In
-xr
-xr
+Gt
+Gt
 Oh
 Pa
 LO
@@ -62152,15 +62088,15 @@ LO
 LO
 Pa
 us
-nc
-hk
-Rh
-Ru
-by
-yR
+br
+CZ
+Tl
+PE
+Nd
+wb
 us
 us
-Ru
+PE
 Ir
 Pb
 us
@@ -62169,7 +62105,7 @@ us
 us
 Pb
 Ir
-Ru
+PE
 us
 Pa
 LO
@@ -62188,13 +62124,13 @@ Pa
 Pa
 Pa
 Pa
-GN
-Ht
+GY
+eY
 In
 In
 In
 In
-hv
+UG
 Pa
 Pa
 LO
@@ -62327,16 +62263,16 @@ us
 us
 us
 us
-lc
+AY
+FO
 Pb
 Pb
 Pb
 Pb
 Pb
 Pb
-Pb
-Pb
-lc
+FO
+AY
 us
 Pa
 LO
@@ -62357,11 +62293,11 @@ LO
 Pa
 Pa
 Pa
-GN
-FX
+GY
+TT
 In
 In
-ao
+XK
 Oh
 Pa
 LO
@@ -62498,8 +62434,8 @@ us
 us
 us
 us
-yt
-yq
+rF
+HE
 us
 us
 us
@@ -62526,10 +62462,10 @@ LO
 Pa
 Oh
 Oh
-ny
+TM
 In
 In
-hv
+UG
 Pa
 LO
 LO
@@ -62662,14 +62598,14 @@ LO
 Pa
 us
 Vq
-Jr
+BB
 Pb
 us
-VZ
-VZ
+Do
+Do
 us
 Vq
-yI
+FW
 oB
 us
 Pa
@@ -62694,9 +62630,9 @@ Pa
 Pa
 Pa
 Pa
-ny
+TM
 In
-hv
+UG
 Pa
 LO
 LO
@@ -62829,14 +62765,14 @@ LO
 Pa
 us
 oB
-yo
+jc
 Pb
-eZ
-VZ
-VZ
-bl
+qK
+Do
+Do
+sr
 Pb
-Em
+Ft
 WT
 us
 Pa
@@ -62861,9 +62797,9 @@ LO
 LO
 LO
 Pa
-ny
+TM
 In
-hv
+UG
 Pa
 LO
 LO
@@ -62996,14 +62932,14 @@ LO
 Pa
 us
 WT
-at
+rE
 Pb
 us
-VZ
-VZ
+Do
+Do
 us
 Pb
-at
+rE
 Pb
 us
 Pa
@@ -63028,9 +62964,9 @@ LO
 LO
 LO
 LO
-ny
+TM
 In
-hv
+UG
 LO
 LO
 LO
@@ -63166,8 +63102,8 @@ us
 us
 us
 us
-ry
-TF
+FA
+ig
 us
 us
 us
@@ -63195,9 +63131,9 @@ LO
 LO
 LO
 LO
-ny
+TM
 In
-hv
+UG
 LO
 LO
 LO
@@ -63333,11 +63269,11 @@ Pb
 WT
 Pb
 us
-VZ
-VZ
+Do
+Do
 us
 oB
-Pq
+km
 WT
 us
 Pa
@@ -63360,14 +63296,14 @@ LO
 LO
 Oh
 Oh
-xr
-xr
-dS
+Gt
+Gt
+oz
 In
-ao
-xr
-xr
-xr
+XK
+Gt
+Gt
+Gt
 Oh
 Oh
 Oh
@@ -63497,12 +63433,12 @@ LO
 Pa
 us
 Pb
-cW
+GT
 Pb
-NH
-VZ
-VZ
-mU
+Af
+Do
+Do
+kv
 Pb
 Pb
 Vq
@@ -63526,7 +63462,7 @@ LO
 LO
 LO
 Oh
-ny
+TM
 In
 In
 In
@@ -63535,8 +63471,8 @@ In
 In
 In
 In
-ao
-xr
+XK
+Gt
 Oh
 Oh
 LO
@@ -63664,14 +63600,14 @@ LO
 Pa
 us
 oB
-Ae
-TT
+it
+sq
 us
-VZ
-VZ
+Do
+Do
 us
 Pb
-Cl
+mz
 Pb
 us
 Pa
@@ -63690,9 +63626,9 @@ LO
 LO
 LO
 LO
-xr
-xr
-dS
+Gt
+Gt
+oz
 In
 In
 In
@@ -63704,9 +63640,9 @@ In
 In
 In
 In
-xr
-xr
-xr
+Gt
+Gt
+Gt
 LO
 LO
 LO
@@ -63834,8 +63770,8 @@ us
 us
 us
 us
-ry
-TF
+FA
+ig
 us
 us
 us
@@ -63856,7 +63792,7 @@ LO
 LO
 LO
 Pa
-ny
+TM
 In
 In
 In
@@ -64001,8 +63937,8 @@ oB
 Pb
 Pb
 us
-VZ
-VZ
+Do
+Do
 us
 Vq
 WT
@@ -64023,7 +63959,7 @@ LO
 LO
 LO
 Pa
-hK
+WW
 In
 In
 In
@@ -64041,7 +63977,7 @@ In
 In
 In
 In
-cR
+SR
 LO
 LO
 LO
@@ -64165,14 +64101,14 @@ LO
 Pa
 us
 Pb
+xe
+Pb
+ae
+Do
+Do
 lL
 Pb
-No
-VZ
-VZ
-tH
-Pb
-BX
+wo
 Pb
 us
 Pa
@@ -64192,13 +64128,13 @@ LO
 Pa
 us
 Kq
-zx
+yI
 Kq
-zx
+yI
 us
-zx
+yI
 pi
-zx
+yI
 pi
 Kq
 us
@@ -64208,7 +64144,7 @@ In
 In
 In
 In
-hv
+UG
 oy
 LO
 LO
@@ -64332,14 +64268,14 @@ LO
 Pa
 us
 Vq
-HL
+dY
 WT
 us
-VZ
-VZ
+Do
+Do
 us
 oB
-at
+rE
 Pb
 us
 Pa
@@ -64369,13 +64305,13 @@ am
 Qm
 OC
 us
-TK
+jj
 In
 In
 In
 In
 In
-hv
+UG
 oy
 Pa
 Pa
@@ -64530,19 +64466,19 @@ oo
 jO
 oq
 am
-tj
+iM
 Hd
 CS
 Qm
 oo
 Kq
-TK
+jj
 In
 In
 In
 In
 In
-hv
+UG
 oy
 Pa
 Pa
@@ -64689,7 +64625,7 @@ Pa
 us
 Us
 mT
-ee
+zr
 ee
 Ur
 fS
@@ -64703,13 +64639,13 @@ FU
 am
 yQ
 Ih
-TK
+jj
 In
 In
 In
 In
 In
-ao
+XK
 oy
 oy
 kp
@@ -64861,7 +64797,7 @@ ee
 Xz
 am
 am
-am
+qY
 zW
 am
 LQ
@@ -64870,14 +64806,14 @@ BT
 am
 oi
 us
-TK
+jj
 In
 In
 In
 In
 In
 In
-cR
+SR
 oy
 kp
 kp
@@ -65023,7 +64959,7 @@ Pa
 us
 Us
 mT
-ee
+bs
 ee
 Ur
 Hm
@@ -65037,14 +64973,14 @@ SW
 am
 am
 Ih
-TK
+jj
 In
 In
 In
 In
 In
 In
-cR
+SR
 oy
 kp
 kp
@@ -65197,21 +65133,21 @@ vy
 Hj
 am
 am
-vm
-JT
+cg
+bn
 am
 Nk
 am
 Ml
 us
-TK
+jj
 In
 In
 In
 In
 In
 In
-cR
+SR
 Pa
 Pa
 Pa
@@ -65371,14 +65307,14 @@ am
 RH
 GQ
 Kq
-TK
+jj
 In
 In
 In
 In
 In
 In
-cR
+SR
 Pa
 Pa
 Pa
@@ -65528,23 +65464,23 @@ LO
 Pa
 Kq
 Kq
-zx
+yI
 us
-zx
+yI
 Kq
-zx
+yI
 AA
-zx
+yI
 AA
 us
 us
 us
 In
 In
-xL
+Ix
+GY
+GY
 GN
-GN
-cT
 oy
 LO
 LO
@@ -65693,7 +65629,7 @@ LO
 Pa
 Pa
 Pa
-ty
+DB
 In
 In
 In
@@ -65708,7 +65644,7 @@ us
 us
 In
 In
-hv
+UG
 oy
 oy
 oy
@@ -65875,7 +65811,7 @@ In
 In
 In
 In
-hv
+UG
 oy
 oy
 LO
@@ -66026,15 +65962,12 @@ Pa
 Pa
 Pa
 oy
-la
+wT
 In
 In
-cT
-cT
-wF
-In
-In
-In
+GN
+GN
+zo
 In
 In
 In
@@ -66042,7 +65975,10 @@ In
 In
 In
 In
-hv
+In
+In
+In
+UG
 oy
 oy
 LO
@@ -66191,24 +66127,24 @@ LO
 LO
 Pa
 Pa
-Bx
-la
+ld
+wT
 In
+GY
+Pa
+Pa
+oy
+oy
 GN
-Pa
-Pa
-oy
-oy
-cT
-cT
-cT
-cT
-hn
-In
-In
-cN
-cT
-cT
+GN
+GN
+GN
+XN
+jj
+jj
+IM
+GN
+GN
 oy
 oy
 LO
@@ -66357,10 +66293,10 @@ LO
 LO
 Pa
 Pa
-zA
+Wg
 In
 In
-cT
+GN
 oy
 Pa
 Pa
@@ -66370,11 +66306,11 @@ oy
 oy
 oy
 oy
-zA
-In
-In
-In
-cR
+Wg
+jj
+jj
+jj
+SR
 oy
 oy
 oy
@@ -66524,9 +66460,9 @@ LO
 Pa
 Pa
 Pa
-zA
+Wg
 In
-cT
+GN
 Pa
 Pa
 Pa
@@ -66538,9 +66474,9 @@ Pa
 Pa
 Pa
 Pa
-zA
-In
-In
+Wg
+jj
+jj
 Pa
 Pa
 Pa
@@ -66686,12 +66622,12 @@ LO
 LO
 LO
 LO
-lD
-Ju
-lD
+OQ
+Pv
+OQ
 Pa
-nh
-vT
+GH
+In
 In
 oy
 Pa
@@ -66705,10 +66641,10 @@ Pa
 Pa
 Pa
 Pa
-zA
-In
-In
-cR
+Wg
+jj
+jj
+SR
 Pa
 Pa
 Pa
@@ -66853,13 +66789,13 @@ LO
 LO
 LO
 LO
-zh
-xe
-xe
-VA
+Ax
+gS
+gS
+dO
 Oc
-vT
-br
+In
+Tm
 Pa
 Pa
 Pa
@@ -66873,9 +66809,9 @@ LO
 Pa
 Pa
 oy
-zA
-In
-cR
+Wg
+jj
+SR
 Pa
 Pa
 Pa
@@ -67020,11 +66956,11 @@ LO
 LO
 LO
 Oc
-xT
-gK
-gK
-cH
-DQ
+kX
+kX
+kX
+kX
+cv
 Pa
 Pa
 Pa
@@ -67040,9 +66976,9 @@ LO
 LO
 Pa
 Pa
-zA
-In
-yZ
+Wg
+jj
+mR
 Pa
 LO
 LO
@@ -67186,14 +67122,14 @@ LO
 LO
 LO
 LO
-dE
-gK
-gK
-gK
-NV
+kX
+kX
+kX
+kX
+kX
 qH
-GT
-nh
+gS
+GH
 LO
 LO
 LO
@@ -67207,10 +67143,10 @@ LO
 LO
 LO
 LO
-zA
-In
-In
-cR
+Wg
+jj
+jj
+SR
 LO
 LO
 LO
@@ -67352,16 +67288,16 @@ LO
 LO
 LO
 LO
-Im
-Va
-Va
-gK
-cH
+TI
+kX
+kX
+kX
+kX
 Zi
 Oc
-GT
-Vh
-sq
+gS
+kX
+gS
 LO
 LO
 LO
@@ -67374,10 +67310,10 @@ LO
 LO
 LO
 LO
-zA
-In
-In
-cR
+Wg
+jj
+jj
+SR
 LO
 LO
 LO
@@ -67518,16 +67454,16 @@ LO
 LO
 LO
 LO
-fQ
-xF
+TI
+QO
 Oc
 Oc
 sS
 sS
 Oc
 sS
-PB
-TB
+kX
+QE
 Oc
 LO
 LO
@@ -67542,9 +67478,9 @@ LO
 LO
 LO
 LO
-zA
-In
-yZ
+Wg
+jj
+mR
 LO
 LO
 LO
@@ -67684,17 +67620,17 @@ LO
 LO
 LO
 LO
-sg
-fQ
-Ai
-fx
+iq
+TI
+xo
+Ow
 qH
-GT
-Mf
+gS
+gS
 sS
-gK
-gK
-cH
+kX
+kX
+kX
 qH
 LO
 LO
@@ -67709,10 +67645,10 @@ LO
 LO
 LO
 LO
-zA
-In
-In
-cR
+Wg
+jj
+jj
+SR
 LO
 LO
 LO
@@ -67852,15 +67788,15 @@ LO
 LO
 LO
 sS
-dZ
-Im
-JN
+SX
+xr
+lF
 qH
-xT
-gK
-gK
-gK
-gK
+kX
+kX
+kX
+kX
+kX
 LO
 LO
 LO
@@ -67877,9 +67813,9 @@ LO
 LO
 LO
 oy
-zA
-In
-cR
+Wg
+jj
+SR
 LO
 LO
 LO
@@ -68019,16 +67955,16 @@ LO
 LO
 LO
 LO
-fQ
+TI
 LO
 Oc
-mq
-xT
-gK
-gK
-gK
-gK
-Mf
+VL
+kX
+kX
+kX
+kX
+kX
+gS
 LO
 LO
 LO
@@ -68044,9 +67980,9 @@ LO
 LO
 LO
 LO
-zA
-In
-cR
+Wg
+jj
+SR
 LO
 LO
 LO
@@ -68188,14 +68124,14 @@ LO
 LO
 LO
 LO
-Cq
-xe
-sq
-Va
-Va
-uG
-gK
-Mf
+GH
+gS
+gS
+kX
+kX
+kX
+kX
+gS
 LO
 LO
 LO
@@ -68211,9 +68147,9 @@ LO
 LO
 LO
 LO
-AW
-lU
-AW
+mW
+qW
+mW
 LO
 LO
 LO
@@ -68360,7 +68296,7 @@ LO
 Oc
 Oc
 Oc
-AH
+GH
 LO
 LO
 LO
