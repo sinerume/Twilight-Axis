@@ -141,6 +141,17 @@
 		return
 
 	var/storyteller_type = SSgamemode.story_policy_type(TRUE)
+	var/min_players = SSgamemode.story_antag_min_players(/datum/antagonist/bandit)
+
+	if(storyteller_type == /datum/storyteller/ravox)
+		if(player_count >= 41)
+			slots = 4
+		else if(player_count >= min_players)
+			slots = 2
+		slots = SSgamemode.story_antag_slots(slots, /datum/antagonist/bandit, player_count)
+		bandit_job.total_positions = slots
+		bandit_job.spawn_positions = slots
+		return
 
 	var/unlocks_bandits = SSgamemode.storyteller_unlocks_scaled_antag_slots(/datum/antagonist/bandit)
 
@@ -154,7 +165,6 @@
 
 	var/max_slots = SSgamemode.story_antag_slot_cap(/datum/antagonist/bandit, TRUE, storyteller_type)
 	var/slot_scaling = SSgamemode.story_antag_scaling_step(/datum/antagonist/bandit)
-	var/min_players = SSgamemode.story_antag_min_players(/datum/antagonist/bandit)
 
 	slots = SSgamemode.storyteller_scale_slots(
 		max_slots,
