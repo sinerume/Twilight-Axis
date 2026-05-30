@@ -76,6 +76,10 @@
 /obj/machinery/light/rogue/torchholder/l,
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/outdoors/desertdeep)
+"aco" = (
+/obj/structure/roguemachine/ship_fulfillment,
+/turf/closed/wall/mineral/rogue/sandbrick,
+/area/rogue/indoors/town/shop/desert)
 "acv" = (
 /obj/machinery/light/rogue/smelter/hiron{
 	pixel_x = 0;
@@ -10671,6 +10675,10 @@
 /obj/item/clothing/neck/roguetown/psicross/astrata,
 /turf/open/floor/rogue/blocks/stonered,
 /area/rogue/indoors/town/church)
+"emH" = (
+/obj/structure/roguemachine/escrow/tailor,
+/turf/closed/wall/mineral/rogue/sandbrick,
+/area/rogue/indoors/town/desert)
 "emR" = (
 /turf/closed/mineral/random/rogue/sandstone,
 /area/rogue/under/cave/skeletoncrypt)
@@ -25639,6 +25647,10 @@
 /obj/structure/roguewindow/openclose/reinforced,
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors/town/desert)
+"kJG" = (
+/obj/structure/roguemachine/potionseller/university,
+/turf/closed/wall/mineral/rogue/sandbrick,
+/area/rogue/indoors/town/physician/desert)
 "kJP" = (
 /obj/structure/rack/rogue,
 /obj/effect/spawner/lootdrop/roguetown/dungeon/weapons,
@@ -31847,6 +31859,7 @@
 	dir = 1;
 	pixel_y = 8
 	},
+/obj/item/roguemachine/navigator,
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/shop/desert)
 "nsz" = (
@@ -32207,6 +32220,10 @@
 "nyZ" = (
 /turf/open/floor/rogue/tile/harem1,
 /area/rogue/indoors/town/desert)
+"nzl" = (
+/obj/structure/roguemachine/scrapper/tailor,
+/turf/closed/wall/mineral/rogue/sandbrick,
+/area/rogue/indoors/town/desert)
 "nzz" = (
 /obj/structure/fluff/railing/border/east,
 /obj/item/reagent_containers/glass/bucket,
@@ -32343,6 +32360,10 @@
 	},
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/manor/desert)
+"nCt" = (
+/obj/structure/roguemachine/goldface/public/smith,
+/turf/closed/wall/mineral/rogue/sandbrick,
+/area/rogue/outdoors/town/desert)
 "nCu" = (
 /obj/structure/bookcase/random/archive,
 /turf/open/floor/rogue/tile/brownbrick{
@@ -37086,7 +37107,9 @@
 /obj/structure/lever/wall{
 	dir = 4;
 	redstone_id = "tailor_shutter";
-	name = "Tailor shutters"
+	name = "Tailor shutters";
+	pixel_x = 0;
+	pixel_y = 0
 	},
 /obj/item/needle/thorn,
 /turf/open/floor/rogue/tile/harem,
@@ -39407,6 +39430,7 @@
 /area/rogue/outdoors/desertdeep)
 "qwx" = (
 /obj/structure/rack/rogue/shelf,
+/obj/structure/roguemachine/scrapper/smith,
 /turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue/indoors/town/dwarfin/desert)
 "qwy" = (
@@ -49683,7 +49707,7 @@
 /turf/open/floor/rogue/tile/harem1,
 /area/rogue/indoors/town/tavern/desert)
 "uFP" = (
-/obj/structure/roguemachine/goldface/public/smith,
+/obj/structure/roguemachine/escrow,
 /turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue/indoors/town/dwarfin/desert)
 "uFV" = (
@@ -386452,7 +386476,7 @@ rJC
 rJC
 boW
 boW
-tCA
+kJG
 uUl
 uUl
 lUV
@@ -389890,7 +389914,7 @@ isw
 nyA
 nyA
 nyA
-atX
+emH
 tip
 atX
 atX
@@ -390508,7 +390532,7 @@ anb
 iIz
 eok
 eok
-atX
+nzl
 nyA
 ygV
 hXi
@@ -400472,7 +400496,7 @@ icQ
 icQ
 icQ
 icQ
-rJC
+nCt
 iru
 icQ
 icQ
@@ -506872,7 +506896,7 @@ xiN
 azh
 bGM
 xiN
-iiI
+aco
 ury
 ury
 ury
