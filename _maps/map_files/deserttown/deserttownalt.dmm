@@ -3589,6 +3589,10 @@
 	icon_state = "weird1"
 	},
 /area/rogue/indoors/vampire_manor)
+"xS" = (
+/obj/effect/landmark/start/gnolllate,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
 "xV" = (
 /obj/structure/fluff/walldeco/church/line{
 	dir = 1
@@ -5162,6 +5166,11 @@
 	pixel_y = 6
 	},
 /turf/open/floor/rogue/sandbrick,
+/area/rogue/under/cave/inhumen)
+"Ia" = (
+/obj/structure/bed/rogue/shit,
+/obj/effect/landmark/start/gnoll,
+/turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/inhumen)
 "Ic" = (
 /obj/structure/closet/crate/roguecloset{
@@ -7211,6 +7220,10 @@
 /obj/structure/fluff/walldeco/sparrowflag,
 /turf/closed/wall/mineral/rogue/stone,
 /area/rogue/indoors)
+"Wo" = (
+/obj/effect/landmark/start/gnoll,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/cave/inhumen)
 "Wt" = (
 /obj/structure/flora/junglebush/c,
 /turf/open/floor/rogue/grass/desert,
@@ -42881,10 +42894,10 @@ LO
 LO
 LO
 ov
-oy
+Wo
 oy
 zc
-NS
+Ia
 lc
 VW
 Pa
@@ -43050,7 +43063,7 @@ Kq
 nK
 zL
 oy
-oy
+xS
 oy
 Mx
 NS
@@ -43218,7 +43231,7 @@ UM
 oT
 yh
 oy
-oy
+Wo
 oo
 oo
 ov
