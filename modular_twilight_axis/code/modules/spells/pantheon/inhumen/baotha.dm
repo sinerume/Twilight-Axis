@@ -53,7 +53,7 @@
 	var/list/arousal_data = list()
 	SEND_SIGNAL(H, COMSIG_SEX_GET_AROUSAL, arousal_data)
 	var/point_count = 0
-	if(arousal_data["arousal"] >= 90)
+	if(arousal_data["arousal"] >= 80)
 		to_chat(user, span_love("My pray has arousual!"))
 		point_count += 2
 	if(H.has_stress_event(/datum/stressevent/TAlasthigh))
