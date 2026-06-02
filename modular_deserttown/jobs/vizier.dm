@@ -245,7 +245,7 @@
 		H.change_stat(STATKEY_STR, -1)
 		H.change_stat(STATKEY_INT, 1)
 		H.change_stat(STATKEY_PER, 1) 
-		H.mind?.adjust_spellpoints(3)
+//.		H.mind?.adjust_spellpoints(3) Поправить позже
 	//He gets far less spellpoints than any other equivalent caster. Give him a T4.
 	//Message, too. You'll be taking it anyways.
 	if(H.mind)
