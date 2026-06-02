@@ -74,7 +74,7 @@
 				var/is_mine = FALSE
 				if(I.mailedto == H.real_name)
 					is_mine = TRUE 
-				else if((H.mind?.assigned_role in list("Hand", "Vizier")) || (H.mind?.special_role in list("Hand", "Vizier")))
+				else if((H.mind && (H.mind.assigned_role in list("Hand", "Vizier"))) || (H.mind && (H.mind.special_role in list("Hand", "Vizier")))) // TA edit
 					if(findtext(I.mailedto, "#"))
 						var/box2find = text2num(copytext(I.mailedto, findtext(I.mailedto, "#")+1))
 						for(var/obj/structure/roguemachine/mail/X in SSroguemachine.hermailers) 

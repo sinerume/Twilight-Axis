@@ -597,6 +597,8 @@
 				to_chat(user, span_warning("Picked clean... I should try later."))
 
 /obj/structure/flora/junglebush/proc/hideinside(mob/living/user)
+	if(!user)
+		return
 	var/sneak_level = user.get_skill_level(/datum/skill/misc/sneaking) || 0
 	var/sneaktime = max(10, 50 - (sneak_level * 10))
 	if(user.loc == src)
