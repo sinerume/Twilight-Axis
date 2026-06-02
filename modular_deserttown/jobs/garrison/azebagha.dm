@@ -21,7 +21,7 @@
 	min_pq = 6
 	max_pq = null
 	cmode_music = 'sound/music/combat_hornofthebeast.ogg'
-	job_traits = list(TRAIT_OUTDOORSMAN, TRAIT_WOODSMAN, TRAIT_SURVIVAL_EXPERT, TRAIT_STEELHEARTED, TRAIT_MEDIUMARMOR, TRAIT_SLAVE)
+	job_traits = list(TRAIT_OUTDOORSMAN, TRAIT_WOODSMAN, TRAIT_SURVIVAL_EXPERT, TRAIT_STEELHEARTED, TRAIT_MEDIUMARMOR, TRAIT_FIREARMS_MARKSMAN, TRAIT_SLAVE)
 	job_subclasses = list(
 		/datum/advclass/azebagha/azebagha
 	)
@@ -83,7 +83,7 @@
 		/datum/skill/combat/shields = 4,
 		/datum/skill/combat/crossbows = 3,
 		/datum/skill/combat/bows = 4,
-//		/datum/skill/combat/firearms = 4,
+		/datum/skill/combat/twilight_firearms = 4,
 		/datum/skill/combat/wrestling = 4,
 		/datum/skill/combat/unarmed = 3,
 		/datum/skill/misc/climbing = 4,
@@ -101,7 +101,6 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/order/takeaim)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/order/onfeet)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/order/hold)
-		// H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/order/focustarget)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/convertrole/azeb)
 	H.verbs |= list(/mob/living/carbon/human/proc/request_outlaw, /mob/proc/haltyell, /mob/living/carbon/human/mind/proc/setorders)
 	backpack_contents = list(
@@ -116,7 +115,7 @@
 	if(H.mind)
 		var/primary = list("Scimitar","Shotel","Whip","Warden Axe")
 		var/primary_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in primary
-		var/secondary = list("Glaive","Javelins and Shield","Blackhorn Longbow","Handgonne")
+		var/secondary = list("Glaive","Javelins and Shield","Blackhorn Longbow","Culverin + Fyre Powder")
 		var/secondary_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in secondary
 		H.set_blindness(0)
 		switch(primary_choice)
@@ -141,7 +140,8 @@
 			if("Blackhorn Longbow")
 				beltr = /obj/item/quiver/arrows
 				backl = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/longbow/warden
-			/* if("Handgonne")//okay I can remove this later but I think it would be... just... so based
-				backl = /obj/item/gun/ballistic/firearm/handgonne
-				r_hand = /obj/item/powderflask
-				beltr = /obj/item/quiver/bullet/lead */
+			if("Culverin + Fyre Powder") 
+				beltr = /obj/item/quiver/twilight_bullet/cannonball/lead
+				r_hand = /obj/item/gun/ballistic/twilight_firearm/handgonne
+				backpack_contents[/obj/item/twilight_powderflask/fyre] = 1
+				backpack_contents[/obj/item/natural/bundle/fibers/full] = 1

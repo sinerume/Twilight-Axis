@@ -88,5 +88,3 @@
 				ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 
 		H.verbs |= /mob/proc/haltyell
-		//Skirmishers get funny spells. Wowzers.
-	//	H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/skirmisher_trap) <--------- Я НЕ ЗНАЮ ЧТО ЭТО, НАЙТИ АНАЛОГ?

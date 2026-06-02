@@ -53,7 +53,10 @@
 
 /datum/advclass/slavemaster
 	name = "Slavemaster"
-	tutorial = "CHANGE THIS!! something something WHIPS something something keeping the rabble in line something something sterin guiding hand"
+	tutorial = "Твоя рука карает кнутом, дабы держать чернь в узде, и лишь твоя воля заставляет ленивых рабов трудиться на благо Султана. \
+        В цитадели тебе отведены богатые покои, но твой истинный дом — это невольничий рынок и зиндан. \
+        Ты ловишь беглых абдов, принуждаешь к труду нерадивых и следишь, чтобы ни один прикованный не помышлял о свободе. \
+        Проверяй зинданы: там всегда найдутся те, кого стоит заставить отрабатывать свой долг."
 	outfit = /datum/outfit/job/roguetown/slavemaster/base
 
 	category_tags = list(CTAG_SLAVEMASTER)

@@ -198,7 +198,7 @@
 	outfit = /datum/outfit/job/roguetown/vizier/advisor
 
 	category_tags = list(CTAG_VIZIER)
-	traits_applied = list(TRAIT_ALCHEMY_EXPERT, TRAIT_MAGEARMOR)
+	traits_applied = list(TRAIT_ALCHEMY_EXPERT, TRAIT_ARCYNE, TRAIT_MAGEARMOR)
 	subclass_stats = list(
 		STATKEY_INT = 4,
 		STATKEY_PER = 3,

@@ -16,7 +16,7 @@
 		STATKEY_WIL = 2,
 		STATKEY_INT = 1,
 	)
-	traits_applied = list(TRAIT_FIREARMS_MARKSMAN,TRAIT_DODGEEXPERT)
+	traits_applied = list(TRAIT_FIREARMS_MARKSMAN, TRAIT_DODGEEXPERT)
 
 	subclass_skills = list(
 		/datum/skill/combat/twilight_firearms = 5,//Your entire point is GUN.
