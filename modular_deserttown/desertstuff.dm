@@ -212,6 +212,23 @@
 	anchored = TRUE
 	cookonme = FALSE
 
+/obj/machinery/light/rogue/campfire/fireplace/desert/attack_hand(mob/user)
+	if(isliving(user) && on)
+		var/mob/living/carbon/human/H = user
+		if(ishuman(H))
+			H.visible_message("<span class='info'>[H] warms [user.p_their()] hands near the fire.</span>")
+		return TRUE
+	return ..()
+
+/obj/machinery/light/rogue/campfire/fireplace/desert/extinguish()
+	return
+
+/obj/machinery/light/rogue/campfire/fireplace/desert/burn_out()
+	return
+
+/obj/machinery/light/rogue/campfire/fireplace/desert/onkick(mob/user)
+	return
+
 /datum/crafting_recipe/roguetown/structure/fireplace/desert
 	name = "desert fireplace"
 	result = /obj/machinery/light/rogue/campfire/fireplace/desert
