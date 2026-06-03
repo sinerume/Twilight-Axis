@@ -6783,6 +6783,10 @@
 	},
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/town/manor/desert)
+"coU" = (
+/obj/structure/giantfur/small,
+/turf/open/floor/rogue/deserttile,
+/area/rogue/indoors/shelter/desertdeep)
 "coX" = (
 /obj/structure/toilet,
 /turf/open/floor/rogue/concrete{
@@ -8278,11 +8282,9 @@
 /area/rogue/indoors/town/academy/desert)
 "cQe" = (
 /obj/structure/stairs{
-	dir = 8
+	dir = 4
 	},
-/turf/open/floor/rogue/concrete{
-	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
-	},
+/turf/open/floor/rogue/ruinedwood,
 /area/rogue/indoors/town/steward)
 "cQi" = (
 /obj/machinery/light/rogue/campfire,
@@ -12909,6 +12911,7 @@
 	icon_state = "longtable"
 	},
 /obj/machinery/light/rogue/candle,
+/obj/item/millstone,
 /turf/open/floor/rogue/tile/harem,
 /area/rogue/indoors/inq)
 "evy" = (
@@ -21523,6 +21526,13 @@
 	},
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/dwarfin/desert)
+"hEk" = (
+/obj/item/candle/yellow/lit{
+	wax = 100000
+	},
+/obj/structure/table/wood/fancy/purple,
+/turf/open/floor/rogue/blocks/stonered/tiny,
+/area/rogue/indoors/town/manor/desert)
 "hEs" = (
 /obj/structure/stairs,
 /turf/open/floor/rogue/concrete{
@@ -24358,6 +24368,11 @@
 	},
 /turf/open/floor/rogue/herringbone,
 /area/rogue/indoors/town/desert)
+"iFR" = (
+/obj/structure/closet/crate/coffin,
+/obj/structure/closet/dirthole/grave,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/town/church/basement)
 "iGb" = (
 /obj/structure/table/wood{
 	icon_state = "largetable";
@@ -26532,6 +26547,14 @@
 "jxl" = (
 /turf/closed/mineral/rogue/bedrock,
 /area/rogue/under/cave/rhgoblinencampment)
+"jxo" = (
+/obj/structure/stairs{
+	dir = 8
+	},
+/turf/open/floor/rogue/concrete{
+	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
+	},
+/area/rogue/indoors/town/steward)
 "jxq" = (
 /obj/effect/decal/edge_corner{
 	color = "655653";
@@ -31236,11 +31259,11 @@
 /turf/open/floor/rogue/naturalstone/sandstone,
 /area/rogue/under/cave)
 "lig" = (
-/obj/structure/stairs{
-	dir = 4
+/obj/structure/closet/crate/chest,
+/turf/open/floor/rogue/greenstone{
+	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
-/turf/open/floor/rogue/ruinedwood,
-/area/rogue/indoors/town/steward)
+/area/rogue/under/cave/rhgoblinencampment)
 "lit" = (
 /turf/open/floor/rogue/dirt/road/desert,
 /area/rogue/outdoors/mountains)
@@ -35876,6 +35899,10 @@
 	},
 /turf/open/transparent/openspace,
 /area/rogue/indoors/town/tavern/desert)
+"mSB" = (
+/obj/structure/table/wood/fancy/purple,
+/turf/open/floor/rogue/blocks/stonered/tiny,
+/area/rogue/indoors/town/manor/desert)
 "mSG" = (
 /obj/structure/drape/desert{
 	plane = -3
@@ -42761,10 +42788,9 @@
 /turf/open/floor/rogue/citybrick/citybrick5,
 /area/rogue/under/cave/dungeon1)
 "pnW" = (
-/obj/structure/closet/crate/coffin,
-/obj/structure/closet/dirthole/grave,
-/turf/open/floor/rogue/dirt/road,
-/area/rogue/indoors/town/church/basement)
+/obj/structure/roguemachine/steward_export,
+/turf/open/floor/rogue/blocks/newstone/alt,
+/area/rogue/indoors/town/warehouse)
 "pok" = (
 /obj/effect/decal/cobbleedge{
 	dir = 4;
@@ -49041,10 +49067,6 @@
 	},
 /turf/open/floor/rogue/desert_grass/nospawn,
 /area/rogue/outdoors/town/manor/desert/roofs)
-"rwI" = (
-/obj/structure/table/wood/fancy/purple,
-/turf/open/floor/rogue/blocks/stonered/tiny,
-/area/rogue/indoors/town/manor/desert)
 "rwS" = (
 /obj/effect/decal/cleanable/dirt/cobweb,
 /obj/structure/fermentation_keg/sandpot/water,
@@ -52781,13 +52803,6 @@
 	},
 /turf/open/floor/rogue/tile/harem,
 /area/rogue/indoors/town/manor/desert)
-"sJW" = (
-/obj/item/candle/yellow/lit{
-	wax = 100000
-	},
-/obj/structure/table/wood/fancy/purple,
-/turf/open/floor/rogue/blocks/stonered/tiny,
-/area/rogue/indoors/town/manor/desert)
 "sKp" = (
 /obj/machinery/light/rogue/candle/r,
 /obj/structure/table/wood{
@@ -55256,10 +55271,6 @@
 /obj/structure/closet/crate/drawer,
 /turf/open/floor/carpet/royalblack,
 /area/rogue/outdoors/desert/above)
-"tCn" = (
-/obj/structure/giantfur/small,
-/turf/open/floor/rogue/deserttile,
-/area/rogue/indoors/shelter/desertdeep)
 "tCp" = (
 /obj/effect/spawner/lootdrop/general_loot_low,
 /turf/open/floor/rogue/naturalstone/sandstone,
@@ -61170,12 +61181,6 @@
 /obj/machinery/light/rogue/candle/r,
 /turf/open/floor/rogue/woodturned,
 /area/rogue/indoors/town/desert/warden)
-"vDi" = (
-/obj/structure/closet/crate/chest,
-/turf/open/floor/rogue/greenstone{
-	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
-	},
-/area/rogue/under/cave/rhgoblinencampment)
 "vDo" = (
 /turf/open/transparent/openspace,
 /area/rogue/indoors/town/grove)
@@ -140629,7 +140634,7 @@ goF
 szj
 bwm
 bwm
-pnW
+iFR
 bwm
 eBY
 pbN
@@ -141263,7 +141268,7 @@ bwm
 bwm
 goF
 xAU
-pnW
+iFR
 bwm
 eBY
 pbN
@@ -141567,10 +141572,10 @@ goF
 szj
 bwm
 xAU
-pnW
+iFR
 bwm
 bwm
-pnW
+iFR
 xAU
 goF
 goF
@@ -144694,7 +144699,7 @@ xAU
 dVl
 bwm
 bwm
-pnW
+iFR
 bwm
 bwm
 dVl
@@ -145316,7 +145321,7 @@ pgA
 uOV
 bwm
 bwm
-pnW
+iFR
 bwm
 bwm
 bwm
@@ -146359,7 +146364,7 @@ dlQ
 qRU
 bFM
 unL
-vDi
+lig
 uoP
 ccy
 unL
@@ -146986,7 +146991,7 @@ unL
 ccy
 ccy
 uoP
-vDi
+lig
 unL
 mOh
 qRU
@@ -147509,7 +147514,7 @@ bwm
 dVl
 bwm
 bwm
-pnW
+iFR
 bwm
 bwm
 bwm
@@ -351129,7 +351134,7 @@ iHE
 iHE
 iHE
 iHE
-tCn
+coU
 pSR
 arw
 ocX
@@ -392789,7 +392794,7 @@ cqQ
 iVL
 iVL
 tHh
-tHh
+pnW
 iiI
 pyG
 jPo
@@ -397409,12 +397414,12 @@ tME
 jgz
 nHf
 jQP
-rwI
-rwI
-sJW
-rwI
-rwI
-rwI
+mSB
+mSB
+hEk
+mSB
+mSB
+mSB
 vkM
 cwk
 mnE
@@ -397721,12 +397726,12 @@ jgz
 hDL
 vKI
 jQP
-rwI
-rwI
+mSB
+mSB
 smi
-rwI
-rwI
-rwI
+mSB
+mSB
+mSB
 cwk
 cwk
 jQP
@@ -398037,7 +398042,7 @@ cwk
 eGc
 cwk
 xcS
-rwI
+mSB
 smi
 xcS
 cwk
@@ -398349,8 +398354,8 @@ aBg
 tQu
 tQu
 jcu
-rwI
-rwI
+mSB
+mSB
 cwk
 cwk
 kFZ
@@ -398661,8 +398666,8 @@ aRx
 uih
 nPb
 dRO
-rwI
-rwI
+mSB
+mSB
 xcS
 cwk
 lWS
@@ -398973,8 +398978,8 @@ dcg
 pGG
 pGG
 qPh
-rwI
-rwI
+mSB
+mSB
 cwk
 cwk
 jQP
@@ -399286,7 +399291,7 @@ xcS
 cwk
 vkM
 smi
-rwI
+mSB
 eGc
 cwk
 jQP
@@ -399593,12 +399598,12 @@ jgz
 crX
 vKI
 jQP
-rwI
-sJW
-rwI
-rwI
-rwI
-rwI
+mSB
+hEk
+mSB
+mSB
+mSB
+mSB
 cwk
 cwk
 jQP
@@ -399905,12 +399910,12 @@ oSN
 jgz
 nHf
 jQP
-rwI
+mSB
 smi
-rwI
-rwI
-sJW
-rwI
+mSB
+mSB
+hEk
+mSB
 xcS
 cwk
 mnE
@@ -400243,7 +400248,7 @@ ecR
 vvc
 vvc
 rPy
-cQe
+jxo
 eVk
 kUf
 lrn
@@ -637053,7 +637058,7 @@ efb
 bPC
 nJm
 gzB
-lig
+cQe
 eVk
 tyc
 tyc
