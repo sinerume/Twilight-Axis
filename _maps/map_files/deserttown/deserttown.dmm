@@ -17524,6 +17524,9 @@
 	},
 /turf/open/floor/rogue/darkpath,
 /area/rogue/outdoors/desert/above)
+"geq" = (
+/turf/closed/wall/mineral/rogue/wood,
+/area/rogue/outdoors/town/desert)
 "gev" = (
 /obj/structure/mineral_door/wood{
 	locked = 1;
@@ -20546,9 +20549,6 @@
 /obj/item/cushion/zybantine,
 /turf/open/floor/rogue/herringbone,
 /area/rogue/indoors/town/tavern/desert)
-"hgO" = (
-/turf/closed/wall/mineral/rogue/wood,
-/area/rogue/outdoors/town/desert)
 "hgQ" = (
 /obj/effect/decal/cobbleedge{
 	dir = 1;
@@ -68112,10 +68112,6 @@
 	},
 /turf/closed/wall/mineral/rogue/sandstone,
 /area/rogue/under/cave/rhgoblinencampment)
-"xRI" = (
-/obj/structure/trap/quicksand,
-/turf/open/floor/rogue/dunes,
-/area/rogue/outdoors/desert)
 "xRL" = (
 /obj/structure/fluff/railing/border{
 	dir = 4;
@@ -327689,7 +327685,7 @@ mVA
 mVA
 ydN
 ydN
-mVA
+ydN
 ydN
 ydN
 ydN
@@ -375828,8 +375824,8 @@ cRY
 cRY
 adk
 eMy
-xRI
-xRI
+eMy
+eMy
 eMy
 eMy
 eMy
@@ -376140,8 +376136,8 @@ cRY
 cRY
 cRY
 eMy
-xRI
-xRI
+eMy
+eMy
 eMy
 eMy
 eMy
@@ -398949,7 +398945,7 @@ qGE
 atX
 icQ
 icQ
-hgO
+geq
 oqm
 dQA
 eMy
@@ -399261,8 +399257,8 @@ atX
 atX
 icQ
 icQ
-hgO
-hgO
+geq
+geq
 eMy
 eMy
 eMy
@@ -399573,8 +399569,8 @@ pAf
 pAf
 icQ
 icQ
-hgO
-hgO
+geq
+geq
 eMy
 eMy
 eMy
@@ -399885,8 +399881,8 @@ uNG
 xxZ
 icQ
 icQ
-hgO
-hgO
+geq
+geq
 eMy
 eMy
 eMy
@@ -410182,7 +410178,7 @@ rmD
 icQ
 icQ
 oqm
-hgO
+geq
 eMy
 eMy
 eMy
@@ -410494,7 +410490,7 @@ ttU
 icQ
 icQ
 oqm
-hgO
+geq
 eMy
 eMy
 eMy
@@ -410805,8 +410801,8 @@ icI
 ttU
 icQ
 icQ
-hgO
-hgO
+geq
+geq
 eMy
 eMy
 eMy
@@ -411117,8 +411113,8 @@ ttU
 ttU
 icQ
 icQ
-hgO
-hgO
+geq
+geq
 eMy
 eMy
 eMy
@@ -411429,8 +411425,8 @@ llQ
 ttU
 icQ
 icQ
-hgO
-hgO
+geq
+geq
 eMy
 eMy
 eMy
@@ -411741,8 +411737,8 @@ imH
 ttU
 icQ
 icQ
-hgO
-hgO
+geq
+geq
 eMy
 eMy
 eMy
@@ -412053,7 +412049,7 @@ sSb
 rmD
 icQ
 icQ
-hgO
+geq
 oqm
 eMy
 eMy
@@ -416734,7 +416730,7 @@ sTc
 icQ
 icQ
 oqm
-hgO
+geq
 eMy
 eMy
 eMy
@@ -417045,8 +417041,8 @@ sTc
 sTc
 icQ
 icQ
-hgO
-hgO
+geq
+geq
 eMy
 eMy
 eMy
@@ -417358,7 +417354,7 @@ iZc
 rrW
 icQ
 oqm
-hgO
+geq
 eMy
 eMy
 eMy
