@@ -2469,9 +2469,6 @@
 	},
 /area/rogue/outdoors/desertdeep/safe)
 "qj" = (
-/obj/structure/stairs/stone{
-	dir = 1
-	},
 /obj/structure/fluff/railing/border/east,
 /obj/structure/stairs/desert{
 	dir = 1
@@ -3640,9 +3637,6 @@
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
 "yh" = (
-/obj/structure/stairs/stone{
-	dir = 1
-	},
 /obj/structure/fluff/railing/border/west,
 /obj/structure/stairs/desert{
 	dir = 1
@@ -5390,9 +5384,6 @@
 	},
 /area/rogue/indoors/vampire_manor)
 "Jw" = (
-/obj/structure/stairs/stone{
-	dir = 1
-	},
 /obj/structure/stairs/desert{
 	dir = 1
 	},
