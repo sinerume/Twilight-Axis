@@ -78,7 +78,7 @@
 	id = /obj/item/scomstone/bad/garrison
 
 	backpack_contents = list(
-		/obj/item/storage/keyring/knight = 1,
+		/obj/item/storage/keyring/cataphract = 1,
 		/obj/item/reagent_containers/glass/bottle/rogue/healthpot = 1,
 	)
 
