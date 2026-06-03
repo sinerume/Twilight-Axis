@@ -60,7 +60,10 @@
 		/mob/living/carbon/human/species/skeleton/npc/bogguard = 10,
 		/mob/living/carbon/human/species/skeleton/npc/rockhill = 15,
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf = 20,
-		/mob/living/simple_animal/hostile/retaliate/rogue/wolf_undead = 10,)
+		/mob/living/simple_animal/hostile/retaliate/rogue/wolf_undead = 10,
+		/mob/living/simple_animal/hostile/retaliate/rogue/lamia = 10,
+		/mob/living/simple_animal/hostile/rogue/dragger = 15,
+		/mob/living/simple_animal/hostile/retaliate/rogue/spider/mutated = 15)
 	converted_type = /area/rogue/indoors/shelter/desertdeep
 	deathsight_message = "an empty, parched desert"
 
