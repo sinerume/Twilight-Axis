@@ -28,6 +28,8 @@
 		/datum/job/roguetown/azeb,
 		/datum/job/roguetown/azebagha,
 		/datum/job/roguetown/slavemaster,
+		/datum/job/roguetown/sultan,
+		/datum/job/roguetown/slave,
 	)
 	slot_adjust = list(/datum/job/roguetown/villager = 42, /datum/job/roguetown/adventurer = 69)
 	title_adjust = list()

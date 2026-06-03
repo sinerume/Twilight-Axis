@@ -9,7 +9,12 @@
 	realm_name = "Enigma"
 	realm_type = "Kingdom"
 	realm_type_short = "Kingdom"
-	blacklist = list(/datum/job/roguetown/manorguard, /datum/job/roguetown/warden, /datum/job/roguetown/knight, /datum/job/roguetown/sergeant, /datum/job/roguetown/physician,
+	blacklist = list(
+		/datum/job/roguetown/manorguard, 
+		/datum/job/roguetown/warden, 
+		/datum/job/roguetown/knight, 
+		/datum/job/roguetown/sergeant, 
+		/datum/job/roguetown/physician,
 		/datum/job/roguetown/cataphract,
 		/datum/job/roguetown/vizier,
 		/datum/job/roguetown/headslave,
@@ -18,7 +23,10 @@
 		/datum/job/roguetown/janissarysergeant,
 		/datum/job/roguetown/azeb,
 		/datum/job/roguetown/azebagha,
-		/datum/job/roguetown/slavemaster,)
+		/datum/job/roguetown/slavemaster,
+		/datum/job/roguetown/sultan,
+		/datum/job/roguetown/slave,
+		)
 	slot_adjust = list(
 	/datum/job/roguetown/squire = 2,
 	/datum/job/roguetown/wapprentice = 3,
