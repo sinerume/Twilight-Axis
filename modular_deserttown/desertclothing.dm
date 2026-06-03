@@ -374,7 +374,7 @@ name = "Janissaries Helm"
 /datum/crafting_recipe/roguetown/sewing/turban
 	name = "turban"
 	result = list(/obj/item/clothing/head/roguetown/turban)
-	reqs = list(/obj/item/natural/cloth = 1)
+	reqs = list(/obj/item/natural/cloth = 2)
 	craftdiff = 1
 
 /obj/item/clothing/head/roguetown/turban/fancypurple
@@ -506,7 +506,7 @@ name = "Janissaries Helm"
 /datum/crafting_recipe/roguetown/sewing/sirwal
 	name = "sirwal"
 	result = list(/obj/item/clothing/under/roguetown/sirwal)
-	reqs = list(/obj/item/natural/cloth = 1)
+	reqs = list(/obj/item/natural/cloth = 2)
 	craftdiff = 1
 
 /obj/item/clothing/under/roguetown/thong
@@ -522,7 +522,7 @@ name = "Janissaries Helm"
 /datum/crafting_recipe/roguetown/sewing/thong
 	name = "thong"
 	result = list(/obj/item/clothing/under/roguetown/thong)
-	reqs = list(/obj/item/natural/cloth = 1)
+	reqs = list(/obj/item/natural/cloth = 2)
 	craftdiff = 2
 
 //cloak
@@ -603,7 +603,7 @@ name = "Janissaries Helm"
 /datum/crafting_recipe/roguetown/sewing/zybsash
 	name = "sash (zybantine)"
 	result = list(/obj/item/storage/belt/rogue/leather/cloth/sash)
-	reqs = list(/obj/item/natural/cloth = 1)
+	reqs = list(/obj/item/natural/cloth = 2)
 	craftdiff = 2
 
 /obj/item/storage/belt/rogue/leather/cloth/sash/yellow
