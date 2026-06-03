@@ -388,7 +388,10 @@ name = "Janissaries Helm"
 /datum/crafting_recipe/roguetown/sewing/turban/fancy
 	name = "fancy turban"
 	result = list(/obj/item/clothing/head/roguetown/turban)
-	reqs = list(/obj/item/natural/silk = 2)
+	reqs = list(
+		/obj/item/natural/silk = 2,
+		/obj/item/natural/cloth = 1
+		)
 	craftdiff = 4
 
 /obj/item/clothing/head/roguetown/tagelmust
@@ -404,7 +407,10 @@ name = "Janissaries Helm"
 /datum/crafting_recipe/roguetown/sewing/tagelmust
 	name = "tagelmust"
 	result = list(/obj/item/clothing/head/roguetown/turban)
-	reqs = list(/obj/item/natural/silk = 2)
+	reqs = list(
+		/obj/item/natural/silk = 2,
+		/obj/item/natural/cloth = 1
+		)
 	craftdiff = 3
 //
 /obj/item/clothing/head/roguetown/sultan
@@ -693,7 +699,10 @@ name = "Janissaries Helm"
 /datum/crafting_recipe/roguetown/sewing/bragreen
 	name = "exotic silk bra(green)"
 	result = list(/obj/item/clothing/suit/roguetown/shirt/exoticsilkbra/green)
-	reqs = list(/obj/item/natural/silk = 2)
+	reqs = list(
+		/obj/item/natural/silk = 2,
+		/obj/item/natural/cloth = 1
+	)
 	craftdiff = 4
 
 /obj/item/clothing/suit/roguetown/shirt/exoticsilkbra/red
@@ -706,7 +715,10 @@ name = "Janissaries Helm"
 /datum/crafting_recipe/roguetown/sewing/brared
 	name = "exotic silk bra (red)"
 	result = list(/obj/item/clothing/suit/roguetown/shirt/exoticsilkbra/red)
-	reqs = list(/obj/item/natural/silk = 2)
+	reqs = list(
+		/obj/item/natural/silk = 2,
+		/obj/item/natural/cloth = 1
+	)
 	craftdiff = 4
 
 /obj/item/clothing/mask/rogue/exoticsilkmask/green
@@ -718,7 +730,10 @@ name = "Janissaries Helm"
 /datum/crafting_recipe/roguetown/sewing/maskgreen
 	name = "exotic silk mask (green)"
 	result = list(/obj/item/clothing/mask/rogue/exoticsilkmask/green)
-	reqs = list(/obj/item/natural/silk = 2)
+	reqs = list(
+		/obj/item/natural/silk = 2,
+		/obj/item/natural/cloth = 1
+	)
 	craftdiff = 4
 
 /obj/item/clothing/mask/rogue/exoticsilkmask/red
@@ -730,7 +745,10 @@ name = "Janissaries Helm"
 /datum/crafting_recipe/roguetown/sewing/maskred
 	name = "exotic silk mask (red)"
 	result = list(/obj/item/clothing/mask/rogue/exoticsilkmask/red)
-	reqs = list(/obj/item/natural/silk = 2)
+	reqs = list(
+		/obj/item/natural/silk = 2,
+		/obj/item/natural/cloth = 1
+	)
 	craftdiff = 4
 
 //Because some people can't live without BiS
