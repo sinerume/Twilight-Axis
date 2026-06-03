@@ -349,3 +349,19 @@
 	first_time_text = "THE HOUSE OF THE ONE"
 
 /area/rogue/under/dungeon/desert
+
+/area/rogue/outdoors/town/roofs/desert/tavern
+	color = "#00ff33"
+	tavern_area = TRUE
+
+/area/rogue/outdoors/town/roofs/desert/pink
+	color = "#fa00f1"
+
+/area/rogue/indoors/town/physician/desert/keep
+	keep_area = TRUE
+
+/area/rogue/under/town/basement/desert/town/tavern
+	tavern_area = TRUE
+
+/area/rogue/indoors/town/cell/desert_warden
+	warden_area = TRUE
