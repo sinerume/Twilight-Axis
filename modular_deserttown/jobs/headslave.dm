@@ -6,7 +6,6 @@
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	allowed_races = list(RACES_RESPECTED)
 	outfit = /datum/outfit/job/roguetown/headslave
 	advclass_cat_rolls = list(CTAG_HEADSLAVE = 20)
 	job_traits = list(TRAIT_SLAVE)

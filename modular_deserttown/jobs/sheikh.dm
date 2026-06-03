@@ -6,7 +6,6 @@
 	total_positions = 3//more slots since they manage the steward/clerk roles for now as well - scratch that bringing the steward back
 	spawn_positions = 3
 	allowed_ages = ALL_AGES_LIST
-	allowed_races = list(RACES_RESPECTED)
 	allowed_sexes = list(MALE, FEMALE)
 	display_order = JDO_COUNCILLOR
 	tutorial = "Возможно, ты унаследовал этот чин, выкупил его за щедрые маммоны или был назначен самой султанской династией; \

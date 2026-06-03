@@ -6,8 +6,6 @@
 	total_positions = 8//need more slaves!!
 	spawn_positions = 8
 
-	allowed_races = ALL_RACES_TYPES
-
 	tutorial = "Whether you were once a free soul or were born into chattel servitude, you're one of the many abused and mistreated slaves whipped by the Task Master to keep the Sultan's palace running smooth. Each day is marked by a scar on your back, and it is your back that carries the dirty, menial work required to keep the royal family content and decadent."
 	
 	outfit = /datum/outfit/job/roguetown/slave

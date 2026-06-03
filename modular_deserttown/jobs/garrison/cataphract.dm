@@ -5,7 +5,6 @@
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3
-	allowed_races = list(RACES_RESPECTED)
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED)
 	tutorial = "Ты — Фарис, катафрактарий высочайшей выучки. \

@@ -6,7 +6,6 @@
 	total_positions = 1
 	spawn_positions = 1
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = list(RACES_RESPECTED)
 	tutorial = "Как опытный воин султанского корпуса азебов, ты получил приказ принять командование над нововозведенным фронтиром. \
                 Ты держишь ответ перед султанской династией и их благородными шейхами, \
                 а твоя задача - держать в узде молодых азебов и обеспечивать безопасность караванных путей к сердцу града. \
@@ -106,7 +105,7 @@
 	backpack_contents = list(
 		/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1,
 		/obj/item/rope/chain = 1,
-		/obj/item/storage/keyring/azebagha = 1,
+		/obj/item/storage/keyring/sergeant = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		/obj/item/reagent_containers/glass/bottle/rogue/healthpot = 1,
 		/obj/item/signal_horn = 1
