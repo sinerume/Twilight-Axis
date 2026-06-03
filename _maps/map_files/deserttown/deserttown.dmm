@@ -5663,14 +5663,6 @@
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/town/basement/desert)
 "bWc" = (
-/obj/structure/table/wood{
-	dir = 8;
-	icon_state = "largetable"
-	},
-/obj/structure/table/wood{
-	dir = 1;
-	icon_state = "largetable"
-	},
 /obj/structure/table/wood/fancy/purple,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors/town/manor/desert)
@@ -6800,7 +6792,6 @@
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/town/manor/desert)
 "coU" = (
-/turf/open/floor/rogue/darkpath,
 /turf/open/floor/rogue/greenstone{
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
@@ -8299,10 +8290,6 @@
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/academy/desert)
 "cQe" = (
-/obj/structure/table/wood{
-	dir = 1;
-	icon_state = "largetable"
-	},
 /obj/structure/table/wood/fancy/purple,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors/town/manor/desert)
@@ -10606,10 +10593,6 @@
 "dFn" = (
 /obj/structure/table/wood{
 	dir = 1;
-	icon_state = "longtable";
-	pixel_y = -3
-	},
-/obj/structure/table/wood{
 	icon_state = "longtable";
 	pixel_y = -3
 	},
@@ -12928,7 +12911,6 @@
 	pixel_x = 0;
 	pixel_y = 14
 	},
-/turf/open/floor/rogue/cobble,
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/tavern/desert)
 "evu" = (
@@ -14557,10 +14539,6 @@
 /turf/open/floor/rogue/dunes,
 /area/rogue/outdoors/desert)
 "eZN" = (
-/obj/structure/table/wood{
-	dir = 1;
-	icon_state = "largetable"
-	},
 /obj/item/cooking/platter,
 /obj/structure/table/wood/fancy/purple,
 /turf/open/floor/rogue/blocks/stonered/tiny,
@@ -18747,9 +18725,6 @@
 /turf/open/floor/rogue/hexstone,
 /area/rogue/indoors/town/desert)
 "gDi" = (
-/obj/structure/table/wood{
-	icon_state = "largetable"
-	},
 /obj/structure/table/wood/fancy/purple,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors/town/manor/desert)
@@ -21559,10 +21534,6 @@
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/dwarfin/desert)
 "hEk" = (
-/obj/structure/table/wood{
-	dir = 8;
-	icon_state = "largetable"
-	},
 /obj/item/candle/yellow/lit{
 	wax = 100000
 	},
@@ -24407,7 +24378,6 @@
 "iFR" = (
 /obj/structure/closet/crate/coffin,
 /obj/structure/closet/dirthole/grave,
-/obj/structure/closet/dirthole/grave,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/indoors/town/church/basement)
 "iGb" = (
@@ -24566,10 +24536,6 @@
 /turf/open/floor/rogue/wood,
 /area/rogue/outdoors/town/desert)
 "iJk" = (
-/obj/structure/table/wood{
-	dir = 6;
-	icon_state = "largetable"
-	},
 /obj/structure/table/wood/fancy/purple,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors/town/manor/desert)
@@ -24899,10 +24865,6 @@
 	},
 /area/rogue/under/cave/skeletoncrypt)
 "iRQ" = (
-/obj/structure/table/wood{
-	dir = 5;
-	icon_state = "largetable"
-	},
 /obj/structure/table/wood{
 	dir = 5;
 	icon_state = "largetable"
@@ -26597,10 +26559,6 @@
 /turf/closed/mineral/rogue/bedrock,
 /area/rogue/under/cave/rhgoblinencampment)
 "jxo" = (
-/obj/structure/table/wood{
-	dir = 8;
-	icon_state = "largetable"
-	},
 /obj/structure/table/wood/fancy/purple,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors/town/manor/desert)
@@ -31306,7 +31264,6 @@
 /area/rogue/under/cave)
 "lig" = (
 /obj/structure/closet/crate/chest,
-/turf/open/floor/rogue/darkpath,
 /turf/open/floor/rogue/greenstone{
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
@@ -32474,10 +32431,6 @@
 /turf/open/floor/rogue/tile/harem1,
 /area/rogue/indoors/town/tavern/desert)
 "lDu" = (
-/obj/structure/table/wood{
-	dir = 10;
-	icon_state = "largetable"
-	},
 /obj/structure/table/wood/fancy/purple,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors/town/manor/desert)
@@ -34949,11 +34902,6 @@
 	pixel_x = 9;
 	pixel_y = 5
 	},
-/obj/structure/table/wood{
-	dir = 1;
-	icon_state = "longtable";
-	pixel_y = -3
-	},
 /turf/open/floor/rogue/wood/nosmooth,
 /area/rogue/indoors/town/desert/warden)
 "mxi" = (
@@ -35960,14 +35908,6 @@
 /turf/open/transparent/openspace,
 /area/rogue/indoors/town/tavern/desert)
 "mSB" = (
-/obj/structure/table/wood{
-	dir = 4;
-	icon_state = "largetable"
-	},
-/obj/structure/table/wood{
-	dir = 1;
-	icon_state = "largetable"
-	},
 /obj/structure/table/wood/fancy/purple,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors/town/manor/desert)
@@ -40703,10 +40643,6 @@
 /turf/open/floor/rogue/darkpath,
 /area/rogue/under/cave/rhgoblinencampment)
 "ozV" = (
-/obj/structure/table/wood{
-	dir = 9;
-	icon_state = "largetable"
-	},
 /obj/structure/table/wood/fancy/purple,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors/town/manor/desert)
@@ -40826,7 +40762,6 @@
 	lockid = "gobbo_guards";
 	name = "mean goblin key"
 	},
-/turf/open/floor/rogue/darkpath,
 /turf/open/floor/rogue/greenstone{
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
@@ -43855,7 +43790,6 @@
 	},
 /area/rogue/indoors/town/tavern/desert)
 "pEu" = (
-/obj/structure/table/wood/crafted,
 /obj/structure/table/wood/crafted,
 /obj/item/grown/log/tree/stick,
 /obj/item/natural/bundle/cloth,
@@ -49147,10 +49081,6 @@
 /turf/open/floor/rogue/desert_grass/nospawn,
 /area/rogue/outdoors/town/manor/desert/roofs)
 "rwI" = (
-/obj/structure/table/wood{
-	dir = 4;
-	icon_state = "largetable"
-	},
 /obj/structure/table/wood/fancy/purple,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors/town/manor/desert)
@@ -51476,10 +51406,6 @@
 /turf/closed/wall/mineral/rogue/sandstone,
 /area/rogue/under/town/basement/desert)
 "smi" = (
-/obj/structure/table/wood{
-	dir = 4;
-	icon_state = "largetable"
-	},
 /obj/item/cooking/platter,
 /obj/structure/table/wood/fancy/purple,
 /turf/open/floor/rogue/blocks/stonered/tiny,
@@ -52895,10 +52821,6 @@
 /turf/open/floor/rogue/tile/harem,
 /area/rogue/indoors/town/manor/desert)
 "sJW" = (
-/obj/structure/table/wood{
-	dir = 4;
-	icon_state = "largetable"
-	},
 /obj/item/candle/yellow/lit{
 	wax = 100000
 	},
@@ -55374,9 +55296,6 @@
 /turf/open/floor/carpet/royalblack,
 /area/rogue/outdoors/desert/above)
 "tCn" = (
-/obj/structure/stairs{
-	dir = 1
-	},
 /obj/structure/stairs/desert{
 	dir = 1
 	},
@@ -58536,9 +58455,6 @@
 	},
 /area/rogue/under/town/basement/desert)
 "uFd" = (
-/obj/structure/table/wood{
-	icon_state = "largetable"
-	},
 /obj/item/cooking/platter,
 /obj/structure/table/wood/fancy/purple,
 /turf/open/floor/rogue/blocks/stonered/tiny,
@@ -61925,10 +61841,6 @@
 /turf/open/floor/rogue/churchbrick,
 /area/rogue/outdoors/exposed/bath/vault)
 "vOH" = (
-/obj/structure/table/wood{
-	dir = 5;
-	icon_state = "largetable"
-	},
 /obj/structure/table/wood/fancy/purple,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors/town/manor/desert)
