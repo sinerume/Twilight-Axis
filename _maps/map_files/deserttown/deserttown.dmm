@@ -2851,6 +2851,12 @@
 	},
 /turf/open/floor/rogue/naturalstone/sandstone,
 /area/rogue/indoors/town/grove)
+"bbi" = (
+/obj/machinery/light/rogue/torchholder/l{
+	dir = 1
+	},
+/turf/open/floor/rogue/citybrick/citybrick1,
+/area/rogue/outdoors/town/desert)
 "bbm" = (
 /obj/structure/bars,
 /turf/open/floor/rogue/naturalstone/sandstone,
@@ -23807,6 +23813,12 @@
 /obj/structure/flora/hotspring_rocks/grassy,
 /turf/open/floor/rogue/naturalstone/sandstone,
 /area/rogue/under/cave)
+"iry" = (
+/obj/machinery/light/rogue/torchholder/l{
+	dir = 8
+	},
+/turf/open/floor/rogue/darkpath,
+/area/rogue/outdoors/town/desert)
 "irA" = (
 /obj/structure/fluff/railing/border{
 	dir = 9
@@ -400526,7 +400538,7 @@ wCZ
 wCZ
 cGg
 icQ
-icQ
+bbi
 oqm
 oqm
 eMy
@@ -401459,7 +401471,7 @@ fUV
 icQ
 icQ
 bep
-bep
+iry
 bep
 bep
 mVS
