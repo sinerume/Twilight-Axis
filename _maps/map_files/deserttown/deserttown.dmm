@@ -6471,6 +6471,43 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/under/cave/rhgoblinencampment)
+"cjN" = (
+/obj/structure/table/wood/poor,
+/obj/item/roguekey/bathworker{
+	lockid = "lux1";
+	name = "room I key";
+	pixel_x = 12;
+	pixel_y = 9
+	},
+/obj/item/roguekey/bathworker{
+	lockid = "lux3";
+	name = "room III key";
+	pixel_y = 0;
+	pixel_x = 12
+	},
+/obj/item/roguekey/bathworker{
+	lockid = "lux2";
+	name = "room II key";
+	pixel_x = 12;
+	pixel_y = 5
+	},
+/obj/item/roguekey/bathworker{
+	lockid = "lux5";
+	name = "room V key";
+	pixel_y = -7;
+	pixel_x = 3
+	},
+/obj/item/roguekey/bathworker{
+	lockid = "lux4";
+	name = "room IV key";
+	pixel_y = -7;
+	pixel_x = 3
+	},
+/obj/item/roguekey/bathworker{
+	name = "pleasure room"
+	},
+/turf/open/floor/rogue/blocks/stonered/tiny,
+/area/rogue/indoors/town/bath/desert)
 "cjO" = (
 /obj/effect/decal/edge/desert_gray{
 	dir = 10
@@ -11564,7 +11601,10 @@
 /obj/structure/curtain/magenta{
 	layer = 4.05
 	},
-/obj/structure/fluff/walldeco/rpainting,
+/obj/structure/fluff/walldeco/rpainting/forest,
+/obj/structure/roguewindow/harem2{
+	density = 0
+	},
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/bath/desert)
 "dUP" = (
@@ -24964,6 +25004,9 @@
 	pixel_y = 4
 	},
 /obj/machinery/light/roguestreet/walllamp,
+/obj/structure/floordoor{
+	redstone_id = "frankenstein"
+	},
 /turf/open/transparent/openspace,
 /area/rogue/indoors/town/physician/desert)
 "iQJ" = (
@@ -42381,6 +42424,11 @@
 /obj/machinery/light/rogue/candle,
 /obj/structure/closet/crate/chest/crate,
 /obj/item/clothing/cloak/citywatch/janissary,
+/obj/item/needle,
+/obj/item/natural/cloth{
+	pixel_x = -9;
+	pixel_y = 5
+	},
 /turf/open/floor/rogue/tile/brownbrick{
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
@@ -43917,7 +43965,7 @@
 /obj/structure/toilet,
 /obj/item/reagent_containers/food/snacks/smallrat,
 /obj/machinery/light/rogue/candle/blue/l,
-/obj/structure/bars/grille,
+/obj/structure/floordoor,
 /turf/open/transparent/openspace,
 /area/rogue/indoors/town/bath/desert)
 "pCJ" = (
@@ -52032,6 +52080,15 @@
 /obj/structure/chair/zybantine_sofa/right,
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/shop/desert)
+"stv" = (
+/obj/effect/decal/desertgrassedge{
+	dir = 8
+	},
+/obj/effect/decal/desertgrassedge{
+	dir = 4
+	},
+/turf/open/floor/rogue/sandbrick,
+/area/rogue/outdoors/town/desert)
 "stz" = (
 /obj/structure/spider/stickyweb,
 /turf/open/floor/rogue/lightpath,
@@ -62328,11 +62385,11 @@
 /turf/open/floor/rogue/naturalstone/sandstone,
 /area/rogue/under/underdark)
 "vSf" = (
-/obj/effect/decal/desertgrassedge{
-	dir = 1
+/obj/machinery/light/rogue/torchholder/l{
+	dir = 8
 	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/outdoors/town/desert)
+/turf/open/floor/rogue/wood,
+/area/rogue/indoors/town/church)
 "vSk" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/rogue/dunes,
@@ -64675,8 +64732,8 @@
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/inq/basement)
 "wKb" = (
-/obj/structure/table/wood/long_table,
 /obj/item/rogueweapon/huntingknife/chefknife,
+/obj/structure/fluff/alch,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/church)
 "wKh" = (
@@ -65588,6 +65645,11 @@
 	},
 /obj/structure/closet/crate/chest/crate,
 /obj/item/clothing/cloak/citywatch/janissary,
+/obj/item/needle,
+/obj/item/natural/cloth{
+	pixel_x = -9;
+	pixel_y = 5
+	},
 /turf/open/floor/rogue/tile/brownbrick{
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
@@ -66489,8 +66551,8 @@
 	pixel_y = -5
 	},
 /obj/machinery/light/rogue/candle/blue/l,
-/obj/structure/bars/grille,
-/turf/open/water/sewer,
+/obj/structure/floordoor,
+/turf/open/transparent/openspace,
 /area/rogue/indoors/town/bath/desert)
 "xpa" = (
 /mob/living/carbon/human/species/npc/deadite{
@@ -175503,7 +175565,7 @@ iVN
 pbN
 pbN
 cGq
-cGq
+pbN
 pbN
 pbN
 pbN
@@ -175815,8 +175877,8 @@ iVN
 iVN
 pbN
 cGq
-cGq
 pbN
+rzc
 rzc
 rzc
 rzc
@@ -176128,10 +176190,10 @@ iVN
 pbN
 pbN
 pbN
-pbN
-pbN
-pbN
-pbN
+rzc
+rzc
+rzc
+rzc
 pbN
 waW
 waW
@@ -176423,7 +176485,7 @@ eBY
 iVN
 xio
 qQQ
-iLt
+cjN
 kuq
 dKv
 iVN
@@ -387925,7 +387987,7 @@ wkN
 fzq
 pdn
 wkN
-gkA
+vSf
 dAX
 rTn
 gOJ
@@ -415107,8 +415169,8 @@ nhG
 tpG
 qOh
 wCZ
-vSf
-jZa
+wCZ
+stv
 tuH
 djv
 gpg
