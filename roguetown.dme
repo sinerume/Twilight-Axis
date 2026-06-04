@@ -3913,7 +3913,6 @@
 #include "modular_twilight_axis\code\modules\jobs\job_types\roguetown\enigma_roles\burghers\bailiff.dm"
 #include "modular_twilight_axis\code\modules\jobs\job_types\roguetown\enigma_roles\burghers\mayor.dm"
 #include "modular_twilight_axis\code\modules\jobs\job_types\roguetown\enigma_roles\courtier\courtphysician.dm"
-#include "modular_twilight_axis\code\modules\jobs\job_types\roguetown\enigma_roles\garrison\dungeoneer.dm"
 #include "modular_twilight_axis\code\modules\jobs\job_types\roguetown\enigma_roles\garrison\manatarms_enigma.dm"
 #include "modular_twilight_axis\code\modules\jobs\job_types\roguetown\enigma_roles\garrison\sergeant_enigma.dm"
 #include "modular_twilight_axis\code\modules\jobs\job_types\roguetown\enigma_roles\garrison\sheriff.dm"
