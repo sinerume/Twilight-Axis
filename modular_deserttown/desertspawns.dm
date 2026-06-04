@@ -22,7 +22,7 @@
 /obj/effect/landmark/start/dt/vizier
  	name = "Vizier"
 /obj/effect/landmark/start/dt/prince
- 	name = "prince"
+ 	name = "Amir"
 /obj/effect/landmark/start/dt/sultan
 	name = "Sultan"
 /obj/effect/landmark/start/dt/dtmagician
