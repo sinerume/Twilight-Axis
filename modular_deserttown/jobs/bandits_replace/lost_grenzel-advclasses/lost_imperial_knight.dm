@@ -7,7 +7,7 @@
 	subclass_languages = list(/datum/language/grenzelhoftian)
 	category_tags = list(CTAG_LOSTGRENZEL)
 	maximum_possible_slots = 1
-	traits_applied = list(TRAIT_HEAVYARMOR, TRAIT_NOBLE)
+	traits_applied = list(TRAIT_HEAVYARMOR, TRAIT_NOBLE, TRAIT_BADTRAINER)
 	subclass_stats = list(
 		STATKEY_CON = 4,
 		STATKEY_STR = 3,
@@ -62,18 +62,17 @@
 		if("Flameberge")
 			r_hand = /obj/item/rogueweapon/greatsword/grenz/flamberge
 			backl = /obj/item/rogueweapon/scabbard/gwstrap
-			H.adjust_skillrank_up_to(/datum/skill/combat/swords, 5, TRUE)
 		if("Polemace")
 			beltr = /obj/item/rogueweapon/mace/goden/steel
-			H.adjust_skillrank_up_to(/datum/skill/combat/maces, 5, TRUE)
+			H.adjust_skillrank_up_to(/datum/skill/combat/maces, 6, TRUE)
 		if("Poleaxe")
 			beltr = /obj/item/rogueweapon/greataxe/steel/knight
 			backl = /obj/item/rogueweapon/scabbard/gwstrap
-			H.adjust_skillrank_up_to(/datum/skill/combat/axes, 5, TRUE)
+			H.adjust_skillrank_up_to(/datum/skill/combat/axes, 6, TRUE)
 		if("Polehammer")
 			r_hand = /obj/item/rogueweapon/eaglebeak
 			backl = /obj/item/rogueweapon/scabbard/gwstrap
-			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 5, TRUE)
+			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 6, TRUE)
 
 /datum/job/roguetown/knight/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	..()

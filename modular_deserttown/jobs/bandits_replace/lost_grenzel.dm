@@ -1,3 +1,24 @@
+/datum/antagonist/bandit/lost_grenzel
+	name = "Lost Grenzel"
+	antagpanel_category = "Lost Grenzel"
+	roundend_category = "lost grenzels"
+	show_name_in_check_antagonists = TRUE
+	job_rank = ROLE_LOSTGRENZEL
+
+/datum/antagonist/bandit/lost_grenzel/on_gain()
+	. = ..()
+	owner.special_role = name
+	
+/datum/antagonist/bandit/lost_grenzel/finalize_bandit()
+	owner.current.playsound_local(get_turf(owner.current), 'sound/music/traitor.ogg', 60, FALSE, pressure_affected = FALSE)
+	var/mob/living/carbon/human/H = owner.current
+	H.verbs |= /mob/proc/haltyell_exhausting
+	ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_OUTLANDER, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_OUTLAW, TRAIT_GENERIC)
+	to_chat(H, span_alertsyndie("Я - ПОТЕРЯННЫЙ ГРЕНЗЕЛЬХОФТЕЦ!"))
+	to_chat(H, span_boldwarning("Оставшись в одиночестве посреди окровавленных песков вас сплотила ненависть. Вас сплотила жажда мести. Вы - один из потерянных грензельхофтцев. Ваша цель - убивать, грабить и мстить."))
+
 /datum/job/roguetown/lost_grenzel
 	title = "Lost Grenzel"
 	flag = BANDIT
@@ -55,7 +76,7 @@
 /datum/outfit/job/roguetown/lost_grenzel/post_equip(mob/living/carbon/human/H)
 	..()
 	if(H.mind)
-		var/datum/antagonist/new_antag = new /datum/antagonist/bandit()
+		var/datum/antagonist/new_antag = new /datum/antagonist/bandit/lost_grenzel()
 		H.mind.add_antag_datum(new_antag)
 		H.grant_language(/datum/language/thievescant)
 		addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, choose_name_popup), "BANDIT"), 5 SECONDS)
@@ -72,6 +93,7 @@
 	name = "Lost Grenzel"
 	greet_text = "Оставшись в одиночестве посреди окровавленных песков вас сплотила ненависть. Вас сплотила жажда мести. Вы - один из потерянных грензельхофтцев."
 	outfit = /datum/outfit/job/roguetown/lost_grenzel
+	antag_datum = /datum/antagonist/bandit/lost_grenzel
 	allowed_ages = list(AGE_MIDDLEAGED, AGE_OLD)
 	forbidden_races = list(RACES_CONSTRUCT, RACES_DESPISED, RACES_OOZE)
 	advclass_cat_rolls = list(CTAG_LOSTGRENZEL = 20)
@@ -86,7 +108,7 @@
 	roles = list(
 		/datum/migrant_role/lost_grenzel = 4,
 	)
-	spawn_landmark = "Bandit"
+	spawn_landmark = "LostGrenzel"
 	greet_text = "Из залитых кровью песков выходят потерянные грензельхофтцы. Город запомнит их в крови и пепле."
 
 /datum/round_event_control/antagonist/migrant_wave/lost_grenzel

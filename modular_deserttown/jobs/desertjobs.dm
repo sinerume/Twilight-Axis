@@ -166,6 +166,13 @@
 	refuse_message = "НЕТ!"
 	recharge_time = 100
 
+/obj/effect/proc_holder/spell/self/convertrole/slave/can_convert(mob/living/carbon/human/recruit)
+	if(QDELETED(recruit))
+		return FALSE
+	if(!recruit.mind)
+		return FALSE
+	return TRUE
+
 /obj/effect/proc_holder/spell/self/convertrole/slave/convert(mob/living/carbon/human/recruit, mob/living/carbon/human/recruiter)
 	if(QDELETED(recruit) || QDELETED(recruiter))
 		return FALSE
@@ -461,7 +468,14 @@
 				if(!H.put_in_hands(keys))
 					keys.forceMove(H.drop_location())
 
-/datum/outfit/job/roguetown/physician/basic/pre_equip(mob/living/carbon/human/H)
-	. = ..()
+/datum/job/roguetown/physician/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
+	..()
 	if(SSmapping.config.map_name == "Desert Town")
-		wrists = /obj/item/storage/keyring/courtphysician
+		if(ishuman(L))
+			var/mob/living/carbon/human/H = L
+			for(var/obj/item/storage/keyring/physician/old_key in H.get_all_contents())
+				qdel(old_key)
+			var/obj/item/storage/keyring/courtphysician/keys = new(H)
+			if(!H.equip_to_appropriate_slot(keys))
+				if(!H.put_in_hands(keys))
+					keys.forceMove(H.drop_location())
