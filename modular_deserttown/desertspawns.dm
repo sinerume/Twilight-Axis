@@ -52,5 +52,8 @@
 /obj/effect/landmark/start/dt/courtslave
 	name = "Court Agent"
 
+/obj/effect/landmark/start/dt/LostGrenzel
+	name = "Lost Grenzel"
+
 // /obj/effect/landmark/start/
 // 	name = ""
