@@ -19,21 +19,21 @@
 	traits_applied = list(TRAIT_FIREARMS_MARKSMAN, TRAIT_DODGEEXPERT)
 
 	subclass_skills = list(
-		/datum/skill/combat/twilight_firearms = 5,//Your entire point is GUN.
-		/datum/skill/combat/crossbows = 3,
-		/datum/skill/combat/bows = 2,
-		/datum/skill/combat/slings = 2,
-		/datum/skill/combat/wrestling = 3,
-		/datum/skill/combat/knives = 3,
-		/datum/skill/combat/maces = 3,
-		/datum/skill/combat/swords = 3,
-		/datum/skill/combat/whipsflails = 3,
-		/datum/skill/misc/climbing = 3,//not as acrobatic
-		/datum/skill/misc/athletics = 4,
-		/datum/skill/misc/sneaking = 3,
-		/datum/skill/combat/unarmed = 3,
-		/datum/skill/misc/reading = 1,
-		/datum/skill/misc/tracking = 3,
+		/datum/skill/combat/twilight_firearms = SKILL_LEVEL_MASTER,//Your entire point is GUN.
+		/datum/skill/combat/crossbows = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/bows = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/slings = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/maces = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/whipsflails = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,//not as acrobatic
+		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/sneaking = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
+		/datum/skill/misc/tracking = SKILL_LEVEL_JOURNEYMAN,
 	)
 
 /datum/outfit/job/roguetown/janissary/jezail/pre_equip(mob/living/carbon/human/H)
