@@ -2,7 +2,6 @@
 	name = "Lost Imperial Knight"
 	tutorial = "В прежней армии вы были офицером, возглавшявшим небольшое подразделение. Но вас разбили... Ваша сила и ваши навыки позволили сплотить вокруг себя небольшую банду."
 	allowed_sexes = list(MALE, FEMALE)
-	forbidden_races = list(RACES_CONSTRUCT, RACES_DESPISED)
 	outfit = /datum/outfit/job/roguetown/lost_grenzel/lost_imperial_knight
 	subclass_languages = list(/datum/language/grenzelhoftian)
 	category_tags = list(CTAG_LOSTGRENZEL)
@@ -16,7 +15,7 @@
 		STATKEY_INT = 3,
 	)
 	subclass_skills = list(
-		/datum/skill/combat/swords = SKILL_LEVEL_MASTER,
+		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/tracking = SKILL_LEVEL_MASTER,		
 		/datum/skill/combat/maces = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/axes = SKILL_LEVEL_JOURNEYMAN,
@@ -62,17 +61,18 @@
 		if("Flameberge")
 			r_hand = /obj/item/rogueweapon/greatsword/grenz/flamberge
 			backl = /obj/item/rogueweapon/scabbard/gwstrap
+			H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_MASTER, TRUE)
 		if("Polemace")
 			beltr = /obj/item/rogueweapon/mace/goden/steel
-			H.adjust_skillrank_up_to(/datum/skill/combat/maces, 6, TRUE)
+			H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_MASTER, TRUE)
 		if("Poleaxe")
 			beltr = /obj/item/rogueweapon/greataxe/steel/knight
 			backl = /obj/item/rogueweapon/scabbard/gwstrap
-			H.adjust_skillrank_up_to(/datum/skill/combat/axes, 6, TRUE)
+			H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_MASTER, TRUE)
 		if("Polehammer")
 			r_hand = /obj/item/rogueweapon/eaglebeak
 			backl = /obj/item/rogueweapon/scabbard/gwstrap
-			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 6, TRUE)
+			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_MASTER, TRUE)
 
 /datum/job/roguetown/knight/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	..()
