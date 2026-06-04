@@ -108,6 +108,7 @@
 	roles = list(
 		/datum/migrant_role/lost_grenzel = 4,
 	)
+	min_pop = 80
 	spawn_landmark = "LostGrenzel"
 	greet_text = "Из залитых кровью песков выходят потерянные грензельхофтцы. Город запомнит их в крови и пепле."
 
@@ -116,7 +117,7 @@
 	typepath = /datum/round_event/migrant_wave/lost_grenzel
 	wave_type = /datum/migrant_wave/lost_grenzel
 	track = EVENT_TRACK_INTERVENTION
-	max_occurrences = 2
+	max_occurrences = 1
 	weight = 8
 	earliest_start = 5 MINUTES
 	min_players = 80

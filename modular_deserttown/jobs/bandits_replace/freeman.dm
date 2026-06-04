@@ -118,6 +118,7 @@
 	roles = list(
 		/datum/migrant_role/freeman = 6,
 	)
+	min_pop = 80
 	spawn_landmark = "Bandit"
 	greet_text = "Фримены выходят из-за дюн. Враги Султана собрались, чтобы вернуть то, что у них отняли."
 
@@ -126,10 +127,10 @@
 	typepath = /datum/round_event/migrant_wave/freeman
 	wave_type = /datum/migrant_wave/freeman
 	track = EVENT_TRACK_INTERVENTION
-	max_occurrences = 2
+	max_occurrences = 1
 	weight = 8
 	earliest_start = 5 MINUTES
-	min_players = 30
+	min_players = 80
 	tags = list(
 		TAG_COMBAT,
 		TAG_VILLIAN,
