@@ -51,6 +51,7 @@
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		/obj/item/reagent_containers/glass/bottle/rogue/healthpot = 1,
 		/obj/item/impact_grenade/smoke/blind_gas,
+		/obj/item/storage/keyring/manatarms,
 		)
 
 	H.adjust_blindness(-3)
