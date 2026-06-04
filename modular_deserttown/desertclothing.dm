@@ -773,3 +773,14 @@ name = "Janissaries Helm"
 	desc = "A slim-fitting sherwani, a Zybantine-styled coat meant to endure in the desert's climate."
 	icon_state = "sherwani"
 	color = "#7c6d5c"
+
+/datum/crafting_recipe/roguetown/sewing/desertcoat
+	name = "desert coat"
+	category = "Gambesons"
+	display_category = ITEM_CAT_ARMOR_LIGHT
+	result = /obj/item/clothing/suit/roguetown/armor/gambeson/zyb
+	reqs = list(/obj/item/natural/cloth = 4,
+				/obj/item/natural/fibers = 1)
+	tools = list(/obj/item/needle)
+	craftdiff = 3
+	sellprice = 20
