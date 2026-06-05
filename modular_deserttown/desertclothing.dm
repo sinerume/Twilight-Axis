@@ -665,6 +665,7 @@
 ////////
 
 /obj/item/clothing/suit/roguetown/shirt/exoticsilkbra/green
+	name = "exotic silk bra(green)"
 	icon = 'modular_deserttown/icons/clothing/shirts.dmi'
 	mob_overlay_icon = 'modular_deserttown/icons/clothing/onmob/shirts.dmi'
 	icon_state = "exoticsilkbrag"
@@ -680,6 +681,7 @@
 	craftdiff = 4
 
 /obj/item/clothing/suit/roguetown/shirt/exoticsilkbra/red
+	name = "exotic silk bra (red)"
 	desc = "Fanciful gold laced silks barely able to conceal what little it covers. Long, flowing sleeves droop from the upper arms to a ring on each hand, fluttering in the wind and with every movement."
 	icon = 'modular_deserttown/icons/clothing/shirts.dmi'
 	mob_overlay_icon = 'modular_deserttown/icons/clothing/onmob/shirts.dmi'
@@ -696,6 +698,7 @@
 	craftdiff = 4
 
 /obj/item/clothing/mask/rogue/exoticsilkmask/green
+	name = "exotic silk mask (green)"
 	icon = 'modular_deserttown/icons/clothing/masks.dmi'
 	mob_overlay_icon = 'modular_deserttown/icons/clothing/onmob/masks.dmi'
 	icon_state = "exoticsilkmaskg"
@@ -711,6 +714,7 @@
 	craftdiff = 4
 
 /obj/item/clothing/mask/rogue/exoticsilkmask/red
+	name = "exotic silk mask (red)"
 	icon = 'modular_deserttown/icons/clothing/masks.dmi'
 	mob_overlay_icon = 'modular_deserttown/icons/clothing/onmob/masks.dmi'
 	icon_state = "exoticsilkmaskr"
