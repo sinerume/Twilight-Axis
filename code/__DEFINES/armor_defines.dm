@@ -166,7 +166,7 @@
 #define ARMOR_BRIGANDINE list("blunt" = DR_HEAVY, "slash" = DBLOCK_HEAVY, "stab" = DBLOCK_MEDIUM, "piercing" = DBLOCK_HEAVY, "fire" = DR_MEDIUM, "acid" = DR_NONE, "bullet" = DR_HEAVY)  //TA EDIT
 
 // BRONZE - All bronze armor. Not particularly good against any specialized AP intent, but uniquely resistant to fire damage from mage spells and the like. THIS SHOULD BE USING IRON INTEGRITY.
-#define ARMOR_BRONZE list("blunt" = DR_MEDIUM, "slash" = DBLOCK_MEDIUM, "stab" = DBLOCK_MEDIUM, "piercing" = DBLOCK_MEDIUM, "fire" = DR_LIGHT, "acid" = DR_LIGHT, "bullet" = DR_LIGHT)  //TA EDIT
+#define ARMOR_BRONZE list("blunt" = DR_MEDIUM, "slash" = DBLOCK_MEDIUM, "stab" = DBLOCK_MEDIUM, "piercing" = DBLOCK_MEDIUM, "fire" = DR_HEAVY, "acid" = DR_LIGHT, "bullet" = DR_LIGHT)  //TA EDIT
 
 // MAILLE — Chainmail. Medium: Plate level protection but weak vs Bodkin (100% through)
 #define ARMOR_MAILLE list("blunt" = DR_MEDIUM, "slash" = DBLOCK_HEAVY, "stab" = DBLOCK_HEAVY, "piercing" = DBLOCK_LIGHT, "fire" = DR_LIGHT, "acid" = DR_NONE, "bullet" = DR_HEAVY)  //TA EDIT

@@ -54,6 +54,8 @@
 
 /obj/effect/landmark/start/dt/LostGrenzel
 	name = "Lost Grenzel"
+	jobspawn_override = list("LostGrenzel", "Lost Grenzel")
+	delete_after_roundstart = FALSE
 
 // /obj/effect/landmark/start/
 // 	name = ""

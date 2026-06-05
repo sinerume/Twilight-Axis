@@ -347,7 +347,7 @@ Inquisitorial armory down here
 		. += span_info("Activate in your hand to open it.")
 		. += span_info("When opened, the 'BLESS' intent can be used to anoint Psydonic silver weaponry. Blessing a Psydonic silver weapon greatly enhances the power of its critical hits and debuffs against sunderable opponents.")
 		. += span_info("Blessing someone else, who happens to be a worshipper of Psydon, will temporarily buff them with increased Willpower, Constitution, and Fortune.")
-		. += span_warning("If the 'SMASH' intent is used while it's opened, the residing shard will violently explode with unimaginable force.")
+		//. += span_warning("If the 'SMASH' intent is used while it's opened, the residing shard will violently explode with unimaginable force.") //TA EDIT
 		. += span_warning("<font color='#00e1ff'>While active, Golgatha burns and weakens anyone who attacks its bearer. The effect persists only while the attacker remains within the relic's light. This feature requires the bearer to be Silverblessed, and inflicts extra damage to mindless foes.</font>")
 	if(fuel <= 0)
 		. += span_info("It is gone.")
@@ -409,7 +409,7 @@ Inquisitorial armory down here
 
 /obj/item/flashlight/flare/torch/lantern/psycenser/afterattack(atom/movable/A, mob/user, proximity)
 	. = ..()	//We smashed a guy with it turned on. Bad idea!
-	if(ismob(A) && on && (user.used_intent.type == /datum/intent/flail/smash/golgotha) && user.cmode)
+	/*if(ismob(A) && on && (user.used_intent.type == /datum/intent/flail/smash/golgotha) && user.cmode)
 		user.visible_message(span_warningbig("[user] smashes the exposed [src], shattering the shard of SYON!"))
 		user.visible_message(span_blue(pick("WHY--!!","SYON BLAS--!!","ENDU--!!","ENDURE THI--!!","WHAT THE F--!!","OH MY ALLFA--!!","OH PSYDO--!!","KABOO--!!","MASHALLA--!!","OH ADONA--!!","OH SHI--!!","PSYDO--!!","PSYDON BLAS--!!")))
 		explosion(get_turf(A),devastation_range = 3, heavy_impact_range = 5, light_impact_range = 6, flame_range = 3, flash_range = 6, smoke = FALSE)
@@ -422,7 +422,7 @@ Inquisitorial armory down here
 			if(H.patron?.type == /datum/patron/old_god)	//Psydonites get VERY depressed seeing an artifact get turned into an ullapool caber.
 				H.add_stress(/datum/stressevent/syoncalamity)
 		for(var/mob/living/carbon/human/H in range(1, get_turf(src)))
-			H.gib()
+			H.gib()*/ //TA EDIT
 	if(isitem(A) && on && user.used_intent.type == /datum/intent/bless)
 		var/datum/component/silverbless/CP = A.GetComponent(/datum/component/silverbless)
 		if(CP)

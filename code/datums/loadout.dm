@@ -2070,6 +2070,13 @@ GLOBAL_LIST_EMPTY(loadout_items_by_category)
 	donatitem = TRUE
 	donat_tier = 2
 
+/datum/loadout_item/donator/sakuyzo
+	name = "Donator Kit - Hævatein - Required: Kriegmesser"
+	category = list("Оружие", "Донат")
+	path = /obj/item/enchantingkit/weapon/sakuyzo
+	donatitem = TRUE
+	donat_tier = 2
+
 /datum/loadout_item/donator/arra_amdir
 	name = "Dontaor Kit - Amdir - Required: Greataxe"
 	category = list("Оружие", "Донат")
