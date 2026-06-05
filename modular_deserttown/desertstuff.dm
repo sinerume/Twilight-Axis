@@ -78,6 +78,15 @@
 	desc = "A common clay pot used for storing and sometimes fermenting fluids. Favoured over wooden barrels in the desert of Zybantium due to the relative scarcity of wood."
 	icon = 'modular_deserttown/icons/pots.dmi'
 	icon_state = "sandpot1"
+	open_icon_state = "sandpot_open"
+	tapped_icon_state = "sandpot_tapped"
+	var/ready_icon_state = "sandpot_ready"
+
+/obj/structure/fermentation_keg/sandpot/end_brew()
+	..()
+	if(!heated)
+		icon_state = ready_icon_state
+	update_overlays()
 
 /datum/crafting_recipe/roguetown/structure/sandpot
 	name = "sand pot"
@@ -93,18 +102,15 @@
 	desc = "Decorative and Practical!"
 	icon = 'modular_deserttown/icons/pots.dmi'
 	icon_state = "fancypot1"
-	open_icon_state = null
-	tapped_icon_state = null
-
-/obj/structure/fermentation_keg/fancypot/start_brew()
-	var/old_icon = icon_state
-	..()
-	icon_state = old_icon
+	open_icon_state = "fancypot_open"
+	tapped_icon_state = "fancypot_tapped"
+	var/ready_icon_state = "fancypot_ready"
 
 /obj/structure/fermentation_keg/fancypot/end_brew()
-	var/old_icon = icon_state
 	..()
-	icon_state = old_icon
+	if(!heated)
+		icon_state = ready_icon_state
+	update_overlays()
 
 /datum/crafting_recipe/roguetown/structure/fancypot
 	name = "sand pot (fancy)"
