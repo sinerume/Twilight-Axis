@@ -2,10 +2,61 @@
 #define MAX_ADMINBANS_PER_ADMIN 1
 #define MAX_ADMINBANS_PER_HEADMIN 3
 
+/proc/ta_roleban_list(list/base, list/extras)
+	. = list()
+	if(base)
+		. |= base
+	if(extras)
+		. |= extras
+
+/proc/ta_roleban_equivalent_roles(role)
+	. = list()
+	if(!role)
+		return
+	. |= role
+	switch(role)
+		if("Sultan")
+			. |= list("Grand Duke", "Lord")
+		if("Vizier")
+			. |= list("Hand", "Steward")
+		if("Sheikh")
+			. |= list("Councillor")
+		if("Head Slave")
+			. |= list("Seneschal")
+		if("Palace Slave")
+			. |= list("Servant")
+		if("Cataphract")
+			. |= list("Knight")
+		if("Janissary Sergeant")
+			. |= list("Sergeant-at-Arms", "Sergeant")
+		if("Janissary")
+			. |= list("Man-at-Arms", "Men-at-Arms")
+		if("Azeb Agha")
+			. |= list("Warden", "Sergeant-at-Arms", "Sergeant")
+		if("Azeb")
+			. |= list("Warden")
+		if("Slave Master")
+			. |= list("Dungeon Master", "Jailer", "Warden")
+		if("Freeman")
+			. |= list(ROLE_BANDIT)
+		if("Lost Grenzel")
+			. |= list(ROLE_BANDIT)
+
+/proc/ta_roleban_expand_roles(roles)
+	. = list()
+	if(islist(roles))
+		for(var/role in roles)
+			. |= ta_roleban_equivalent_roles(role)
+	else
+		. |= ta_roleban_equivalent_roles(roles)
+
 //checks client ban cache or DB ban table if ckey is banned from one or more roles
 //doesn't return any details, use only for if statements
 /proc/is_banned_from(player_ckey, list/roles)
 	if(!player_ckey)
+		return
+	roles = ta_roleban_expand_roles(roles)
+	if(!length(roles))
 		return
 	var/client/C = GLOB.directory[player_ckey]
 	if(C)
@@ -55,6 +106,15 @@
 /proc/is_banned_from_with_details(player_ckey, player_ip, player_cid, role)
 	if(!player_ckey && !player_ip && !player_cid)
 		return
+	var/list/check_roles = ta_roleban_expand_roles(role)
+	if(!length(check_roles))
+		return
+	var/list/role_values = list("ckey" = player_ckey, "ip" = player_ip, "computerid" = player_cid)
+	var/list/sql_roles_list = list()
+	for(var/i in 1 to check_roles.len)
+		role_values["role[i]"] = check_roles[i]
+		sql_roles_list += ":role[i]"
+	var/sql_roles = sql_roles_list.Join(", ")
 	var/datum/DBQuery/query_check_ban = SSdbcore.NewQuery({"
 		SELECT
 			id,
@@ -69,12 +129,12 @@
 			computerid,
 			IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE [format_table_name("player")].ckey = [format_table_name("ban")].a_ckey), a_ckey)
 		FROM [format_table_name("ban")]
-		WHERE role = :role
+		WHERE role IN ([sql_roles])
 			AND (ckey = :ckey OR ip = INET_ATON(:ip) OR computerid = :computerid)
 			AND unbanned_datetime IS NULL
 			AND (expiration_time IS NULL OR expiration_time > NOW())
 		ORDER BY bantime DESC
-	"}, list("role" = role, "ckey" = player_ckey, "ip" = player_ip, "computerid" = player_cid))
+	"}, role_values)
 	if(!query_check_ban.warn_execute())
 		qdel(query_check_ban)
 		return
@@ -234,10 +294,10 @@
 		var/break_counter = 0
 		//note to future developers: RT doesn't have command staff so toggle_head was removed, go back in the git history if you need to readd it
 		//departments/groups that don't have command staff would throw a javascript error since there's no corresponding reference for toggle_head()
-		var/list/headless_job_lists = list("Ducal Family" = GLOB.noble_positions,
-							"Courtiers" = GLOB.courtier_positions,
-							"Retinue" = GLOB.retinue_positions,
-							"Garrison" = GLOB.garrison_positions,
+		var/list/headless_job_lists = list("Ducal Family" = ta_roleban_list(GLOB.noble_positions, list("Sultan")),
+							"Courtiers" = ta_roleban_list(GLOB.courtier_positions, list("Vizier", "Sheikh", "Head Slave")),
+							"Retinue" = ta_roleban_list(GLOB.retinue_positions, list("Cataphract")),
+							"Garrison" = ta_roleban_list(GLOB.garrison_positions, list("Janissary Sergeant", "Janissary", "Azeb Agha", "Azeb", "Slave Master")),
 							"City Watch" = GLOB.citywatch_positions,
 							"Vanguard" = GLOB.vanguard_positions,
 							"Church" = GLOB.church_positions,
@@ -256,12 +316,12 @@
 				"}
 				break_counter++
 			output += "</div></div>"
-		var/list/long_job_lists = list("Peasants" = GLOB.peasant_positions,
+		var/list/long_job_lists = list("Peasants" = ta_roleban_list(GLOB.peasant_positions, list("Palace Slave")),
 									"Burghers" = GLOB.burgher_positions,
 									"ATC" = GLOB.atc_positions,
 									"Sidefolk" = GLOB.sidefolk_positions,
 									"Ghost and Other Roles" = list(ROLE_NECRO_SKELETON, ROLE_LICH_SKELETON, ROLE_UNBOUND_DEATHKNIGHT, ROLE_DARK_ITINERANT),
-									"Antagonist Positions" = list(ROLE_ASCENDANT, ROLE_ASPIRANT, ROLE_BANDIT, ROLE_NBEAST, ROLE_WEREWOLF, ROLE_LICH, ROLE_PREBEL),
+									"Antagonist Positions" = list(ROLE_ASCENDANT, ROLE_ASPIRANT, ROLE_BANDIT, "Freeman", "Lost Grenzel", ROLE_NBEAST, ROLE_WEREWOLF, ROLE_LICH, ROLE_PREBEL),
 									"Lesser Antagonst Positions" = list(ROLE_WRETCH, ROLE_DREAMWALKER, ROLE_GNOLL, ROLE_VAMPIRE))
 									//ADD BACK DARK ELF AND MANIAC TO THE LIST IF THEY ARE EVER REENABLED
 		for(var/department in long_job_lists)
@@ -380,7 +440,7 @@
 			if("server")
 				roles_to_ban += "Server"
 			if("role")
-				href_list.Remove("Command", "Security", "Engineering", "Medical", "Science", "Supply", "Silicon", "Abstract", "Service", "Ghost and Other Roles", "Antagonist Positions", "Lesser Antagonst Positions") //remove the role banner hidden input values
+				href_list.Remove("Command", "Security", "Engineering", "Medical", "Science", "Supply", "Silicon", "Abstract", "Service", "Ducal Family", "Courtiers", "Retinue", "Garrison", "City Watch", "Vanguard", "Church", "Inquisition", "Wanderers", "Peasants", "Burghers", "ATC", "Sidefolk", "Ghost and Other Roles", "Antagonist Positions", "Lesser Antagonst Positions") //remove the role banner hidden input values
 				if(href_list[href_list.len] == "roleban_delimiter")
 					error_state += "Role ban was selected but no roles to ban were selected."
 				else
