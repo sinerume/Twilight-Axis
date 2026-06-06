@@ -65,7 +65,9 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 
 GLOBAL_LIST_INIT(leadership_positions, list( // Used for boldening text primarily
 	"Grand Duke",
+	"Sultan", // Desert Town
 	"Hand",
+	"Vizier", //Desert Town
 	"Court Magician",
 	"Court Physician",
 	"Marshal",
@@ -91,6 +93,8 @@ GLOBAL_LIST_INIT(regency_positions, list( // Used to determine elligibility for 
 	"Steward",
 	"Councillor",
 	"Marshal",
+	"Vizier", //Desert Town
+	"Sheikh", //Desert Town
 ))
 
 GLOBAL_LIST_INIT(noble_positions, list( //Royal family only
