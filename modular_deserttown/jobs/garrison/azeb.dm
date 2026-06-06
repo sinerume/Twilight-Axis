@@ -3,8 +3,8 @@
 	flag = BOGGUARD
 	department_flag = GARRISON
 	faction = "Station"
-	total_positions = 8
-	spawn_positions = 8
+	total_positions = 7
+	spawn_positions = 7
 	allowed_sexes = list(MALE, FEMALE)
 	forbidden_races = list(RACES_DESPISED)
 	tutorial = "Будучи живой собственностью правящей династии, ты с младенчества воспитывался как воин-невольник. \
