@@ -384,14 +384,6 @@
 	. = ..()
 	icon_state = "bushshrub[pick(1,2)]"
 
-/obj/structure/flora/roguegrass/bush/desertshrub/decor
-
-/obj/structure/flora/roguegrass/bush/desertshrub/decor/Initialize()
-	. = ..()
-	icon_state = "bushshrub[pick(1,2)]"
-	pixel_x = 1
-	pixel_y = 21
-
 /obj/structure/flora/roguetree/palm
 	name = "palm tree"
 	desc = "Scant, precious shade."
@@ -666,14 +658,3 @@
 
 /obj/effect/decal/edge_corner/desert_gray
 	color = "#655653"
-
-//Decor
-/obj/structure/vase
-	name = "fancy pot"
-	desc = "Decorative and Practical!"
-	icon = 'modular_deserttown/icons/pots.dmi'
-	icon_state = "fancypot1"
-	anchored = TRUE
-	opacity = FALSE
-	density = TRUE
-	max_integrity = 100
