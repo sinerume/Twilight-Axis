@@ -344,3 +344,42 @@
 	allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_COURIER, QUEST_RETRIEVAL, QUEST_RECOVERY)
 	kill_target_floor = 3
 	evergreen_target = 2
+
+/datum/threat_region/desertdark
+	region_name = THREAT_REGION_DESERTDARK
+	latent_ambush = 600
+	min_ambush = 400
+	max_ambush = 1200
+	fixed_ambush = FALSE
+	ambush_budget_pct = AMBUSH_BUDGET_PCT_REGULAR
+	lowpop_tick = 1200 * THREAT_LOWPOP_TICK_RATE
+	highpop_tick = 1200 * THREAT_HIGHPOP_TICK_RATE
+	faction_weights = list(
+		QUEST_FACTION_MIRESPIDER = 30,
+		QUEST_FACTION_TARICHEA_DEADITE = 25,
+		QUEST_FACTION_GREAT_BEAST = 25,
+		QUEST_FACTION_DROW = 20,
+	)
+	tp_budget_multiplier = 1.5
+	allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_RECOVERY)
+	kill_target_floor = 2
+
+/datum/threat_region/desertdark_deep
+	region_name = THREAT_REGION_DESERTDARK_DEEP
+	latent_ambush = 800
+	min_ambush = 600
+	max_ambush = 1500
+	fixed_ambush = FALSE
+	ambush_budget_pct = AMBUSH_BUDGET_PCT_REGULAR
+	lowpop_tick = 1500 * THREAT_LOWPOP_TICK_RATE
+	highpop_tick = 1500 * THREAT_HIGHPOP_TICK_RATE
+	faction_weights = list(
+		QUEST_FACTION_MIRESPIDER = 20,
+		QUEST_FACTION_TARICHEA_DEADITE = 30,
+		QUEST_FACTION_GREAT_BEAST = 20,
+		QUEST_FACTION_DROW = 30,
+	)
+	tp_budget_multiplier = 1.75
+	allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_RECOVERY)
+	kill_target_floor = 3
+

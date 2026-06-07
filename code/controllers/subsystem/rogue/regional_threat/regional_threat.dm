@@ -23,7 +23,9 @@ GLOBAL_LIST_INIT(threat_region_templates, list(
 	THREAT_REGION_AL_ASHUR_CARAVAN_ROAD = /datum/threat_region/al_ashur_caravan_road,
 	THREAT_REGION_AL_ASHUR_SPICE_DUNES = /datum/threat_region/al_ashur_spice_dunes,
 	THREAT_REGION_AL_ASHUR_DEEP_DUNES = /datum/threat_region/al_ashur_deep_dunes,
-	THREAT_REGION_AL_ASHUR_SUNKEN_RUINS = /datum/threat_region/al_ashur_sunken_ruins
+	THREAT_REGION_AL_ASHUR_SUNKEN_RUINS = /datum/threat_region/al_ashur_sunken_ruins,
+	THREAT_REGION_DESERTDARK = /datum/threat_region/desertdark,
+	THREAT_REGION_DESERTDARK_DEEP = /datum/threat_region/desertdark_deep
 ))
 
 

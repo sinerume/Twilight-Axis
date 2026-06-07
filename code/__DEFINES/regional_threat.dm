@@ -30,6 +30,9 @@
 #define THREAT_REGION_AL_ASHUR_SPICE_DUNES "Spice Dunes"
 #define THREAT_REGION_AL_ASHUR_DEEP_DUNES "The Deep Dunes"
 #define THREAT_REGION_AL_ASHUR_SUNKEN_RUINS "Sunken Ashurian Ruins"
+#define THREAT_REGION_DESERTDARK "Desert Underdark"
+#define THREAT_REGION_DESERTDARK_DEEP "Deep Desert Underdark"
+
 
 #define LOWPOP_THRESHOLD 30 // When do we give highpop tick?
 

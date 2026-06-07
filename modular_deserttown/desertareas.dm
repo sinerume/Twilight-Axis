@@ -394,7 +394,7 @@
 	converted_type = /area/rogue/outdoors/caves
 	deathsight_message = "an acid-scarred depths"
 	detail_text = DETAIL_TEXT_UNDERDARK
-	threat_region = THREAT_REGION_UNDERDARK
+	threat_region = THREAT_REGION_DESERTDARK
 
 /area/rogue/under/desertdark/north
 	name = "Melted Undercity"
@@ -407,4 +407,5 @@
 	droning_sound_dusk = null
 	droning_sound_night = null
 	detail_text = DETAIL_TEXT_MELTED_UNDERCITY
+	threat_region = THREAT_REGION_DESERTDARK_DEEP
 
