@@ -70,7 +70,7 @@
 /client/verb/mentor_stats()
 	set name = "Mentor Statistics"
 	set desc = ""
-	set category = "ADMIN"
+	set category = "Admin.Admin"
 	check_mentor_stats_menu(src.ckey)
 
 /client/verb/reportissue()

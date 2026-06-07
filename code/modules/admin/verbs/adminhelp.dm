@@ -1235,7 +1235,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	new /datum/admin_help(msg, src, FALSE)
 
 /client/verb/reopenticket()
-	set category = "ADMIN"
+	set category = "Admin.Admin"
 	set name = "View Ticket"
 	set desc = "Reopen your admin help ticket chat window"
 	
