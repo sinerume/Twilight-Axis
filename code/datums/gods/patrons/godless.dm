@@ -1,33 +1,32 @@
 /datum/patron/godless
-	name = "Science"
+	name = "Godless"
 	rusgodnames = list(
-	"Наука", "Науки", "Науке", "Науку", "Наукой", "Науке" // Чумба, ты че ебанутый молиться науке?
+		"Безбожие", "Безбожия", "Безбожию", "Безбожие", "Безбожием", "Безбожии"
 	)
-	domain = "Ontological Reality"
-	desc = "No gods or kings, only man! Gods exist but you give them the finger."
-	worshippers = "Madmen, beasts and some dwarves"
+	domain = "Humanity"
+	desc = "Боги существуют, но ты либо не знаешь их, либо не поклоняешься им. Ты следуешь своим инстинктам или разуму."
+	worshippers = "Звери, неспособные мыслить, и истинные циники."
 	associated_faith = /datum/faith/godless
 	preference_accessible = FALSE
 	undead_hater = FALSE
 	confess_lines = list(
-		"Боги не нужны!",
+		"БОГИ НИЧТОЖНЫ!",
 		"МНЕ НЕ НУЖНЫ БОГИ!",
-		"Я ЛИШЬ СЕБЕ БОГ!",
-		"НЕТ БОГОВ - НЕТ ХОЗЯЕВ!",
+		"НЕТ БОГОВ — НЕТ ХОЗЯЕВ!",
 	)
 
 /datum/patron/godless/can_pray(mob/living/follower)
 	. = ..()
-	to_chat(follower, span_danger("Zarlz Zarwin and psyvolution cannot hear my prayer!"))
-	return FALSE	//heathen
+	to_chat(follower, span_danger("Ты не поклоняешься богам. Кому ты молишься?"))
+	return FALSE
 
 /datum/patron/godless/on_lesser_heal(
-    mob/living/user,
-    mob/living/target,
-    message_out,
-    message_self,
-    conditional_buff,
-    situational_bonus
+	mob/living/user,
+	mob/living/target,
+	message_out,
+	message_self,
+	conditional_buff,
+	situational_bonus
 )
-	*message_out = span_info("Without any particular cause or reason, [target] is healed!")
-	*message_self = span_notice("My wounds close without cause.")
+	*message_out = span_info("Без какой-либо причины [target] исцеляется!")
+	*message_self = span_notice("Мои раны закрываются без всякой причины.")
