@@ -133,7 +133,7 @@
 			break
 			
 	if(found_lg)
-		time_near_lg = 30 SECONDS
+		time_near_lg = 1 MINUTES
 		if(!has_debuff)
 			L.add_stress(/datum/stressevent/lost_grenzel_fear)
 			has_debuff = TRUE
@@ -172,7 +172,6 @@
 	max_pq = null
 	round_contrib_points = null
 	allowed_ages = list(AGE_MIDDLEAGED, AGE_OLD)
-	forbidden_races = list(RACES_CONSTRUCT RACES_OOZE)
 	advclass_cat_rolls = list(CTAG_LOSTGRENZEL = 20)
 	PQ_boost_divider = 10
 
