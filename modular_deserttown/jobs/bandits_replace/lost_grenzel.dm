@@ -23,8 +23,8 @@
 
 // ненависть грензелей
 /datum/stressevent/lost_grenzel_hate
-	desc = span_boldred("Я ненавижу всех этих гнид! Убить! Разорвать на куски!")
-	stressadd = 9
+	desc = span_boldred("Уберите, уберите этого швайнехунда от меня подальше!")
+	stressadd = 5
 	timer = INFINITY
 
 /datum/component/lost_grenzel_hate
@@ -80,7 +80,7 @@
 				has_debuff = TRUE
 			
 			if(current_time >= last_message_time + 1 MINUTES)
-				to_chat(L, span_userdanger("УБЕЙТЕ, УБЕЙТЕ ЭТУ ГНИДУ!"))
+				to_chat(L, span_userdanger("Уберите, уберите этого швайнехунда от меня подальше!"))
 				last_message_time = current_time
 	else
 		if(time_near_others > 0)
@@ -91,8 +91,8 @@
 
 // страх грензелей у всех остальных
 /datum/stressevent/lost_grenzel_fear
-	desc = span_boldred("Это же безумный дезертир! О нет, нам конец!")
-	stressadd = 9
+	desc = span_boldred("Это же безумный дезертир! Нужно уходить пока при памяти!")
+	stressadd = 5
 	timer = INFINITY
 
 /datum/component/lost_grenzel_fear
@@ -139,7 +139,7 @@
 			has_debuff = TRUE
 		
 		if(current_time >= last_message_time + 1 MINUTES)
-			to_chat(L, span_userdanger("ЭТО ЖЕ ТОТ СУМАСШЕДШИЙ ИЗ ПУСТЫНЬ! НАДО БЕЖАТЬ!"))
+			to_chat(L, span_userdanger("Это же безумный дезертир! Нужно уходить пока при памяти!"))
 			last_message_time = current_time
 	else
 		if(time_near_lg > 0)
