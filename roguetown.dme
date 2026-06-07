@@ -4098,7 +4098,6 @@
 #include "modular_deserttown\desertfloor.dm"
 #include "modular_deserttown\desert_origins.dm"
 #include "modular_deserttown\desertmapgen.dm"
-#include "modular_deserttown\desertmapgen_underdark.dm"
 #include "modular_deserttown\desertspawns.dm"
 #include "modular_deserttown\desertstuff.dm"
 #include "modular_deserttown\desertwalls.dm"
