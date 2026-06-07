@@ -4120,7 +4120,7 @@
 #include "modular_deserttown\jobs\garrison\janissary\footman.dm"
 #include "modular_deserttown\jobs\garrison\janissary\flagbearer.dm"
 #include "modular_deserttown\jobs\garrison\janissary\janissary.dm"
-#include "modular_deserttown\jobs\garrison\janissary\jezail.dm"
+#include "modular_deserttown\jobs\garrison\janissary\sihrbaz.dm"
 #include "modular_deserttown\jobs\garrison\janissary\zephyr.dm"
 #include "modular_deserttown\desert_hunting.dm"
 #include "modular_deserttown\desert_weather.dm"

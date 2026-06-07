@@ -10,14 +10,14 @@
 	outfit = /datum/outfit/job/roguetown/vizier
 	advclass_cat_rolls = list(CTAG_VIZIER = 20)
 	display_order = JDO_HAND
-	tutorial = "Ты - один из самых могущественных мужей во всём Султанате. \
-        Ты так долго правил тайной стражей и служил наперсником правящей династии, что превратился в живую сокровищницу интриг, и пользуешься этим с пугающей хваткой. \
-        В твоих руках сходятся как чужие секреты, так и султанская казна - ты лично ведаешь всеми расходами и маммонами государства. \
-        Пусть никто не забывает, в чье ухо ты шепчешь. Этими губами ты погубил больше людей, чем любой мастер клинка за всю свою жизнь."
+	tutorial = "Вы - один из самых могущественных мужей во всём Султанате. \
+        Вы так долго правили тайной стражей и служил наперсником правящей династии, что превратились в живую сокровищницу интриг, и вы пользуетесь этим с пугающей хваткой. \
+        В ваших руках сходятся как чужие секреты, так и султанская казна - вы лично ведаете всеми расходами и маммонами государства. \
+        Пусть никто не забывает, в чье ухо вы шепчете. Этими губами вы погубили больше людей, чем любой мастер клинка за всю свою жизнь."
 	whitelist_req = TRUE
 	give_bank_account = 44
 	noble_income = 22
-	min_pq = 17 //The second most powerful person in the realm...
+	min_pq = 17
 	max_pq = null
 	round_contrib_points = 3
 	cmode_music = 'sound/music/combat_desert2.ogg'
@@ -95,17 +95,22 @@
 //Blademaster Hand start
 /datum/advclass/vizier/dtblademaster
 	name = "Blademaster"
-	tutorial = "You have played blademaster and strategist to the Noble-Family for so long that you are a master tactician, something you exploit with potent conviction. Let no man ever forget whose ear you whisper into. You've killed more men with swords than any spymaster could ever claim to."
+	tutorial = "Вы так долго служили мастером клинка и стратегом при Султанском дворе, \
+        что превратились в живое воплощение армии Султаната, и вы пользуетесь этим с пугающей хваткой. \
+        Пусть никто не забывает, в чье ухо вы шепчете, направляя гнев правящей династии. \
+        В ваших руках сталь превратилась в абсолютный закон - этими клинками вы погубили больше людей, чем любой мастер шпионажа уничтожил своими интригами за всю историю Султаната."
 	outfit = /datum/outfit/job/roguetown/vizier/blademaster
 
 	category_tags = list(CTAG_VIZIER)
-	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_HEAVYARMOR)
+	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_HEAVYARMOR, TRAIT_ARCYNE)
 	subclass_stats = list(
 		STATKEY_PER = 3,
-		STATKEY_INT = 3,
-		STATKEY_STR = 2,
+		STATKEY_INT = 1,
+		STATKEY_STR = 3,
 		STATKEY_LCK = 1,
+		STATKEY_CON = 1,
 	)
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 2, "utilities" = 6, "ward" = FALSE) // Возможно, я сделаю его спеллблейдом несколько позже.
 	subclass_skills = list(
 		/datum/skill/combat/maces = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/crossbows = SKILL_LEVEL_EXPERT,
@@ -119,9 +124,11 @@
 		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/reading = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/craft/alchemy = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/tracking = SKILL_LEVEL_NOVICE,
+		/datum/skill/magic/arcane = SKILL_LEVEL_JOURNEYMAN,
 	)
-
+//Blademaster Hand start
 /datum/outfit/job/roguetown/vizier/blademaster/pre_equip(mob/living/carbon/human/H)
 	r_hand = /obj/item/rogueweapon/sword/sabre/dec
 	beltr = /obj/item/rogueweapon/scabbard/sword
@@ -138,24 +145,30 @@
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank_up_to(/datum/skill/combat/swords, 5, TRUE)
 		H.change_stat(STATKEY_LCK, 2)
-
+	if(H.mind)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/mindlink)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/message)
 
 //Spymaster start
 /datum/advclass/vizier/dtspymaster
 	name = "Spymaster"
-	tutorial = " You have played spymaster and confidant to the Noble-Family for so long that you are a vault of intrigue, something you exploit with potent conviction. Let no man ever forget whose ear you whisper into. You've killed more men with those lips than any blademaster could ever claim to."
-	extra_context = "This subclass recieves 'Perfect Tracker' and 'Keen Ears' for free."
+	tutorial = "Вы - один из самых могущественных мужей во всём Султанате. \
+        Вы так долго правили тайной стражей и служил наперсником правящей династии, что превратились в живую сокровищницу интриг, и вы пользуетесь этим с пугающей хваткой. \
+        В ваших руках сходятся как чужие секреты, так и султанская казна - вы лично ведаете всеми расходами и маммонами государства. \
+        Пусть никто не забывает, в чье ухо вы шепчете. Этими губами вы погубили больше людей, чем любой мастер клинка за всю свою жизнь."
+	extra_context = "Персонаж получает трейты 'Perfect Tracker' и 'Keen Ears' если выбрать этот подкласс."
 	outfit = /datum/outfit/job/roguetown/vizier/spymaster
 
 	category_tags = list(CTAG_VIZIER)
 	subclass_languages = list(/datum/language/thievescant)
-	traits_applied = list(TRAIT_KEENEARS, TRAIT_DODGEEXPERT, TRAIT_PERFECT_TRACKER)//Spy not a royal champion
+	traits_applied = list(TRAIT_KEENEARS, TRAIT_DODGEEXPERT, TRAIT_PERFECT_TRACKER, TRAIT_ARCYNE, TRAIT_MAGEARMOR)
 	subclass_stats = list(
 		STATKEY_SPD = 3,
 		STATKEY_PER = 2,
-		STATKEY_INT = 2,
+		STATKEY_INT = 3,
 		STATKEY_STR = -1,
 	)
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 2, "utilities" = 6, "ward" = TRUE)
 	subclass_skills = list(
 		/datum/skill/combat/crossbows = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/bows = SKILL_LEVEL_EXPERT,
@@ -166,21 +179,23 @@
 		/datum/skill/misc/swimming = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/climbing = SKILL_LEVEL_LEGENDARY,
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/tracking = SKILL_LEVEL_MASTER,//Huntmaster, but this was apprentice. You can powerlevel this easy, but that's a waste of sleeping.
+		/datum/skill/misc/reading = SKILL_LEVEL_MASTER,
+		/datum/skill/misc/tracking = SKILL_LEVEL_MASTER,
 		/datum/skill/misc/sneaking = SKILL_LEVEL_MASTER,
+		/datum/skill/craft/alchemy = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/stealing = SKILL_LEVEL_MASTER,
-		/datum/skill/misc/lockpicking = SKILL_LEVEL_MASTER, // not like they're gonna break into the vault.
+		/datum/skill/misc/lockpicking = SKILL_LEVEL_MASTER,
+		/datum/skill/magic/arcane = SKILL_LEVEL_JOURNEYMAN,
 	)
 
-//Spymaster start. More similar to the rogue adventurer - loses heavy armor and sword skills for more sneaky stuff.
+//Spymaster start
 /datum/outfit/job/roguetown/vizier/spymaster/pre_equip(mob/living/carbon/human/H)
 	backpack_contents = list(
 		/obj/item/rogueweapon/huntingknife/idagger/dtace = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		/obj/item/storage/keyring/lord = 1,
 		/obj/item/lockpickring/mundane = 1,
-		/obj/item/reagent_containers/glass/bottle/rogue/poison = 1,//Just like the wizard, since he can dip the blade.
+		/obj/item/reagent_containers/glass/bottle/rogue/poison = 1,
 	)
 	if(H.dna.species.type in NON_DWARVEN_RACE_TYPES)
 		shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/shadowrobe
@@ -189,7 +204,7 @@
 		mask = /obj/item/clothing/mask/rogue/shepherd/shadowmask
 		pants = /obj/item/clothing/under/roguetown/trou/shadowpants
 	else
-		cloak = /obj/item/clothing/cloak/raincloak/mortus //cool spymaster cloak
+		cloak = /obj/item/clothing/cloak/raincloak/mortus
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/guard
 		backr = /obj/item/storage/backpack/rogue/satchel/black
 		armor = /obj/item/clothing/suit/roguetown/armor/leather/vest/hand
@@ -198,22 +213,29 @@
 		H.adjust_skillrank_up_to(/datum/skill/misc/sneaking, 6, TRUE)
 		H.adjust_skillrank_up_to(/datum/skill/misc/stealing, 6, TRUE)
 		H.adjust_skillrank_up_to(/datum/skill/misc/lockpicking, 6, TRUE)
+	if(H.mind)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/mindlink)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/message)
 
 //Advisor Start
 /datum/advclass/vizier/dtadvisor
 	name = "Advisor"
-	tutorial = "You serve as both scholar and advisor to the Noble-Family, wielding knowledge and magicks with potent ability. Let no man forget whose ear you whisper into, your sage advice has saved more lives than any strategist’s orders or spymaster’s schemes could ever claim to."
+	tutorial = "Вы так долго исполняли роль ученого и советника при Султанском дворе, \
+        что превратились в живую сокровищницу древних знаний и магии, и вы пользуетесь этим с пугающей хваткой. \
+        Пусть ни один человек во всем Султанате никогда не забывает, в чье ухо вы шепчете, направляя помыслы правящей династии. \
+        Ваши мудрые советы стали щитом для государства - этим тихим шепотом вы спасли больше жизней, чем могли бы уберечь \
+        приказы любого мушира или самые изощренные заговоры мастеров шпионажа за всю историю Султаната."
 	outfit = /datum/outfit/job/roguetown/vizier/advisor
 
 	category_tags = list(CTAG_VIZIER)
 	traits_applied = list(TRAIT_ALCHEMY_EXPERT, TRAIT_ARCYNE, TRAIT_MAGEARMOR)
 	subclass_stats = list(
-		STATKEY_INT = 4,
+		STATKEY_INT = 5,
 		STATKEY_PER = 3,
-		STATKEY_WIL = 2,
+		STATKEY_WIL = 1,
 		STATKEY_LCK = 2,
 	)
-	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 2, "utilities" = 6, "ward" = TRUE)
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 2, "minor" = 2, "utilities" = 6, "ward" = TRUE)
 	subclass_skills = list(
 		/datum/skill/combat/crossbows = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
@@ -226,13 +248,13 @@
 		/datum/skill/misc/reading = SKILL_LEVEL_MASTER,
 		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/tracking = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/alchemy = SKILL_LEVEL_EXPERT,
+		/datum/skill/craft/alchemy = SKILL_LEVEL_MASTER,
 		/datum/skill/misc/medicine = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/lockpicking = SKILL_LEVEL_EXPERT,
 		/datum/skill/magic/arcane = SKILL_LEVEL_EXPERT,
 	)
 
-//Advisor start. Trades combat skills for more knowledge and skills - for older hands, hands that don't do combat - people who wanna play wizened old advisors.
+//Advisor start.
 /datum/outfit/job/roguetown/vizier/advisor/pre_equip(mob/living/carbon/human/H)
 	r_hand = /obj/item/rogueweapon/sword/rapier/dec
 	beltr = /obj/item/rogueweapon/scabbard/sword
@@ -248,7 +270,7 @@
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		/obj/item/storage/keyring/lord = 1,
 		/obj/item/lockpickring/mundane = 1,
-		/obj/item/reagent_containers/glass/bottle/rogue/poison = 1,//starts with a vial of poison, like all wizened evil advisors do!
+		/obj/item/reagent_containers/glass/bottle/rogue/poison = 1,
 	)
 	if(H.age == AGE_OLD)
 		H.change_stat(STATKEY_SPD, -1)
@@ -256,10 +278,8 @@
 		H.change_stat(STATKEY_INT, 1)
 		H.change_stat(STATKEY_PER, 1) 
 		H.adjust_skillrank(/datum/skill/magic/arcane, 1, TRUE)
-	//He gets far less spellpoints than any other equivalent caster. Give him a T4.
-	//Message, too. You'll be taking it anyways.
 	if(H.mind)
-		//H.mind.AddSpell(new /datum/action/cooldown/spell/recall) // TODO: Заменить на нормальный реколл, когда появится в новой магии
+		H.mind.AddSpell(new /datum/action/cooldown/spell/mindlink)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/message)
 
 
@@ -284,26 +304,7 @@
 		to_chat(usr, span_greentext(name))
 	return
 
-// /obj/effect/proc_holder/spell/self/convertrole/agent
-// 	name = "Recruit Agent"
-// 	new_role = "Court Agent"//They get shown as adventurers either way.
-// 	overlay_state = "recruit_servant"
-// 	recruitment_faction = "Agents"
-// 	recruitment_message = "Serve the crown, %RECRUIT!"
-// 	accept_message = "FOR THE CROWN!"
-// 	refuse_message = "I refuse."
-// 	recharge_time = 100
-
-// /obj/effect/proc_holder/spell/self/convertrole/agent/convert(mob/living/carbon/human/recruit, mob/living/carbon/human/recruiter)
-// 	. = ..()
-// 	if(!.)
-// 		return
-// 	GLOB.court_agents += recruit.real_name
-//
-//
-//
-//Could do a version of this for Vizier
-GLOBAL_VAR_INIT(vizier_tax_cooldown, -50000) // Antispam
+GLOBAL_VAR_INIT(vizier_tax_cooldown, -50000)
 /mob/living/carbon/human/proc/adjust_taxes_vizier()
 	set name = "Adjust Taxes"
 	set category = "Stewardry"

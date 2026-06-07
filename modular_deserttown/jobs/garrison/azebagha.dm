@@ -71,8 +71,8 @@
 		STATKEY_STR = 1,
 		STATKEY_SPD = 1,
 		STATKEY_INT = 1,
-		STATKEY_PER = 1, 
-		STATKEY_CON = 1, 
+		STATKEY_PER = 2, 
+		STATKEY_CON = 2, 
 		STATKEY_WIL = 1,
 	)
 	subclass_skills = list(
@@ -117,7 +117,7 @@
 	if(H.mind)
 		var/primary = list("Scimitar","Shotel","Whip","Warden Axe")
 		var/primary_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in primary
-		var/secondary = list("Glaive","Javelins and Shield","Blackhorn Longbow","Culverin + Fyre Powder")
+		var/secondary = list("Glaive","Javelins and Shield","Blackhorn Longbow")
 		var/secondary_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in secondary
 		H.set_blindness(0)
 		switch(primary_choice)
@@ -142,8 +142,3 @@
 			if("Blackhorn Longbow")
 				beltr = /obj/item/quiver/arrows
 				backl = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/longbow/warden
-			if("Culverin + Fyre Powder") 
-				beltr = /obj/item/quiver/twilight_bullet/cannonball/lead
-				r_hand = /obj/item/gun/ballistic/twilight_firearm/handgonne
-				backpack_contents[/obj/item/twilight_powderflask/fyre] = 1
-				backpack_contents[/obj/item/natural/bundle/fibers/full] = 1

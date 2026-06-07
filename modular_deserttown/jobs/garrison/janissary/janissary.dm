@@ -25,7 +25,7 @@
 	job_subclasses = list(
 		/datum/advclass/janissary/footman,
 		/datum/advclass/janissary/zephyr,
-		/datum/advclass/janissary/jezail,
+		/datum/advclass/janissary/sihrbaz,
 		/datum/advclass/janissary/flagbearer
 	)
 	same_job_respawn_delay = 30 MINUTES

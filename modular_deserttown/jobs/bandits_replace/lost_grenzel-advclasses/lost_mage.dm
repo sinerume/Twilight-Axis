@@ -6,7 +6,7 @@
 	outfit = /datum/outfit/job/roguetown/lost_grenzel/lost_mage
 	category_tags = list(CTAG_LOSTGRENZEL)
 	subclass_languages = list(/datum/language/grenzelhoftian)
-	traits_applied = list(TRAIT_INTELLECTUAL, TRAIT_STEELHEARTED, TRAIT_ALCHEMY_EXPERT)
+	traits_applied = list(TRAIT_INTELLECTUAL, TRAIT_STEELHEARTED, TRAIT_ALCHEMY_EXPERT, TRAIT_ARCYNE)
 	subclass_mage_aspects = list("mastery" = FALSE, "major" = 2, "minor" = 3, "utilities" = 6, "variants" = list(/datum/magic_aspect/pyromancy = "grenzelhoftian"), "post_aspect_spells" = list(/datum/action/cooldown/spell/message, /datum/action/cooldown/spell/magicians_brick), "ward" = TRUE)
 	subclass_stats = list(
 		STATKEY_INT = 4,
@@ -34,7 +34,6 @@
 
 /datum/outfit/job/roguetown/lost_grenzel/lost_mage/pre_equip(mob/living/carbon/human/H)
 	..()
-	to_chat(H, span_warning("You are a Gefechtgelehrter - \"Combat Scholar\" - A proud magos from the Celestial Academy of Magos, who's skills in Siege Magic and Arcyne Physics are unmatched."))
 	belt = /obj/item/storage/belt/rogue/leather/battleskirt
 	backl = /obj/item/rogueweapon/woodstaff/implement/greater/blacksteel
 	mask = /obj/item/clothing/mask/rogue/ragmask
@@ -57,4 +56,5 @@
 		/obj/item/book/spellbook = 1,
 		/obj/item/chalk = 1
 		)
-	ADD_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
+	if(H.mind)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/ballistic_mortar)
