@@ -3,8 +3,8 @@
 	flag = CATAPHRACT
 	department_flag = GARRISON
 	faction = "Station"
-	total_positions = 3
-	spawn_positions = 3
+	total_positions = 4
+	spawn_positions = 4
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED)
 	forbidden_races = list(RACES_CONSTRUCT RACES_DESPISED RACES_OOZE)
@@ -27,6 +27,7 @@
 		/datum/advclass/cataphract/greatweapon,
 		/datum/advclass/cataphract/shieldmaster,
 		/datum/advclass/cataphract/dervish,
+		/datum/advclass/cataphract/rais_cataphract,
 		)
 	same_job_respawn_delay = 30 MINUTES
 
@@ -75,10 +76,8 @@
 /datum/outfit/job/roguetown/cataphract
 	belt = /obj/item/storage/belt/rogue/leather/steel
 	backr = /obj/item/storage/backpack/rogue/satchel
-	id = /obj/item/scomstone/bad/garrison
 
 	backpack_contents = list(
-		/obj/item/storage/keyring/cataphract = 1,
 		/obj/item/reagent_containers/glass/bottle/rogue/healthpot = 1,
 	)
 
@@ -171,11 +170,12 @@
 	cloak = /obj/item/clothing/cloak/catcloak
 	pants = /obj/item/clothing/under/roguetown/platelegs
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/shalal
-
+	id = /obj/item/scomstone/bad/garrison
 	backpack_contents = list(
 		/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1,
 		/obj/item/rope/chain = 1,
-		/obj/item/rogueweapon/scabbard/sheath = 1
+		/obj/item/rogueweapon/scabbard/sheath = 1,
+		/obj/item/storage/keyring/cataphract = 1
 	)
 
 /datum/advclass/cataphract/shieldmaster
@@ -229,7 +229,7 @@
 			if("Whip")
 				l_hand = /obj/item/rogueweapon/whip/antique
 				H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_MASTER, TRUE)
-			if ("Warhammer")
+			if("Warhammer")
 				l_hand = /obj/item/rogueweapon/mace/warhammer
 				H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_MASTER, TRUE)
 			if("Sabre")
@@ -248,11 +248,12 @@
 	cloak = /obj/item/clothing/cloak/catcloak
 	pants = /obj/item/clothing/under/roguetown/platelegs
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/shalal
-
+	id = /obj/item/scomstone/bad/garrison
 	backpack_contents = list(
 		/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1,
 		/obj/item/rope/chain = 1,
-		/obj/item/rogueweapon/scabbard/sheath = 1
+		/obj/item/rogueweapon/scabbard/sheath = 1,
+		/obj/item/storage/keyring/cataphract = 1
 	)
 
 /datum/advclass/cataphract/dervish
@@ -348,11 +349,121 @@
 	gloves = /obj/item/clothing/gloves/roguetown/plate
 	cloak = /obj/item/clothing/cloak/catcloak
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/shalal
+	id = /obj/item/scomstone/bad/garrison
 	backpack_contents = list(
 		/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1,
 		/obj/item/rope/chain = 1,
-		/obj/item/rogueweapon/scabbard/sheath = 1
+		/obj/item/rogueweapon/scabbard/sheath = 1,
+		/obj/item/storage/keyring/cataphract = 1
+	)
+    
+/datum/advclass/cataphract/rais_cataphract
+	name = "Rais-Cataphract"
+	tutorial = "Вы - глава и абсолютный авторитет среди катафрактов, стоящий на страже Султаната. \
+    Вы так долго вели элитную тяжелую кавалерию сквозь вихри войн, что Вас отметил лично Султан своим вниманием и удостоил Вас честью вести его катафрактов в бой. \
+    Пусть ни один враг во всей Гримории не забывает тяжесть вашей поступи. Вашей зибантийской сталью и сокрушительным натиском кавалерии вы растоптали больше жизней, \
+    чем любой придворный интриган или палач-наместник когда-либо мог занести в свои тайные списки заговоров."
+	outfit = /datum/outfit/job/roguetown/cataphract/rais_cataphract
+	maximum_possible_slots = 1
+	category_tags = list(CTAG_CATAPHRACT)
+
+	subclass_virtues = list(
+	/datum/virtue/utility/riding)
+
+	traits_applied = list(TRAIT_HEAVYARMOR)
+
+	subclass_stats = list(
+		STATKEY_STR = 2,
+		STATKEY_CON = 2,
+		STATKEY_WIL = 2,
+		STATKEY_INT = 2,
+		STATKEY_PER = 2,
+		STATKEY_LCK = 2
 	)
 	
-	if (H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/choose_riding_virtue_mount)
+	subclass_skills = list(
+		/datum/skill/combat/polearms = SKILL_LEVEL_MASTER,
+		/datum/skill/combat/swords = SKILL_LEVEL_MASTER,
+		/datum/skill/combat/axes = SKILL_LEVEL_MASTER,
+		/datum/skill/combat/maces = SKILL_LEVEL_MASTER,
+		/datum/skill/combat/whipsflails = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_MASTER,
+		/datum/skill/combat/unarmed = SKILL_LEVEL_MASTER,
+		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/riding = SKILL_LEVEL_MASTER,
+		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/tracking = SKILL_LEVEL_APPRENTICE,
+	)
+
+/obj/item/clothing/cloak/cataphract_rais
+    name = "Rais-Cataphract's cloak"
+    desc = "Безумно красиво и не менее безумно дорогой плащ, выполненный из лучшего шёлка и окрашенный в пурпурный цвет. Ловцы багрянок - так называют людей добывающих пурпур - трудятся не менее месяца ради одного такого плаща. Носить такое - признак авторитета и богатства."
+    icon = 'icons/roguetown/clothing/special/captain.dmi'
+    mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/captain.dmi'
+    sleeved = 'icons/roguetown/clothing/special/onmob/captain.dmi'
+    sleevetype = "shirt"
+    icon_state = "capcloak"
+    detail_tag = "_detail"
+    alternate_worn_layer = CLOAK_BEHIND_LAYER
+    detail_color = "#8747B1"
+    color = "#FFFFFF"
+    sellprice = 500
+
+/datum/outfit/job/roguetown/cataphract/rais_cataphract/pre_equip(mob/living/carbon/human/H)
+	..()
+	H.dna.species.soundpack_m = new /datum/voicepack/male/knight()
+	H.verbs |= /mob/proc/haltyell
+
+	H.adjust_blindness(-3)
+	if(H.mind)
+		var/weapons = list("Edict","Heavy Scimitar","Shamshir","Warhammer")
+		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+		var/second_weapons = list("Kite Shield & elvish dagger", "Crossbow & bolts", "Recurve Bow & arrows", "Lance")
+		var/second_weapon_choice = input(H, "Choose your secondary weapon.", "TAKE UP ARMS") as anything in second_weapons
+		H.set_blindness(0)
+		switch(weapon_choice)
+			if("Edict")
+				r_hand = /obj/item/rogueweapon/sword/sabre/banneret
+				beltl = /obj/item/rogueweapon/scabbard/sword/royal
+			if("Heavy Scimitar")
+				r_hand = /obj/item/rogueweapon/sword/long/kriegmesser/zybantine
+				beltl = /obj/item/rogueweapon/scabbard/sword/royal
+			if("Shamshir")
+				beltl = /obj/item/rogueweapon/scabbard/sword/royal
+				r_hand = /obj/item/rogueweapon/sword/sabre/shamshir
+			if("Warhammer")
+				r_hand = /obj/item/rogueweapon/mace/warhammer/steel
+		switch(second_weapon_choice)
+			if("Kite Shield & elvish dagger")
+				beltr = /obj/item/rogueweapon/huntingknife/idagger/silver/elvish
+				l_hand = /obj/item/rogueweapon/shield/tower/metal
+			if("Crossbow & bolts")
+				l_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
+				beltr = /obj/item/quiver/bolt/standard
+			if("Recurve Bow & arrows")
+				l_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve
+				beltr = /obj/item/quiver/bodkin
+			if("Lance")
+				l_hand = /obj/item/rogueweapon/spear/lance
+				backl = /obj/item/rogueweapon/scabbard/gwstrap
+	
+	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
+	pants = /obj/item/clothing/under/roguetown/chainlegs/kilt
+	head = /obj/item/clothing/head/roguetown/helmet/heavy/cataphract
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/cataphract
+	neck = /obj/item/clothing/neck/roguetown/gorget/steel
+	wrists = /obj/item/clothing/wrists/roguetown/bracers
+	gloves = /obj/item/clothing/gloves/roguetown/plate
+	cloak = /obj/item/clothing/cloak/cataphract_rais
+	pants = /obj/item/clothing/under/roguetown/platelegs
+	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/shalal
+	id = /obj/item/scomstone/garrison
+
+	backpack_contents = list(
+		/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1,
+		/obj/item/rope/chain = 1,
+		/obj/item/rogueweapon/scabbard/sheath = 1,
+		/obj/item/storage/keyring/cataphract = 1		
+	)

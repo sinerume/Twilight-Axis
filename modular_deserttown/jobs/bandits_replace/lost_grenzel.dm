@@ -64,7 +64,7 @@
 		if(H.stat == DEAD || H.alpha == 0 || H.rogue_sneaking)
 			continue
 		var/is_grenzel = FALSE
-		if(H.mind && H.mind.has_antag_datum(/datum/antagonist/bandit/lost_grenzel))
+		if(H.GetComponent(/datum/component/lost_grenzel_hate) || (H.mind && H.mind.has_antag_datum(/datum/antagonist/bandit/lost_grenzel)))
 			is_grenzel = TRUE
 		if(!is_grenzel)
 			found_visible = TRUE
@@ -128,7 +128,7 @@
 	for(var/mob/living/carbon/human/H in oview(10, L))
 		if(H.stat == DEAD || H.alpha == 0 || H.rogue_sneaking)
 			continue
-		if(H.mind && H.mind.has_antag_datum(/datum/antagonist/bandit/lost_grenzel))
+		if(H.GetComponent(/datum/component/lost_grenzel_hate) || (H.mind && H.mind.has_antag_datum(/datum/antagonist/bandit/lost_grenzel)))
 			found_lg = TRUE
 			break
 			
