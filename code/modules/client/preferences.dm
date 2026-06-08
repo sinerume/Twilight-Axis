@@ -3395,6 +3395,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	character.set_patron(selected_patron)
 	character.backpack = backpack
 	character.defiant = defiant
+	character.check_manor_pref = have_manor //TA EDIT
 
 	character.jumpsuit_style = jumpsuit_style
 

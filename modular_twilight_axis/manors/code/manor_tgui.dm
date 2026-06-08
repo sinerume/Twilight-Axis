@@ -109,7 +109,8 @@
 /datum/manor_panel/proc/can_have_manor(mob/user)
 	if(!istype(user, /mob/living/carbon/human) || !user.mind)
 		return FALSE
-	if(user?.client?.prefs?.have_manor && !(user.client.prefs.have_manor))
+	var/mob/living/carbon/human/H = user
+	if(!H.check_manor_pref)
 		return FALSE
 	if(user.mind.get_owned_manor())
 		return TRUE

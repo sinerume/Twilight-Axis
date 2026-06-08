@@ -2,6 +2,9 @@
 	var/datum/manor/owned_manor = null
 	var/list/manor_packages = list()
 
+/mob/living/carbon/human
+	var/check_manor_pref = TRUE
+
 /datum/mind/proc/get_owned_manor()
 	return owned_manor
 
