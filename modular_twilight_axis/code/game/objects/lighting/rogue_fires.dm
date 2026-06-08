@@ -36,6 +36,6 @@
 	pixel_y = 0
 	pixel_x = 32
 
-/obj/machinery/light/rogue/candle/red/l
+/obj/machinery/light/rogue/candle/green/l
 	pixel_y = 0
 	pixel_x = -32
