@@ -139,6 +139,8 @@
 /datum/round_event_control/antagonist/migrant_wave/freeman/canSpawnEvent(players_amt, gamemode, fake_check)
 	if(SSmapping.config.map_name != "Desert Town")
 		return FALSE
+	if(!deserttown_antag_wave_has_required_pop())
+		return FALSE
 
 	var/datum/job/freeman_job = SSjob.GetJob("Freeman")
 	if(!freeman_job)
@@ -148,7 +150,19 @@
 
 	return ..()
 
+/proc/deserttown_antag_wave_player_count()
+	return get_active_player_count(alive_check = TRUE, afk_check = TRUE, human_check = TRUE)
+
+/proc/deserttown_antag_wave_has_required_pop()
+	return deserttown_antag_wave_player_count() >= 80
+
 /datum/round_event_control/antagonist/migrant_wave/freeman/preRunEvent()
+	if(SSmapping.config.map_name != "Desert Town")
+		return EVENT_CANT_RUN
+	if(!deserttown_antag_wave_has_required_pop())
+		message_admins("Freeman Migration skipped: requires 80 active players, has [deserttown_antag_wave_player_count()].")
+		return EVENT_INTERRUPTED
+
 	var/datum/job/freeman_job = SSjob.GetJob("Freeman")
 	if(!freeman_job)
 		return EVENT_CANT_RUN
@@ -158,6 +172,12 @@
 	return ..()
 
 /datum/round_event/migrant_wave/freeman/start()
+	if(SSmapping.config.map_name != "Desert Town")
+		return
+	if(!deserttown_antag_wave_has_required_pop())
+		log_game("Freeman Migration aborted: requires 80 active players, has [deserttown_antag_wave_player_count()].")
+		return
+
 	var/datum/job/freeman_job = SSjob.GetJob("Freeman")
 	if(!freeman_job)
 		return

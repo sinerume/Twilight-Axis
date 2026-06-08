@@ -259,6 +259,8 @@
 /datum/round_event_control/antagonist/migrant_wave/lost_grenzel/canSpawnEvent(players_amt, gamemode, fake_check)
 	if(SSmapping.config.map_name != "Desert Town")
 		return FALSE
+	if(!deserttown_antag_wave_has_required_pop())
+		return FALSE
 
 	var/datum/job/lg_job = SSjob.GetJob("Lost Grenzel")
 	if(!lg_job)
@@ -271,6 +273,11 @@
 /datum/round_event_control/antagonist/migrant_wave/lost_grenzel/preRunEvent()
 	if(is_storyteller_soft_antag_blocked())
 		return EVENT_CANT_RUN
+	if(SSmapping.config.map_name != "Desert Town")
+		return EVENT_CANT_RUN
+	if(!deserttown_antag_wave_has_required_pop())
+		message_admins("Lost Grenzel Migration skipped: requires 80 active players, has [deserttown_antag_wave_player_count()].")
+		return EVENT_INTERRUPTED
 
 	var/datum/job/lg_job = SSjob.GetJob("Lost Grenzel")
 	if(!lg_job)
@@ -281,6 +288,12 @@
 	return ..()
 
 /datum/round_event/migrant_wave/lost_grenzel/start()
+	if(SSmapping.config.map_name != "Desert Town")
+		return
+	if(!deserttown_antag_wave_has_required_pop())
+		log_game("Lost Grenzel Migration aborted: requires 80 active players, has [deserttown_antag_wave_player_count()].")
+		return
+
 	var/datum/job/lg_job = SSjob.GetJob("Lost Grenzel")
 	if(!lg_job)
 		return
@@ -315,6 +328,8 @@
 		return
 
 	if(SSmapping.config.map_name != "Desert Town")
+		return
+	if(!deserttown_antag_wave_has_required_pop())
 		return
 
 	var/storyteller_type = SSgamemode.story_policy_type(TRUE)
