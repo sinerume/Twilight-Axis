@@ -111,8 +111,9 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/static/datum/species/default_species = new /datum/species/human/northern()
 	var/datum/patron/selected_patron
 	var/static/datum/patron/default_patron = /datum/patron/divine/undivided
-	var/manor_name = ""
-	var/manor_type = "manor"
+	var/have_manor = TRUE //TA EDIT
+	var/manor_name = "" //TA EDIT
+	var/manor_type = "manor" //TA EDIT
 	var/list/features = MANDATORY_FEATURE_LIST
 	var/list/randomise = list(RANDOM_UNDERWEAR = TRUE, RANDOM_UNDERWEAR_COLOR = TRUE, RANDOM_UNDERSHIRT = TRUE, RANDOM_SOCKS = TRUE, RANDOM_BACKPACK = TRUE, RANDOM_JUMPSUIT_STYLE = FALSE, RANDOM_SKIN_TONE = TRUE, RANDOM_EYE_COLOR = TRUE)
 	var/list/friendlyGenders = list("male" = "masculine", "female" = "feminine")
@@ -938,8 +939,9 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			dat += "<br><b>Family Preferences:</b> <a href='?_src_=prefs;preference=family_options;task=input'>Change</a>" // TA EDIT
 			dat += "<br><b>Loadout Items:</b> <a href='?_src_=prefs;preference=loadout_item;task=input'>Change</a>"
 
-			dat += "<BR><BR><b>Manor Name:</b> <a href='?_src_=prefs;preference=manor_name;task=input'>[manor_name ? manor_name : "Unknown Manor"]</a><BR>" // TA EDIT
-			dat += "<b>Manor Type:</b> <a href='?_src_=prefs;preference=manor_type;task=input'>[get_manor_type_display_name(manor_type)]</a><BR>" //TA EDIT
+			dat += "<BR><BR><b>Has an Estate:</b> <a href='?_src_=prefs;preference=have_manor;task=input'>[have_manor ? "Yes" : "No"]</a><BR>" // TA EDIT
+			dat += "<b>Estate Name:</b> <a href='?_src_=prefs;preference=manor_name;task=input'>[manor_name ? manor_name : "Unknown Manor"]</a><BR>" // TA EDIT
+			dat += "<b>Estate Type:</b> <a href='?_src_=prefs;preference=manor_type;task=input'>[get_manor_type_display_name(manor_type)]</a><BR>" //TA EDIT
 
 			dat += "</td>"
 
@@ -2005,6 +2007,13 @@ GLOBAL_LIST_EMPTY(chosen_names)
 							manor_name = new_name
 						else
 							to_chat(user, "<font color='red'>Invalid manor name. It should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ', . and ,.</font>")
+
+				if("have_manor")
+					have_manor = !have_manor
+					if(have_manor)
+						to_chat(user, span_notice("При наличии дворянства, вы сможете управлять имением, которое будет приносить вам доход и предоставлять различные бонусы. Для того, чтобы связаться с имением, используйте ГЕРМЕС."))
+					else
+						to_chat(user, span_notice("При наличии дворянства ваш персонаж будет считаться безземельным дворянином, не получая доступ к имению."))
 
 				if("manor_type")
 					var/list/manor_type_choices = list(

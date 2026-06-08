@@ -1,5 +1,6 @@
 /datum/mind
 	var/datum/manor/owned_manor = null
+	var/list/manor_packages = list()
 
 /datum/mind/proc/get_owned_manor()
 	return owned_manor
@@ -12,7 +13,7 @@
 	var/manor_name = "Неизвестное имение"
 	var/manor_size = "small"
 	var/manor_type = "manor"
-	var/datum/virtue/virtue_origin
+	var/datum/virtue/origin/virtue_origin
 	var/min_workers = 5
 	var/total_workers = 5
 	var/workers_limit = 5
@@ -30,22 +31,20 @@
 	if(owner?.client?.prefs?.manor_type && length(owner.client.prefs.manor_type))
 		return owner.client.prefs.manor_type
 	return manor_type
-/*
+
 /datum/manor/proc/is_foreign_estate(mob/living/carbon/human/owner)
 	if(!owner)
 		return FALSE
-	if(owner.mind?.has_antag_datum(/datum/antagonist))
-		return FALSE
-	return HAS_TRAIT(owner, TRAIT_NOBLE) && HAS_TRAIT(owner, TRAIT_OUTLANDER)*/
+	return HAS_TRAIT(owner, TRAIT_NOBLE) && HAS_TRAIT(owner, TRAIT_OUTLANDER)
 
 /datum/manor/proc/get_manor_size(mob/living/carbon/human/owner)
 	if(owner)
-		/*if(is_foreign_estate(owner))
-			if(owner?.client?.prefs?.virtue_origin && istype(owner.client.prefs.virtue_origin, /datum/virtue/origin))
+		if(is_foreign_estate(owner))
+			if(owner?.client?.prefs?.virtue_origin && !(istype(owner.client.prefs.virtue_origin, /datum/virtue/origin/racial/ancient)))
 				virtue_origin = owner.client.prefs.virtue_origin
 			else
-				virtue_origin = new /datum/virtue/none
-			return "small"*/
+				virtue_origin = new /datum/virtue/origin/unknown
+			return "small"
 		if(owner.advjob == "Knight Banneret" || (owner.mind?.assigned_role in list("Marshal", "Steward", "Hand")))
 			return "big"
 		if(owner.mind?.assigned_role in list("Councillor", "Knight", "Royal Knight"))
@@ -310,25 +309,25 @@
 	P.mailer = manor_name
 	P.mailedto = owner.real_name
 	var/title_greeting = (owner.titles_pref == TITLES_F) ? "Миледи" : "Милорд"
-	P.info = "[title_greeting],\n"
-	P.info += "Направляем Вам средства, полученные от реализации товаров, произведённых Вашими крестьянами и рабочими за прошедший дае."
-	P.info += "\nЧистая прибыль: [total_profit_money] маммон."
+	if(patron == /datum/patron/inhumen/matthios)
+		title_greeting = "Лидер"
+	P.info = "[title_greeting],<BR>"
+	if(patron == /datum/patron/inhumen/matthios)
+		P.info += "Направляем Вам долю от выручки, полученной нами от реализации произведенных за прошедший дае товаров."
+	else
+		P.info += "Направляем Вам средства, полученные от реализации товаров, произведённых Вашими крестьянами и рабочими за прошедший дае."
+	P.info += "<BR>Чистая прибыль: [total_profit_money] маммон."
 	if(estate_levy)
-		P.info += "\nКрестьянский оброк: [estate_levy] маммон."
+		P.info += "<BR>Крестьянский оброк: [estate_levy] маммон."
 	if(import_tariff)
-		P.info += "\nИмпортный тариф: [import_tariff] маммон."
+		P.info += "<BR>Импортный тариф: [import_tariff] маммон."
 	P.update_icon()
-	var/obj/item/smallDelivery/delivery = new()
-	if(total_profit_money > 0)
-		budget2change(total_profit_money, null, null, FALSE, delivery)
-	delivery.note = P
+	var/obj/item/manor_delivery/delivery = new()
+	delivery.manor_note = P
+	delivery.manor_income = total_profit_money
 
-	var/obj/item/roguemachine/mastermail/M = SSroguemachine.hermailermaster
-	var/datum/component/storage/STR = M.GetComponent(/datum/component/storage)
-	if(STR)
-		STR.handle_item_insertion(delivery, prevent_warning = TRUE)
-		M.new_mail = TRUE
-		M.update_icon()
+	if(owner.mind)
+		owner.mind.manor_packages += delivery
 	else
 		qdel(delivery)
 
@@ -395,29 +394,26 @@
 			if(!stockpile_entry)
 				continue
 
-			if(patron == /datum/patron/inhumen/matthios)
+			/*if(patron == /datum/patron/inhumen/matthios)
 				var/unsold_units = ceil(units * 0.3)
 				units = units - unsold_units
 				if(unsold_units > 0)
-					total_profit_money += process_goods_sold_to_market(stockpile_entry, unsold_units)
-			else if(patron == /datum/patron/inhumen/baotha)
+					total_profit_money += max(process_goods_sold_to_market(stockpile_entry, unsold_units), 1)*/ //До времен когда я сделаю привязку к экономическим регионам
+			if(patron == /datum/patron/inhumen/baotha)
 				var/resources_multiplier = pick(0.5, 1.0, 1.5)
 				units = ceil(units * resources_multiplier)
 			if(!is_foreign)
 				stockpile_entry.stockpile_amount += units
-				total_profit_money += max(ceil(process_goods_sold_to_market(stockpile_entry, units)/3), 1)
+				total_profit_money += max(process_goods_sold_to_market(stockpile_entry, units)/3, 1)
 			else
-				total_profit_money += process_goods_sold_to_market(stockpile_entry, units)
+				total_profit_money += max(process_goods_sold_to_market(stockpile_entry, units), 1)
 
 			produced_summary[selected_good] = produced_summary[selected_good] ? produced_summary[selected_good] + units : units
 			this_workstation_units += units
 
 		total_units += this_workstation_units
 		if(workstation.type_of_produce == "Profit")
-			if(patron == /datum/patron/inhumen/zizo)
-				total_profit_money += workstation.workers_employed
-			else
-				total_profit_money += workstation.workers_employed * 2
+			total_profit_money += workstation.workers_employed * 2 * workstation.production_modifier
 
 	last_cycle_productivity = max(total_units, 0)
 
@@ -442,22 +438,26 @@
 		if(prob(30))
 			total_profit_money *= 2
 	if(total_profit_money > 0)
+		total_profit_money = ceil(total_profit_money)
 		if(is_foreign)
-			var/datum/fund/foreign_estate_fund = new("Foreign Estate Income for [owner.real_name]", owner, total_profit_money, CURRENCY_MAMMON)
-			estate_levy = SStreasury.apply_tax(foreign_estate_fund, total_profit_money, TAX_CATEGORY_ESTATE_LEVY, "Foreign estate levy income")
-			import_tariff = SStreasury.apply_tax(foreign_estate_fund, foreign_estate_fund.balance, TAX_CATEGORY_IMPORT_TARIFF, "Foreign estate import tariff")
-			total_profit_money = foreign_estate_fund.balance
-			qdel(foreign_estate_fund)
+			if(patron != /datum/patron/inhumen/matthios) //FREEDOM OF TRANSACTION
+				var/datum/fund/foreign_estate_fund = new("Foreign Estate Income for [owner.real_name]", owner, total_profit_money, CURRENCY_MAMMON)
+				estate_levy = SStreasury.apply_tax(foreign_estate_fund, total_profit_money, TAX_CATEGORY_ESTATE_LEVY, "Foreign estate levy income")
+				import_tariff = SStreasury.apply_tax(foreign_estate_fund, foreign_estate_fund.balance, TAX_CATEGORY_IMPORT_TARIFF, "Foreign estate import tariff")
+				total_profit_money = ceil(foreign_estate_fund.balance)
+				qdel(foreign_estate_fund)
 			send_foreign_estate_income_mail(owner, total_profit_money, estate_levy, import_tariff)
 		else
 			var/datum/fund/owner_account = SStreasury.get_account(owner)
 			if(owner_account)
 				if(patron != /datum/patron/inhumen/matthios) //FREEDOM OF TRANSACTION
 					estate_levy = SStreasury.apply_tax(owner_account, total_profit_money, TAX_CATEGORY_ESTATE_LEVY, "Estate levy income")
-					total_profit_money -= estate_levy
+					total_profit_money = ceil(total_profit_money - estate_levy)
 				SStreasury.generate_money_account(total_profit_money, owner)
 
 	var/message = "За этот дае ваше имение поставило Короне: "
+	if(is_foreign)
+		message = "За этот дае ваше имение реализовало на рынке: "
 	for(var/good in produced_summary)
 		message += "[produced_summary[good]]x [get_readable_good_name(good)]; "
 

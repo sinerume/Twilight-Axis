@@ -65,6 +65,17 @@
 	last_free_send[user.ckey] = world.time
 
 /obj/structure/roguemachine/mail/attack_hand(mob/user)
+	if(user.mind && length(user.mind.manor_packages)) //TA EDIT START
+		var/mob/living/carbon/human/H = user
+		var/obj/item/manor_delivery/D = pick(user.mind.manor_packages)
+		user.mind.manor_packages -= D
+		H.put_in_hands(D)
+		if(SSroguemachine.hermailermaster)
+			var/obj/item/roguemachine/mastermail/M = SSroguemachine.hermailermaster
+			if(!any_additional_mail(M, H))
+				H.remove_status_effect(/datum/status_effect/ugotmail)
+		else
+			H.remove_status_effect(/datum/status_effect/ugotmail) //TA EDIT END
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/addl_mail = FALSE
@@ -195,11 +206,11 @@
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(can_open_manor_panel(H))
-				var/choice = tgui_alert(user, "What would you like to do?", "HERMES Terminal", list("Send Mail", "Correspond with Manor"))
+				var/choice = tgui_alert(user, "What would you like to do?", "HERMES Terminal", list("Send Mail", "Correspond with Estate"))
 				switch(choice)
 					if("Send Mail")
 						ui_interact(user)
-					if("Correspond with Manor")
+					if("Correspond with Estate")
 						open_manor_panel(user)
 				return FALSE
 	ui_interact(user) //TA EDIT END
@@ -830,11 +841,11 @@
 		if(ishuman(user)) //TA EDIT START
 			var/mob/living/carbon/human/H = user
 			if(can_open_manor_panel(H))
-				var/choice = tgui_alert(user, "What would you like to do?", "HERMES Terminal", list("Send Mail", "Correspond with Manor"))
+				var/choice = tgui_alert(user, "What would you like to do?", "HERMES Terminal", list("Send Mail", "Correspond with Estate"))
 				switch(choice)
 					if("Send Mail")
 						ui_interact(user)
-					if("Correspond with Manor")
+					if("Correspond with Estate")
 						open_manor_panel(user)
 				return FALSE //TA EDIT END
 		ui_interact(user)

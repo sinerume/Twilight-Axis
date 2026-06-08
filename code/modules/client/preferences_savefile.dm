@@ -668,6 +668,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		if(!selected_patron) //failsafe
 			selected_patron = GLOB.patronlist[default_patron]
 
+	S["have_manor"] >> have_manor  //TA EDIT
 	S["manor_name"] >> manor_name  //TA EDIT
 	S["manor_type"] >> manor_type  //TA EDIT
 
@@ -971,6 +972,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["feature_mcolor3"]		, features["mcolor3"])
 	WRITE_FILE(S["feature_ethcolor"]	, features["ethcolor"])
 	WRITE_FILE(S["nickname"]			, nickname)
+	WRITE_FILE(S["have_manor"]		, have_manor) //TA EDIT
 	WRITE_FILE(S["manor_name"]		, manor_name) //TA EDIT
 	WRITE_FILE(S["manor_type"]		, manor_type) //TA EDIT
 	WRITE_FILE(S["highlight_color"]		, highlight_color)

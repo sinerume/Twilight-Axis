@@ -90,26 +90,26 @@
 
 /datum/manor_panel/proc/is_allowed_manor_role(mob/user)
 	var/datum/job/J = SSjob.GetJob(user.job)
-	var/is_noble = HAS_TRAIT_FROM(user, TRAIT_NOBLE, JOB_TRAIT) || HAS_TRAIT_FROM(user, TRAIT_NOBLE, ADVENTURER_TRAIT) //For now, no nobility for virtue nobles
-	var/is_resident = !(HAS_TRAIT(user, TRAIT_OUTLANDER))
 
 	if(J)
-		if((J.department_flag & RETINUE) && is_noble)
-			return TRUE
+		if(J.department_flag & NOBLEMEN)
+			return FALSE
+	
+	if(HAS_TRAIT(user, TRAIT_OUTLAW))
+		return FALSE
 
-		if((J.department_flag & COURTIERS) && is_noble)
-			return TRUE
+	if(user.mind && (user.mind.has_antag_datum(/datum/antagonist/skeleton) || user.mind.has_antag_datum(/datum/antagonist/lich) || user.mind.has_antag_datum(/datum/antagonist/vampire) || user.mind.has_antag_datum(/datum/antagonist/vampire/lord)))
+		return FALSE
 
-		if((J.department_flag & SIDEFOLK) && is_noble && is_resident && !(TRAIT_OUTLANDER in J.job_traits)) //Basically just the Veteran
-			return TRUE
-
-	//if(is_noble && HAS_TRAIT(user, TRAIT_OUTLANDER) && !user.mind?.has_antag_datum(/datum/antagonist)) //Postponed for now
-		//return TRUE
+	if(HAS_TRAIT(user, TRAIT_NOBLE))
+		return TRUE
 
 	return FALSE
 
 /datum/manor_panel/proc/can_have_manor(mob/user)
 	if(!istype(user, /mob/living/carbon/human) || !user.mind)
+		return FALSE
+	if(user?.client?.prefs?.have_manor && !(user.client.prefs.have_manor))
 		return FALSE
 	if(user.mind.get_owned_manor())
 		return TRUE
@@ -210,6 +210,7 @@
 			"manor_name" = "Нет доступного владения",
 			"manor_type" = "manor",
 			"manor_patron_key" = "astrata",
+			"manor_origin" = "Неизвестно",
 			"total_workers" = 0,
 			"workers_assigned" = 0,
 			"workers_free" = 0,
@@ -222,11 +223,15 @@
 	for(var/datum/workstation/workstation in manor.workstations)
 		workstations_data += list(serialize_workstation(workstation, index))
 		index += 1
+	var/origin
+	if(manor.virtue_origin)
+		origin = manor.virtue_origin.map_state_name
 
 	return list(
 		"manor_name" = manor.manor_name,
 		"manor_type" = manor.manor_type,
 		"manor_patron_key" = get_patron_key(manor.patron),
+		"manor_origin" = origin,
 		"total_workers" = manor.total_workers,
 		"workers_assigned" = manor.get_assigned_workers(),
 		"workers_free" = manor.get_free_workers(),

@@ -15,6 +15,7 @@ export type ManorPanelData = {
   manor_type_label: string;
   manor_patron_name: string;
   manor_patron_key: string;
+  manor_origin: string;
   total_workers: number;
   workers_assigned: number;
   workers_free: number;

@@ -413,8 +413,7 @@ SUBSYSTEM_DEF(treasury)
 		return FALSE
 	if(HAS_TRAIT(recipient, TRAIT_OUTLAW))
 		return FALSE
-	var/datum/manor/manor = recipient.mind?.get_owned_manor() //TA EDIT
-	if(manor) //TA EDIT
+	if(HAS_TRAIT(recipient, TRAIT_NOBLE)) //TA EDIT
 		return FALSE //TA EDIT
 	var/datum/fund/account = get_account(recipient)
 	if(!account)
