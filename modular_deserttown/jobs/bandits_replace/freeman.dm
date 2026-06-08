@@ -122,6 +122,17 @@
 	spawn_landmark = "Bandit"
 	greet_text = "Фримены выходят из-за дюн. Враги Султана собрались, чтобы вернуть то, что у них отняли."
 
+/datum/round_event_control/antagonist/migrant_wave/freeman/valid_for_map()
+	return deserttown_antag_wave_is_desert_town()
+
+/datum/round_event_control/antagonist/migrant_wave/freeman/New()
+	..()
+	if(!valid_for_map())
+		typepath = null
+		wave_type = null
+		max_occurrences = 0
+		weight = 0
+
 /datum/round_event_control/antagonist/migrant_wave/freeman
 	name = "Freeman Migration"
 	typepath = /datum/round_event/migrant_wave/freeman
@@ -137,7 +148,7 @@
 	)
 
 /datum/round_event_control/antagonist/migrant_wave/freeman/canSpawnEvent(players_amt, gamemode, fake_check)
-	if(SSmapping.config.map_name != "Desert Town")
+	if(!deserttown_antag_wave_is_desert_town())
 		return FALSE
 	if(!deserttown_antag_wave_has_required_pop())
 		return FALSE
@@ -150,6 +161,11 @@
 
 	return ..()
 
+/proc/deserttown_antag_wave_is_desert_town()
+	if(!SSmapping || !SSmapping.config)
+		return FALSE
+	return SSmapping.config.map_name == "Desert Town"
+
 /proc/deserttown_antag_wave_player_count()
 	return get_active_player_count(alive_check = TRUE, afk_check = TRUE, human_check = TRUE)
 
@@ -157,7 +173,7 @@
 	return deserttown_antag_wave_player_count() >= 80
 
 /datum/round_event_control/antagonist/migrant_wave/freeman/preRunEvent()
-	if(SSmapping.config.map_name != "Desert Town")
+	if(!deserttown_antag_wave_is_desert_town())
 		return EVENT_CANT_RUN
 	if(!deserttown_antag_wave_has_required_pop())
 		message_admins("Freeman Migration skipped: requires 80 active players, has [deserttown_antag_wave_player_count()].")
@@ -172,7 +188,7 @@
 	return ..()
 
 /datum/round_event/migrant_wave/freeman/start()
-	if(SSmapping.config.map_name != "Desert Town")
+	if(!deserttown_antag_wave_is_desert_town())
 		return
 	if(!deserttown_antag_wave_has_required_pop())
 		log_game("Freeman Migration aborted: requires 80 active players, has [deserttown_antag_wave_player_count()].")

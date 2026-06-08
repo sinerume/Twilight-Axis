@@ -242,6 +242,17 @@
 	spawn_landmark = "LostGrenzel"
 	greet_text = "Из залитых кровью песков выходят потерянные грензельхофтцы. Город запомнит их в крови и пепле."
 
+/datum/round_event_control/antagonist/migrant_wave/lost_grenzel/valid_for_map()
+	return deserttown_antag_wave_is_desert_town()
+
+/datum/round_event_control/antagonist/migrant_wave/lost_grenzel/New()
+	..()
+	if(!valid_for_map())
+		typepath = null
+		wave_type = null
+		max_occurrences = 0
+		weight = 0
+
 /datum/round_event_control/antagonist/migrant_wave/lost_grenzel
 	name = "Lost Grenzel Migration"
 	typepath = /datum/round_event/migrant_wave/lost_grenzel
@@ -257,7 +268,7 @@
 	)
 
 /datum/round_event_control/antagonist/migrant_wave/lost_grenzel/canSpawnEvent(players_amt, gamemode, fake_check)
-	if(SSmapping.config.map_name != "Desert Town")
+	if(!deserttown_antag_wave_is_desert_town())
 		return FALSE
 	if(!deserttown_antag_wave_has_required_pop())
 		return FALSE
@@ -273,7 +284,7 @@
 /datum/round_event_control/antagonist/migrant_wave/lost_grenzel/preRunEvent()
 	if(is_storyteller_soft_antag_blocked())
 		return EVENT_CANT_RUN
-	if(SSmapping.config.map_name != "Desert Town")
+	if(!deserttown_antag_wave_is_desert_town())
 		return EVENT_CANT_RUN
 	if(!deserttown_antag_wave_has_required_pop())
 		message_admins("Lost Grenzel Migration skipped: requires 80 active players, has [deserttown_antag_wave_player_count()].")
@@ -288,7 +299,7 @@
 	return ..()
 
 /datum/round_event/migrant_wave/lost_grenzel/start()
-	if(SSmapping.config.map_name != "Desert Town")
+	if(!deserttown_antag_wave_is_desert_town())
 		return
 	if(!deserttown_antag_wave_has_required_pop())
 		log_game("Lost Grenzel Migration aborted: requires 80 active players, has [deserttown_antag_wave_player_count()].")
@@ -327,7 +338,7 @@
 	if(!SSgamemode)
 		return
 
-	if(SSmapping.config.map_name != "Desert Town")
+	if(!deserttown_antag_wave_is_desert_town())
 		return
 	if(!deserttown_antag_wave_has_required_pop())
 		return
