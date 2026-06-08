@@ -358,7 +358,7 @@
 	. = ..()
 	if(SSmapping.config.map_name == "Rockhill")
 		name = "Enigma flag"
-	if(SSmapping.config.map_name == "Desert Town")
+	else if(SSmapping.config.map_name == "Desert Town")
 		name = "Al-Ashur flag"
 	else
 		name = "Twilight Axis flag"
