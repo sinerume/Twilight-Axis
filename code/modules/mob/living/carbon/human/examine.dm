@@ -192,11 +192,12 @@
 		// TA EDIT BEGIN, в случае мёржконфликта просто переместите этот блок куда-нибудь в другое место.
 		if(SSmapping.config.map_name == "Desert Town")
 			var/species_origin = src.dna?.species?.origin
-			if(species_origin == "Grenzelhoft" && !HAS_TRAIT(user, TRAIT_OUTLANDER))
+			var/mob/living/carbon/human/H_user = ishuman(user) ? user : null
+			var/user_origin = H_user?.dna?.species?.origin
+			if(species_origin == "Grenzelhoft" && !HAS_TRAIT(user, TRAIT_OUTLANDER) && user_origin != "Grenzelhoft")
 				. += span_userdanger("ИМПЕРСКИЙ КАФИР!")
-			if(ishuman(user))
-				var/mob/living/carbon/human/H_user = user
-				if(H_user.dna?.species?.origin == "Grenzelhoft" && (species_origin == "Raneshan" || species_origin == "Naledi" || species_origin == "Zybantu"))
+			if(H_user)
+				if(user_origin == "Grenzelhoft" && (species_origin == "Raneshan" || species_origin == "Naledi" || species_origin == "Zybantu"))
 					. += span_userdanger("ЗИБАНТИЙСКИЙ ШВАЙНЕХУНД!")
 				
 				var/user_is_lg = H_user.mind?.has_antag_datum(/datum/antagonist/bandit/lost_grenzel)
@@ -204,7 +205,7 @@
 				
 				if(user_is_lg && species_origin == "Grenzelhoft" && !target_is_lg)
 					. += span_userdanger("<b>ПОДЛЫЙ ПРЕДАТЕЛЬ!</b>")
-				if(target_is_lg && H_user.dna?.species?.origin == "Grenzelhoft" && !user_is_lg)
+				if(target_is_lg && user_origin == "Grenzelhoft" && !user_is_lg)
 					. += span_userdanger("<b>ОБЕЗУМЕВШИЙ В ПЕСКАХ!</b>")
 			if(mind?.has_antag_datum(/datum/antagonist/bandit/lost_grenzel) && !HAS_TRAIT(user, TRAIT_OUTLANDER))
 				. += span_userdanger("<b>НАЛЁТНИЧЕСКАЯ МРАЗЬ, ДЕТОУБИЙЦА!</b>")
