@@ -47,9 +47,8 @@
 	job_bitflag = BITFLAG_GARRISON
 
 /datum/advclass/azeb/ranger
-	name = "Ranger"
-	tutorial = "You are well versed in the ways of handling a bow. \
-	You will stand in the back, and protect the front with arrows."
+	name = "Azeb Ranger"
+	tutorial = "Сколько Вы себя помните, Вы всегда были кем-то подвижным, слабым и хилым, поэтому в корпусе Азебов вас определили как стрелка. Вас научили управляться с дальнобойным оружием и скрываться во тьме."
 	outfit = /datum/outfit/job/roguetown/azeb/ranger
 	category_tags = list(CTAG_AZEB)
 	traits_applied = list(TRAIT_DODGEEXPERT)
@@ -109,9 +108,8 @@
 	H.set_blindness(0)
 
 /datum/advclass/azeb/footman
-	name = "Footman"
-	tutorial = "You are well versed in the ways of handling a sword. \
-	You will stand in the front, and protect."
+	name = "Azeb Footman"
+	tutorial = "Сколько Вы себя помните - Вы всегда управлялись с оружием ближнего боя. Конкретно в корпусе Азебов Вам вручили глефу, эффективное и простое оружие. Помимо этого, вас научили ездить верхом - и вручили личного скакуна. В долг, конечно же."
 	outfit = /datum/outfit/job/roguetown/azeb/footman
 	category_tags = list(CTAG_AZEB)
 	traits_applied = list(TRAIT_MEDIUMARMOR)
@@ -150,10 +148,10 @@
 
 /datum/outfit/job/roguetown/azeb/footman/pre_equip(mob/living/carbon/human/H)
 	..()
-	head = head = /obj/item/clothing/head/roguetown/helmet/sallet/raneshen
-	mask = mask = /obj/item/clothing/head/roguetown/roguehood/shalal/hijab/raneshen
+	head = /obj/item/clothing/head/roguetown/helmet/sallet/raneshen
+	mask = /obj/item/clothing/head/roguetown/roguehood/shalal/hijab/raneshen
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/raneshen
-	pants = /obj/item/clothing/under/roguetown/trou/leather/pontifex/raneshen
+	pants = /obj/item/clothing/under/roguetown/chainlegs/iron
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass
 	cloak = /obj/item/clothing/cloak/dunestalker
 	shoes = /obj/item/clothing/shoes/roguetown/shalal
@@ -161,7 +159,6 @@
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	belt = /obj/item/storage/belt/rogue/leather
 	neck = /obj/item/clothing/neck/roguetown/coif/padded
-	pants = /obj/item/clothing/under/roguetown/chainlegs/iron
 	backl = /obj/item/rogueweapon/scabbard/gwstrap
 	beltr = /obj/item/rogueweapon/sword/sabre
 	beltl = /obj/item/rogueweapon/huntingknife

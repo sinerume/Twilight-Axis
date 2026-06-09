@@ -3,8 +3,8 @@
 	flag = CATAPHRACT
 	department_flag = GARRISON
 	faction = "Station"
-	total_positions = 4
-	spawn_positions = 4
+	total_positions = 3
+	spawn_positions = 3
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED)
 	forbidden_races = list(RACES_CONSTRUCT RACES_DESPISED RACES_OOZE)
