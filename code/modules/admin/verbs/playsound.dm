@@ -278,7 +278,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Internet Sound")
 
 /client/proc/play_music_global_url()
-	set category = "GAME MASTER"
+	set category = "Game Master"
 	set name = "Music - Global URL"
 	if(!check_rights(R_SOUND))
 		return
@@ -347,7 +347,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Global Music URL")
 
 /client/proc/play_music_local_url()
-	set category = "GAME MASTER"
+	set category = "Game Master"
 	set name = "Music - Local URL"
 	if(!check_rights(R_SOUND))
 		return
@@ -426,7 +426,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Local Music URL")
 
 /client/proc/play_music_direct_url(mob/M)
-	set category = "GAME MASTER"
+	set category = "Game Master"
 	set name = "Music - Direct URL"
 	if(!check_rights(R_SOUND))
 		return

@@ -61,7 +61,7 @@
 			to_chat(src, "Your character information will no longer be viewable when masked.")
 
 /client/verb/nsfw_examine_always()
-	set category = "Options"
+	set category = "Preferences.Options"
 	set name = "Toggle NSFW Examine"
 	if(prefs)
 		prefs.nsfw_examine_always = !prefs.nsfw_examine_always
@@ -723,7 +723,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/deadchat()
 	set name = "Show/Hide Deadchat"
-	set category = "Prefs - Admin"
+	set category = "Admin.Preferences"
 	set desc ="Toggles seeing deadchat"
 	if(!holder)
 		return
