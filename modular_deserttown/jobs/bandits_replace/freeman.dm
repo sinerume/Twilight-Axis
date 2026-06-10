@@ -1,3 +1,5 @@
+#define DESERTTOWN_ANTAG_WAVES_ENABLED FALSE
+
 /datum/antagonist/bandit/freeman
 	name = "Freeman"
 	antagpanel_category = "Freeman"
@@ -148,6 +150,8 @@
 	)
 
 /datum/round_event_control/antagonist/migrant_wave/freeman/canSpawnEvent(players_amt, gamemode, fake_check)
+	if(!deserttown_antag_waves_enabled())
+		return FALSE
 	if(!deserttown_antag_wave_is_desert_town())
 		return FALSE
 	if(!deserttown_antag_wave_has_required_pop())
@@ -173,6 +177,8 @@
 	return deserttown_antag_wave_player_count() >= 80
 
 /datum/round_event_control/antagonist/migrant_wave/freeman/preRunEvent()
+	if(!deserttown_antag_waves_enabled())
+		return FALSE
 	if(!deserttown_antag_wave_is_desert_town())
 		return EVENT_CANT_RUN
 	if(!deserttown_antag_wave_has_required_pop())
@@ -188,6 +194,8 @@
 	return ..()
 
 /datum/round_event/migrant_wave/freeman/start()
+	if(!deserttown_antag_waves_enabled())
+		return FALSE
 	if(!deserttown_antag_wave_is_desert_town())
 		return
 	if(!deserttown_antag_wave_has_required_pop())
@@ -214,3 +222,6 @@
 			to_chat(player, span_danger("Аль-Маттиос зовёт к джихаду! Неверные, отнявшие наши земли, будут убиты самым жестоким образом! Открыто шесть слотов фрименов."))
 
 	..()
+
+/proc/deserttown_antag_waves_enabled()
+	return DESERTTOWN_ANTAG_WAVES_ENABLED

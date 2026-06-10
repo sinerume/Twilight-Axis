@@ -268,6 +268,8 @@
 	)
 
 /datum/round_event_control/antagonist/migrant_wave/lost_grenzel/canSpawnEvent(players_amt, gamemode, fake_check)
+	if(!deserttown_antag_waves_enabled())
+		return FALSE
 	if(!deserttown_antag_wave_is_desert_town())
 		return FALSE
 	if(!deserttown_antag_wave_has_required_pop())
@@ -282,6 +284,8 @@
 	return ..()
 
 /datum/round_event_control/antagonist/migrant_wave/lost_grenzel/preRunEvent()
+	if(!deserttown_antag_waves_enabled())
+		return FALSE
 	if(is_storyteller_soft_antag_blocked())
 		return EVENT_CANT_RUN
 	if(!deserttown_antag_wave_is_desert_town())
@@ -299,6 +303,8 @@
 	return ..()
 
 /datum/round_event/migrant_wave/lost_grenzel/start()
+	if(!deserttown_antag_waves_enabled())
+		return FALSE
 	if(!deserttown_antag_wave_is_desert_town())
 		return
 	if(!deserttown_antag_wave_has_required_pop())
