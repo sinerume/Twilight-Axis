@@ -75,6 +75,14 @@
 	droning_sound_dusk = 'sound/music/area/desert/NightPrayer.ogg'
 	droning_sound_night = 'sound/music/area/desert/Moonrise.ogg'
 
+/area/rogue/indoors/shelter/desertdeepfortnoc
+	name = "Deep Desert (Fort Noc)"
+	icon_state = "desertdeep"
+	droning_sound = 'sound/music/area/desert/Iberia1.ogg'
+	droning_sound_dusk = 'sound/music/area/desert/NightPrayer.ogg'
+	droning_sound_night = 'sound/music/area/desert/Moonrise.ogg'
+	first_time_text = "Fort Noc"
+
 /area/rogue/outdoors/desertdeep/safe
 	name = "Desert Pass"
 	ambush_times = null
