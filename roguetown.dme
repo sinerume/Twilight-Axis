@@ -4141,4 +4141,5 @@
 #include "modular_deserttown\jobs\bandits_replace\lost_grenzel-advclasses\lost_doppelsoldner.dm"
 #include "modular_deserttown\jobs\bandits_replace\lost_grenzel-advclasses\lost_imperial_knight.dm"
 #include "modular_deserttown\desert_bandit_test.dm"
+#include "modular_deserttown\deadbodies.dm"
 // END_INCLUDE
