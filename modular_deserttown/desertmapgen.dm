@@ -16,6 +16,7 @@
 //	excluded_areas = list(/area/rogue/indoors/shelter/town, /area/rogue/outdoors/town/roofs, /area/rogue/indoors/town, /area/rogue/under/town/basement)
 	spawnableAtoms = list(/obj/structure/flora/roguetree/palm = 0.5,
 							/obj/structure/flora/roguegrass/bush/desertshrub = 0.5,
+							/obj/structure/flora/junglebush/desertbush2 = 3.2,
 							/obj/structure/flora/roguetree/stump/log = 0.3,
 							/obj/item/natural/stone = 1,
 							/obj/item/natural/rock = 1,

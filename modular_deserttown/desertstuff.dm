@@ -766,3 +766,17 @@
 	icon_state = "zybantinethrone"
 	icon = 'modular_deserttown/icons/throne.dmi'
 	pixel_x = -16
+
+/obj/structure/flora/junglebush/desertbush2
+	name = "dry bush"
+	desc = "A withered, dry bush."
+	icon = 'modular_deserttown/icons/flora.dmi'
+	icon_state = "desertbush2"
+
+/obj/structure/flora/junglebush/desertbush2/loot_replenish()
+	looty.Cut()
+	looty += /obj/item/grown/log/tree/stick
+
+
+
+
