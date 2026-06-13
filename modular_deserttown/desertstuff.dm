@@ -767,13 +767,13 @@
 	icon = 'modular_deserttown/icons/throne.dmi'
 	pixel_x = -16
 
-/obj/structure/flora/junglebush/desertbush2
+/obj/structure/flora/junglebush/desertbush
 	name = "dry bush"
 	desc = "A withered, dry bush."
 	icon = 'modular_deserttown/icons/flora.dmi'
-	icon_state = "desertbush2"
+	icon_state = "desertbush"
 
-/obj/structure/flora/junglebush/desertbush2/loot_replenish()
+/obj/structure/flora/junglebush/desertbush/loot_replenish()
 	looty.Cut()
 	looty += /obj/item/grown/log/tree/stick
 
