@@ -11,10 +11,11 @@
 
 
 /datum/mapGeneratorModule/desertsand
-	clusterCheckFlags = CLUSTER_CHECK_ALL
+	clusterCheckFlags = CLUSTER_CHECK_NONE
 	allowed_turfs = list(/turf/open/floor/rogue/dunes)
 //	excluded_areas = list(/area/rogue/indoors/shelter/town, /area/rogue/outdoors/town/roofs, /area/rogue/indoors/town, /area/rogue/under/town/basement)
 	spawnableAtoms = list(/obj/structure/flora/roguetree/palm = 0.5,
+							/obj/structure/flora/roguegrass/desertgrass = 10,
 							/obj/structure/flora/roguegrass/bush/desertshrub = 0.5,
 							/obj/structure/flora/junglebush/desertbush2 = 3.2,
 							/obj/structure/flora/roguetree/stump/log = 0.3,
@@ -36,7 +37,7 @@
 
 
 /datum/mapGeneratorModule/desertgrass
-	clusterCheckFlags = CLUSTER_CHECK_ALL
+	clusterCheckFlags = CLUSTER_CHECK_NONE
 	allowed_turfs = list(/turf/open/floor/rogue/dirt, /turf/open/floor/rogue/desert_grass)
 	excluded_turfs = list(/turf/open/floor/rogue/dirt/road)
 //	excluded_areas = list(/area/rogue/indoors/shelter/town, /area/rogue/outdoors/town/roofs, /area/rogue/indoors/town, /area/rogue/under/town/basement)
@@ -74,7 +75,7 @@
 	allowed_areas = list(/area/rogue/outdoors/desert, /area/rogue/outdoors/desertdeep)
 
 /datum/mapGeneratorModule/deserttrees
-	clusterCheckFlags = CLUSTER_CHECK_ALL
+	clusterCheckFlags = CLUSTER_CHECK_NONE
 	allowed_turfs = list(/turf/open/floor/rogue/dirt/desert)
 	excluded_turfs = list(/turf/open/floor/rogue/dirt/road)
 //	excluded_areas = list(/area/rogue/indoors/shelter/town, /area/rogue/outdoors/town/roofs, /area/rogue/indoors/town, /area/rogue/under/town/basement)
@@ -116,7 +117,7 @@
 	allowed_areas = list(/area/rogue/outdoors/desert, /area/rogue/outdoors/desertdeep)
 
 /datum/mapGeneratorModule/desertwater
-	clusterCheckFlags = CLUSTER_CHECK_ALL
+	clusterCheckFlags = CLUSTER_CHECK_NONE
 	allowed_turfs = list(/turf/open/water/cleanshallow)
 	allowed_areas = list(/area/rogue/outdoors/desert, /area/rogue/outdoors/desertdeep)
 	spawnableAtoms = list(	/obj/structure/flora/roguetree/stump/log = 1,

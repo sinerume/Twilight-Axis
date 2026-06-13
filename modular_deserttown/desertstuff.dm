@@ -777,6 +777,16 @@
 	looty.Cut()
 	looty += /obj/item/grown/log/tree/stick
 
+/obj/structure/flora/roguegrass/desertgrass
+	name = "desert grass"
+	desc = "Dry grass struggling to survive in the arid climate."
+	icon = 'modular_deserttown/icons/flora.dmi'
+	icon_state = "desertgrass1"
+
+/obj/structure/flora/roguegrass/desertgrass/update_icon()
+	icon_state = "desertgrass[rand(1, 5)]"
+
+
 
 
 
