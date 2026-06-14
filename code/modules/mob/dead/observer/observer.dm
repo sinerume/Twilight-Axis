@@ -2,7 +2,7 @@ GLOBAL_LIST_EMPTY(ghost_images_default) //this is a list of the default (non-acc
 GLOBAL_LIST_EMPTY(ghost_images_simple) //this is a list of all ghost images as the simple white ghost
 
 GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
-GLOBAL_VAR_CONST(observer_move_delay_multiplier, 0.5)
+GLOBAL_VAR_CONST(observer_move_delay_multiplier, 6)
 /mob/dead/observer
 	name = "ghost"
 	desc = "" //jinkies!
@@ -79,15 +79,6 @@ GLOBAL_VAR_CONST(observer_move_delay_multiplier, 0.5)
 	icon = 'icons/roguetown/mob/misc.dmi'
 	icon_state = "hollow"
 	alpha = 150
-
-/mob/dead/observer/rogue/Move(n, direct)
-	if(world.time < next_gmove)
-		return
-	next_gmove = world.time + 3
-
-	setDir(direct)
-
-	. = ..()
 
 /mob/dead/observer/screye
 //	see_invisible = SEE_INVISIBLE_LIVING
