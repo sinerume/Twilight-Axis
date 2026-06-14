@@ -161,6 +161,9 @@
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "SWORD")
 
+/obj/item/rogueweapon/sword/zizo/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_AVANTYNE)
+
 /obj/item/rogueweapon/sword/avantyne
 	name = "avantyne-threaded arming sword"
 	desc = "Anger and spite, channeled into a blade that defies both wisdom and purity. Seldom does such power come without a price, however; are you ready to pay it?"
@@ -175,6 +178,9 @@
 	equip_delay_self = 0
 	unequip_delay_self = 0
 	smeltresult = /obj/item/ingot/avantyne
+
+/obj/item/rogueweapon/sword/avantyne/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_WEAPON)
 
 /obj/item/rogueweapon/sword/long
 	name = "longsword"
@@ -318,7 +324,7 @@
 	thrown_bclass = BCLASS_BLUNT
 
 /obj/item/rogueweapon/sword/long/cleric
-	name = "crusaders longsword"
+	name = "anointed longsword"
 	desc = "A crusader's longsword, adorned with a blade of cold iron and blessed to smite evil. Though this blessed alloy lacks the strength to \
 	sunder those who bare greater curses, it nevertheless channels enough power to dispell the lesser curses of mindless fiends-and-foes. </br>'Strike \
 	true, my child, for thy blade is thine God..'"
@@ -437,6 +443,9 @@
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "SWORD")
 
+/obj/item/rogueweapon/sword/long/zizo/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_AVANTYNE)
+
 /obj/item/rogueweapon/sword/long/avantyne
 	name = "avantyne-threaded longsword"
 	desc = "A parasitic mandate to progress, born through the cultivation of crystalline metastasis. This otherworldly blade is stronger and sharper than any \
@@ -451,6 +460,9 @@
 	unequip_delay_self = 0
 	wdefense_wbonus = 5
 	smeltresult = /obj/item/ingot/avantyne
+
+/obj/item/rogueweapon/sword/zizo/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_WEAPON)
 
 /obj/item/rogueweapon/sword/long/heirloom
 	name = "old longsword"
@@ -1712,6 +1724,9 @@
 	max_blade_int = 250
 	max_integrity = 225
 	smeltresult = /obj/item/ingot/avantyne
+
+/obj/item/rogueweapon/sword/rapier/avantyne/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_AVANTYNE)
 
 /obj/item/rogueweapon/sword/rapier/avantyne/relic
 	name = "Damnatio"

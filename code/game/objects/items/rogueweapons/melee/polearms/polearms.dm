@@ -655,6 +655,9 @@
 	slot_flags = ITEM_SLOT_BACK
 	smeltresult = /obj/item/ingot/avantyne
 
+/obj/item/rogueweapon/spear/billhook/avantyne/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_AVANTYNE)
+
 /obj/item/rogueweapon/spear/improvisedbillhook
 	force = 12
 	force_wielded = 25
