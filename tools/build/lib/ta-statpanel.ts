@@ -10,8 +10,15 @@ export function bun_statpanel(...args: any[]): Promise<Juke.ExecReturn> {
   });
 }
 
+export const StatBrowserBunTarget = new Juke.Target({
+  name: "TA StatPanel Bun Install",
+  inputs: ["ta_statpanel/package.json"],
+  executes: () => bun_statpanel("install", "--frozen-lockfile", "--ignore-scripts"),
+});
+ 
 export const StatBrowserTarget = new Juke.Target({
-  name: "Twilight Axis StatPanel",
+  name: "TA StatPanel",
+  dependsOn: [StatBrowserBunTarget],
   inputs: [
     "ta_statpanel/**/*.+(js|jsx|ts|tsx)",
     "ta_statpanel/ta_statpanel/*.css",
