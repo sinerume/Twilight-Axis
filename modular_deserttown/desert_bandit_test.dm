@@ -81,10 +81,10 @@
 	possible_mmb_intents = list(INTENT_BITE, INTENT_JUMP, INTENT_KICK, INTENT_SPECIAL)
 	var/outfit_type = /datum/outfit/job/roguetown/desert_bandit_test
 
-/mob/living/carbon/human/species/human/northern/desert_bandit_test/Initialize()
-	. = ..()
-	set_species(/datum/species/human/northern/southern_lamia)
-	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
+// /mob/living/carbon/human/species/human/northern/desert_bandit_test/Initialize()
+//	. = ..()
+//	set_species(/datum/species/human/northern/southern_lamia)
+//	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
 
 /mob/living/carbon/human/species/human/northern/desert_bandit_test/after_creation()
 	..()
