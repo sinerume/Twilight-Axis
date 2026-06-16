@@ -43,7 +43,9 @@
 #define LOOT_BUDGET_ARAIGNEE 		    300
 #define LOOT_BUDGET_BOGMANFORT          1200
 #define LOOT_BUDGET_SKELETONFORT        800
-#define LOOT_BUDGET_BIZZARE_BAZAARE     2000 //TA DT Edit
+#define LOOT_BUDGET_BIZZARE_BAZAARE     1500 //TA DT Edit
+#define LOOT_BUDGET_DESERT_PYRAMID		2000 //TA DT Edit
+#define LOOT_BUDGET_DESERTDARK			1000
 
 // ---- Spawner Loot Values (mammons) ----
 // Expected mammon value of what each spawner category rolls.

@@ -371,6 +371,14 @@
 	. = ..()
 	icon_state = "saigahorn[rand(1, 3)]"
 
+/obj/structure/flora/roguegrass/bush/desert/decor
+
+/obj/structure/flora/roguegrass/bush/desert/decor/Initialize()
+	. = ..()
+	icon_state = "saigahorn[rand(1, 3)]"
+	pixel_x = 0
+	pixel_y = 15
+
 /obj/structure/flora/roguegrass/bush/desertshrub
 	name = "treelet"
 	desc = "A rounded bush-like tree or perhaps tree-like bush native to Zybantium. A valuable source of wood in the sparse desert."

@@ -377,7 +377,7 @@
 
 /area/rogue/under/desertdark
 	name = "Desert Underdark"
-	loot_budget = LOOT_BUDGET_UNDERDARK
+	loot_budget = LOOT_BUDGET_DESERTDARK
 	loot_pool_key = "underdark"
 	icon_state = "cavewet"
 	warden_area = FALSE
@@ -428,3 +428,21 @@
 	droning_sound_night = null
 	detail_text = DETAIL_TEXT_BIZZARE_BAZAARE
 
+/area/rogue/under/dungeon/desert_pyramid
+	name = "Desert Pyramid"
+	loot_budget = LOOT_BUDGET_DESERT_PYRAMID
+	icon_state = "under"
+	first_time_text = "Old Tombs"
+	droning_sound = 'sound/music/area/tombs.ogg'
+	droning_sound_dusk = null
+	droning_sound_night = null
+
+/area/rogue/under/cave/dtsanctum
+	name = "The Crimson Sanctum"
+	loot_budget = LOOT_BUDGET_NECRAN_LABYRINTH
+	icon_state = "spidercave"
+	first_time_text = "The Crimson Sanctum"
+	droning_sound = 'sound/music/area/dungeon2.ogg'
+	droning_sound_dusk = 'sound/music/area/dungeon2.ogg'
+	droning_sound_night = 'sound/music/area/dungeon2.ogg'
+	ceiling_protected = TRUE
