@@ -96,6 +96,7 @@ export type RecipeBookData = {
   recipe_detail_html: string;
   recipe_entry_data?: RecipeEntryData | null;
   initial_category?: string;
+  locked_book?: boolean;
 };
 
 export const RecipeBook = () => {
@@ -207,7 +208,7 @@ const BookPage = () => {
   }, [data.current_book, data.initial_category]);
 
   const recipes = data.current_book
-    ? (data.book_recipes[data.current_book] || [])
+    ? data.book_recipes[data.current_book] || []
     : [];
 
   const categories = useMemo(() => {
@@ -238,7 +239,7 @@ const BookPage = () => {
           selectedRecipe={data.current_recipe}
           onCategoryChange={setCategory}
           onSelectRecipe={(path) => act('view_recipe', { path })}
-          onBack={() => act('back_to_library')}
+          onBack={data.locked_book ? undefined : () => act('back_to_library')}
         />
       </Stack.Item>
       <Stack.Item grow basis={0}>
