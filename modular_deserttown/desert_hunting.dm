@@ -1,6 +1,23 @@
 // Modular hunting categories for the desert zones
 // This allows tracking system to spawn desert-specific animals without touching base game code.
 
+/datum/hunting_category/desert_prey
+	name = "Desert Prey"
+	skill_weights = list(50, 80, 100, 60, 30, 10, 0) // Easy/Medium tier
+	bonus_animal_amount = 6
+	animals = list(
+		/mob/living/simple_animal/hostile/retaliate/rogue/mudcrab/cabbit = 30,
+		/mob/living/simple_animal/hostile/retaliate/rogue/saiga/game = 20
+	)
+	preferred_tracks = list(
+		/mob/living/simple_animal/hostile/retaliate/rogue/mudcrab/cabbit = "small",
+		/mob/living/simple_animal/hostile/retaliate/rogue/saiga/game = "hoof"
+	)
+	preferred_areas = list(
+		/area/rogue/outdoors/desert = 40,
+		/area/rogue/outdoors/desertdeep = 20
+	)
+
 /datum/hunting_category/desert_scavengers
 	name = "Desert Scavengers"
 	skill_weights = list(100, 80, 50, 20, 10, 5, 5) // Low tier, good for beginners
@@ -31,12 +48,14 @@
 	animals = list(
 		/mob/living/simple_animal/hostile/retaliate/rogue/hyena = 25,
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf = 15,
-		/mob/living/simple_animal/hostile/retaliate/rogue/spider/rock = 10 // Larger packs or tougher variants if possible, but rock spider fits
+		/mob/living/simple_animal/hostile/retaliate/rogue/spider/rock = 10, // Larger packs or tougher variants if possible, but rock spider fits
+		/mob/living/simple_animal/hostile/retaliate/rogue/mole = 5 // Rare sand mole
 	)
 	preferred_tracks = list(
 		/mob/living/simple_animal/hostile/retaliate/rogue/hyena = "canine",
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf = "canine",
-		/mob/living/simple_animal/hostile/retaliate/rogue/spider/rock = "small"
+		/mob/living/simple_animal/hostile/retaliate/rogue/spider/rock = "small",
+		/mob/living/simple_animal/hostile/retaliate/rogue/mole = "large"
 	)
 	preferred_areas = list(
 		/area/rogue/outdoors/desert = 0, // Never found on the outskirts
