@@ -3574,12 +3574,14 @@ GLOBAL_LIST_EMPTY(loadout_items_by_category)
 	category = list("Обувь", "Донат")
 	path = /obj/item/clothing/shoes/roguetown/simpleshoes/heels/donator_gold
 	donatitem = TRUE
+	donat_tier = 2
 
 /datum/loadout_item/donator/universal/highheelshoes_silver
 	name = "Donator Item - High-Heeled Shoes, Silver"
 	category = list("Обувь", "Донат")
 	path = /obj/item/clothing/shoes/roguetown/simpleshoes/heels/donator_silver
 	donatitem = TRUE
+	donat_tier = 2
 
 /datum/loadout_item/donator/universal/jadehalfmask_donator
 	name = "Donator Kit - Jade Halfmask - Required: Iron Mask, Steel Mask, Bronze Mask or Carved Jade Mask"
