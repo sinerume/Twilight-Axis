@@ -953,11 +953,11 @@ SUBSYSTEM_DEF(gamemode)
 		if(preset.hard_mult > 1)
 			misc += "Основные антагонисты масштабируются по онлайну в [preset.hard_mult]x сильнее"
 	if(preset.block_soft)
-		misc += "Малые антагонисты отключены (отверженные, гноллы, ассасины)"
+		misc += "Малые антагонисты отключены (вретчи, гноллы, ассасины)"
 	else
-		misc += "Лимит отверженных: [preset.wretch_slot_cap][preset.wretch_slot_cap > 5 ? " (масштабируется)" : " (фиксированный)"]"
-	misc += "Слоты ведьмы: [preset.hag_slots]"
-	misc += "Сновидец: [preset.allow_dreamwalker ? "может выпасть" : "отключён"]"
+		misc += "Лимит вретчей: [preset.wretch_slot_cap][preset.wretch_slot_cap > 5 ? " (масштабируется)" : " (фиксированный)"]"
+	misc += "Слоты карги: [preset.hag_slots]"
+	misc += "Дримволкер: [preset.allow_dreamwalker ? "может выпасть" : "отключён"]"
 	return misc
 
 /// Gnoll head-count a preset opens, from its scaling mode.
@@ -988,6 +988,10 @@ SUBSYSTEM_DEF(gamemode)
 			caps["Gnoll"] = gnolls
 	if(preset.hag_slots > 0)
 		caps["Hag"] = preset.hag_slots
+	if(!preset.block_hard)
+		var/bandit_cap = story_antag_slot_cap(/datum/antagonist/bandit, roundstart = TRUE, storyteller_type = storyteller_type)
+		if(bandit_cap > 0)
+			caps["Bandit"] = bandit_cap
 	var/list/seen = list()
 
 	for(var/datum/round_event_control/antagonist/solo/ec in event_pools[EVENT_TRACK_CHARACTER_INJECTION])

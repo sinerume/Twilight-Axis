@@ -282,8 +282,13 @@ SUBSYSTEM_DEF(vote)
 		return ""
 	var/list/theme = get_storyteller_pool_theme(pool_name)
 	var/pool_display_name = get_storyteller_vote_pool_display_name(pool_name)
+	var/pool_votes = 0
+	for(var/index in choice_indices)
+		var/option_index = text2num(index)
+		var/choice_text = choices[option_index]
+		pool_votes += choices[choice_text] || 0
 	var/dat = "<div style='border:1px solid [theme["border"]];border-radius:8px;padding:7px 8px;background:[theme["background"]];min-height:100%;box-sizing:border-box;'>"
-	dat += "<div style='font-size:0.96rem;font-weight:bold;margin-bottom:6px;color:[theme["title"]];'>[pool_display_name]</div>"
+	dat += "<div style='font-size:0.96rem;font-weight:bold;margin-bottom:6px;color:[theme["title"]];'>[pool_display_name] <span style='font-size:0.76rem;color:[theme["meta"]];font-weight:normal;'>(Вес: [format_vote_power(pool_votes)])</span></div>"
 	dat += "<div style='display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:6px;'>"
 	for(var/index in choice_indices)
 		var/option_index = text2num(index)
@@ -297,9 +302,9 @@ SUBSYSTEM_DEF(vote)
 		var/details_link = "<a href='?src=[REF(SSgamemode)];storyboy_details=[storyteller_type]' style='display:inline-block;margin-left:4px;color:[theme["meta"]];font-size:0.75rem;text-decoration:none;'>(?)</a>"
 		var/threat = SSgamemode.preset_threat_tags(storyteller_type, theme["border"])
 		if(can_vote)
-			entry += "<div><a href='?src=[REF(src)];vote=[option_index]' style='font-size:0.9rem;color:[theme["link"]];font-weight:bold;'>[choice_text]</a>[details_link][selected_text]</div>[threat]"
+			entry += "<div><a href='?src=[REF(src)];vote=[option_index]' style='font-size:0.9rem;color:[theme["link"]];font-weight:bold;'>[choice_text]</a>[details_link][selected_text] <span style='color:[theme["meta"]];font-size:0.76rem;'>[format_vote_power(votes)] вес</span></div>[threat]"
 		else
-			entry += "<div><span style='font-size:0.9rem;font-weight:bold;'>[choice_text]</span>[details_link][selected_text]</div>[threat]"
+			entry += "<div><span style='font-size:0.9rem;font-weight:bold;'>[choice_text]</span>[details_link][selected_text] <span style='color:[theme["meta"]];font-size:0.76rem;'>[format_vote_power(votes)] вес</span></div>[threat]"
 		entry += "</div>"
 		dat += entry
 	dat += "</div></div>"
@@ -393,6 +398,8 @@ SUBSYSTEM_DEF(vote)
 	if(winners.len > 0)
 		if(question)
 			text += "<b>[question]</b>"
+		else if(mode == "storyteller")
+			text += "<b>Голосование: Рассказчик</b>"
 		else
 			text += "<b>[capitalize(mode)] Vote</b>"
 		for(var/i=1,i<=choices.len,i++)
@@ -403,13 +410,13 @@ SUBSYSTEM_DEF(vote)
 		if(mode == "storyteller")
 			var/list/pool_totals = get_storyteller_pool_totals()
 			if(pool_totals.len)
-				text += "\n<hr><b>Итоги:</b>"
+				text += "\n<hr><b>Итоги блоков:</b>"
 				for(var/pool_name in pool_totals)
 					text += "\n<b>[get_storyteller_vote_pool_display_name(pool_name)]:</b> [format_vote_power(pool_totals[pool_name])]"
 		if(mode != "custom")
 			if(winners.len > 1)
 				if(mode == "storyteller")
-					text += "\n<b>Vote Tied Between:</b>"
+					text += "\n<b>Ничья между:</b>"
 				else
 					text = "\n<b>Vote Tied Between:</b>"
 				for(var/option in winners)
@@ -417,23 +424,24 @@ SUBSYSTEM_DEF(vote)
 				if(mode == "endround")
 					winners = list("End Round")
 			. = pick(winners)
-			text += "\n<b>Vote Result: [.]</b>"
+			if(mode == "storyteller")
+				text += "\n<b>Итог голосования: [.]</b>"
+			else
+				text += "\n<b>Vote Result: [.]</b>"
 		else
 			text += "\n<b>Did not vote:</b> [GLOB.clients.len-voted.len]"
 	else
 		if(mode == "endround")
 			. = "End Round"
 			text += "\n<b>Vote Result: [.]</b>"
+		else if(mode == "storyteller")
+			text += "<b>Итог голосования: нет результата, голосов не было.</b>"
 		else
 			text += "<b>Vote Result: Inconclusive - No Votes!</b>"
 	log_vote(text)
 	remove_action_buttons()
-	var/visible_text = text
-	if(mode == "storyteller")
-		visible_text = "<b>Голосование за рассказчика завершено.</b>\nРезультат скрыт."
-	to_chat(world, "\n<font color='purple'>[visible_text]</font>")
+	to_chat(world, "\n<font color='purple'>[text]</font>")
 	return .
-
 /datum/controller/subsystem/vote/proc/result()
 	. = announce_result()
 	var/restart = 0
@@ -642,6 +650,9 @@ SUBSYSTEM_DEF(vote)
 	return FALSE
 
 /datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key, vote_period)
+	if(vote_type == "gamemode")
+		vote_type = "storyteller"
+
 	var/sound/vote_alert = new()
 	vote_alert.file = null
 	vote_alert.priority = 250
@@ -734,7 +745,9 @@ SUBSYSTEM_DEF(vote)
 				SEND_SOUND(M, vote_alert)
 		if(mode == "storyteller")
 			save_storyteller_vote_log(null, "active")
-		to_chat(world, "\n<font color='purple'><b>[text]</b>\nClick <a href='?src=[REF(src)]'>here</a> to place your vote.\nYou have [DisplayTimeText(vp)] to vote.</font>")
+			to_chat(world, "\n<font color='purple'><b>[text]</b>\nНажмите <a href='?src=[REF(src)]'>сюда</a>, чтобы проголосовать за рассказчика.\nНа голосование отведено [DisplayTimeText(vp)].</font>")
+		else
+			to_chat(world, "\n<font color='purple'><b>[text]</b>\nClick <a href='?src=[REF(src)]'>here</a> to place your vote.\nYou have [DisplayTimeText(vp)] to vote.</font>")
 		for(var/client/C in GLOB.clients)
 			if(!isliving(C.mob))
 				show_vote(C)
@@ -751,7 +764,10 @@ SUBSYSTEM_DEF(vote)
 	if(mode == "custom")
 		text += "\n[question]"
 	var/remaining_time = time_remaining * 10
-	to_chat(C, "\n<font color='purple'><b>[text]</b>\nClick <a href='?src=[REF(src)]'>here</a> to place your vote.\nYou have [DisplayTimeText(remaining_time)] to vote.</font>")
+	if(mode == "storyteller")
+		to_chat(C, "\n<font color='purple'><b>[text]</b>\nНажмите <a href='?src=[REF(src)]'>сюда</a>, чтобы проголосовать за рассказчика.\nОсталось [DisplayTimeText(remaining_time)].</font>")
+	else
+		to_chat(C, "\n<font color='purple'><b>[text]</b>\nClick <a href='?src=[REF(src)]'>here</a> to place your vote.\nYou have [DisplayTimeText(remaining_time)] to vote.</font>")
 	if(!isliving(C.mob))
 		show_vote(C)
 
@@ -778,9 +794,8 @@ SUBSYSTEM_DEF(vote)
 		if(mode == "storyteller")
 			if(!length(storyteller_vote_log))
 				load_storyteller_vote_log()
-			var/pool_text = "Нажмите на (?) для получения описания режима. Раундстартовые основные антагонисты требуют [HARD_ANTAG_MIN_POP] людей. Успешное голосование удаляет блок режимов из доступных в следующем раунде."
+			var/pool_text = "Нажмите на (?) для получения описания режима. Раундстартовые основные антагонисты требуют минимум [HARD_ANTAG_MIN_POP] игроков. Победивший блок режимов будет исключён из голосования в следующем раунде."
 			. += "<div style='color:#992414;font-size:0.9rem;margin-bottom:6px;'>[pool_text]</div>"
-			. += "<div style='color:#d7b35a;font-size:0.9rem;margin-bottom:8px;'>Голосование проходит анонимно, также не оповещается и выбор победившего рассказчика.</div>"
 			. += render_storyteller_choices(can_vote, C)
 		else
 			if(mode == "map")
@@ -816,9 +831,9 @@ SUBSYSTEM_DEF(vote)
 		//gamemode
 		var/avm = CONFIG_GET(flag/allow_vote_mode)
 		if(trialmin || avm)
-			. += "<a href='?src=[REF(src)];vote=gamemode'>GameMode</a>"
+			. += "<a href='?src=[REF(src)];vote=gamemode'>Storyteller</a>"
 		else
-			. += "<font color='grey'>GameMode (Disallowed)</font>"
+			. += "<font color='grey'>Storyteller (Disallowed)</font>"
 		if(trialmin)
 			. += "\t(<a href='?src=[REF(src)];vote=toggle_gamemode'>[avm ? "Allowed" : "Disallowed"]</a>)"
 

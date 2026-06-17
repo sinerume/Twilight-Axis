@@ -1,4 +1,4 @@
-\datum/round_event_control/antagonist/solo
+/datum/round_event_control/antagonist/solo
 	typepath = /datum/round_event/antagonist/solo
 
 	/// How many baseline antags do we spawn

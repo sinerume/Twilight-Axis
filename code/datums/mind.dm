@@ -609,8 +609,6 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 			continue
 		if(istype(carbon, /mob/living/carbon/human/dummy))
 			continue
-		if(carbon.job in GLOB.hunted_protected_roles)
-			continue
 		if(!(carbon.has_flaw(/datum/charflaw/hunted) || HAS_TRAIT(carbon, TRAIT_ZIZOID_HUNTED)))
 			continue
 
