@@ -1346,7 +1346,7 @@ GLOBAL_LIST_INIT(ritual_counters, list())
 	
 	n_req = /obj/item/ingot/steel/zizo
 
-/datum/ritual/weaponary/summonaxe/invoke(mob/living/user, turf/center)
+/datum/ritual/weaponary/summonegreataxe/invoke(mob/living/user, turf/center)
 	var/datum/effect_system/spark_spread/S = new(center)
 	S.set_up(1, 1, center)
 	S.start()
