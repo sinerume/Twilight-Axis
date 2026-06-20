@@ -842,12 +842,4 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 		else
 			to_chat(src, "Examines will have some information behind dropdowns.")
 
-/client/verb/toggle_runechat_typing() //TA EDIT START
-	set category = "Preferences.Options"
-	set name = "Toggle Runechat Typing"
-	if(prefs)
-		prefs.no_typing_runechat = !prefs.no_typing_runechat
-		prefs.save_preferences()
-	to_chat(src, "You will [prefs.no_typing_runechat ? "not see" : "see"] animated runechat.") //TA EDIT END
-
 #undef TOGGLE_CHECKBOX

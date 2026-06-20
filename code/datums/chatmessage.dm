@@ -95,10 +95,6 @@
 
 	_extra_classes = extra_classes.Copy()
 
-	src.text = text
-
-	remaining_strings = split_text_preserving_html(src.text)
-
 	if((length(text) > 1) && ((text[length(text)] == "!") && (text[length(text) - 1] == "!")))
 		exclaimed = TRUE
 
@@ -197,10 +193,14 @@
 	src.font_size = 8
 	if(extra_classes.Find("emote"))
 		font_size = 7
-		src.tgt_color = "#adadad" //TA EDIT END
+		src.tgt_color = "#adadad"
 
 	if(extra_classes.Find("mindlink"))
 		font_size = 5
+
+	src.text = text
+	remaining_strings = split_text_preserving_html(src.text) //TA EDIT END
+
 	// Approximate text height
 	// Note we have to replace HTML encoded metacharacters otherwise MeasureText will return a zero height
 	// BYOND Bug #2563917
@@ -262,7 +262,7 @@
 	var/skip_anim = FALSE //TA EDIT START
 	if(HAS_TRAIT(message_loc, TRAIT_NO_RUNECHAT_ANIMATION))
 		skip_anim = TRUE
-	if(owned_by && owned_by.prefs && owned_by.prefs.no_typing_runechat)
+	if(owned_by && owned_by.prefs && owned_by.prefs.no_runechat_animation)
 		skip_anim = TRUE
 	if(skip_anim)
 		message.maptext = complete_text
