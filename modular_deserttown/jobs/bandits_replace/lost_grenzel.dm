@@ -1,3 +1,4 @@
+/* // Lost Grenzel comment
 /datum/antagonist/bandit/lost_grenzel
 	name = "Lost Grenzel"
 	antagpanel_category = "Lost Grenzel"
@@ -409,3 +410,4 @@
 	lost_grenzel_job.total_positions = max(lost_grenzel_job.current_positions, slots)
 	lost_grenzel_job.spawn_positions = max(lost_grenzel_job.current_positions, slots)
 
+*/

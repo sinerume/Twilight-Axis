@@ -49,7 +49,7 @@
 		/datum/job/roguetown/headslave,
 		/datum/job/roguetown/slave,
 		/datum/job/roguetown/freeman,
-		/datum/job/roguetown/lost_grenzel,
+	//	/datum/job/roguetown/lost_grenzel, // Lost Grenzel comment
 	)
 
 	low_tier_job_titles |= list(
@@ -57,7 +57,7 @@
 		"Palace Slave",
 		"Slave",
 		"Freeman",
-		"Lost Grenzel",
+	//	"Lost Grenzel", // Lost Grenzel comment
 	)
 
 /datum/controller/subsystem/familytree/proc/ask_monarch_noble_permission(mob/living/carbon/human/monarch)

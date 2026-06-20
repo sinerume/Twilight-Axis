@@ -995,9 +995,9 @@ SUBSYSTEM_DEF(gamemode)
 			var/freeman_cap = story_antag_slot_cap(/datum/antagonist/bandit/freeman, roundstart = TRUE, storyteller_type = storyteller_type)
 			if(freeman_cap > 0)
 				caps["Freeman"] = freeman_cap
-			var/lost_grenzel_cap = story_antag_slot_cap(/datum/antagonist/bandit/lost_grenzel, roundstart = TRUE, storyteller_type = storyteller_type)
-			if(lost_grenzel_cap > 0)
-				caps["Lost Grenzel"] = lost_grenzel_cap
+	//		var/lost_grenzel_cap = story_antag_slot_cap(/datum/antagonist/bandit/lost_grenzel, roundstart = TRUE, storyteller_type = storyteller_type)
+	//		if(lost_grenzel_cap > 0)
+	//			caps["Lost Grenzel"] = lost_grenzel_cap // Lost Grenzel comment
 		else
 			var/bandit_cap = story_antag_slot_cap(/datum/antagonist/bandit, roundstart = TRUE, storyteller_type = storyteller_type)
 			if(bandit_cap > 0)
@@ -1395,8 +1395,8 @@ SUBSYSTEM_DEF(gamemode)
 		return "VL"
 	if(ispath(antag_datum, /datum/antagonist/bandit/freeman))
 		return "Freeman"
-	if(ispath(antag_datum, /datum/antagonist/bandit/lost_grenzel))
-		return "Lost Grenzel"
+//	if(ispath(antag_datum, /datum/antagonist/bandit/lost_grenzel))
+//		return "Lost Grenzel"
 	if(ispath(antag_datum, /datum/antagonist/bandit))
 		return "Bandit"
 	if(ispath(antag_datum, /datum/antagonist/lich))

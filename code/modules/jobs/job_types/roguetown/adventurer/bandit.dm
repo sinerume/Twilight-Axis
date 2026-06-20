@@ -123,7 +123,7 @@
 
 
 /proc/update_bandits_slots()
-	update_lost_grenzel_slots()
+	//update_lost_grenzel_slots() Lost Grenzel comment
 
 	var/datum/job/bandit_job = SSjob.GetJob("Bandit")
 	if(!bandit_job)
