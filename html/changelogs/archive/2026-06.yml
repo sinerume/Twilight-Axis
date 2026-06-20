@@ -927,7 +927,29 @@
   Ollanius:
   - rscdel: Keepers can no longer be Revenants. Minor lore discrepancy - false alarm.
   WeNeedMorePhoron:
+  - bugfix: Reordered a ..() properly on hearth so that it no longer get attacked
+      by pan when putting it on
+  - bugfix: Disabled legacy tg light spark on hearth / rogue fires in general that
+      ignites things nearby
+  - bugfix: Categorized alchemical ingredients in the alch & potions category
+  - bugfix: Fine food, which previously had no buff, now gives a buff to noble instead
+      of nothing. It is scaled at half the effectiveness of lavish food.
+  - rscdel: NO REPULSE FOR NOC GRIMOIRE!!!
+  - balance: Watcher no longer spew fire carpet around themselves making it one of
+      the **worst** mobs to ever engage in melee
+  - balance: Earth Elemental now yeet less often
+  - balance: Behemoth's rock now applies a slowdown of 4, not a 5 seconds paralyze
+      if you are hit
+  - balance: Leyline Lycan's move to step reduced from 1 to default (5) so they no
+      longer hit you like crack and nyoom across your entire screen
+  - balance: Sylph no longer drop glowshroom around themselves
+  - balance: Unnerfed Sylph's projectile so that it has a proper speed and can actually
+      threaten or hit kiter
+  - balance: Added a minimal range of 1 to sylph to reward you for sticking close
   - rscadd: Optimize the statpanel further
+  - balance: Shield Coverage has been reduced to be roughly in line with before the
+      AOE intent PR moved them all up. Arcane Aegis dropped from 70 to 60
+
   - rscadd: Madman Threat Point budget reduced from 50 points to 30 points, so that
       blockade with them are not underwhelming
   - bugfix: When you check a material off on the commissioner, it also excludes recipes
@@ -961,3 +983,5 @@
   - balance: All forms of sundering flames disable your pain immunity, making you
       subject to paincrit again and enabling you to feel pain. This only applies if
       you're already silver weak.
+  yyzsong:
+  - spellcheck: progned -> pronged
