@@ -51,6 +51,9 @@
 	projectiletype = /obj/projectile/magic/frostbolt/greater
 	ranged_message = "throws icy magick"
 	var/frost_cd = 0
+	var/shroom_cd = 0
+	var/summon_cd = 0
+	inherent_spells = list(/obj/effect/proc_holder/spell/invoked/create_shrooms)
 
 /obj/projectile/magic/frostbolt/greater
 	name = "greater frostbolt"
@@ -78,8 +81,53 @@
 		apply_frost_stack(L)
 		L.visible_message(span_danger("[src]'s frozen touch bites deep into [L]!"))
 
+/mob/living/simple_animal/hostile/retaliate/rogue/fae/sylph/OpenFire(atom/A)
+	if(CheckFriendlyFire(A))
+		return
+	visible_message(span_danger("[src] [ranged_message] at [A]!"))
+
+	if(world.time >= shroom_cd + 25 SECONDS && !mind)
+		var/mob/living/targetted = target
+		create_shroom(targetted)
+		shroom_cd = world.time
+	if(rapid > 1)
+		var/datum/callback/cb = CALLBACK(src, PROC_REF(Shoot), A)
+		for(var/i in 1 to rapid)
+			addtimer(cb, (i - 1)*rapid_fire_delay)
+	else
+		Shoot(A)
+	ranged_cooldown = world.time + ranged_cooldown_time
+
+/mob/living/simple_animal/hostile/retaliate/rogue/fae/sylph/proc/create_shroom(atom/target)
+	if(!target)
+		return
+	var/turf/target_turf = target // need to handle it this way so player sylphs can target turfs with this spell
+	if(isliving(target))
+		target_turf = target.loc
+	for(var/turf/turf as anything in RANGE_TURFS(3,target_turf))
+		if(prob(30))
+			new /obj/structure/glowshroom/dendorite(turf) // TA EDIT
+
 /mob/living/simple_animal/hostile/retaliate/rogue/fae/sylph/death(gibbed)
 	..()
 	update_icon()
 	spill_embedded_objects()
 	qdel(src)
+
+/obj/effect/proc_holder/spell/invoked/create_shrooms
+	name = "Spread Kneestingers"
+	recharge_time = 20 SECONDS
+	sound = 'sound/magic/churn.ogg'
+	overlay_state = "blesscrop"
+	chargetime = 0
+	range = 15
+
+/obj/effect/proc_holder/spell/invoked/create_shrooms/cast(list/targets, mob/living/user = usr)
+	if(istype(user, /mob/living/simple_animal/hostile/retaliate/rogue/fae/sylph))
+		var/mob/living/simple_animal/hostile/retaliate/rogue/fae/sylph/treeguy = user
+		if(world.time <= treeguy.shroom_cd + 200)//shouldn't ever happen cuz the spell cd is the same as summon_cd but I'd rather it check with the internal cd just in case
+			to_chat(user,span_warning("Too soon!"))
+			revert_cast()
+			return FALSE
+		treeguy.create_shroom(targets[1])
+		treeguy.shroom_cd = world.time
