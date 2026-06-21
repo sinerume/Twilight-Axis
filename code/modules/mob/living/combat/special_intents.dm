@@ -537,7 +537,7 @@ SPECIALS START HERE
 	post_icon_state = "kick_fx"
 	pre_icon_state = "trap"
 	respect_adjacency = TRUE
-	requires_wielding = TRUE
+//	requires_wielding = TRUE
 	delay = 0.7 SECONDS
 	cooldown = 25 SECONDS
 	stamcost = 25
@@ -888,7 +888,7 @@ SPECIALS START HERE
 
 //apply_cost is called before anything else, so it works here for the toggle checks, but it's kind of a bad example -- don't do this.
 /datum/special_intent/limbguard/apply_cost(mob/living/L)
-	if(L.has_status_effect(/datum/status_effect/buff/clash) || L.toggle_timer > world.time)
+	if(L.has_status_effect(/datum/status_effect/buff/clash) || L.has_status_effect(/datum/status_effect/debuff/vulnerable) || L.toggle_timer > world.time)
 		return FALSE
 	var/datum/status_effect/buff/clash/limbguard/lg = L.has_status_effect(/datum/status_effect/buff/clash/limbguard)
 	if(lg)

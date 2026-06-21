@@ -17,7 +17,7 @@
 	spawn_positions = 4
 	advclass_cat_rolls = list(CTAG_TEMPLAR = 20)
 	display_order = JDO_TEMPLAR
-
+	same_job_respawn_delay = 30 MINUTES
 	give_bank_account = TRUE
 	job_traits = list(TRAIT_RITUALIST, TRAIT_STEELHEARTED, TRAIT_CLERGY)
 
@@ -25,8 +25,9 @@
 	virtue_restrictions = list(/datum/virtue/utility/noble)
 	job_subclasses = list(
 		/datum/advclass/templar/monk,
-		/datum/advclass/templar/crusader,
-		/datum/advclass/templar/noc_spellblade,
+	//	/datum/advclass/templar/crusader,
+	//	/datum/advclass/templar/noc_spellblade,
+		/datum/advclass/noctite_spellblade,
 		/datum/advclass/templar/guardian
 	)
 
@@ -34,7 +35,7 @@
 	job_bitflag = BITFLAG_HOLY_WARRIOR
 	has_loadout = TRUE
 	allowed_patrons = ALL_DIVINE_PATRONS
-
+/*
 /datum/advclass/templar/crusader
 	name = "Templar"
 	tutorial = "You are a templar of the Church, trained in heavy weaponry and zealous warfare. You are the instrument of your God's wrath, clad in steel and faith."
@@ -328,4 +329,4 @@
 		H.adjust_skillrank(/datum/skill/misc/lockpicking, SKILL_LEVEL_NOVICE, TRUE)
 		H.adjust_skillrank(/datum/skill/misc/music, SKILL_LEVEL_NOVICE, TRUE)
 	// -- End of section for god specific bonuses --
-
+*/
