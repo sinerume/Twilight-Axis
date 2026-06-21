@@ -7,6 +7,8 @@
 	if(players.len < min_players())
 		to_chat(user, span_warning("Недостаточно игроков."))
 		return FALSE
+	if(game_type == CARD_TABLE_GAME_FOOL)
+		fool_ensure_spirit_opponent()
 	if((game_type == CARD_TABLE_GAME_BLACKJACK || game_type == CARD_TABLE_GAME_POKER) && players.len)
 		if(!dealer_rotates)
 			dealer_index = 1
@@ -104,5 +106,6 @@
 			fool_first_bout = TRUE
 			xylix_try_reveal_for_turn_holder(fool_current_attacker())
 			message = "Дурень начался. Вариант: [fool_variant_label()]. Козырь: [trump_suit]."
+			fool_process_spirit_turn()
 	SStgui.update_uis(owner)
 	return TRUE

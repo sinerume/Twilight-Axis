@@ -69,10 +69,11 @@
 	return (fool_variant == CARD_TABLE_FOOL_THROW_IN || fool_variant == CARD_TABLE_FOOL_THROW_TRANSFER)
 
 /datum/card_table_session/proc/fool_pair_limit()
-	var/limit = fool_defender_start_hand
+	var/datum/card_table_player/defender = fool_current_defender()
+	var/limit = table_pairs.len + (defender ? defender.hand.len : 0)
 	if(fool_first_bout)
 		limit = min(limit, 5)
-	return max(1, limit)
+	return limit
 
 /datum/card_table_session/proc/fool_table_ranks()
 	var/list/ranks = list()
@@ -147,6 +148,51 @@
 	player.hand.Cut(card_index, card_index + 1)
 	return card
 
+/datum/card_table_session/proc/fool_spirit_card_index(datum/card_table_player/player)
+	if(!player)
+		return 0
+	for(var/i = 1, i <= player.hand.len, i++)
+		return i
+	return 0
+
+/datum/card_table_session/proc/fool_process_spirit_turn()
+	if(stage != CARD_TABLE_STAGE_PLAYING || game_type != CARD_TABLE_GAME_FOOL)
+		return
+	for(var/guard = 1, guard <= 20, guard++)
+		var/datum/card_table_player/attacker = fool_current_attacker()
+		var/datum/card_table_player/defender = fool_current_defender()
+		if(attacker?.is_spirit)
+			if(table_attack && !table_defense)
+				return
+			if(table_attack && table_defense)
+				var/throw_index = fool_find_throw_card_index(attacker)
+				if(throw_index)
+					var/list/throw_card = remove_hand_card(attacker, throw_index)
+					fool_add_pair(throw_card)
+					message = "[attacker.name] подкидывает [card_table_card_label(throw_card)]."
+					return
+				message = "[attacker.name] отправляет карты в биту."
+				fool_next_turn(FALSE)
+				continue
+			var/attack_index = fool_spirit_card_index(attacker)
+			if(!attack_index)
+				return
+			var/list/attack_card = remove_hand_card(attacker, attack_index)
+			fool_add_pair(attack_card)
+			message = "[attacker.name] ходит [card_table_card_label(attack_card)]."
+			return
+		if(defender?.is_spirit && table_attack && !table_defense)
+			var/defense_index = fool_find_defense_card_index(defender)
+			if(defense_index)
+				var/list/defense_card = remove_hand_card(defender, defense_index)
+				fool_set_current_defense(defense_card)
+				message = "[defender.name] отбивается [card_table_card_label(defense_card)]."
+				return
+			message = "[defender.name] забирает карты со стола."
+			fool_next_turn(TRUE)
+			continue
+		return
+
 /datum/card_table_session/proc/fool_refill()
 	for(var/datum/card_table_player/player in players)
 		if(!player_is_active(player))
@@ -220,6 +266,7 @@
 		return FALSE
 	fool_add_pair(card)
 	message = "[player.name] ходит [card_table_card_label(table_attack)]."
+	fool_process_spirit_turn()
 	return TRUE
 
 /datum/card_table_session/proc/fool_defend(mob/user, card_index)
@@ -234,6 +281,7 @@
 		return FALSE
 	fool_set_current_defense(remove_hand_card(player, defense_index))
 	message = "[player.name] отбивается [card_table_card_label(table_defense)]."
+	fool_process_spirit_turn()
 	return TRUE
 
 /datum/card_table_session/proc/fool_transfer(mob/user, card_index)
@@ -255,6 +303,7 @@
 	var/datum/card_table_player/new_defender = fool_current_defender()
 	fool_defender_start_hand = new_defender ? new_defender.hand.len : 0
 	message = "[player.name] переводит ход картой [card_table_card_label(table_attack)]."
+	fool_process_spirit_turn()
 	return TRUE
 
 /datum/card_table_session/proc/fool_take(mob/user)
@@ -263,6 +312,7 @@
 		return FALSE
 	message = "[player.name] забирает карты со стола."
 	fool_next_turn(TRUE)
+	fool_process_spirit_turn()
 	return TRUE
 
 /datum/card_table_session/proc/fool_end_attack(mob/user)
@@ -271,4 +321,5 @@
 		return FALSE
 	message = "[player.name] отправляет карты в биту."
 	fool_next_turn(FALSE)
+	fool_process_spirit_turn()
 	return TRUE

@@ -25,6 +25,7 @@ type Player = {
   draws_used: number;
   result?: string | null;
   left?: boolean;
+  is_spirit?: boolean;
 };
 
 type FoolPair = {
@@ -198,6 +199,23 @@ const cardBackShellStyle: CSSProperties = {
   background:
     'repeating-linear-gradient(45deg, #214969 0, #214969 4px, #e8f2ff 4px, #e8f2ff 6px)',
   borderColor: 'rgba(221, 236, 255, 0.8)',
+};
+
+const tinyCardStyle: CSSProperties = {
+  position: 'relative',
+  width: '24px',
+  height: '32px',
+  boxSizing: 'border-box',
+  border: '1px solid rgba(0, 0, 0, 0.76)',
+  backgroundColor: '#fffaf0',
+  display: 'grid',
+  gridTemplateRows: '1fr 1fr',
+  placeItems: 'center',
+  fontFamily: 'Consolas, monospace',
+  fontSize: '10px',
+  fontWeight: 800,
+  lineHeight: '10px',
+  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.32)',
 };
 
 const seatPositions: CSSProperties[] = [
@@ -497,9 +515,38 @@ const CardRow = (props: { cards: Card[]; small?: boolean }) => {
   );
 };
 
+const TinyCardFace = (props: {
+  card: Card;
+  caption?: string | number | null;
+}) => {
+  const { rank, suit } = getRankSuit(props.card.label, props.card);
+  const color = suitColor(suit);
+
+  return (
+    <div style={{ ...tinyCardStyle, color }}>
+      <div>{rank}</div>
+      <div>{suitMap[suit] || suit}</div>
+      {props.caption !== undefined && props.caption !== null && (
+        <div
+          style={{
+            position: 'absolute',
+            marginTop: '40px',
+            color: '#f2f2f2',
+            fontSize: '9px',
+            textShadow: '0 1px 2px rgba(0,0,0,0.9)',
+          }}
+        >
+          {props.caption}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const Seat = (props: {
   player?: Player;
-  index: number;
+  positionIndex: number;
+  seatNumber: number;
   isMe: boolean;
   gameType: Data['game_type'];
   blackjackVariant: string;
@@ -512,7 +559,8 @@ const Seat = (props: {
 }) => {
   const {
     player,
-    index,
+    positionIndex,
+    seatNumber,
     isMe,
     gameType,
     blackjackVariant,
@@ -523,7 +571,7 @@ const Seat = (props: {
     getCardHighlight,
     onCardClick,
   } = props;
-  const label = player ? player.name : `Место ${index + 1}`;
+  const label = player ? player.name : `Место ${seatNumber}`;
   const activeRole =
     player && !player.left && player.name === attacker
       ? 'Активный ход'
@@ -540,7 +588,7 @@ const Seat = (props: {
     <div
       style={{
         ...seatBaseStyle,
-        ...seatPositions[index],
+        ...seatPositions[positionIndex],
         outline: isMe ? '2px solid rgba(244, 207, 92, 0.9)' : 'none',
         opacity: player?.left ? 0.72 : 1,
       }}
@@ -582,10 +630,9 @@ const Seat = (props: {
             ))
           ) : showCards ? (
             player.hand.map((card, cardIndex) => (
-              <CardFace
+              <TinyCardFace
                 key={`${card.label}-${cardIndex}`}
                 card={card}
-                small
                 caption={
                   showBlackjackValues
                     ? blackjackCardValue(card, blackjackVariant)
@@ -702,6 +749,21 @@ const SolitaireBoard = (props: {
     onMoveToTableau,
     onMoveToFoundation,
   } = props;
+  const isSpider = variant === 'spider';
+  const tableauStyle = isSpider
+    ? {
+        ...solitaireTableauStyle,
+        gridTemplateColumns: 'repeat(10, minmax(48px, 1fr))',
+        gap: '6px',
+      }
+    : solitaireTableauStyle;
+  const columnStyle = isSpider
+    ? {
+        ...solitaireColumnStyle,
+        minHeight: '455px',
+      }
+    : solitaireColumnStyle;
+  const cardStep = isSpider ? 18 : 30;
 
   return (
     <div style={solitaireBoardStyle}>
@@ -733,7 +795,7 @@ const SolitaireBoard = (props: {
           </div>
         </div>
 
-        {variant === 'spider' ? (
+        {isSpider ? (
           <div style={{ textAlign: 'right', minWidth: '160px' }}>
             <div style={{ fontSize: '12px', opacity: 0.78 }}>Собрано</div>
             <div style={{ fontSize: '20px', fontWeight: 800 }}>
@@ -760,12 +822,12 @@ const SolitaireBoard = (props: {
       </div>
 
       {tableau.length ? (
-        <div style={solitaireTableauStyle}>
+        <div style={tableauStyle}>
           {tableau.map((column) => (
             <div
               key={column.index}
               style={{
-                ...solitaireColumnStyle,
+                ...columnStyle,
                 outline:
                   selected?.source === 'tableau' &&
                   selected.column === column.index
@@ -779,7 +841,7 @@ const SolitaireBoard = (props: {
                   key={`${column.index}-${cardIndex}`}
                   style={{
                     position: 'absolute',
-                    top: `${cardIndex * 30 + 8}px`,
+                    top: `${cardIndex * cardStep + 8}px`,
                     left: '50%',
                     transform: 'translateX(-50%)',
                     zIndex: cardIndex + 1,
@@ -787,6 +849,7 @@ const SolitaireBoard = (props: {
                 >
                   <CardFace
                     card={card}
+                    small={isSpider}
                     selected={
                       selected?.source === 'tableau' &&
                       selected.column === column.index &&
@@ -891,11 +954,44 @@ export const CardTable = () => {
     xylix,
   } = data;
 
-  const myPlayer = players.find((player) => player.ckey === my_ckey);
+  const myPlayerIndex = players.findIndex((player) => player.ckey === my_ckey);
+  const myPlayer = myPlayerIndex >= 0 ? players[myPlayerIndex] : undefined;
   const isLobby = stage === 'lobby';
   const isPlaying = stage === 'playing';
   const isFinished = stage === 'finished';
   const seatCount = Math.max(max_players || 6, 6);
+  const visibleSeatCount = Math.min(seatCount, 6);
+  const occupiedSeatEntries = players.map((player, index) => ({
+    player,
+    seatNumber: index + 1,
+  }));
+  const perspectiveSeatEntries =
+    myPlayerIndex >= 0
+      ? [
+          occupiedSeatEntries[myPlayerIndex],
+          ...occupiedSeatEntries.filter((_, index) => index !== myPlayerIndex),
+        ]
+      : occupiedSeatEntries;
+  const occupiedSeatNumbers = new Set(
+    occupiedSeatEntries.map((entry) => entry.seatNumber),
+  );
+  const freeSeatNumbers = Array.from({ length: visibleSeatCount })
+    .map((_, index) => index + 1)
+    .filter((seatNumber) => !occupiedSeatNumbers.has(seatNumber));
+  let freeSeatIndex = 0;
+  const screenSeatEntries = Array.from({ length: visibleSeatCount }).map(
+    (_, positionIndex) => {
+      const occupied = perspectiveSeatEntries[positionIndex];
+      return {
+        player: occupied?.player,
+        seatNumber:
+          occupied?.seatNumber ||
+          freeSeatNumbers[freeSeatIndex++] ||
+          positionIndex + 1,
+        positionIndex,
+      };
+    },
+  );
   const canUseDealerRotation =
     game_type === 'blackjack' || game_type === 'poker';
   const canTransfer =
@@ -1157,9 +1253,8 @@ export const CardTable = () => {
               />
             ) : (
               <>
-                {Array.from({ length: Math.min(seatCount, 6) }).map(
-                  (_, index) => {
-                    const player = players[index];
+                {screenSeatEntries.map(
+                  ({ player, positionIndex, seatNumber }) => {
                     const displayPlayer =
                       player && player.ckey === my_ckey
                         ? {
@@ -1169,9 +1264,10 @@ export const CardTable = () => {
                         : player;
                     return (
                       <Seat
-                        key={index}
+                        key={`${positionIndex}-${seatNumber}`}
                         player={displayPlayer}
-                        index={index}
+                        positionIndex={positionIndex}
+                        seatNumber={seatNumber}
                         isMe={!!player && player.ckey === my_ckey}
                         gameType={game_type}
                         blackjackVariant={blackjack_variant}
@@ -1242,8 +1338,8 @@ export const CardTable = () => {
                               key={pair.index}
                               style={{
                                 position: 'relative',
-                                width: '74px',
-                                height: '82px',
+                                width: '70px',
+                                height: '106px',
                               }}
                             >
                               <div
@@ -1259,8 +1355,8 @@ export const CardTable = () => {
                                 <div
                                   style={{
                                     position: 'absolute',
-                                    left: '20px',
-                                    top: '12px',
+                                    left: '12px',
+                                    top: '34px',
                                   }}
                                 >
                                   <CardFace card={pair.defense} />

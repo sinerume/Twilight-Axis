@@ -62,7 +62,7 @@
 	stage = CARD_TABLE_STAGE_LOBBY
 	for(var/i = players.len, i >= 1, i--)
 		var/datum/card_table_player/leaver = players[i]
-		if(leaver.left)
+		if(leaver.left || leaver.is_spirit)
 			players.Cut(i, i + 1)
 			qdel(leaver)
 	deck = list()
@@ -180,7 +180,7 @@
 		if(CARD_TABLE_GAME_POKER)
 			return 1
 		if(CARD_TABLE_GAME_FOOL)
-			return 2
+			return 1
 		if(CARD_TABLE_GAME_SOLITAIRE)
 			return 1
 	return 0
@@ -190,6 +190,15 @@
 
 /datum/card_table_session/proc/player_is_active(datum/card_table_player/player)
 	return player && !player.left && player.result != "Out" && player.result != "Fool"
+
+/datum/card_table_session/proc/fool_ensure_spirit_opponent()
+	if(game_type != CARD_TABLE_GAME_FOOL || players.len != 1)
+		return
+	var/datum/card_table_player/spirit = new()
+	spirit.ckey = "card_table_spirit"
+	spirit.name = "Карточный дух"
+	spirit.is_spirit = TRUE
+	players += spirit
 
 /datum/card_table_session/proc/active_players_count()
 	var/count = 0

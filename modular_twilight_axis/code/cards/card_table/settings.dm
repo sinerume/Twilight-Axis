@@ -184,7 +184,7 @@
 	if(!owner)
 		return
 	for(var/datum/card_table_player/player in players.Copy())
-		if(player.left)
+		if(player.left || player.is_spirit)
 			continue
 		var/mob/M = card_table_find_mob_by_ckey(player.ckey)
 		var/dist = M ? get_dist(M, owner) : null

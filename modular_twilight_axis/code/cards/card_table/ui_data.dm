@@ -72,7 +72,7 @@
 			rules += "Цель: первым избавиться от всех карт после окончания колоды."
 			rules += "Атакующий кладет карту, защитник бьет старшей той же масти или козырем."
 			if(fool_variant == CARD_TABLE_FOOL_THROW_IN || fool_variant == CARD_TABLE_FOOL_THROW_TRANSFER)
-				rules += "Эструсский вариант: дополнительные карты можно подкидывать по рангу уже лежащих карт. После каждой защиты ход по очереди переходит к тем, кто может подкинуть. Если никто не может, карты уходят в биту."
+				rules += "Эструсский вариант: дополнительные карты можно подкидывать по рангу уже лежащих карт. В первом бою максимум 5 атак, дальше можно подкидывать, пока у защитника есть карты на руке."
 			if(fool_variant == CARD_TABLE_FOOL_TRANSFER || fool_variant == CARD_TABLE_FOOL_THROW_TRANSFER)
 				rules += "Отаванский вариант: защитник может перевести ход картой того же ранга."
 			if(fool_variant == CARD_TABLE_FOOL_CLASSIC)
@@ -131,8 +131,9 @@
 	if(discard.len)
 		var/list/waste_data = build_card_data(list(discard[discard.len]), FALSE)
 		waste_card = waste_data[1]
-	var/datum/card_table_player/current_attacker = fool_current_attacker()
-	var/datum/card_table_player/current_defender = fool_current_defender()
+	var/fool_is_playing = (stage == CARD_TABLE_STAGE_PLAYING && game_type == CARD_TABLE_GAME_FOOL)
+	var/datum/card_table_player/current_attacker = fool_is_playing ? fool_current_attacker() : null
+	var/datum/card_table_player/current_defender = fool_is_playing ? fool_current_defender() : null
 	var/datum/card_table_player/table_dealer = dealer_player()
 	var/my_ckey = user ? user.ckey : null
 	var/is_host = (me && player_index(me) == 1)
@@ -177,10 +178,10 @@
 		"solitaire_completed_sets" = solitaire_completed_sets,
 		"attacker" = current_attacker ? current_attacker.name : null,
 		"defender" = current_defender ? current_defender.name : null,
-		"table_attack" = table_attack ? card_table_card_label(table_attack) : null,
-		"table_defense" = table_defense ? card_table_card_label(table_defense) : null,
-		"table_pairs" = build_fool_table_pairs(),
-		"trump" = trump_suit,
+		"table_attack" = (fool_is_playing && table_attack) ? card_table_card_label(table_attack) : null,
+		"table_defense" = (fool_is_playing && table_defense) ? card_table_card_label(table_defense) : null,
+		"table_pairs" = fool_is_playing ? build_fool_table_pairs() : list(),
+		"trump" = fool_is_playing ? trump_suit : null,
 		"xylix" = list(
 			"enabled" = (stage == CARD_TABLE_STAGE_PLAYING && xylix_level >= CLERIC_T0 && game_type != CARD_TABLE_GAME_SOLITAIRE),
 			"tier" = xylix_level,
