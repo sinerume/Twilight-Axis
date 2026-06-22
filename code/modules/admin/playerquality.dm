@@ -334,5 +334,23 @@
 		curcomm = 0
 	return curcomm
 
+// Трогаем ПКью через дискорд бота
+
+/proc/can_adjust_playerquality_by_admin_ckey(admin)
+	if(!admin)
+		return FALSE
+	var/admin_ckey = ckey(admin)
+	var/client/admin_client = playerquality_admin_client(admin_ckey)
+	if(admin_client)
+		return can_adjust_playerquality(admin_client, FALSE)
+	var/datum/admins/admin_holder = GLOB.admin_datums[admin_ckey]
+	if(!admin_holder || !admin_holder.rank)
+		return FALSE
+	if(admin_holder.rank.name in PLAYERQUALITY_RESTRICTED_RANKS)
+		return FALSE
+	if(!(admin_holder.rank.rights & R_BAN))
+		return FALSE
+	return TRUE
+
 #undef RCP_CONTRIBUTION_CAP
 #undef PLAYERQUALITY_RESTRICTED_RANKS
