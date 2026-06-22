@@ -1436,10 +1436,10 @@
 	chargedloop = /datum/looping_sound/invokeascendant
 	harms_undead = FALSE
 	recharge_time = 2 MINUTES //Anastasis Equivalent
-	overlay_icon = 'modular_twilight_axis/icons/mob/actions/matthios_miracles.dmi'
+	overlay_icon = 'icons/mob/actions/matthiosmiracles.dmi'
 	overlay_state = "revival"
 	action_icon_state = "revival"
-	action_icon = 'modular_twilight_axis/icons/mob/actions/matthios_miracles.dmi'
+	action_icon = 'icons/mob/actions/matthiosmiracles.dmi'
 	glow_color = GLOW_COLOR_MATTHIOS
 	glow_intensity = GLOW_INTENSITY_LOW
 	required_structure = /obj/structure/fluff/psycross/matthios
