@@ -257,7 +257,7 @@
 /datum/stressevent/bad_revive
 	timer = 20 MINUTES
 	stressadd = 5
-	desc = span_boldred("I revive ugly peasant!")
+	desc = span_boldred("I revived a peasant!")
 
 /datum/status_effect/debuff/bad_revive/on_apply()
 	. = ..()
