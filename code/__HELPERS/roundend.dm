@@ -167,7 +167,7 @@
 				if(4)
 					C.mob.playsound_local(C.mob, 'modular_twilight_axis/sound/music/roundend3.ogg', 100, FALSE)
 				if(5)
-					C.mob.playsound_local(C.mob, 'modular_twilight_axis/sound/music/roundend4.ogg', 100, FALSE)
+					C.mob.playsound_local(C.mob, 'modular_twilight_axis/sound/music/roundend4.ogg', 100, FALSE) // [FFXIV] Heavensward - Dragonsong
 				if(6)
 					C.mob.playsound_local(C.mob, 'modular_twilight_axis/sound/music/roundend5.ogg', 100, FALSE)
 		if(isliving(C.mob) && C.ckey)
