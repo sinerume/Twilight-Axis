@@ -359,14 +359,40 @@ GLOBAL_VAR(PatreonsLoading)
 		return -1
 	if(current_count && !force)
 		return 0
+
 	var/list/legacy_data = patreon_collect_legacy_entries()
 	var/list/entries = legacy_data["entries"]
 	var/list/sources = legacy_data["sources"]
-	var/imported = 0
+	if(!length(entries))
+		return 0
+	if(!SSdbcore.Connect())
+		return -1
+
+	var/list/rows = list()
 	for(var/key in entries)
-		if(db_import_donator_tier(key, entries[key], sources[key], "auto_import", "Imported from legacy patreon config/csv"))
-			imported++
-	return imported
+		rows += list(list(
+			"ckey" = key,
+			"tier" = entries[key],
+			"active" = 1,
+			"source" = sources[key],
+			"added_by" = "auto_import",
+			"notes" = "Imported from legacy patreon config/csv",
+		))
+
+	var/duplicate_key = {"
+		ON DUPLICATE KEY UPDATE
+			active = 1,
+			source = IF(VALUES(tier) >= tier, VALUES(source), source),
+			added_by = IF(VALUES(tier) >= tier, VALUES(added_by), added_by),
+			notes = IF(VALUES(tier) >= tier, VALUES(notes), notes),
+			tier = GREATEST(tier, VALUES(tier))
+	"}
+
+	if(!SSdbcore.MassInsert(format_table_name("donators"), rows, duplicate_key, FALSE, FALSE, FALSE, FALSE))
+		log_sql("Failed to mass import legacy donators into database.")
+		return -1
+
+	return length(entries)
 
 /proc/refresh_online_donator_cache(key = null)
 	key = ckey(key)
