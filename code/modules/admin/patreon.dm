@@ -43,6 +43,19 @@ GLOBAL_VAR(PatreonsLoading)
 
 	return FALSE
 
+/proc/normalize_donator_tier(tier, min_tier = 0)
+	var/parsed_tier = 0
+	if(isnum(tier))
+		parsed_tier = tier
+	else if(istext(tier))
+		parsed_tier = text2num(tier)
+	if(isnull(parsed_tier))
+		parsed_tier = 0
+	return clamp(round(parsed_tier), min_tier, 5)
+
+/proc/donator_tgs_reply(text)
+	return new /datum/tgs_message_content(text || "")
+
 /proc/patreon_tier_from_csv_line(line)
 	if(!line || !findtext(line, "Active patron"))
 		return 0
@@ -71,7 +84,7 @@ GLOBAL_VAR(PatreonsLoading)
 
 /proc/patreon_record_import_entry(list/entries, list/sources, key, tier, source)
 	key = ckey(key)
-	tier = clamp(round(text2num("[tier]")), 0, 5)
+	tier = normalize_donator_tier(tier)
 	if(!key || tier < 1 || tier > 5)
 		return
 	var/current_tier = entries[key]
@@ -124,7 +137,7 @@ GLOBAL_VAR(PatreonsLoading)
 
 /proc/patreon_apply_level_to_cache(key, tier)
 	key = ckey(key)
-	tier = clamp(round(text2num("[tier]")), 0, 5)
+	tier = normalize_donator_tier(tier)
 	if(!key)
 		return
 	GLOB.patreont1 -= key
@@ -208,7 +221,7 @@ GLOBAL_VAR(PatreonsLoading)
 
 /proc/db_set_donator_tier(key, tier, source = "manual", added_by = null, notes = null)
 	key = ckey(key)
-	tier = round(text2num("[tier]"))
+	tier = normalize_donator_tier(tier, 1)
 	if(!key || tier < 1 || tier > 5)
 		return FALSE
 	if(!SSdbcore.Connect())
@@ -238,7 +251,7 @@ GLOBAL_VAR(PatreonsLoading)
 
 /proc/db_import_donator_tier(key, tier, source = DONATOR_SOURCE_CONFIG_IMPORT, added_by = null, notes = null)
 	key = ckey(key)
-	tier = round(text2num("[tier]"))
+	tier = normalize_donator_tier(tier, 1)
 	if(!key || tier < 1 || tier > 5)
 		return FALSE
 	if(!SSdbcore.Connect())
@@ -364,12 +377,10 @@ GLOBAL_VAR(PatreonsLoading)
 	return TRUE
 
 /proc/queue_load_patreons()
-	set waitfor = 0
 	if(GLOB.PatreonsLoaded || GLOB.PatreonsLoading)
 		return
 	GLOB.PatreonsLoading = TRUE
-	spawn(0)
-		load_patreons()
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(load_patreons))
 
 /proc/check_patreon_lvl(key)
 	key = ckey(key)
@@ -581,70 +592,70 @@ GLOBAL_LIST_EMPTY(temporary_donators)
 	admin_only = TRUE
 
 /datum/tgs_chat_command/donator/Run(datum/tgs_chat_user/sender, params)
-	. = ""
+	var/response = ""
 	if(!donator_tgs_sender_in_configured_channel(sender))
 		var/allowed_channel = CONFIG_GET(string/donator_command_channel)
 		if(!allowed_channel)
-			. += "Donator command channel is not configured. Set DONATOR_COMMAND_CHANNEL in config.txt."
+			response += "Donator command channel is not configured. Set DONATOR_COMMAND_CHANNEL in config.txt."
 		else
-			. += "This command can only be used in the configured donator command channel."
-		return
+			response += "This command can only be used in the configured donator command channel."
+		return donator_tgs_reply(response)
 
 	if(!length(params))
-		. += help_text
-		return
+		response += help_text
+		return donator_tgs_reply(response)
 
 	var/list/all_params = splittext(params, " ")
 	if(length(all_params) < 1)
-		. += help_text
-		return
+		response += help_text
+		return donator_tgs_reply(response)
 
 	switch(lowertext(all_params[1]))
 		if("set")
 			if(length(all_params) < 3)
-				. += "Usage: donator set <ckey> <1-5>"
-				return
+				response += "Usage: donator set <ckey> <1-5>"
+				return donator_tgs_reply(response)
 			var/key = ckey(all_params[2])
-			var/tier = round(text2num(all_params[3]))
+			var/tier = normalize_donator_tier(all_params[3], 1)
 			if(!key || tier < 1 || tier > 5)
-				. += "Invalid ckey or tier. Tier must be 1-5."
-				return
+				response += "Invalid ckey or tier. Tier must be 1-5."
+				return donator_tgs_reply(response)
 			if(!db_set_donator_tier(key, tier, DONATOR_SOURCE_TGS, "tgs", null))
-				. += "Failed to set `[key]` donator tier. Check SQL logs."
-				return
+				response += "Failed to set `[key]` donator tier. Check SQL logs."
+				return donator_tgs_reply(response)
 			load_patreons(TRUE)
 			refresh_online_donator_cache(key)
-			. += "`[key]` donator tier set to [tier]."
-			return
+			response += "`[key]` donator tier set to [tier]."
+			return donator_tgs_reply(response)
 
 		if("remove")
 			if(length(all_params) < 2)
-				. += "Usage: donator remove <ckey>"
-				return
+				response += "Usage: donator remove <ckey>"
+				return donator_tgs_reply(response)
 			var/key = ckey(all_params[2])
 			if(!key)
-				. += "Invalid ckey."
-				return
+				response += "Invalid ckey."
+				return donator_tgs_reply(response)
 			if(!db_remove_donator(key, "tgs"))
-				. += "Failed to remove `[key]` from donators. Check SQL logs."
-				return
+				response += "Failed to remove `[key]` from donators. Check SQL logs."
+				return donator_tgs_reply(response)
 			load_patreons(TRUE)
 			refresh_online_donator_cache(key)
-			. += "`[key]` has been deactivated in donators."
-			return
+			response += "`[key]` has been deactivated in donators."
+			return donator_tgs_reply(response)
 
 		if("get")
 			if(length(all_params) < 2)
-				. += "Usage: donator get <ckey>"
-				return
+				response += "Usage: donator get <ckey>"
+				return donator_tgs_reply(response)
 			var/key = ckey(all_params[2])
 			if(!key)
-				. += "Invalid ckey."
-				return
+				response += "Invalid ckey."
+				return donator_tgs_reply(response)
 			var/list/info = db_get_donator_info(key)
 			if(!info)
-				. += "`[key]` is not present in donators."
-				return
+				response += "`[key]` is not present in donators."
+				return donator_tgs_reply(response)
 			var/info_ckey = info["ckey"]
 			var/info_tier = info["tier"]
 			var/info_active = info["active"]
@@ -652,21 +663,21 @@ GLOBAL_LIST_EMPTY(temporary_donators)
 			var/info_added_by = info["added_by"]
 			var/info_updated_at = info["updated_at"]
 			var/info_notes = info["notes"]
-			. += "`[info_ckey]`: tier [info_tier], active [info_active], source `[info_source]`, added_by `[info_added_by]`, updated `[info_updated_at]`."
+			response += "`[info_ckey]`: tier [info_tier], active [info_active], source `[info_source]`, added_by `[info_added_by]`, updated `[info_updated_at]`."
 			if(info_notes)
-				. += " Notes: [info_notes]"
-			return
+				response += " Notes: [info_notes]"
+			return donator_tgs_reply(response)
 
 		if("list")
 			var/tier_filter = 0
 			if(length(all_params) >= 2)
-				tier_filter = round(text2num(all_params[2]))
+				tier_filter = normalize_donator_tier(all_params[2], 1)
 				if(tier_filter < 1 || tier_filter > 5)
-					. += "Tier filter must be 1-5."
-					return
+					response += "Tier filter must be 1-5."
+					return donator_tgs_reply(response)
 			if(!SSdbcore.Connect())
-				. += "Failed to connect to database."
-				return
+				response += "Failed to connect to database."
+				return donator_tgs_reply(response)
 			var/sql = {"SELECT ckey, tier, source, updated_at FROM [format_table_name("donators")] WHERE active = 1"}
 			var/list/query_params = list()
 			if(tier_filter)
@@ -675,27 +686,27 @@ GLOBAL_LIST_EMPTY(temporary_donators)
 			sql += " ORDER BY tier DESC, ckey ASC"
 			var/datum/DBQuery/query_list_donators = SSdbcore.NewQuery(sql, query_params)
 			if(!query_list_donators.Execute())
-				. += "Failed to list donators.\n"
-				. += query_list_donators.ErrorMsg()
+				response += "Failed to list donators.\n"
+				response += query_list_donators.ErrorMsg()
 				qdel(query_list_donators)
-				return
+				return donator_tgs_reply(response)
 			var/count = 0
 			while(query_list_donators.NextRow())
 				count++
-				. += "`[query_list_donators.item[1]]` - tier [query_list_donators.item[2]], source `[query_list_donators.item[3]]`, updated `[query_list_donators.item[4]]`\n"
+				response += "`[query_list_donators.item[1]]` - tier [query_list_donators.item[2]], source `[query_list_donators.item[3]]`, updated `[query_list_donators.item[4]]`\n"
 			qdel(query_list_donators)
 			if(!count)
-				. += "No active donators found."
+				response += "No active donators found."
 			else
-				. += "Total: [count]"
-			return
+				response += "Total: [count]"
+			return donator_tgs_reply(response)
 
 		if("reload")
 			GLOB.PatreonsLoaded = FALSE
 			load_patreons(TRUE)
 			refresh_online_donator_cache()
-			. += "Donators reloaded. Active cached donators: [length(GLOB.allpatreons)]."
-			return
+			response += "Donators reloaded. Active cached donators: [length(GLOB.allpatreons)]."
+			return donator_tgs_reply(response)
 
 		if("import_configs")
 			var/force = FALSE
@@ -703,20 +714,20 @@ GLOBAL_LIST_EMPTY(temporary_donators)
 				force = TRUE
 			var/imported = db_import_config_donators(force)
 			if(imported < 0)
-				. += "Failed to import legacy donators. Check SQL logs."
-				return
+				response += "Failed to import legacy donators. Check SQL logs."
+				return donator_tgs_reply(response)
 			GLOB.PatreonsLoaded = FALSE
 			load_patreons(TRUE)
 			refresh_online_donator_cache()
 			if(!imported && !force)
-				. += "Donators table is not empty; import skipped. Use `donator import_configs force` to merge legacy configs."
+				response += "Donators table is not empty; import skipped. Use `donator import_configs force` to merge legacy configs."
 			else
-				. += "Imported or refreshed [imported] legacy donator entries. Active cached donators: [length(GLOB.allpatreons)]."
-			return
+				response += "Imported or refreshed [imported] legacy donator entries. Active cached donators: [length(GLOB.allpatreons)]."
+			return donator_tgs_reply(response)
 
 		else
-			. += help_text
-			return
+			response += help_text
+			return donator_tgs_reply(response)
 
 #undef PATREON_FILE
 #undef DONATOR_SOURCE_CONFIG_IMPORT
