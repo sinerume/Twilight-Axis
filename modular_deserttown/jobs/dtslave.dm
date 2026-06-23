@@ -2,6 +2,7 @@
 	title = "Palace Slave"
 	f_title = "Palace Slave"
 	flag = SLAVE
+	department_flag = PEASANTS
 	faction = "Station"
 	total_positions = 8//need more slaves!!
 	spawn_positions = 8
