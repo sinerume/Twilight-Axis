@@ -718,6 +718,9 @@ mas//Lazily shoving all donator fluff items in here for now. Feel free to make t
 /obj/item/clothing/suit/roguetown/shirt/apothshirt/donator
 	name = "doublet"
 	desc = "A snug-fitting tunic, favored by Azurians during the chillier daes of autumn. It has been dyed with a pale, green tone."
+	icon_state = "jadehalfmask"
+	item_state = "jadehalfmask"
+	smeltresult = /obj/item/ingot/aaslag
 
 //
 
@@ -774,7 +777,7 @@ mas//Lazily shoving all donator fluff items in here for now. Feel free to make t
 	name = "Wortträger"
 	desc = "An imported Grenzelhoftian panzerstecher, a superbly crafted implement devoid of armory marks- merely bearing a maker's mark and the Zenitstadt seal. This one has a grip of walnut wood, and a pale saffira set within the crossguard. The ricasso is engraved with Ravoxian scripture."
 	icon_state = "mansa"
-	icon = 'icons/obj/items/donor_weapons_64.dmi'
+	icon = 'modular_twilight_axis/icons/obj/items/donor_weapons_64.dmi'
 
 //Srusu's donator item - dress
 /obj/item/clothing/suit/roguetown/shirt/dress/emerald
@@ -830,7 +833,7 @@ mas//Lazily shoving all donator fluff items in here for now. Feel free to make t
 	boobed = FALSE
 	flags_inv = HIDECROTCH|HIDEBOOB
 	slot_flags = ITEM_SLOT_SHIRT|ITEM_SLOT_CLOAK|ITEM_SLOT_ARMOR
-	icon = 'icons/clothing/donor_clothes.dmi'
+	icon = 'modular_twilight_axis/icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	sleeved = null
 	nodismemsleeves = TRUE
@@ -848,7 +851,7 @@ mas//Lazily shoving all donator fluff items in here for now. Feel free to make t
 	color = CLOTHING_WHITE
 	detail_color = CLOTHING_WHITE
 	altdetail_color = CLOTHING_WHITE
-	icon = 'icons/clothing/donor_clothes.dmi'
+	icon = 'modular_twilight_axis/icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
 	icon_state = "dittocloak"
@@ -862,7 +865,7 @@ mas//Lazily shoving all donator fluff items in here for now. Feel free to make t
 	icon_state = "formfit"
 	item_state = "formfit"
 	color = "#ffffff"
-	icon = 'icons/clothing/donor_clothes.dmi'
+	icon = 'modular_twilight_axis/icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 
 //Bat's donator item - custom harp sprite
@@ -901,7 +904,7 @@ mas//Lazily shoving all donator fluff items in here for now. Feel free to make t
 	if(loc == user && ishuman(user))
 		var/mob/living/carbon/H = user
 		H.update_inv_head()
-		
+
 //Bigfoot's donator item - steel great axe with gilded pattern
 /obj/item/rogueweapon/greataxe/steel/gilded
 	name = "gilded greataxe"

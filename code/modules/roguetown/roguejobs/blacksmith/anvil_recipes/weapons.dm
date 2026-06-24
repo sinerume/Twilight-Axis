@@ -1692,7 +1692,7 @@
 /datum/anvil_recipe/weapons/holysteel/church_longsword
 	name = "Longsword, Templaric (+1 Amulet of Ten)"
 	req_bar = /obj/item/ingot/steelholy
-	additional_items = /obj/item/clothing/neck/roguetown/psicross/undivided
+	additional_items = list(/obj/item/clothing/neck/roguetown/psicross/undivided)
 	created_item = /obj/item/rogueweapon/sword/long/church
 	display_category = ITEM_CAT_WEAPONS_SWORDS
 	i_type = "Weapons"
