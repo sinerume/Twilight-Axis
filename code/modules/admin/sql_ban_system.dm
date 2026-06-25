@@ -23,13 +23,17 @@
 			return "Seneschal"
 		if("Palace Slave")
 			return "Servant"
-		if("Cataphract")
+		if("Harem Favorite")
+			return "Suitor"
+		if("Cataphract", "Royal Knight")
 			return "Knight"
-		if("Sergeant", "Janissary Sergeant", "Azeb Agha")
+		if("Sergeant", "Janissary Sergeant", "Azeb Agha", "Royal Guard Sergeant")
 			return "Sergeant-at-Arms"
-		if("Janissary")
-			return "Man-at-Arms"
-		if("Vanguard", "Azeb")
+		if("Man-at-Arms")
+			return "Man at Arms"
+		if("Royal Guard", "Janissary")
+			return "Man at Arms"
+		if("Vanguard", "Azeb", "Azeb Agha")
 			return "Warden"
 		if("Freeman", "Lost Grenzel")
 			return ROLE_BANDIT
@@ -50,6 +54,67 @@
 /proc/ta_roleban_panel_list(list/base, list/extras)
 	return ta_roleban_canonicalize_roles(ta_roleban_list(base, extras))
 
+/proc/ta_roleban_panel_list_without(list/base, list/extras, list/excluded)
+	. = ta_roleban_panel_list(base, extras)
+	for(var/role in ta_roleban_canonicalize_roles(excluded))
+		. -= role
+
+/proc/ta_roleban_department_class(department)
+	switch(department)
+		if("Ducal Family")
+			return "nobles"
+		if("Courtiers")
+			return "courtier"
+		if("Retinue")
+			return "mercenaries"
+		if("Wanderers")
+			return "yeomen"
+		if("Burghers")
+			return "yeomen"
+		if("ATC")
+			return "mercenaries"
+	return ckey(department)
+
+
+/proc/ta_roleban_department_style(department)
+	switch(department)
+		if("Ducal Family")
+			return "background-color: #aa83b9; color: #443a39;"
+		if("Courtiers")
+			return "background-color: #81adc8; color: #443a39;"
+		if("Retinue")
+			return "background-color: #c86e3a; color: #443a39;"
+		if("Wanderers")
+			return "background-color: #819e82; color: #443a39;"
+		if("Burghers")
+			return "background-color: #819e82; color: #443a39;"
+		if("ATC")
+			return "background-color: #c86e3a; color: #443a39;"
+	return null
+
+/proc/ta_roleban_department_style_attribute(department)
+	var/department_style = ta_roleban_department_style(department)
+	if(department == "Garrison")
+		if(department_style)
+			department_style += " display: block; width: 100%; box-sizing: border-box; text-align: center;"
+		else
+			department_style = "display: block; width: 100%; box-sizing: border-box; text-align: center;"
+	if(department_style)
+		return " style='[department_style]'"
+	return ""
+
+/proc/ta_roleban_department_column_style_attribute(department)
+	switch(department)
+		if("Garrison")
+			return " style='clear: both; float: none; width: 100%; display: block; margin-top: 8px; text-align: center;'"
+	return ""
+
+/proc/ta_roleban_department_content_style_attribute(department)
+	switch(department)
+		if("Garrison")
+			return " style='display: block; width: 100%; text-align: center;'"
+	return ""
+
 /proc/ta_roleban_equivalent_roles(role)
 	. = list()
 	if(!role)
@@ -69,12 +134,14 @@
 			. |= list("Head Slave")
 		if("Servant")
 			. |= list("Palace Slave")
+		if("Suitor")
+			. |= list("Harem Favorite")
 		if("Knight")
-			. |= list("Cataphract")
+			. |= list("Cataphract", "Royal Knight")
 		if("Sergeant-at-Arms")
-			. |= list("Sergeant", "Janissary Sergeant", "Azeb Agha")
-		if("Man-at-Arms")
-			. |= list("Janissary")
+			. |= list("Sergeant", "Janissary Sergeant", "Azeb Agha", "Royal Guard Sergeant")
+		if("Man at Arms")
+			. |= list("Royal Guard", "Janissary")
 		if("Warden")
 			. |= list("Vanguard", "Azeb")
 		if(ROLE_BANDIT)
@@ -93,6 +160,8 @@
 		return role
 	var/list/linked_roles = ta_roleban_equivalent_roles(role)
 	linked_roles -= role
+	if(role == "Sergeant-at-Arms")
+		linked_roles -= "Sergeant"
 	if(!length(linked_roles))
 		return role
 	return "[role] ([linked_roles.Join(", ")])"
@@ -350,12 +419,10 @@
 		//note to future developers: RT doesn't have command staff so toggle_head was removed, go back in the git history if you need to readd it
 		//departments/groups that don't have command staff would throw a javascript error since there's no corresponding reference for toggle_head()
 		var/list/listed_rolebans = list()
-		var/list/headless_job_lists = list("Ducal Family" = ta_roleban_panel_list(GLOB.noble_positions, list("Grand Duke", "Sultan")),
-							"Courtiers" = ta_roleban_panel_list(GLOB.courtier_positions, list("Hand", "Councillor", "Seneschal", "Vizier", "Sheikh", "Head Slave")),
-							"Retinue" = ta_roleban_panel_list(GLOB.retinue_positions, list("Knight", "Cataphract")),
-							"Garrison" = ta_roleban_panel_list(GLOB.garrison_positions, list("Sergeant-at-Arms", "Man-at-Arms", "Janissary Sergeant", "Janissary", "Azeb Agha", "Slave Master")),
-							"City Watch" = ta_roleban_panel_list(GLOB.citywatch_positions, list("Warden")),
-							"Vanguard" = ta_roleban_panel_list(GLOB.vanguard_positions, null),
+		var/list/headless_job_lists = list("Ducal Family" = ta_roleban_panel_list_without(GLOB.noble_positions, list("Grand Duke", "Sultan"), list("Suitor", "Harem Favorite")),
+							"Courtiers" = ta_roleban_panel_list(GLOB.courtier_positions, list("Hand", "Councillor", "Seneschal", "Vizier", "Sheikh", "Head Slave", "Suitor", "Harem Favorite")),
+							"Retinue" = ta_roleban_panel_list(GLOB.retinue_positions, list("Knight", "Cataphract", "Royal Knight")),
+							"Garrison" = ta_roleban_panel_list(ta_roleban_list(ta_roleban_list(GLOB.garrison_positions, GLOB.citywatch_positions), GLOB.vanguard_positions), list("Sergeant-at-Arms", "Man at Arms", "Sergeant", "Janissary Sergeant", "Janissary", "Azeb Agha", "Royal Guard Sergeant", "Royal Guard", "Slave Master", "Warden", "Vanguard", "Azeb", "Sheriff", "Watchman")),
 							"Church" = ta_roleban_panel_list(GLOB.church_positions, null),
 							"Inquisition" = ta_roleban_panel_list(GLOB.inquisition_positions, null),
 							"Wanderers" = ta_roleban_panel_list(GLOB.wanderer_positions, null),
@@ -369,10 +436,11 @@
 				display_jobs |= job
 			if(!length(display_jobs))
 				continue
-			output += "<div class='column'><label class='rolegroup [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' onClick='toggle_checkboxes(this, \"_com\")'>[department]</label><div class='content'>"
+			output += "<div class='column'[ta_roleban_department_column_style_attribute(department)]><label class='rolegroup [ta_roleban_department_class(department)]'[ta_roleban_department_style_attribute(department)]><input type='checkbox' name='[department]' class='hidden' onClick='toggle_checkboxes(this, \"_com\")'>[department]</label><div class='content'[ta_roleban_department_content_style_attribute(department)]>"
 			break_counter = 0
+			var/roles_per_line = (department == "Garrison") ? 2 : 3
 			for(var/job in display_jobs)
-				if(break_counter > 0 && (break_counter % 3 == 0))
+				if(break_counter > 0 && (break_counter % roles_per_line == 0))
 					output += "<br>"
 				output += {"<label class='inputlabel checkbox'>[ta_roleban_display_name(job)]
 							<input type='checkbox' name='[job]' class='[department]' value='1'>
@@ -397,7 +465,7 @@
 				long_display_jobs |= job
 			if(!length(long_display_jobs))
 				continue
-			output += "<div class='column'><label class='rolegroup long [ckey(department)]'><input type='checkbox' name='[department]' class='hidden' onClick='toggle_checkboxes(this, \"_com\")'>[department]</label><div class='content'>"
+			output += "<div class='column'><label class='rolegroup long [ta_roleban_department_class(department)]'[ta_roleban_department_style_attribute(department)]><input type='checkbox' name='[department]' class='hidden' onClick='toggle_checkboxes(this, \"_com\")'>[department]</label><div class='content'>"
 			break_counter = 0
 			for(var/job in long_display_jobs)
 				if(break_counter > 0 && (break_counter % 10 == 0))
@@ -512,7 +580,7 @@
 			if("server")
 				roles_to_ban += "Server"
 			if("role")
-				href_list.Remove("Command", "Security", "Engineering", "Medical", "Science", "Supply", "Silicon", "Abstract", "Service", "Ducal Family", "Courtiers", "Retinue", "Garrison", "City Watch", "Vanguard", "Church", "Inquisition", "Wanderers", "Peasants", "Burghers", "ATC", "Sidefolk", "Ghost and Other Roles", "Antagonist Positions", "Lesser Antagonst Positions") //remove the role banner hidden input values
+				href_list.Remove("Command", "Security", "Engineering", "Medical", "Science", "Supply", "Silicon", "Abstract", "Service", "Ducal Family", "Courtiers", "Retinue", "Garrison", "Church", "Inquisition", "Wanderers", "Peasants", "Burghers", "ATC", "Sidefolk", "Ghost and Other Roles", "Antagonist Positions", "Lesser Antagonst Positions") //remove the role banner hidden input values
 				if(href_list[href_list.len] == "roleban_delimiter")
 					error_state += "Role ban was selected but no roles to ban were selected."
 				else

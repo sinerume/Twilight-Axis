@@ -139,7 +139,6 @@ GLOBAL_LIST_INIT(garrison_positions, list( //Guards
 	"Watchman",
 	"Janissary Sergeant", //TA_EDIT
 	"Janissary", //TA_EDIT
-	"Flagbearer", //TA_EDIT
 	"Azeb Agha", //TA_EDIT 
 	"Azeb", //TA_EDIT
 ))
@@ -147,7 +146,6 @@ GLOBAL_LIST_INIT(garrison_positions, list( //Guards
 GLOBAL_LIST_INIT(citywatch_positions, list( //Guards
 	"Town Sheriff",
 	"Town Watch",
-	"Dungeoneer",
 ))
 
 GLOBAL_LIST_INIT(vanguard_positions, list( //Guards
@@ -217,7 +215,6 @@ GLOBAL_LIST_INIT(sidefolk_positions, list( //Weerdoes who hang around the town
 	"Pilgrim",
 	"Mercenary",	
 	"Veteran",
-	"Court Slave", //TA_EDIT
 ))
 
 GLOBAL_LIST_INIT(wanderer_positions, list( //Homeless
