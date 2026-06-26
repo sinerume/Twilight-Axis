@@ -64,6 +64,7 @@
 	for(var/role_type in optional_roles)
 		. |= role_type
 
+/*
 /datum/migrant_wave/pilgrim
 	name = "Pilgrimage"
 	track = MIGRANT_TRACK_REGULAR
@@ -75,7 +76,7 @@
 	optional_roles = list(
 		/datum/migrant_role/pilgrim = 3,
 	)
-	greet_text = "Fleeing from misfortune and hardship, you and a handful of survivors get closer to Azure Peak, looking for refuge and work, finally almost being there, almost..."
+	greet_text = "Fleeing from misfortune and hardship, you and a handful of survivors get closer to Twilight Axis, looking for refuge and work, finally almost being there, almost..."
 
 /datum/migrant_wave/adventurer
 	name = "Adventure Party"
@@ -88,13 +89,15 @@
 	optional_roles = list(
 		/datum/migrant_role/adventurer = 3,
 	)
-	greet_text = "Together with a party of trusted friends we decided to venture out, seeking thrills, glory and treasure, ending up in the misty and damp bog underneath Azure Peak, perhaps getting ourselves into more than what we bargained for."
+	greet_text = "Together with a party of trusted friends we decided to venture out, seeking thrills, glory and treasure, ending up in the misty and damp bog underneath Twilight Axis, perhaps getting ourselves into more than what we bargained for."
+*/
 
 /datum/migrant_wave/bandit
 	name = "Bandit Raid"
 	track = MIGRANT_TRACK_SPECIAL
 	weight = 16
 	min_round_time = 45 MINUTES
+	min_pop = 45
 	is_raid = TRUE
 	spawn_landmark = "Bandit"
 	required_roles = list(
@@ -109,6 +112,7 @@
 	track = MIGRANT_TRACK_SPECIAL
 	weight = 12
 	min_round_time = 60 MINUTES
+	min_pop = 45
 	is_raid = TRUE
 	required_roles = list(
 		/datum/migrant_role/assassin = 1,
@@ -122,6 +126,7 @@
 	track = MIGRANT_TRACK_SPECIAL
 	weight = 12
 	min_round_time = 45 MINUTES
+	min_pop = 45
 	is_raid = TRUE
 	required_roles = list(
 		/datum/migrant_role/gnoll = 1,
