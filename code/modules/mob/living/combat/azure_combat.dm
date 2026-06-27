@@ -232,11 +232,10 @@
 	if(is_swinging(disrupt_only = TRUE))
 		return FALSE
 
-	if(has_status_effect(/datum/status_effect/debuff/exposed))
+	if(has_status_effect(/datum/status_effect/debuff/exposed) || has_status_effect(/datum/status_effect/debuff/vulnerable))
 		return FALSE
 
-	if(get_skill_level(/datum/skill/misc/sneaking) >= SKILL_LEVEL_JOURNEYMAN || HAS_TRAIT(src, TRAIT_LIGHT_STEP))
-		apply_status_effect(/datum/status_effect/stealth_revealed)
+	changeNext_inCombat(IN_COMBAT_DELAY)
 
 	apply_status_effect(/datum/status_effect/buff/clash)
 	return TRUE

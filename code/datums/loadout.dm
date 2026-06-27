@@ -1928,14 +1928,14 @@ GLOBAL_LIST_EMPTY(loadout_items_by_category)
 	donatitem = TRUE
 
 /datum/loadout_item/donat_scabbardroyal
-	name = "Decorated Scabbard, Golden"
+	name = "Donator Kit - Decorated Scabbard, Golden"
 	path = /obj/item/rogueweapon/scabbard/sword/royal/donat
 	category = list("Оружие", "Донат")
 	donatitem = TRUE
 	donat_tier = 1
 
 /datum/loadout_item/donat_sheathroyal
-	name = "Decorated Sheath, Golden"
+	name = "Donator Kit - Decorated Sheath, Golden"
 	path = /obj/item/rogueweapon/scabbard/sheath/royal/donat
 	category = list("Оружие", "Донат")
 	donatitem = TRUE
@@ -3598,6 +3598,7 @@ GLOBAL_LIST_EMPTY(loadout_items_by_category)
 	category = list("Броня", "Донат")
 	path = /obj/item/enchantingkit/croppedhaubergeon
 	donatitem = TRUE
+	donat_tier = 2
 
 /datum/loadout_item/donator/universal/maille_throwback
 	name = "Donator Kit - Elven Haubergeon - Required: Iron Haubergeon or Steel Haubergeon"
@@ -3681,11 +3682,31 @@ GLOBAL_LIST_EMPTY(loadout_items_by_category)
 	donatitem = TRUE
 	donat_tier = 2
 
+/datum/loadout_item/donator/jade_guitar
+	name = "Donator Item - Gilbranzed Guitar"
+	category = list("Разное", "Донат")
+	path = /obj/item/rogue/instrument/guitar/jade_guitar
+	donatitem = TRUE
+
+/datum/loadout_item/donator/olygsword
+	name = "Donator Kit - Gre'as'anto d'Shar - Required: Greatsword"
+	category = list("Оружие", "Донат")
+	path = /obj/item/enchantingkit/olygsword
+	donatitem = TRUE
+	donat_tier = 2
+
 /datum/loadout_item/donator/ollanius_maille
 	name = "Donator Kit - Shoulderless Haubergeon - Required: Steel Haubergeon"
 	category = list("Броня", "Донат")
 	path = /obj/item/enchantingkit/ollanius_maille
 	donatitem = TRUE
+	donat_tier = 2
+
+/datum/loadout_item/donator/crown_hat
+	name = "Donator Item - Crown Hat"
+	category = list("Головные уборы", "Донат")
+	path = /obj/item/clothing/head/roguetown/crown_hat
+	donat_tier = 2
 
 /datum/loadout_item/cap
 	name = "Cap"

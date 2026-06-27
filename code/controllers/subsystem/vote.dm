@@ -465,6 +465,7 @@ SUBSYSTEM_DEF(vote)
 				if(. == "Continue Playing")
 					log_game("LOG VOTE: CONTINUE PLAYING AT [REALTIMEOFDAY]")
 					GLOB.round_timer = world.time + ROUND_EXTENSION_TIME
+					world.TgsAnnounceRoundExtended()
 				else
 					log_game("LOG VOTE: ELSE  [REALTIMEOFDAY]")
 					log_game("LOG VOTE: ROUNDVOTEEND [REALTIMEOFDAY]")
