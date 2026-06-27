@@ -914,7 +914,6 @@
 		. += span_info("ø ------------ ø\nThis is an unknown <EM>[name]</EM>.")
 	else
 		on_examine_face(user)
-		var/can_identify_face = !obscure_name || observer_privilege
 		var/used_name = name
 		var/used_title = get_role_title()
 		if(SSticker.regentmob == src)
