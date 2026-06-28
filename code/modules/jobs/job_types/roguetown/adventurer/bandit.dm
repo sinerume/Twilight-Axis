@@ -6,7 +6,7 @@
 	total_positions = 0
 	spawn_positions = 0
 	antag_job = TRUE
-	
+
 	tutorial = "Long ago you did a crime worthy of your bounty being hung on the wall outside of the local inn. You now live with your fellow freemen in the bog, and generally get up to no good."
 
 	outfit = null
@@ -16,9 +16,9 @@
 
 	display_order = JDO_BANDIT
 	announce_latejoin = FALSE
-	min_pq = 3
+	min_pq = 25
 	max_pq = null
-	round_contrib_points = 5
+	round_contrib_points = null
 
 	advclass_cat_rolls = list(CTAG_BANDIT = 20)
 	PQ_boost_divider = 10
@@ -29,7 +29,7 @@
 	job_reopens_slots_on_death = FALSE //no endless stream of bandits, unless the migration waves deem it so
 	job_traits = list(TRAIT_SELF_SUSTENANCE, TRAIT_STEELHEARTED)//Bandits and knaves truly though
 	vice_restrictions = list(/datum/charflaw/noeyer, /datum/charflaw/noeyel, /datum/charflaw/mute, /datum/charflaw/limbloss/arm_r, /datum/charflaw/limbloss/arm_l, /datum/charflaw/wanted)
-	same_job_respawn_delay = 1 MINUTES
+	same_job_respawn_delay = 30 MINUTES
 	cmode_music = 'sound/music/cmode/antag/combat_deadlyshadows.ogg'
 	job_subclasses = list(
 		/datum/advclass/brigand,
@@ -38,7 +38,8 @@
 		/datum/advclass/hedgemage,
 		/datum/advclass/iconoclast,
 		/datum/advclass/knave,
-		/datum/advclass/sellsword
+		/datum/advclass/sellsword,
+		/datum/advclass/twilight_afreet
 	)
 
 /datum/job/roguetown/bandit/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
@@ -120,3 +121,74 @@
 
 	add_bounty(H.real_name, race, gender, descriptor_height, descriptor_body, descriptor_voice, bounty_total, FALSE, my_crime, bounty_poster)
 
+
+/proc/update_bandits_slots()
+	//update_lost_grenzel_slots() // Lost Grenzel comment
+
+	var/datum/job/bandit_job = SSjob.GetJob("Bandit")
+	if(!bandit_job)
+		return
+
+	var/is_desert_town = SSmapping?.config?.map_name == "Desert Town"
+	var/datum/job/slot_job = bandit_job
+	var/antag_path = /datum/antagonist/bandit
+	var/admin_slot_key = "Bandit"
+
+	if(is_desert_town)
+		bandit_job.always_show_on_latechoices = FALSE
+		bandit_job.total_positions = 0
+		bandit_job.spawn_positions = 0
+
+		slot_job = SSjob.GetJob("Freeman")
+		if(!slot_job)
+			return
+
+		antag_path = /datum/antagonist/bandit/freeman
+		admin_slot_key = "Freeman"
+		slot_job.always_show_on_latechoices = FALSE
+		slot_job.total_positions = 0
+		slot_job.spawn_positions = 0
+
+	if(slot_job.admin_slot_override)
+		return
+
+	if(!SSgamemode)
+		slot_job.total_positions = 0
+		slot_job.spawn_positions = 0
+		return
+
+	var/player_count = SSgamemode.get_correct_popcount()
+
+	slot_job.always_show_on_latechoices = TRUE
+	if(!SSgamemode.story_antag_open_slots(antag_path, player_count))
+		slot_job.total_positions = 0
+		slot_job.spawn_positions = 0
+		return
+
+	var/slots = 0
+	var/admin_slot = !SSgamemode.allow_vote ? SSgamemode.admin_slots[admin_slot_key] : null
+	if(!isnull(admin_slot))
+		slots = max(0, admin_slot)
+	else
+		var/storyteller_type = SSgamemode.story_policy_type(TRUE)
+		var/max_slots = SSgamemode.story_antag_slot_cap(antag_path, TRUE, storyteller_type)
+		if(max_slots <= 0)
+			slot_job.total_positions = 0
+			slot_job.spawn_positions = 0
+			return
+
+		var/min_players = SSgamemode.story_antag_min_players(antag_path)
+		var/slot_scaling = SSgamemode.story_antag_scaling_step(antag_path)
+		slots = SSgamemode.storyteller_scale_slots(
+			max_slots,
+			player_count,
+			FALSE,
+			slot_scaling,
+			min_players,
+			SSgamemode.hard_antag_mult(),
+		)
+
+	slots = SSgamemode.story_antag_slots(slots, antag_path, player_count)
+
+	slot_job.total_positions = max(slot_job.current_positions, slots)
+	slot_job.spawn_positions = max(slot_job.current_positions, slots)

@@ -6,6 +6,7 @@
 	icon_state = null
 	slot_flags = ITEM_SLOT_SHIRT|ITEM_SLOT_ARMOR
 	unenchantable = TRUE
+	sewrepair = FALSE
 
 	/// Feedback messages
 	var/repairmsg_begin = "My armour begins to slowly mend its abuse.."
@@ -218,7 +219,7 @@
 	I thought you died alone, a long, long time ago.</br> \
 	Oh no, not me, I never lost control.</br> \
 	You're face to face, with the man who sold the world."
-	armor = ARMOR_DRAGONSKIN
+	armor = ARMOR_DRAGONSKIN 
 	max_integrity = 450
 	repair_time = 20 SECONDS
 
