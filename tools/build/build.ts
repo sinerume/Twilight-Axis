@@ -15,6 +15,8 @@ import { downloadFile } from "./lib/download";
 import { formatDeps } from "./lib/helpers";
 import { prependDefines } from "./lib/tgs";
 
+import { StatBrowserTarget } from "./lib/ta-statpanel"; //TA EDIT
+
 export const TGS_MODE = process.env.CBT_BUILD_MODE === "TGS";
 
 export const DME_NAME = "roguetown";
@@ -112,6 +114,7 @@ export const DmTarget = new Juke.Target({
     "sound/**",
     "tgui/public/tgui.html",
     "modular/**",
+    "modular_twilight_axis/**",
     `${DME_NAME}.dme`,
     NamedVersionFile,
   ],
@@ -278,7 +281,7 @@ export const LintTarget = new Juke.Target({
 });
 
 export const BuildTarget = new Juke.Target({
-  dependsOn: [TguiTarget, DmTarget],
+  dependsOn: [TguiTarget, DmTarget, StatBrowserTarget], //TA EDIT StatBrowserTarget
 });
 
 export const ServerTarget = new Juke.Target({
@@ -328,7 +331,7 @@ export const CleanAllTarget = new Juke.Target({
 });
 
 export const TgsTarget = new Juke.Target({
-  dependsOn: [TguiTarget],
+  dependsOn: [TguiTarget, StatBrowserTarget], //TA EDIT StatBrowserTarget],
   executes: async () => {
     Juke.logger.info("Prepending TGS define");
     prependDefines("TGS");

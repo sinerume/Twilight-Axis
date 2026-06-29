@@ -28,6 +28,7 @@ SUBSYSTEM_DEF(treasury)
 		TAX_CATEGORY_IMPORT_TARIFF = 0.15,
 		TAX_CATEGORY_EXPORT_DUTY = 0.15,
 		TAX_CATEGORY_FINE = 1.0,
+		TAX_CATEGORY_ESTATE_LEVY = 0.15, //TA EDIT
 	)
 	var/trade_spread = 0.10
 	var/mint_multiplier = 0.8
@@ -412,13 +413,19 @@ SUBSYSTEM_DEF(treasury)
 		return FALSE
 	if(HAS_TRAIT(recipient, TRAIT_OUTLAW))
 		return FALSE
+	var/datum/job/J = SSjob.GetJob(recipient.job) //TA EDIT START
+	if(HAS_TRAIT(recipient, TRAIT_NOBLE))
+		if(!J)
+			return FALSE
+		else if(!(J.department_flag & NOBLEMEN))
+			return FALSE //TA EDIT END
 	var/datum/fund/account = get_account(recipient)
 	if(!account)
 		create_bank_account(recipient)
 		account = get_account(recipient)
 	if(!account)
 		return FALSE
-	var/source = recipient.job == "Merchant" ? "Azurian Trading Company" : "Noble Estate"
+	var/source = recipient.job == "Merchant" ? "Azurian Trading Company" : "Treasury Sponsorship" //TA EDIT
 	var/payout = is_starter ? amount + ESTATE_STARTER_BONUS : amount
 	if(!mint(account, payout, source))
 		return FALSE
@@ -524,6 +531,10 @@ SUBSYSTEM_DEF(treasury)
 	SStreasury.total_export += amt
 	economic_output += amt
 	record_round_statistic(STATS_STOCKPILE_EXPORTS_VALUE, amt)
+
+	if(!silent && amt >= EXPORT_ANNOUNCE_THRESHOLD) // Only announce big spending.
+		scom_announce("[SSticker.realm_name] exports [D.name] for [amt] mammon.")
+
 	return amt
 
 /datum/controller/subsystem/treasury/proc/auto_export()
@@ -539,8 +550,12 @@ SUBSYSTEM_DEF(treasury)
 			continue
 		if(D.stockpile_amount >= D.importexport_amt)
 			total_value_exported += do_export(D, TRUE)
+
 	var/list/surplus_result = mass_export_surplus(silent = TRUE)
 	total_value_exported += surplus_result["revenue"]
+
+	if(total_value_exported >= EXPORT_ANNOUNCE_THRESHOLD)
+		scom_announce("[SSticker.realm_name] exports [total_value_exported] mammons of surplus goods.")
 
 /// Walks every auto-priced trade-good stockpile entry and exports stock above the
 /// daily auto-export floor (limit * autoexport_percentage) to its best-paying region,
@@ -704,6 +719,8 @@ SUBSYSTEM_DEF(treasury)
 			return "Import Tariff"
 		if(TAX_CATEGORY_EXPORT_DUTY)
 			return "Export Duty"
+		if(TAX_CATEGORY_ESTATE_LEVY) //TA EDIT
+			return "Estate Peasants Levy" //TA EDIT
 		if(TAX_CATEGORY_FINE)
 			return "Fine"
 	return capitalize(category)
@@ -712,6 +729,18 @@ SUBSYSTEM_DEF(treasury)
 	if(!amt)
 		return FALSE
 	return burn(discretionary_fund, amt, "withdrawn by [target]")
+
+/datum/controller/subsystem/treasury/proc/give_money_treasury(amt, source = "Treasury income")
+	if(!amt)
+		return FALSE
+	if(amt > 0)
+		return mint(discretionary_fund, amt, source)
+	return burn(discretionary_fund, abs(amt), source)
+
+/datum/controller/subsystem/treasury/proc/log_to_steward(msg)
+	if(!msg)
+		return
+	log_game("STEWARD LOG: [msg]")
 
 /datum/controller/subsystem/treasury/proc/get_poll_tax_category(mob/living/H)
 	if(!H)

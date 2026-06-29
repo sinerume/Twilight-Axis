@@ -139,7 +139,7 @@
 	var/list/current_weathers = list()
 	var/last_lighting_update = 0
 	/// our current tab
-	var/stat_tab
+	var/stat_tab = "Round Info" //TA EDIT
 
 	/// list of all tabs
 	var/list/panel_tabs = list()
@@ -164,6 +164,11 @@
 	/// Last asset send job id.
 	var/last_asset_job = 0
 	var/last_completed_asset_job = 0
+
+	/// Cooldowns for Real like - For Mentor
+	var/list/real_like_cooldowns  = list()
+	/// Total Real likes recieved in a round - For Mentor
+	var/real_likes_received  = 0
 
 /client/proc/update_weather(force)
 	if(!mob)
