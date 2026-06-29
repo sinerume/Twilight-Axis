@@ -1,5 +1,0 @@
-author: "radarseas"
-delete-after: True
-changes:
-  - rscadd: "Added Pouch Fitted Rope/Cloth belts, these are crafted with their belts + a pouch respectively."
-  - balance: "all non NPC/Vagabond/Lunatic roles that started w/ rope/cloth belts have recieved the upgraded storage varient."

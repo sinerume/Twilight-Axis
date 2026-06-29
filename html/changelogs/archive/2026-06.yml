@@ -1533,3 +1533,23 @@
       your prefloaded voicepack taking over.
   saltprjak:
   - balance: Battlewardry's Bestowed Ward now functions as an additional layer.
+2026-06-29:
+  Happyowl93:
+  - bugfix: Stops repair miracle from malum from stripping armour values.
+  KatTheFox:
+  - bugfix: Gemcarved teapots now hold 120 drams instead of 99
+  WeNeedMorePhoron:
+  - rscadd: Round should not start on tuesday anymore
+  - balance: Reduce Blockade Band of Threat cleared to 6
+  - rscadd: Let Hwando Spellblade Adventurer starts with the leather bracers, chain
+      coif and proper gambeson every other spellblade starts with
+  - bugfix: Failing contracts no longer clear threat.
+  borneblood:
+  - code_imp: Edited a bit some flavortext. Made it so Stockpile can actually stock
+      different types of meat so we can draw out wolf meat or rat meat, etc.
+  radarseas:
+  - rscadd: Added Pouch Fitted Rope/Cloth belts, these are crafted with their belts
+      + a pouch respectively.
+  - balance: all non NPC/Vagabond/Lunatic roles that started w/ rope/cloth belts have
+      recieved the upgraded storage varient.
+  - bugfix: removes 3 lines of code that broke militant wretch
