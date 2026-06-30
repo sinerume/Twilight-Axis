@@ -315,4 +315,5 @@
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/baotha_ta
 	backr = /obj/item/rogueweapon/spear/partizan/baotha_ta
 
-	H.mind.AddSpell(new /datum/action/cooldown/spell/mending/lesser)
+	if(H.mind)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/mending/lesser)
